@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">raid_tracker_appli</string>
+    <string name="input_password">Password</string>
+    <string name="input_username">Username</string>
+    <string name="input_login">Login</string>
 </resources>
