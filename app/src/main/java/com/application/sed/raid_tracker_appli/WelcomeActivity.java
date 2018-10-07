@@ -55,10 +55,11 @@ public class WelcomeActivity extends AppCompatActivity {
             Utils.debug(TAG, "cool");
             image.setText("cool");
             Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
+            Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
         }
         else {
-            Utils.debug(TAG, "pas cool");
+            Utils.info(TAG, "pas cool");
             image.setText("pas cool");
         }
 
