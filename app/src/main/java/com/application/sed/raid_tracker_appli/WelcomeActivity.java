@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -40,13 +41,16 @@ public class WelcomeActivity extends AppCompatActivity {
          */
         final EditText user = findViewById(R.id.username);
         final EditText pass = findViewById(R.id.password);
+        final TextView image = findViewById(R.id.myImageViewText);
 
         // Test du bouton avec le user toto et password test
         if (user.getText().toString().equals("toto") & pass.getText().toString().equals("test")){
             Utils.debug(TAG, "cool");
+            image.setText("cool");
         }
         else {
             Utils.debug(TAG, "pas cool");
+            image.setText("pas cool");
         }
 
         // fin du test
