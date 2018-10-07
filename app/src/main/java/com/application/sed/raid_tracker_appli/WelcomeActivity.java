@@ -3,17 +3,17 @@ package com.application.sed.raid_tracker_appli;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
-    private String TAG = "MainActivity";
+    private String TAG = "WelcomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
         Utils.info(TAG, "OnCreate");
 
         /** Ceci est une façon d'écouter un bouton sans passer par une fonction dédiée
@@ -38,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
          * Bouton du login -> direction vers page HOME si ok (HomeActivity)
          * Sinon, message d'erreur
          */
+        final EditText user = findViewById(R.id.username);
+        final EditText pass = findViewById(R.id.password);
+
+        // Test du bouton avec le user toto et password test
+        if (user.getText().toString().equals("toto") & pass.getText().toString().equals("test")){
+            Utils.debug(TAG, "cool");
+        }
+        else {
+            Utils.debug(TAG, "pas cool");
+        }
+
+        // fin du test
+
 
         Utils.info(TAG,"Login Button action");
 
