@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Button;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -17,7 +18,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Utils.info(TAG, "OnCreate");
 
-        /** Ceci est une façon d'écouter un bouton sans passer par une fonction dédiée
+        /*
+        Ceci est une façon d'écouter un bouton sans passer par une fonction dédiée
         final Button button = findViewById(R.id.loginbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,17 +27,19 @@ public class WelcomeActivity extends AppCompatActivity {
                 Utils.debug(TAG, "Je suis dans le onclick de login");
             }
         });
-        **/
+        */
 
     }
 
     /**
      * Mettre la méthode en public pour que le bouton y ait accés
-     * @param view
+     * @param view view
+     *
      */
     public void login(View view){
 
-        /**TODO
+        /*
+         * TODO login
          * Bouton du login -> direction vers page HOME si ok (HomeActivity)
          * Sinon, message d'erreur
          */
