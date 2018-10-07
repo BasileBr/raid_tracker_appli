@@ -22,10 +22,9 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="wrap_content"
+            android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/username"
             android:inputType="textPassword"
             android:text="@string/input_password" />
 
@@ -33,7 +32,7 @@
             android:id="@+id/loginbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/password"
+            android:layout_marginStart="10dp"
             android:onClick="login"
             android:text="@string/input_login" />
     </LinearLayout>
