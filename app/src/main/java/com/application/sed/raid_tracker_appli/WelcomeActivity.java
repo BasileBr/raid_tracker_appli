@@ -1,11 +1,14 @@
 package com.application.sed.raid_tracker_appli;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
+
+import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -51,6 +54,8 @@ public class WelcomeActivity extends AppCompatActivity {
         if (user.getText().toString().equals("toto") & pass.getText().toString().equals("test")){
             Utils.debug(TAG, "cool");
             image.setText("cool");
+            Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
+            startActivity(intent);
         }
         else {
             Utils.debug(TAG, "pas cool");
