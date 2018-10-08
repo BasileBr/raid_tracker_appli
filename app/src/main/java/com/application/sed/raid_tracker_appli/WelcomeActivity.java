@@ -56,7 +56,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
+    public void subscribe(View view) {
 
 
+        /*
+         * TODO subscription
+         */
+
+        Intent intent = new Intent(WelcomeActivity.this, InscriptionActivity.class);
+        startActivity(intent);
+    }
 
 }

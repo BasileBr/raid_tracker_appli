@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="5dp"
         android:gravity="end"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:hint="@string/input_login"
+            android:drawableLeft="@drawable/client"
             android:text="@string/input_username" />
 
         <EditText
@@ -29,6 +30,7 @@
             android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:drawableLeft="@drawable/cadena"
             android:inputType="textPassword"
             android:text="@string/input_password" />
 
@@ -88,7 +90,7 @@
                     android:layout_alignTop="@+id/myImageView"
                     android:layout_alignBottom="@+id/myImageView"
                     android:layout_alignEnd="@+id/myImageView"
-                    android:onClick="login"
+                    android:onClick="subscribe"
                     android:text="@string/join" />
             </RelativeLayout>
 
@@ -129,7 +131,7 @@
                     android:layout_alignTop="@+id/myImageView2"
                     android:layout_alignBottom="@+id/myImageView2"
                     android:layout_alignEnd="@+id/myImageView2"
-                    android:onClick="login"
+                    android:onClick="subscribe"
                     android:text="@string/join" />
             </RelativeLayout>
             <RelativeLayout
@@ -169,7 +171,7 @@
                     android:layout_alignTop="@+id/myImageView3"
                     android:layout_alignBottom="@+id/myImageView3"
                     android:layout_alignEnd="@+id/myImageView3"
-                    android:onClick="login"
+                    android:onClick="subscribe"
                     android:text="@string/join" />
             </RelativeLayout>
 

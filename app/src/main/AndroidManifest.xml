@@ -18,6 +18,11 @@
         </activity>
         <activity android:name=".organizer.NewraidActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+
+        </activity>
+        <activity android:name=".InscriptionActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+
         </activity>
     </application>
 
