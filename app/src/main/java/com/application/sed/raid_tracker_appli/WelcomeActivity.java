@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
         final EditText pass = findViewById(R.id.password);
 
         // Test du bouton avec le user toto et password test
-        if (user.getText().toString().equals("toto") & pass.getText().toString().equals("test")){
+        if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
             Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
             Utils.info(TAG,"connexion, new activity");

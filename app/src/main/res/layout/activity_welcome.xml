@@ -16,10 +16,9 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="1dp"
-            android:hint="@string/toto"
-            android:text="@string/toto" />
+            android:hint="@string/input_login"
+            android:text="@string/input_username" />
 
         <EditText
             android:id="@+id/password"
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:inputType="textPassword"
-            android:text="@string/test" />
+            android:text="@string/input_password" />
 
         <Button
             android:id="@+id/loginbutton"
