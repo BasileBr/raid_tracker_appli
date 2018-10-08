@@ -10,7 +10,8 @@ public class InscriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription);
-        Utils.info(TAG, "OnCreate");
+        Utils.warm(TAG, "OnCreate");
+
 
     }
 }
