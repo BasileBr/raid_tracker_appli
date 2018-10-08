@@ -21,17 +21,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Utils.info(TAG, "OnCreate");
 
-        /*
-        Ceci est une façon d'écouter un bouton sans passer par une fonction dédiée
-        final Button button = findViewById(R.id.loginbutton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.debug(TAG, "Je suis dans le onclick de login");
-            }
-        });
-        */
-
     }
 
     /**
