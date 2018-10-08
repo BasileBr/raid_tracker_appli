@@ -9,12 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="1dp"
             android:hint="@string/toto"
             android:text="@string/toto" />
@@ -68,7 +70,8 @@
                     android:layout_alignTop="@+id/myImageView"
                     android:layout_marginLeft="52dp"
                     android:layout_marginTop="82dp"
-                    android:text="Raid aventure"
+                    android:text="Raid aventure
+ Rejoignez l'aventure"
                     android:textColor="#000000" />
 
 
@@ -78,9 +81,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="40dp"
+                    android:background="#4D000000"
+                    android:layout_alignTop="@+id/myImageView"
+                    android:layout_alignBottom="@+id/myImageView"
+                    android:layout_alignEnd="@+id/myImageView"
                     android:onClick="login"
-                    android:text="@string/input_login" />
+                    android:text="@string/join" />
             </RelativeLayout>
 
             <ImageView
@@ -91,7 +97,7 @@
                 android:adjustViewBounds="true"
                 android:alpha=".75"
                 android:cropToPadding="true"
-                android:src="@drawable/pixels" />
+                android:src="@drawable/chamonix" />
 
 
             <ImageView
@@ -107,12 +113,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
-
 
 
 </LinearLayout>
