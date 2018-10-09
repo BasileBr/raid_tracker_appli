@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
+            android:drawablePadding="5dp"
             android:hint="@string/input_login"
-            android:drawableLeft="@drawable/client"
+            android:drawableStart="@drawable/client"
             android:text="@string/input_username" />
 
         <EditText
@@ -30,7 +31,8 @@
             android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:drawableLeft="@drawable/cadena"
+            android:drawableStart="@drawable/cadena"
+            android:drawablePadding="5dp"
             android:inputType="textPassword"
             android:text="@string/input_password" />
 
@@ -73,12 +75,11 @@
                     android:id="@+id/myImageViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/myImageView"
+                    android:layout_alignStart="@+id/myImageView"
                     android:layout_alignTop="@+id/myImageView"
-                    android:layout_marginLeft="52dp"
+                    android:layout_marginStart="52dp"
                     android:layout_marginTop="82dp"
-                    android:text="Raid aventure
- Rejoignez l'aventure"
+                    android:text="@string/description"
                     android:textColor="#000000" />
 
 
@@ -92,6 +93,7 @@
                     android:layout_alignBottom="@+id/myImageView"
                     android:layout_alignEnd="@+id/myImageView"
                     android:onClick="subscribe"
+                    android:textColor="@color/white"
                     android:text="@string/join" />
             </RelativeLayout>
 
@@ -114,12 +116,11 @@
                     android:id="@+id/myImageViewText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/myImageView2"
+                    android:layout_alignStart="@+id/myImageView2"
                     android:layout_alignTop="@+id/myImageView2"
-                    android:layout_marginLeft="52dp"
+                    android:layout_marginStart="52dp"
                     android:layout_marginTop="82dp"
-                    android:text="Raid aventure
- Rejoignez l'aventure"
+                    android:text="@string/description"
                     android:textColor="#000000" />
 
 
@@ -132,6 +133,7 @@
                     android:layout_alignTop="@+id/myImageView2"
                     android:layout_alignBottom="@+id/myImageView2"
                     android:layout_alignEnd="@+id/myImageView2"
+                    android:textColor="@color/white"
                     android:onClick="subscribe"
                     android:text="@string/join" />
             </RelativeLayout>
@@ -154,12 +156,11 @@
                     android:id="@+id/myImageViewText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/myImageView3"
+                    android:layout_alignStart="@+id/myImageView3"
                     android:layout_alignTop="@+id/myImageView3"
-                    android:layout_marginLeft="52dp"
+                    android:layout_marginStart="52dp"
                     android:layout_marginTop="82dp"
-                    android:text="Raid aventure
- Rejoignez l'aventure"
+                    android:text="@string/description"
                     android:textColor="#000000" />
 
 
@@ -172,6 +173,7 @@
                     android:layout_alignTop="@+id/myImageView3"
                     android:layout_alignBottom="@+id/myImageView3"
                     android:layout_alignEnd="@+id/myImageView3"
+                    android:textColor="@color/white"
                     android:onClick="subscribe"
                     android:text="@string/join" />
             </RelativeLayout>
