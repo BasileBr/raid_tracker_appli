@@ -27,7 +27,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
         // Test du bouton avec le user toto et password test
         if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
-            Utils.debug(TAG, "cool");
+            Utils.debug(TAG, "coool");
             Intent intent = new Intent(ConnexionActivity.this, NewraidActivity.class);
             Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
