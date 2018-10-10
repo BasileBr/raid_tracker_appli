@@ -5,55 +5,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_height="match_parent"
-    tools:context=".ConnexionActivity">
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/already_account"
-        android:textSize="24sp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawablePadding="5dp"
-            android:layout_marginStart="1dp"
-            android:drawableStart="@drawable/client"
-            android:hint="@string/input_login"
-            />
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:background="@null"
-            android:layout_marginStart="20dp"
-            android:drawableLeft="@drawable/cadena"
-            android:inputType="textPassword"
-            android:hint="@string/input_password"
-             />
-
-        <Button
-            android:id="@+id/loginbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:onClick="login_connexion"
-            android:text="@string/input_login" />
-    </LinearLayout>
+    tools:context=".CreateAccount">
 
     <TextView
         android:id="@+id/text2"
@@ -116,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:onClick="login_connexion"
+            android:onClick="login"
             android:text="@string/new_account" />
 
         <Button

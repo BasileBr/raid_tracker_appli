@@ -47,9 +47,20 @@
             android:text="@string/input_login" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@null"
+        android:layout_marginRight="5dp"
+        android:onClick="createAccount"
+        android:text="@string/new_account2"
+        android:textSize="20sp" />
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
         android:layout_height="match_parent">
 
         <LinearLayout

@@ -42,4 +42,8 @@ public class ConnexionActivity extends AppCompatActivity {
         Utils.info(TAG,"Login Button action");
 
     }
+    public void cancel(View view){
+        Intent intent = new Intent(ConnexionActivity.this, WelcomeActivity.class);
+        startActivity(intent);
+    }
 }

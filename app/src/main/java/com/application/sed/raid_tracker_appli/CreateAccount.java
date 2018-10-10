@@ -1,31 +1,24 @@
 package com.application.sed.raid_tracker_appli;
 
+
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
-
-public class WelcomeActivity extends AppCompatActivity {
-
-    private String TAG = "WelcomeActivity";
+public class CreateAccount extends AppCompatActivity{
+    private String TAG="CreateAccount";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_creationaccount);
         Utils.info(TAG, "OnCreate");
-
     }
 
-    /**
-     * Mettre la méthode en public pour que le bouton y ait accés
-     * @param view view
-     *
-     */
     public void login(View view){
 
         /*
@@ -39,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Test du bouton avec le user toto et password test
         if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
-            Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
+            Intent intent = new Intent(CreateAccount.this, NewraidActivity.class);
             Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
         }
@@ -54,23 +47,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    /**
-     *
-     */
-    public void join(View view) {
-
-
-        /*
-         * TODO subscription
-         */
-
-        Intent intent = new Intent(WelcomeActivity.this, ConnexionActivity.class);
-        startActivity(intent);
-    }
-
-
-    public void createAccount(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
+    public void cancel(View view){
+        Intent intent = new Intent(CreateAccount.this, WelcomeActivity.class);
         startActivity(intent);
     }
 }
+
