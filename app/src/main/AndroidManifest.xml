@@ -20,7 +20,7 @@
 
 
         </activity>
-        <activity android:name=".InscriptionActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ConnexionActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
         </activity>

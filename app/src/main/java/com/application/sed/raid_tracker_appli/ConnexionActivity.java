@@ -1,45 +1,34 @@
 package com.application.sed.raid_tracker_appli;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 
-public class WelcomeActivity extends AppCompatActivity {
-
-    private String TAG = "WelcomeActivity";
+public class ConnexionActivity extends AppCompatActivity {
+    private String TAG = "ConnexionActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        Utils.info(TAG, "OnCreate");
+        setContentView(R.layout.activity_connexion);
+        Utils.warm(TAG, "OnCreate");
+
 
     }
 
-    /**
-     * Mettre la méthode en public pour que le bouton y ait accés
-     * @param view view
-     *
-     */
-    public void login(View view){
-
-        /*
-         * TODO login
-         * Bouton du login -> direction vers page HOME si ok (HomeActivity)
-         * Sinon, message d'erreur
-         */
+    public void login_connexion(View view){
         final EditText user = findViewById(R.id.username);
         final EditText pass = findViewById(R.id.password);
 
         // Test du bouton avec le user toto et password test
         if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
-            Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
+            Intent intent = new Intent(ConnexionActivity.this, NewraidActivity.class);
             Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
         }
@@ -53,19 +42,4 @@ public class WelcomeActivity extends AppCompatActivity {
         Utils.info(TAG,"Login Button action");
 
     }
-
-    /**
-     *
-     */
-    public void join(View view) {
-
-
-        /*
-         * TODO subscription
-         */
-
-        Intent intent = new Intent(WelcomeActivity.this, ConnexionActivity.class);
-        startActivity(intent);
-    }
-
 }
