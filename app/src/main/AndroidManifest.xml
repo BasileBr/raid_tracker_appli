@@ -28,6 +28,10 @@
 
 
         </activity>
+        <activity android:name=".CreateCourse" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+
     </application>
 
 </manifest>
