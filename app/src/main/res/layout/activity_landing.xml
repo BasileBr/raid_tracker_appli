@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".WelcomeActivity">
+    tools:context=".LandingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,6 +69,7 @@
                     android:id="@+id/MyNewRaid"
                     android:layout_width="58dp"
                     android:layout_height="81dp"
+                    android:onClick="CreateCourse"
                     android:background="@drawable/ajoutraid"
                     android:gravity="right">
 

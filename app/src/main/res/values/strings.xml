@@ -18,4 +18,17 @@
     <string name="new_account">Créer le compte</string>
     <string name="new_account2">Pas encore de compte ?</string>
     <string name="cancel">Annuler</string>
+    <string name="name_raid">Nom du RAID</string>
+    <string name="valide">Valider </string>
+    <string name="date">Select Date</string>
+    <string name="input_location">Lieu</string>
+    <string name="input_team">Equipe</string>
+
+
+    <string-array name="sports">
+        <item>Kayak</item>
+        <item>Vélo</item>
+        <item>Course à pied</item>
+        <item>Natation</item>
+    </string-array>
 </resources>

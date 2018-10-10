@@ -28,4 +28,9 @@ public class LandingActivity extends AppCompatActivity {
 
     }
 
+    public void CreateCourse(View view){
+        Intent intent =  new Intent(LandingActivity.this, CreateCourse.class);
+        startActivity(intent);
+    }
+
 }

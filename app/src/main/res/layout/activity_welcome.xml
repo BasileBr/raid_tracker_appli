@@ -56,7 +56,7 @@
         android:layout_marginRight="5dp"
         android:onClick="createAccount"
         android:text="@string/new_account2"
-        android:textSize="20sp" />
+        android:textSize="12sp" />
 
     <ScrollView
         android:layout_width="match_parent"
