@@ -59,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      *
      */
-    public void subscribe(View view) {
+    public void join(View view) {
 
 
         /*

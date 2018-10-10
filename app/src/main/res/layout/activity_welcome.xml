@@ -92,7 +92,7 @@
                     android:layout_alignTop="@+id/myImageView"
                     android:layout_alignBottom="@+id/myImageView"
                     android:layout_alignEnd="@+id/myImageView"
-                    android:onClick="subscribe"
+                    android:onClick="join"
                     android:textColor="@color/white"
                     android:text="@string/join" />
             </RelativeLayout>
@@ -134,7 +134,7 @@
                     android:layout_alignBottom="@+id/myImageView2"
                     android:layout_alignEnd="@+id/myImageView2"
                     android:textColor="@color/white"
-                    android:onClick="subscribe"
+                    android:onClick="join"
                     android:text="@string/join" />
             </RelativeLayout>
             <RelativeLayout
@@ -174,7 +174,7 @@
                     android:layout_alignBottom="@+id/myImageView3"
                     android:layout_alignEnd="@+id/myImageView3"
                     android:textColor="@color/white"
-                    android:onClick="subscribe"
+                    android:onClick="join"
                     android:text="@string/join" />
             </RelativeLayout>
 
