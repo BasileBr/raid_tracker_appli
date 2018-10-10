@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".ConnexionActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".LandingActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".LandingActivity">
         </activity>
         <activity android:name=".CreateAccount" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
