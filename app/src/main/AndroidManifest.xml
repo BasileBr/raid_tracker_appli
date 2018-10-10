@@ -17,12 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".organizer.NewraidActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
         </activity>
         <activity android:name=".ConnexionActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
+        </activity>
+        <activity android:name=".LandingActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

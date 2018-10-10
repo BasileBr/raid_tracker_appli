@@ -8,4 +8,7 @@
     <string name="inscription">Inscription</string>
     <string name="create_account">Pas de compte ? </string>
     <string name="description"> Raid aventure \nRejoignez l\'aventure</string>
+    <string name="raidsorganisateur">Vos raids en tant qu\'organisateur : </string>
+    <string name="raidbenevole">Vos raids ou vous etes inscrits en tant que bénévole : </string>
+    <string name="listeraid">Voici la liste des raids que vous pouvez rejoindre en tant que bénévole : </string>
 </resources>
