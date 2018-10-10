@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:drawablePadding="5dp"
+            android:background="@null"
             android:hint="@string/input_login"
             android:drawableStart="@drawable/client"
             android:text="@string/input_username" />
@@ -33,6 +34,7 @@
             android:layout_marginStart="10dp"
             android:drawableStart="@drawable/cadena"
             android:drawablePadding="5dp"
+            android:background="@null"
             android:inputType="textPassword"
             android:text="@string/input_password" />
 

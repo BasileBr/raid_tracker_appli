@@ -6,6 +6,12 @@
     <string name="newraid">Création d\'un nouveau raid</string>
     <string name="join">Rejoins-nous !</string>
     <string name="inscription">Inscription</string>
-    <string name="create_account">Pas de compte ? </string>
+    <string name="create_account">Rejoignez un RAID dès aujourd\'hui </string>
     <string name="description"> Raid aventure \nRejoignez l\'aventure</string>
+    <string name="already_account">Vous avez déjà un compte ?</string>
+    <string name="input_pseudo">Pseudo</string>
+    <string name="input_prenom">Prenom</string>
+    <string name="input_mail">Mail</string>
+    <string name="new_account">Créer le compte</string>
+    <string name="cancel">Annuler</string>
 </resources>
