@@ -4,6 +4,8 @@ import android.util.Log;
 
 public class Utils {
 
+    public static String Name;
+
     public static void info(String TAG, String log){
         Log.i(TAG, log);
     }

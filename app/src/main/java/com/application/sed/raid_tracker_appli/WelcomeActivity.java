@@ -13,6 +13,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private String TAG = "WelcomeActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,8 @@ public class WelcomeActivity extends AppCompatActivity {
         // Test du bouton avec le user toto et password test
         if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
-            Intent intent = new Intent(WelcomeActivity.this, NewraidActivity.class);
+            Utils.Name = "toto";
+            Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);
             Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
         }
