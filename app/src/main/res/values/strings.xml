@@ -32,4 +32,5 @@
         <item>Course à pied</item>
         <item>Natation</item>
     </string-array>
+    <string name="appbar_scrolling_view_behavior">Je ne sais pas ce que tu fais</string>
 </resources>
