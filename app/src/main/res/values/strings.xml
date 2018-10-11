@@ -23,6 +23,7 @@
     <string name="date">Select Date</string>
     <string name="input_location">Lieu</string>
     <string name="input_team">Equipe</string>
+    <string name="connect">Se connecter</string>
 
 
     <string-array name="sports">

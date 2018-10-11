@@ -9,7 +9,8 @@
     android:layout_height="match_parent"
     tools:context=".CreateCourse">
 
-    
+
+
 
         <EditText
             android:id="@+id/name_raid"
