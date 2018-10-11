@@ -18,4 +18,5 @@
     <string name="new_account">Créer le compte</string>
     <string name="new_account2">Pas encore de compte ?</string>
     <string name="cancel">Annuler</string>
+    <string name="appbar_scrolling_view_behavior">Je ne sais pas ce que tu fais</string>
 </resources>
