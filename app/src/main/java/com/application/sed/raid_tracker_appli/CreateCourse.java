@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,12 +18,25 @@ import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 
 public class CreateCourse extends AppCompatActivity {
     private String TAG="CreateCourse";
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    public static List myListe = new ArrayList<>();
+
+    String recupere;
+    String recupere1;
+    Button mButton;
+    EditText mEdit;
+    EditText mEdit1;
+    EditText mEdit2;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +79,43 @@ public class CreateCourse extends AppCompatActivity {
                 mDisplayDate.setText(date);
             }
         };
+
+
+        mButton = (Button)findViewById(R.id.createAccount);
+        mEdit   = (EditText)findViewById(R.id.name_raid);
+        mEdit1   = (EditText)findViewById(R.id.lieu);
+
+
+
+        mButton.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view)
+                    {
+                        recupere=mEdit.getText().toString();
+                        recupere1=mEdit1.getText().toString();
+
+
+                        myListe.add(recupere);
+                        myListe.add(recupere1);
+
+                        Utils.info("EditText",myListe.toString());
+                        //Utils.info(TAG,recupere[1]);
+                        Bdd.addString(myListe);
+
+
+
+                        Utils.info("EditText", Bdd.getElement(1).toString());
+
+
+                    }
+                });
+
+
     }
+
+
+
     public void cancel(View view){
         Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
         startActivity(intent);

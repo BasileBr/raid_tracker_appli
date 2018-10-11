@@ -20,7 +20,7 @@
     <string name="cancel">Annuler</string>
     <string name="name_raid">Nom du RAID</string>
     <string name="valide">Valider </string>
-    <string name="date">Select Date</string>
+    <string name="date">Selectionnez une date</string>
     <string name="input_location">Lieu</string>
     <string name="input_team">Equipe</string>
     <string name="connect">Se connecter</string>

@@ -67,6 +67,7 @@
                         android:id="@+id/MyNewRaid"
                         android:layout_width="58dp"
                         android:layout_height="81dp"
+                        android:onClick="CreateCourse"
                         android:background="@drawable/ajoutraid"
                         android:gravity="right">
 
@@ -558,6 +559,7 @@
                     android:layout_width="58dp"
                     android:layout_height="81dp"
                     android:background="@drawable/ajoutraid"
+                    android:onClick="CreateCourse"
                     android:gravity="right">
 
                 </Button>

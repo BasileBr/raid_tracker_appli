@@ -7,4 +7,5 @@
     <color name="transparency">#CC1C87C0</color>
     <color name="legergris">#cfcccc</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>
