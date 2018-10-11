@@ -54,17 +54,9 @@ public class LandingActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        /*drawerLayout = findViewById(R.id.drawerLayout);
-        final TextView user = findViewById(R.id.username);*/
-        //user.setText("Bienvenue " +Utils.Name);
     }
 
 
-    //ne pas oublier de copier/coller ces 2 méthodes
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -81,27 +73,7 @@ public class LandingActivity extends AppCompatActivity {
     public void join(View view) {
 
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_landing, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch ( item.getItemId()) {
-            case R.id.Hamburgermenu :
-                if (!drawerLayout.isDrawerVisible(R.id.Hamburgermenu))
-                    drawerLayout.openDrawer(Gravity.RIGHT);
-                else
-                    drawerLayout.closeDrawer(Gravity.LEFT); // A corriger -> pas d'erreurs, mais fonctionne pas
-
-                return true;
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
     public void CreateCourse(View view){
         Intent intent =  new Intent(LandingActivity.this, CreateCourse.class);
         startActivity(intent);
