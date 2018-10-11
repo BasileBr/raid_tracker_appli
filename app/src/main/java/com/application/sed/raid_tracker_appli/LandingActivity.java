@@ -1,5 +1,6 @@
 package com.application.sed.raid_tracker_appli;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
