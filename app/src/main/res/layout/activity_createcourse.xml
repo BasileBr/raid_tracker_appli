@@ -86,7 +86,7 @@
 
 
         <EditText
-            android:id="@+id/equipe"
+            android:id="@+id/organizer_teame"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Team ENSSAT"

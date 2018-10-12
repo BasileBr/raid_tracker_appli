@@ -26,12 +26,17 @@ import java.util.List;
 public class CreateCourse extends AppCompatActivity {
     private String TAG="CreateCourse";
     private TextView mDisplayDate;
+    private String getdate="";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+
+
 
     public static List myListe = new ArrayList<>();
 
     String recupere;
     String recupere1;
+    String recupere2;
     Button mButton;
     EditText mEdit;
     EditText mEdit1;
@@ -45,6 +50,9 @@ public class CreateCourse extends AppCompatActivity {
         Utils.info(TAG, "OnCreate");
 
 
+        /**
+         * Selectionner plusieurs Sports
+         */
         Spinner mySpinner=(Spinner)findViewById(R.id.spinner);
 
         ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(CreateCourse.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.sports));
@@ -53,6 +61,11 @@ public class CreateCourse extends AppCompatActivity {
 
 
         mDisplayDate=(TextView)findViewById(R.id.tvDate);
+
+
+        /**
+         * Affichage pour sélectionner la date du RAID
+         */
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,19 +77,24 @@ public class CreateCourse extends AppCompatActivity {
                 int day=cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog=new DatePickerDialog(
-                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener,day,month,year);
+                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener,2010,00,01);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
+        /**
+         * Récupérer la date, l'afficher et la stocker
+         */
+
         mDateSetListener=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Log.d(TAG,"onDateSet: mm/dd/yyyy: "+month+"/"+ dayOfMonth +"/"+year);
-                String date =dayOfMonth + "/" + month +"/" + year;
+                String date =dayOfMonth + "/" + month+1 +"/" + year;
                 mDisplayDate.setText(date);
+                getdate=date;
             }
         };
 
@@ -84,6 +102,7 @@ public class CreateCourse extends AppCompatActivity {
         mButton = (Button)findViewById(R.id.createAccount);
         mEdit   = (EditText)findViewById(R.id.name_raid);
         mEdit1   = (EditText)findViewById(R.id.lieu);
+        mEdit2 = (EditText)findViewById(R.id.organizer_teame);
 
 
 
@@ -94,15 +113,17 @@ public class CreateCourse extends AppCompatActivity {
                     {
                         recupere=mEdit.getText().toString();
                         recupere1=mEdit1.getText().toString();
+                        recupere2=mEdit2.getText().toString();
 
+                        myListe.add(recupere);  // récupère le nom du raid
+                        myListe.add(getdate); // sélectionne la date de l'évènement
+                        myListe.add(recupere1); // le lieu de l'évènement
+                        myListe.add(recupere2); // le nom de l'équipe organisatrice
 
-                        myListe.add(recupere);
-                        myListe.add(recupere1);
 
                         Utils.info("EditText",myListe.toString());
                         //Utils.info(TAG,recupere[1]);
                         Bdd.addString(myListe);
-
 
 
                         Utils.info("EditText", Bdd.getElement(1).toString());
@@ -114,7 +135,10 @@ public class CreateCourse extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Permet de retourner à la vue "landingActivity
+     *
+     */
 
     public void cancel(View view){
         Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
