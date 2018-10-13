@@ -10,7 +10,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
-    tools:context=".CreateCourse">
+    tools:context=".CreateCourse"
+    android:background="@color/Blancnacre">
 
     <ScrollView
         android:layout_width="match_parent"

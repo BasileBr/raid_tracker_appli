@@ -7,7 +7,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
-    tools:context=".CreateAccount">
+    tools:context=".CreateAccount"
+    android:background="@color/Blancnacre">
 
     <TextView
         android:id="@+id/text2"

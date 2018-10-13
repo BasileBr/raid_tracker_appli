@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/VertPrimaire"
             android:minHeight="?attr/actionBarSize"
             app:title="Ceci est un test" />
 
@@ -48,7 +48,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/legergris"
+                android:background="@color/Blancnacre"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/raidsorganisateur"
