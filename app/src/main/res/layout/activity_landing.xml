@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
 
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -20,7 +19,6 @@
             android:background="@color/VertPrimaire"
             android:minHeight="?attr/actionBarSize"
             app:title="Ceci est un test" />
-
 
 
     </LinearLayout>
