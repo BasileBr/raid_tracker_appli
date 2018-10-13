@@ -25,8 +25,9 @@ public class ConnexionActivity extends AppCompatActivity {
         final EditText user = findViewById(R.id.username);
         final EditText pass = findViewById(R.id.password);
 
+        Utils.info(TAG,"Login Button action");
         // Test du bouton avec le user toto et password test
-        if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
+        if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
             Intent intent = new Intent(ConnexionActivity.this, NewraidActivity.class);
             Utils.info(TAG,"connexion, new activity");
@@ -39,7 +40,7 @@ public class ConnexionActivity extends AppCompatActivity {
         // fin du test
 
 
-        Utils.info(TAG,"Login Button action");
+
 
     }
     public void cancel(View view){

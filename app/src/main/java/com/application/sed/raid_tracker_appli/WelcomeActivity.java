@@ -38,7 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
         final EditText pass = findViewById(R.id.password);
 
         // Test du bouton avec le user toto et password test
-        if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
+        if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
             Utils.Name = "toto";
             Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);

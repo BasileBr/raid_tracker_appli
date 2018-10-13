@@ -8,59 +8,81 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="end"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/VertPrimaire"
         android:focusable="true"
+        android:gravity="center"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/username"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:drawablePadding="5dp"
-            android:background="@null"
-            android:hint="@string/input_login"
-            android:drawableStart="@drawable/client"
-            android:text="@string/input_username" />
+            android:gravity="start">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="82dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:drawableStart="@drawable/cadena"
-            android:drawablePadding="5dp"
-            android:background="@null"
-            android:inputType="textPassword"
-            android:text="@string/input_password" />
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="82dp"
+                android:layout_height="38dp"
+                android:background="@null"
+                android:drawableStart="@drawable/client"
+                android:drawablePadding="5dp"
+                android:hint="@string/input_login"
+                android:inputType="text"
+                android:text="@string/input_username" />
 
-        <Button
-            android:id="@+id/loginbutton"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="82dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:drawableStart="@drawable/cadena"
+                android:drawablePadding="5dp"
+                android:inputType="textPassword"
+                android:text="@string/input_password" />
+
+            <Button
+                android:id="@+id/loginbutton"
+                android:layout_width="77dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="10dp"
+                android:onClick="login"
+                android:text="@string/input_login" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:onClick="login"
-            android:text="@string/input_login" />
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/inscription"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="start"
+                android:onClick="createAccount"
+                android:text="@string/input_inscription" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <Button
         android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@null"
-        android:layout_marginRight="5dp"
-        android:onClick="createAccount"
-        android:text="@string/new_account2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_gravity="left"
+        android:background="@color/Blancnacre"
+        android:gravity="left"
+        android:text="@string/motdepasseoublie"
         android:textSize="12sp" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="match_parent">
 
         <LinearLayout
