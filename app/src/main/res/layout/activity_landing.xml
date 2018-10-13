@@ -30,7 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left">
-
         <include layout="@layout/drawer"/>
 
     </FrameLayout>
@@ -59,9 +58,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:background="@color/BleuPrimaire">
+                    android:layout_height="match_parent">
 
 
                     <Button
@@ -84,8 +81,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/MarronPrimaire">
+                    android:layout_marginTop="10dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
