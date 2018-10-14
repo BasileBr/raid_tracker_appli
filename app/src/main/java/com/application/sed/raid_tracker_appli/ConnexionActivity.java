@@ -49,7 +49,7 @@ public class ConnexionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Utils.info("NICK", "button button button..................");
 
-                drawerLayout.openDrawer(Gravity.LEFT);
+                drawerLayout.openDrawer(Gravity.START);
 
             }
         });
