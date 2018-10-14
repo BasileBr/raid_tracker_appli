@@ -49,8 +49,16 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:background="@color/Blancnacre"
-                    android:layout_marginStart="10dp"
                     android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/Blancnacre"
+                    android:orientation="vertical">
+
 
 
             <TextView
@@ -64,7 +72,7 @@
                 <EditText
                     android:id="@+id/login"
                     android:layout_marginTop="15dp"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:drawablePadding="5dp"
                     android:hint="@string/input_pseudo"
@@ -74,8 +82,8 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="250dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="300dp"
                     android:drawablePadding="5dp"
                     android:layout_height="50dp"
                     android:hint="@string/input_password"
@@ -83,6 +91,21 @@
                     android:drawableStart="@drawable/cadena"
                     android:background="@drawable/border"
                     />
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:background="@color/Blancnacre"
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
+
+
+                    </LinearLayout>
+                </LinearLayout>
 
                 <!--<RelativeLayout-->
                     <!--android:layout_width="wrap_content"-->
@@ -119,7 +142,7 @@
             <EditText
                 android:id="@+id/pseudo"
                 android:layout_marginTop="15dp"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:hint="@string/input_pseudo"
                 android:drawablePadding="5dp"
@@ -129,17 +152,25 @@
 
             <EditText
                 android:id="@+id/prenom"
-                android:layout_marginTop="5dp"
-                android:layout_width="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:hint="@string/input_prenom"
                 android:background="@drawable/border"
                 />
+                    <EditText
+                        android:id="@+id/nom"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/input_nom"
+                        android:background="@drawable/border"
+                        />
 
             <EditText
                 android:id="@+id/mail"
-                android:layout_marginTop="5dp"
-                android:layout_width="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:hint="@string/input_mail"
                 android:background="@drawable/border"
@@ -148,8 +179,8 @@
 
             <EditText
                 android:id="@+id/input_password"
-                android:layout_width="250dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="300dp"
+                android:layout_marginTop="10dp"
                 android:layout_height="50dp"
                 android:background="@drawable/border"
                 android:inputType="textPassword"

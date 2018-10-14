@@ -16,13 +16,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/subscribe"
-        android:textAlignment="center"
+
         android:textSize="24sp" />
 
     <EditText
         android:id="@+id/pseudo"
         android:layout_marginTop="15dp"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
+        android:drawablePadding="5dp"
         android:layout_height="50dp"
         android:hint="@string/input_pseudo"
         android:drawableStart="@drawable/client"
@@ -31,16 +32,27 @@
 
     <EditText
         android:id="@+id/prenom"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/input_prenom"
         android:background="@drawable/border"
         />
 
     <EditText
-        android:id="@+id/mail"
-        android:layout_width="250dp"
+        android:id="@+id/nom"
+        android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/input_nom"
+        android:background="@drawable/border"
+        />
+
+    <EditText
+        android:id="@+id/mail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/input_mail"
         android:background="@drawable/border"
         />
@@ -48,8 +60,9 @@
 
     <EditText
         android:id="@+id/input_password"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/border"
         android:inputType="textPassword"
         android:hint="@string/input_password"
@@ -68,6 +81,14 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:onClick="cancel"
+            android:text="@string/cancel" />
+
+        <Button
             android:id="@+id/createAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,13 +96,7 @@
             android:onClick="login"
             android:text="@string/new_account" />
 
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:onClick="cancel"
-            android:text="@string/cancel" />
+
 
 
 

@@ -39,6 +39,23 @@
             />
 
 
+            <TextView
+                android:id="@+id/text4"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lieu de l'évènement"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/lieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Lannion"
+                />
+
         <TextView
             android:id="@+id/text3"
             android:layout_marginTop="20dp"
@@ -58,25 +75,26 @@
             android:id="@+id/tvDate"
             />
 
+            <TextView
+                android:id="@+id/text7"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edition"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/text4"
-            android:layout_marginTop="20dp"
-            android:color="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lieu de l'évènement"
-            android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edition"
+                />
 
 
-        <EditText
-            android:id="@+id/lieu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Lannion"
-            />
 
-        <TextView
+            <TextView
             android:id="@+id/text6"
             android:layout_marginTop="20dp"
             android:color="@color/black"
@@ -93,6 +111,12 @@
             android:hint="Team ENSSAT"
             />
 
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="horizontal">
+
+         </LinearLayout>
 
         <TextView
             android:id="@+id/text5"

@@ -26,8 +26,9 @@
     <string name="connect">Se connecter</string>
     <string name="input_inscription">S\'inscrire</string>
     <string name="motdepasseoublie">Mot de passe oublié ?</string>
-    <string name="subscribe">Créez un compte dès aujourd\'hui :</string>
-
+    <string name="subscribe">Rejoignez un RAID en tant \nque bénévole dès aujourd\'hui :</string>
+    <string name="input_nom">Nom </string>
+    <string name="edition">Numéro de l\'édition</string>
 
     <string-array name="sports">
         <item>Kayak</item>
