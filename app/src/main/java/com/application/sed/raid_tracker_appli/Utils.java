@@ -22,3 +22,12 @@ public class Utils {
         Log.d(TAG, log);
     }
 }
+
+
+/**
+ * Liens utiles
+ *
+ *
+ *
+ * http://www.tutos-android.com/changement-vues-passage-donnees-android
+ **/

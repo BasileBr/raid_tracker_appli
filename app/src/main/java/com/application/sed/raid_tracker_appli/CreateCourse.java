@@ -29,7 +29,7 @@ public class CreateCourse extends AppCompatActivity {
     private String getdate="";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-
+    private int items;
 
 
     public static List myListe = new ArrayList<>();
@@ -49,7 +49,12 @@ public class CreateCourse extends AppCompatActivity {
         setContentView(R.layout.activity_createcourse);
         Utils.info(TAG, "OnCreate");
 
+        Intent intent = getIntent();
 
+        if (intent != null) {
+            items = (intent.getIntExtra("items",items));
+            Utils.info(TAG,String.valueOf(items));
+        }
         /**
          * Selectionner plusieurs Sports
          */
@@ -125,7 +130,7 @@ public class CreateCourse extends AppCompatActivity {
                         //Utils.info(TAG,recupere[1]);
                         Bdd.addString(myListe);
 
-
+                        LandingActivity.recupereraid();
                         Utils.info("EditText", Bdd.getElement(1).toString());
 
 

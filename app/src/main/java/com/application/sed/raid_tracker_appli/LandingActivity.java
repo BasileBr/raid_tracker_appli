@@ -14,11 +14,15 @@ import android.view.View;
 public class LandingActivity extends AppCompatActivity {
 
     private String TAG = "WelcomeActivity";
+    private static String TAGs = "WelcomeActivity";
+    // Attributs pour le menu Hamburger et l'actionBar
     private DrawerLayout drawerLayout;
-
     private Toolbar toolbar;
     View button;
     private ActionBarDrawerToggle drawerToggle;
+
+    // Attributs pour faire passer les élèments -> tests
+    private static int items = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,11 @@ public class LandingActivity extends AppCompatActivity {
 
     public void CreateCourse(View view){
         Intent intent =  new Intent(LandingActivity.this, CreateCourse.class);
+        intent.putExtra("items",items);
         startActivity(intent);
+    }
+
+    public static void recupereraid(){
     }
 
 }
