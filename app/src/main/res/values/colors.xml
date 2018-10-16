@@ -10,6 +10,7 @@
     <color name="black">#000000</color>
     <color name="MarronPrimaire">#8e5231</color>
     <color name="VertPrimaire">#85C17E</color>
+    <string name="MarronPrimaire">#8E5231FF</string>
 
     <color name="BleuPrimaire">#3999f9</color>
     <color name="Blancnacre">#f6f6ff</color>

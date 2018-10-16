@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout3"
     android:layout_width="match_parent"
+
     android:orientation="vertical"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
     android:layout_gravity="center"
-    android:layout_marginTop="10dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
-    tools:context=".CreateCourse"
     android:background="@color/Blancnacre">
+    <!--tools:context=".CreateCourse"-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/VertPrimaire"
+            android:minHeight="?attr/actionBarSize"
+            app:title="Ceci est un test"
+
+             />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left">
+        <include layout="@layout/drawer"/>
+
+    </FrameLayout>
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -27,6 +54,7 @@
             android:color="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/name_raid"
             android:layout_marginEnd="10dp"
             android:textSize="18sp" />
@@ -177,7 +205,6 @@
                     android:text="test2"
                     android:onClick="onCheckboxClicked"/>
         </LinearLayout>
-
             </ScrollView>
 
         <!--<TextView-->
@@ -232,4 +259,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

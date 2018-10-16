@@ -1,32 +1,32 @@
 package com.application.sed.raid_tracker_appli;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
+public class Accueil extends AppCompatActivity {
+    private String TAG="Accueil";
 
-public class WelcomeActivity extends AppCompatActivity {
 
-    private String TAG = "WelcomeActivity";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        Utils.info(TAG, "OnCreate");
+        setContentView(R.layout.activity_accueil);
+
 
     }
 
-    /**
-     * Mettre la méthode en public pour que le bouton y ait accés
-     * @param view view
-     *
-     */
     public void login(View view){
 
         /*
@@ -41,7 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
             Utils.debug(TAG, "cool");
             Utils.Name = "toto";
-            Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);
+            Intent intent = new Intent(Accueil.this, LandingActivity.class);
             Utils.info(TAG,"connexion, new activity");
             startActivity(intent);
         }
@@ -56,19 +56,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    /**
-     *
-     */
-    public void join(View view) {
-
-
-        Intent intent = new Intent(WelcomeActivity.this, ConnexionActivity.class);
-        startActivity(intent);
-    }
-
-
     public void createAccount(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
+        Intent intent =  new Intent(Accueil.this, CreateAccount.class);
         startActivity(intent);
     }
+
 }

@@ -6,8 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,6 +33,11 @@ public class CreateCourse extends AppCompatActivity {
     private String TAG="CreateCourse";
     private TextView mDisplayDate;
     private String getdate="";
+    private DrawerLayout drawerLayout;
+
+    private Toolbar toolbar2;
+    View button;
+    private ActionBarDrawerToggle drawerToggle;
 
     private CheckBox getitem;
     private CheckBox getitem2;
@@ -64,6 +73,33 @@ public class CreateCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createcourse);
         Utils.info(TAG, "OnCreate");
+
+        this.toolbar2 = findViewById(R.id.toolbar3);
+
+        //definir notre toolbar en tant qu'actionBar
+        setSupportActionBar(toolbar2);
+
+        //afficher le bouton retour
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        this.drawerLayout = findViewById(R.id.drawerLayout3);
+        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
+        this.drawerLayout.setDrawerListener(this.drawerToggle);
+
+        toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.info("NICK", "button button button..................");
+
+                drawerLayout.openDrawer(Gravity.START);
+
+            }
+        });
+
+
+
 
         Intent intent = getIntent();
 
