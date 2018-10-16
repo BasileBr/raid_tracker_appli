@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,9 +31,9 @@ import java.util.List;
 
 
 public class CreateCourse extends AppCompatActivity {
-    private String TAG="CreateCourse";
+    private String TAG = "CreateCourse";
     private TextView mDisplayDate;
-    private String getdate="";
+    private String getdate = "";
     private DrawerLayout drawerLayout;
 
     private Toolbar toolbar2;
@@ -54,8 +55,6 @@ public class CreateCourse extends AppCompatActivity {
     CharSequence charSequence3 = "";
     CharSequence charSequence4 = "";
     CharSequence charSequence5 = "";
-
-
 
 
     LinearLayout getLinear;
@@ -85,7 +84,7 @@ public class CreateCourse extends AppCompatActivity {
 
 
         this.drawerLayout = findViewById(R.id.drawerLayout3);
-        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
+        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, 0, 0);
         this.drawerLayout.setDrawerListener(this.drawerToggle);
 
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
@@ -99,13 +98,11 @@ public class CreateCourse extends AppCompatActivity {
         });
 
 
-
-
         Intent intent = getIntent();
 
         if (intent != null) {
-            items = (intent.getIntExtra("items",items));
-            Utils.info(TAG,String.valueOf(items));
+            items = (intent.getIntExtra("items", items));
+            Utils.info(TAG, String.valueOf(items));
         }
         /**
          * Selectionner plusieurs Sports
@@ -117,7 +114,7 @@ public class CreateCourse extends AppCompatActivity {
 //        mySpinner.setAdapter(myAdapter);
 //
 //
-        mDisplayDate=(TextView)findViewById(R.id.tvDate);
+        mDisplayDate = (TextView) findViewById(R.id.tvDate);
 
 
         /**
@@ -128,13 +125,13 @@ public class CreateCourse extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Calendar cal= Calendar.getInstance();
-                int year=cal.get(Calendar.YEAR);
-                int month=cal.get(Calendar.MONTH);
-                int day=cal.get(Calendar.DAY_OF_MONTH);
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog=new DatePickerDialog(
-                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener,2010,00,01);
+                DatePickerDialog dialog = new DatePickerDialog(
+                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, 2010, 00, 01);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -145,36 +142,33 @@ public class CreateCourse extends AppCompatActivity {
          * Récupérer la date, l'afficher et la stocker
          */
 
-        mDateSetListener=new DatePickerDialog.OnDateSetListener() {
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.d(TAG,"onDateSet: mm/dd/yyyy: "+month+"/"+ dayOfMonth +"/"+year);
-                String date =dayOfMonth + "/" + month+1 +"/" + year;
+                Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
+                String date = dayOfMonth + "/" + month + 1 + "/" + year;
                 mDisplayDate.setText(date);
-                getdate=date;
+                getdate = date;
             }
         };
 
 
-        mButton = (Button)findViewById(R.id.createAccount);
-        mEdit   = (EditText)findViewById(R.id.name_raid);
-        mEdit1   = (EditText)findViewById(R.id.lieu);
-        mEdit2 = (EditText)findViewById(R.id.organizer_teame);
+        mButton = (Button) findViewById(R.id.createAccount);
+        mEdit = (EditText) findViewById(R.id.name_raid);
+        mEdit1 = (EditText) findViewById(R.id.lieu);
+        mEdit2 = (EditText) findViewById(R.id.organizer_teame);
 
-        getitem = (CheckBox)findViewById(R.id.checkbox_meat);
-        getitem2 = (CheckBox)findViewById(R.id.checkbox_cheese);
-        getLinear=(LinearLayout)findViewById(R.id.checkbox);
-
+        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
+        getitem2 = (CheckBox) findViewById(R.id.checkbox_cheese);
+        getLinear = (LinearLayout) findViewById(R.id.checkbox);
 
 
         mButton.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    public void onClick(View view)
-                    {
-                        recupere=mEdit.getText().toString();
-                        recupere1=mEdit1.getText().toString();
-                        recupere2=mEdit2.getText().toString();
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        recupere = mEdit.getText().toString();
+                        recupere1 = mEdit1.getText().toString();
+                        recupere2 = mEdit2.getText().toString();
 
                         myListe.add(recupere);  // récupère le nom du raid
                         myListe.add(getdate); // sélectionne la date de l'évènement
@@ -184,7 +178,7 @@ public class CreateCourse extends AppCompatActivity {
                         myListe.add(charSequence2);
 
 
-                        Utils.info("EditText",myListe.toString());
+                        Utils.info("EditText", myListe.toString());
                         //Utils.info(TAG,recupere[1]);
                         Bdd.addString(myListe);
 
@@ -205,31 +199,43 @@ public class CreateCourse extends AppCompatActivity {
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.checkbox_meat:
                 if (checked)
-                    charSequence=getitem.getText();
+                    charSequence = getitem.getText();
 //                    int toto = getLinear.getId();
 //                    Utils.info(TAG,String.valueOf(toto));
 
                 break;
-          case R.id.checkbox_cheese:
+            case R.id.checkbox_cheese:
                 if (checked)
-                    charSequence2=getitem2.getText();
+                    charSequence2 = getitem2.getText();
 
 
-                 break;
+                break;
         }
     }
 
     /**
      * Permet de retourner à la vue "landingActivity
-     *
      */
 
-    public void cancel(View view){
+    public void cancel(View view) {
         Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 }
 
