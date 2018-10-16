@@ -111,27 +111,90 @@
             android:hint="Team ENSSAT"
             />
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="horizontal">
+         <!--<LinearLayout-->
+             <!--android:layout_width="match_parent"-->
+             <!--android:layout_height="match_parent"-->
+             <!--android:orientation="horizontal">-->
 
-         </LinearLayout>
+         <!--</LinearLayout>-->
 
-        <TextView
-            android:id="@+id/text5"
-            android:layout_marginTop="20dp"
-            android:color="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type de sport"
-            android:textSize="18sp" />
+            <ScrollView
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                >
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+                <LinearLayout
+
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/checkbox"
+                    android:layout_height="wrap_content">
+
+
+                    <CheckBox android:id="@+id/checkbox_meat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kayak"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_cheese"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="badmintonanaconda"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_meat1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kayak"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_cheese1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test2"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_meat2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kayak"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_cheese2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test2"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_meat3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kayak"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_cheese3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test2"
+                    android:onClick="onCheckboxClicked"/>
+        </LinearLayout>
+
+            </ScrollView>
+
+        <!--<TextView-->
+            <!--android:id="@+id/text5"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:color="@color/black"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Type de sport"-->
+            <!--android:textSize="18sp" />-->
+
+        <!--<Spinner-->
+            <!--android:id="@+id/spinner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
 
 
         <LinearLayout

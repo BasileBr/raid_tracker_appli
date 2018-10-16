@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +29,10 @@ public class CreateCourse extends AppCompatActivity {
     private String TAG="CreateCourse";
     private TextView mDisplayDate;
     private String getdate="";
+
+    private CheckBox getitem;
+    private CheckBox getitem2;
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private int items;
@@ -34,6 +40,16 @@ public class CreateCourse extends AppCompatActivity {
 
     public static List myListe = new ArrayList<>();
 
+    CharSequence charSequence = "";
+    CharSequence charSequence2 = "";
+    CharSequence charSequence3 = "";
+    CharSequence charSequence4 = "";
+    CharSequence charSequence5 = "";
+
+
+
+
+    LinearLayout getLinear;
     String recupere;
     String recupere1;
     String recupere2;
@@ -58,13 +74,13 @@ public class CreateCourse extends AppCompatActivity {
         /**
          * Selectionner plusieurs Sports
          */
-        Spinner mySpinner=(Spinner)findViewById(R.id.spinner);
-
-        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(CreateCourse.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.sports));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
-
-
+//        Spinner mySpinner=(Spinner)findViewById(R.id.spinner);
+//
+//        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(CreateCourse.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.sports));
+//        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        mySpinner.setAdapter(myAdapter);
+//
+//
         mDisplayDate=(TextView)findViewById(R.id.tvDate);
 
 
@@ -109,6 +125,10 @@ public class CreateCourse extends AppCompatActivity {
         mEdit1   = (EditText)findViewById(R.id.lieu);
         mEdit2 = (EditText)findViewById(R.id.organizer_teame);
 
+        getitem = (CheckBox)findViewById(R.id.checkbox_meat);
+        getitem2 = (CheckBox)findViewById(R.id.checkbox_cheese);
+        getLinear=(LinearLayout)findViewById(R.id.checkbox);
+
 
 
         mButton.setOnClickListener(
@@ -124,6 +144,8 @@ public class CreateCourse extends AppCompatActivity {
                         myListe.add(getdate); // sélectionne la date de l'évènement
                         myListe.add(recupere1); // le lieu de l'évènement
                         myListe.add(recupere2); // le nom de l'équipe organisatrice
+                        myListe.add(charSequence);
+                        myListe.add(charSequence2);
 
 
                         Utils.info("EditText",myListe.toString());
@@ -138,6 +160,30 @@ public class CreateCourse extends AppCompatActivity {
                 });
 
 
+    }
+
+    public void onCheckboxClicked(View view) {
+
+        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_meat:
+                if (checked)
+                    charSequence=getitem.getText();
+//                    int toto = getLinear.getId();
+//                    Utils.info(TAG,String.valueOf(toto));
+
+                break;
+          case R.id.checkbox_cheese:
+                if (checked)
+                    charSequence2=getitem2.getText();
+
+
+                 break;
+        }
     }
 
     /**
