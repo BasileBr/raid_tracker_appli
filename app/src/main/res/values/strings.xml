@@ -31,7 +31,7 @@
     <string name="edition">Numéro de l\'édition</string>
     <string name="presentation">Raid Tracker,\nune application pour\ngérer tous les raids </string>
     <string name="connexion">Se connecter</string>
-
+    <string name="validsport">Valider les sports</string>
 
     <string-array name="sports">
         <item>Kayak</item>
