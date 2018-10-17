@@ -43,6 +43,7 @@ public class Accueil extends AppCompatActivity {
             Utils.Name = "toto";
             Intent intent = new Intent(Accueil.this, LandingActivity.class);
             Utils.info(TAG,"connexion, new activity");
+            intent.putExtra("name","test");
             startActivity(intent);
         }
         else {

@@ -43,6 +43,7 @@ public class WelcomeActivity extends AppCompatActivity {
             Utils.Name = "toto";
             Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);
             Utils.info(TAG,"connexion, new activity");
+
             startActivity(intent);
         }
         else {

@@ -184,6 +184,10 @@ public class CreateCourse extends AppCompatActivity {
 
                         LandingActivity.recupereraid();
                         Utils.info("EditText", Bdd.getElement(1).toString());
+                        Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+                        intent.putExtra("name","Toto");
+                        startActivity(intent);
+
 
 
                     }
@@ -203,6 +207,7 @@ public class CreateCourse extends AppCompatActivity {
             case R.id.checkbox_meat:
                 if (checked)
                     charSequence = getitem.getText();
+
 //                    int toto = getLinear.getId();
 //                    Utils.info(TAG,String.valueOf(toto));
 

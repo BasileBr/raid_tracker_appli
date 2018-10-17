@@ -29,6 +29,9 @@ public class Bdd {
         return getElement(Liste.indexOf(name));
     }
 
+    public static ArrayList getArrayList(){
+        return Liste;
+    }
 
     public static void addString (List myList){
         Utils.info("EditText","add String");

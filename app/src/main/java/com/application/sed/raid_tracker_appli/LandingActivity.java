@@ -9,9 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LandingActivity extends AppCompatActivity {
+    private ArrayList<List> Toto =new ArrayList<>();
+    public static List Tata = new ArrayList<>();
+    private String test = "test";
 
     private String TAG = "WelcomeActivity";
     private static String TAGs = "WelcomeActivity";
@@ -19,6 +29,8 @@ public class LandingActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     View button;
+
+    String Element;
     private ActionBarDrawerToggle drawerToggle;
 
     // Attributs pour faire passer les élèments -> tests
@@ -28,7 +40,30 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+        Intent intent=getIntent();
+        if (intent != null) {
+            Utils.warm(TAG,"je rentre ici");
+
+           test = intent.getStringExtra("name");
+           Utils.warm(TAG, test);
+            if(test == "Toto"){
+                Utils.warm(TAG, "Je rentre la");
+                /* get List from Create Raid */
+                Toto = Bdd.getArrayList();
+
+                /*récupérer la première Liste*/
+                Tata = Toto.get(1);
+
+                /* */
+                String titre = Tata.get(1).toString();
+            }
+
+        }
+
+
         Utils.info(TAG, "OnCreate");
+
+
 
         this.toolbar = findViewById(R.id.toolbar);
 
@@ -53,6 +88,32 @@ public class LandingActivity extends AppCompatActivity {
 
             }
         });
+//
+
+
+
+
+
+    }
+
+
+    public void getDescriptionRAid(View view) {
+        //RelativeLayout ll=(RelativeLayout) findViewById(R.id.boutooondemerde);
+//        /* get List from Create Raid */
+//        Toto = Bdd.getArrayList();
+//
+//        /*récupérer la première Liste*/
+//        Tata = Toto.get(0);
+//
+//        /* */
+//        String titre = Tata.get(0).toString();
+//
+////
+//        Button buttonView = new Button(this);
+//        buttonView.setText(titre);
+//        ll.addView(buttonView);
+//
+//        Utils.info("EditText", titre);
 
     }
 
