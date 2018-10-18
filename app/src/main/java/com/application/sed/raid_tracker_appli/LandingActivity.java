@@ -139,6 +139,7 @@ public class LandingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+
         this.drawerLayout = findViewById(R.id.drawerLayout);
         this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
         this.drawerLayout.setDrawerListener(this.drawerToggle);

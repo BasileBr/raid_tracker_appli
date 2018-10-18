@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Accueil"
+            android:name=".HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,8 +38,10 @@
         <activity
             android:name=".CreateCourse"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <!--<activity android:name=".Accueil"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>-->
+
+        <!-- <activity android:name=".Accueil" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity> -->
+        <activity android:name=".Accueil"></activity>
     </application>
 
 </manifest>
