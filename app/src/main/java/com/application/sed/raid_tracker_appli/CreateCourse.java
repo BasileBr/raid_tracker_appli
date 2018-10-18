@@ -48,7 +48,7 @@ public class CreateCourse extends AppCompatActivity {
     private int items;
 
 
-    public static List myListe = new ArrayList<>();
+    public static List myListe;
 
     CharSequence charSequence = "";
     CharSequence charSequence2 = "";
@@ -166,13 +166,14 @@ public class CreateCourse extends AppCompatActivity {
         mButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
+                        myListe =  new ArrayList<>();
                         recupere = mEdit.getText().toString();
                         recupere1 = mEdit1.getText().toString();
                         recupere2 = mEdit2.getText().toString();
 
                         myListe.add(recupere);  // récupère le nom du raid
-                        myListe.add(getdate); // sélectionne la date de l'évènement
                         myListe.add(recupere1); // le lieu de l'évènement
+                        myListe.add(getdate); // sélectionne la date de l'évènement
                         myListe.add(recupere2); // le nom de l'équipe organisatrice
                         myListe.add(charSequence);
                         myListe.add(charSequence2);

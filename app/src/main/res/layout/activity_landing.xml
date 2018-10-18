@@ -35,6 +35,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/raidorga"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize">
 
@@ -58,34 +59,47 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/raidorga"
+                    android:layout_height="100dp"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <HorizontalScrollView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="100dp"
+                        android:layout_gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/Myfuckinglayout"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/boutooondemerde"-->
+                        <!--android:layout_width="80dp"-->
+                        <!--android:gravity="end"-->
+                        <!--android:layout_height="match_parent">-->
 
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/boutooondemerde"
-                        android:gravity="end">
+                    <Button
+                        android:id="@+id/MyNewRaid"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="end"
+                        android:background="@drawable/ic_add_circle_outline_black_24dp"
+                        android:onClick="CreateCourse">
+
+                    </Button>
 
 
-                        <Button
-                            android:id="@+id/MyNewRaid"
-                            android:layout_width="58dp"
-                            android:layout_height="81dp"
-                            android:background="@drawable/ajoutraid"
-                            android:onClick="CreateCourse">
-
-                        </Button>
-
-                    </RelativeLayout>
+                    <!--</LinearLayout>-->
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,13 +246,23 @@
                         android:text="@string/join"
                         android:textColor="@color/white" />
                 </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/test2"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
 
+
+                </LinearLayout>
 
             </LinearLayout>
 
 
         </ScrollView>
+
+
     </LinearLayout>
+
 
 </android.support.v4.widget.DrawerLayout>
 <!-- Hamburger dans linearLayout
