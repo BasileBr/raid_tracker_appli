@@ -81,7 +81,10 @@ public class CreateAccount extends AppCompatActivity{
 
 
                         Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
-                        Bdd.addString(myListe);
+                        Bdd.addAccount(myListe);
+
+                        Intent intent =  new Intent(CreateAccount.this, Accueil.class);
+                        startActivity(intent);
 
                     }
 

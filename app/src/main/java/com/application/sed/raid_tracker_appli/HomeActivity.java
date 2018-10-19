@@ -8,7 +8,7 @@ import android.os.Bundle;
 public class HomeActivity extends AppCompatActivity {
 
     //temps de splash screen
-    private static int SPLASH_TIME_OUT= 3000;
+    private static int SPLASH_TIME_OUT= 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Bdd {
     private static ArrayList<List> Liste =new ArrayList<>();
+    private static ArrayList<List> ListeAccount =new ArrayList<>();
     private static String TAG = "Bdd";
 
     public ArrayList<List> getStringList(){
@@ -38,6 +39,20 @@ public class Bdd {
 
         Liste.add(myList);
     }
+
+
+    /*Ajouter un utilisateur */
+    public static void addAccount(List myListAccount){
+        Utils.info("Check Value in my List","add Account");
+
+        ListeAccount.add(myListAccount);
+    }
+
+    /* Recupérer les informations de l'utilisateur */
+    public static ArrayList getAccount(){
+        return ListeAccount;
+    }
+
 
 
 
