@@ -12,6 +12,7 @@ public class Bdd {
     private static ArrayList<List> Liste =new ArrayList<>();
     private static ArrayList<List> ListeAccount =new ArrayList<>();
     private static String TAG = "Bdd";
+    private static String nomUtilisateur;
 
     public ArrayList<List> getStringList(){
         return Liste;
@@ -55,5 +56,14 @@ public class Bdd {
 
 
 
+    /*
+    Connaitre l'utilisateur courant en fonction des sessions
+     */
+    public static void setNomUtilisateur(String nom){
+        nomUtilisateur = nom;
+    }
 
+    public static String getNomUtilisateur() {
+        return nomUtilisateur;
+    }
 }

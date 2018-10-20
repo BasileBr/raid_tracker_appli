@@ -25,18 +25,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Home"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Home"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="100dp"
-                android:onClick="logout"
-                android:src="@drawable/ic_exit_to_app_black_24dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nameofuser"
+                        android:text="@string/input_username"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="logout"
+                        android:src="@drawable/ic_exit_to_app_black_24dp"/>
+                </LinearLayout>
 
             </LinearLayout>
         </android.support.v7.widget.Toolbar>

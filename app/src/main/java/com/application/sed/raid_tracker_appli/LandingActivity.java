@@ -32,6 +32,8 @@ public class LandingActivity extends AppCompatActivity {
     private Toolbar toolbar;
     View button;
 
+    private TextView nameofuser;
+
 
 
     String Element;
@@ -49,7 +51,10 @@ public class LandingActivity extends AppCompatActivity {
         if (intent != null) {
             Utils.warm(TAG,"je rentre ici");
 
-            test = intent.getStringExtra("name");
+            test = Bdd.getNomUtilisateur();
+
+            this.nameofuser = findViewById(R.id.nameofuser);
+            nameofuser.setText(test);
             Utils.warm(TAG, test);
             if(test.equals(basile)){
                 Utils.warm(TAG, "Je rentre la");
@@ -74,8 +79,7 @@ public class LandingActivity extends AppCompatActivity {
                     myButton.setText(Tata.get(0).toString());
                     myButton.setId(i);
 
-//                    myButton.setX(50);
-//                      myButton.setY(100);
+
 
                     listButton.add(myButton);
                     Utils.warm("listbutton", listButton.get(i).toString());

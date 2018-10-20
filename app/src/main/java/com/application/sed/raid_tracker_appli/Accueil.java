@@ -130,7 +130,8 @@ public class Accueil extends AppCompatActivity {
             if (listUsers.get(0).equals(identifiant)& listUsers.get(1).equals(mdp)){
                 isValid =true;
                 Intent intent = new Intent(Accueil.this, LandingActivity.class);
-                intent.putExtra("name","test");
+                intent.putExtra("name",identifiant);
+                Bdd.setNomUtilisateur(identifiant);
                 startActivity(intent);
             }
             // else afficher la popup erreur de connexion
