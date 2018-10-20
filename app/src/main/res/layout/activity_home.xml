@@ -8,12 +8,13 @@
 
     tools:context=".HomeActivity">
 
+
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="center"
-        android:src="@drawable/rt_base"
+        android:src="@drawable/rt_basev2"
       />
 
 </android.support.constraint.ConstraintLayout>
