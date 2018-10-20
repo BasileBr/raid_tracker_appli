@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="center"
-        android:src="@drawable/rt_basev2"
+        android:src="@drawable/rt_base_applicationandroid"
       />
 
 </android.support.constraint.ConstraintLayout>
