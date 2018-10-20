@@ -134,8 +134,17 @@ public class LandingActivity extends AppCompatActivity {
         //definir notre toolbar en tant qu'actionBar
         setSupportActionBar(toolbar);
 
+        //getSupportActionBar().setIcon(getDrawable(R.drawable.ic_exit_to_app_black_24dp));
+
+
+        //getSupportActionBar().setTitle("Home");
         //afficher le bouton retour
         getSupportActionBar().setHomeButtonEnabled(true);
+
+
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -202,6 +211,11 @@ public class LandingActivity extends AppCompatActivity {
     public void CreateCourse(View view){
         Intent intent =  new Intent(LandingActivity.this, CreateCourse.class);
         intent.putExtra("items",items);
+        startActivity(intent);
+    }
+
+    public void logout(View view){
+        Intent intent =  new Intent(LandingActivity.this, Accueil.class);
         startActivity(intent);
     }
 
