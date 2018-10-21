@@ -8,10 +8,10 @@
     <color name="legergris">#cfcccc</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="MarronPrimaire">#8e5231</color>
-    <color name="VertPrimaire">#85C17E</color>
-    <string name="MarronPrimaire">#8E5231FF</string>
 
+
+    <color name="MarronPrimaire">#7c4325</color>
+    <color name="VertPrimaire">#85C17E</color>
     <color name="BleuPrimaire">#3999f9</color>
-    <color name="Blancnacre">#f6f6ff</color>
+    <color name="Blancnacre">#F8F8FF</color>
 </resources>

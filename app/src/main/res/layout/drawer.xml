@@ -11,8 +11,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/BleuPrimaire"/>
+            android:background="@color/MarronPrimaire"/>
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/VertPrimaire"
+        android:layout_gravity="center"
+        android:onClick="CreateCourse"
+        android:text="@string/Ajoutraid"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/VertPrimaire"
+        android:layout_gravity="center"
+        android:onClick="logout"
+        android:text="@string/Deconnexion"/>
+
     <TextView
         android:layout_gravity="center"
         android:layout_width="wrap_content"
