@@ -124,7 +124,7 @@ public class CreateCourse extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, 2010, 00, 01);
+                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, 2018, 9, 22);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -134,12 +134,13 @@ public class CreateCourse extends AppCompatActivity {
         /**
          * Récupérer la date, l'afficher et la stocker
          */
-
+        final int tmp;
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
-                String date = dayOfMonth + "/" + month + 1 + "/" + year;
+
+                String date = dayOfMonth + "/" + (month+1) + "/" + year;
                 mDisplayDate.setText(date);
                 getdate = date;
             }
