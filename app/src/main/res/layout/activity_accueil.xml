@@ -28,7 +28,7 @@
         android:hint="@string/input_pseudo"
         android:drawableStart="@drawable/client"
         android:background="@drawable/border"
-        android:text="@string/input_username"
+
         />
 
 
@@ -41,7 +41,6 @@
         android:inputType="textPassword"
         android:hint="@string/input_password"
         android:drawableLeft="@drawable/cadena"
-        android:text="@string/input_password"
         android:drawablePadding="5dp"
         />
 

@@ -168,7 +168,7 @@ public class CreateCourse extends AppCompatActivity {
                         myListe.add(recupere1); // le lieu de l'évènement
                         myListe.add(getdate); // sélectionne la date de l'évènement
                         myListe.add(recupere2); // le nom de l'équipe organisatrice
-                        myListe.add(charSequence);
+                        myListe.add(charSequence); //
                         myListe.add(charSequence2);
 
 
