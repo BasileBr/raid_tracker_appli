@@ -490,7 +490,7 @@
 
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:focusable="true"
@@ -516,9 +516,9 @@
                 android:layout_width="150dp"
                 android:layout_marginTop="20dp"
                 android:layout_height="100dp"
-                android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/cancel"
                 android:text="@string/valide" />
 
 
