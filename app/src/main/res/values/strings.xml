@@ -33,6 +33,7 @@
     <string name="connexion">Se connecter</string>
     <string name="validsport">Valider les sports</string>
 
+    <string name="Ajoutraid">Ajouter \nun raid</string>
     <string-array name="sports">
         <item>Kayak</item>
         <item>Vélo</item>

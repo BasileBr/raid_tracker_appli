@@ -45,7 +45,6 @@ public class CreateCourse extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private int items;
 
 
     public static List myListe;
@@ -98,12 +97,6 @@ public class CreateCourse extends AppCompatActivity {
         });
 
 
-        Intent intent = getIntent();
-
-        if (intent != null) {
-            items = (intent.getIntExtra("items", items));
-            Utils.info(TAG, String.valueOf(items));
-        }
         /**
          * Selectionner plusieurs Sports
          */

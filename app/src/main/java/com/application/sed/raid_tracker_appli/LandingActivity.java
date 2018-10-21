@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,9 +18,9 @@ import java.util.List;
 
 
 public class LandingActivity extends AppCompatActivity {
-    private ArrayList<List> Toto;
+    private ArrayList<List> raidlist;
     //public static List Tata;
-    private String test = "test";
+    private String nomutilisateur = "test";
 
     private ArrayList<Button> listButton;
 
@@ -39,98 +38,61 @@ public class LandingActivity extends AppCompatActivity {
     String Element;
     private ActionBarDrawerToggle drawerToggle;
 
-    // Attributs pour faire passer les élèments -> tests
-    private static int items = 2;
-    private String basile="Toto";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Utils.info(TAG, "OnCreate");
+
         setContentView(R.layout.activity_landing);
         Intent intent=getIntent();
+
         if (intent != null) {
-            Utils.warm(TAG,"je rentre ici");
 
-            test = Bdd.getNomUtilisateur();
+            Utils.debug(TAG,"je rentre ici");
 
+            nomutilisateur = Bdd.getNomUtilisateur();
             this.nameofuser = findViewById(R.id.nameofuser);
-            nameofuser.setText(test);
-            Utils.warm(TAG, test);
-            if(test.equals(basile)){
-                Utils.warm(TAG, "Je rentre la");
-                /* get List from Create Raid */
-                Toto = Bdd.getArrayList();
+            nameofuser.setText(nomutilisateur);
 
-                 listButton = new ArrayList<>();
+            Utils.debug(TAG, "Je rentre la");
+            /* get List from Create Raid */
+            raidlist = Bdd.getArrayList();
 
+            listButton = new ArrayList<>();
 
-                //Button myButton = new Button(this);
+            for (int i = 0; i < raidlist.size(); i ++){
 
+                Button myButton = new Button(this);
+                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
 
-                for (int i = 0; i < Toto.size(); i ++){
+                List attributlist = new ArrayList();
+                attributlist = raidlist.get(i);
 
+                myButton.setText(attributlist.get(0).toString());
+                myButton.setId(i);
 
-                    Button myButton = new Button(this);
-                    Utils.warm("Ajout du bouton", "Je rentre dans le for "+i);
+                listButton.add(myButton);
+                Utils.debug("listbutton", listButton.get(i).toString());
 
-                    List Tata = new ArrayList();
-                    Tata = Toto.get(i);
+            }
 
-                    myButton.setText(Tata.get(0).toString());
-                    myButton.setId(i);
+            for (int i = 0; i < listButton.size(); i ++){
 
+                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
+                Button myButton2 = listButton.get(i);
 
+                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
-                    listButton.add(myButton);
-                    Utils.warm("listbutton", listButton.get(i).toString());
-
-                }
-
-
-                for (int i = 0; i < listButton.size(); i ++){
-
-                    Utils.warm("Rajout des boutons", "Valeurs de i" +i);
-                    Button myButton2 = listButton.get(i);
-
-                    LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
-
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    ll.addView(myButton2, lp);
-
-
-                }
-
-                /*récupérer la première Liste*/
-
-
-                /* */
-//                String titre = Tata.get(1).toString();
-//                Utils.info("EditTexttttttt", titre);
-
-
-                /*for (int i = 0; i< Tata.size(); i++) {
-                    Utils.warm("i", String.valueOf(i));
-                    Utils.warm("Tata", Tata.get(i).toString());
-
-                }*/
+                LinearLayout but = findViewById(R.id.boutooondemerde);
+                ll.setNextFocusRightId(but.getId());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                ll.addView(myButton2, lp);
 
             }
 
         }
-
-
-        Utils.info(TAG, "OnCreate");
-
-
-        /*
-        Button myButton = new Button(this);
-        myButton.setText("boutton");
-
-        LinearLayout ll = (LinearLayout) findViewById(R.id.test2);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(myButton, lp);
-
-        */
 
 
         this.toolbar = findViewById(R.id.toolbar);
@@ -171,16 +133,15 @@ public class LandingActivity extends AppCompatActivity {
 
 
 
-
     }
 
     public void getDescriptionRAid(View view) {
         //RelativeLayout ll=(RelativeLayout) findViewById(R.id.boutooondemerde);
 //        /* get List from Create Raid */
-//        Toto = Bdd.getArrayList();
+//        raidlist = Bdd.getArrayList();
 //
 //        /*récupérer la première Liste*/
-//        Tata = Toto.get(0);
+//        Tata = raidlist.get(0);
 //
 //        /* */
 //        String titre = Tata.get(0).toString();
@@ -214,7 +175,6 @@ public class LandingActivity extends AppCompatActivity {
 
     public void CreateCourse(View view){
         Intent intent =  new Intent(LandingActivity.this, CreateCourse.class);
-        intent.putExtra("items",items);
         startActivity(intent);
     }
 

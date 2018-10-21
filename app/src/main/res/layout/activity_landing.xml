@@ -97,34 +97,40 @@
 
                         <LinearLayout
                             android:id="@+id/Myfuckinglayout"
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                         </LinearLayout>
 
                     </HorizontalScrollView>
 
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/boutooondemerde"-->
-                        <!--android:layout_width="80dp"-->
-                        <!--android:gravity="end"-->
-                        <!--android:layout_height="match_parent">-->
+                    <LinearLayout
+                        android:id="@+id/boutooondemerde"
+                        android:layout_width="match_parent"
+                        android:gravity="end"
+                        android:layout_height="100dp">
 
 
-                    <Button
-                        android:id="@+id/MyNewRaid"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="end"
-                        android:background="@drawable/ic_add_circle_outline_black_24dp"
-                        android:onClick="CreateCourse">
+                        <Button
+                            android:id="@+id/MyNewRaid"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="end"
+                            android:background="@drawable/ic_add_circle_outline_black_24dp"
+                            android:onClick="CreateCourse">
 
-                    </Button>
+                        </Button>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/Ajoutraid"/>
 
 
-                    <!--</LinearLayout>-->
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
