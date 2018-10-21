@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/VertPrimaire"
-            android:minHeight="?attr/actionBarSize"
-             >
+            android:minHeight="?attr/actionBarSize">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -85,7 +84,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/raidsorganisateur" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:orientation="horizontal">
@@ -93,20 +92,22 @@
                     <HorizontalScrollView
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/boutooondemerde">
 
                         <LinearLayout
                             android:id="@+id/Myfuckinglayout"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="horizontal">
 
+                            android:orientation="horizontal">
+                            <!--android:paddingStart="0dp"-->
+                            <!--android:paddingEnd="@id/boutooondemerde"-->
                         </LinearLayout>
 
                     </HorizontalScrollView>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/boutooondemerde"
                         android:layout_width="match_parent"
                         android:gravity="end"
@@ -126,13 +127,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:layout_toRightOf="@+id/MyNewRaid"
                             android:text="@string/Ajoutraid"/>
 
 
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="match_parent"

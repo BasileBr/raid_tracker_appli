@@ -21,14 +21,15 @@ public class Accueil extends AppCompatActivity {
     private String TAG="Accueil";
 
 
-    private ArrayList<List> AccountInfo;
+    // Liste pour récupérer tous les comptes
+
     EditText mEdit;
     EditText mEdit1;
     String recupere;
 
-
+    //Liste des infos de chaque compte
     private ArrayList<String> listUsers;
-
+    private ArrayList<List> AccountInfo = new ArrayList<>();
 
 
 
@@ -45,39 +46,7 @@ public class Accueil extends AppCompatActivity {
 
 
         // Récupération des informations de la liste
-        AccountInfo = Bdd.getAccount();
 
-
-        for (int i = 0; i < AccountInfo.size(); i++) {
-
-            // Liste pour un user
-            List infoUsers = new ArrayList();
-
-
-            // Récupère toutes les infos
-            infoUsers = AccountInfo.get(i);
-            String values = infoUsers.toString();
-
-            Utils.info("Je suis capable d'afficher toutes les valeurs d'un compte crée", values);
-
-            //récuperer le premier élément
-            String identifiant = infoUsers.get(0).toString();
-            String password= infoUsers.get(4).toString();
-
-            Utils.info("J'affiche l'identifiant", identifiant);
-            Utils.info("J'affiche le mot de passe ",password);
-
-            //Liste pour stocker les identifiants et mot de passe
-            listUsers = new ArrayList<>();
-
-            //ajout de l'identifiant dans la liste
-            listUsers.add(identifiant);
-
-            //ajout du mot de passe dans la liste
-            listUsers.add(password);
-
-
-        }
 
 
     }
@@ -102,32 +71,14 @@ public class Accueil extends AppCompatActivity {
 
         boolean isValid;
 
+        AccountInfo = Bdd.getAccount();
 
-
-        // Test du bouton avec le user toto et password test
-//        if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
-//            Utils.debug(TAG, "cool");
-//            Utils.Name = "toto";
-//            Intent intent = new Intent(Accueil.this, LandingActivity.class);
-//            Utils.info(TAG,"connexion, new activity");
-//            intent.putExtra("name","test");
-//            startActivity(intent);
-//        }
-//        else {
-//            Utils.info(TAG, "pas cool");
-//        }
-
-
-
-        /*vérification lors de la connexon */
-        for (int j = 0; j < listUsers.size(); j ++){
-
-            String test= listUsers.get(j);
-
-            Utils.info("Identifiant  eet je sais pas quoi",test);
-
-
-            if (listUsers.get(0).equals(identifiant)& listUsers.get(1).equals(mdp)){
+        for (int i = 0; i < AccountInfo.size(); i++) {
+            // Liste pour un user
+            List infoUsers  = AccountInfo.get(i);
+            String info = infoUsers.toString();
+            Utils.debug("Je suis ici", info);
+            if (infoUsers.get(0).equals(identifiant)& infoUsers.get(4).equals(mdp)){
                 isValid =true;
                 Intent intent = new Intent(Accueil.this, LandingActivity.class);
                 intent.putExtra("name",identifiant);
@@ -135,8 +86,22 @@ public class Accueil extends AppCompatActivity {
                 startActivity(intent);
             }
             // else afficher la popup erreur de connexion
-        isValid=false;
+
+            isValid=false;
+
+
         }
+
+
+//        /*vérification lors de la connexon */
+//        for (int j = 0; j < listUsers.size(); j ++){
+//
+//            String test= listUsers.get(j);
+//
+//            Utils.info("Identifiant  eet je sais pas quoi",test);
+//
+//
+//        }
 
 
         Utils.info(TAG,"Login Button action");

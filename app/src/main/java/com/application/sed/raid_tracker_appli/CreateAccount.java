@@ -20,7 +20,7 @@ public class CreateAccount extends AppCompatActivity{
     private String TAG="CreateAccount";
 
     //Liste contenant les informations lors de la création d'un compte
-    public static List myListe;
+    public static List myListe; //= new ArrayList<>();
 
     //Bouton de validation de création d'un compte
     Button mButton;
@@ -66,13 +66,14 @@ public class CreateAccount extends AppCompatActivity{
         mButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        myListe = new ArrayList<>();
                         recupere_identifiant=identifiant.getText().toString();
                         recupere_prenom=prenom.getText().toString();
                         recupere_nom=nom.getText().toString();
                         recupere_mail=mail.getText().toString();
                         recupere_password=password.getText().toString();
 
+
+                        myListe = new ArrayList();
                         myListe.add(recupere_identifiant);
                         myListe.add(recupere_prenom);
                         myListe.add(recupere_nom);

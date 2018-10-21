@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ import java.util.List;
 
 
 public class LandingActivity extends AppCompatActivity {
-    private ArrayList<List> raidlist;
+
     //public static List Tata;
     private String nomutilisateur = "test";
 
-    private ArrayList<Button> listButton;
+
 
     private String TAG = "WelcomeActivity";
     private static String TAGs = "WelcomeActivity";
@@ -38,6 +39,10 @@ public class LandingActivity extends AppCompatActivity {
     String Element;
     private ActionBarDrawerToggle drawerToggle;
 
+
+
+    private ArrayList<List> raidlist;
+    private ArrayList<Button> listButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,7 @@ public class LandingActivity extends AppCompatActivity {
                 Button myButton = new Button(this);
                 Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
 
-                List attributlist = new ArrayList();
+                List attributlist;
                 attributlist = raidlist.get(i);
 
                 myButton.setText(attributlist.get(0).toString());
@@ -85,8 +90,8 @@ public class LandingActivity extends AppCompatActivity {
 
                 LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
-                LinearLayout but = findViewById(R.id.boutooondemerde);
-                ll.setNextFocusRightId(but.getId());
+//                RelativeLayout but = findViewById(R.id.boutooondemerde);
+//                ll.setNextFocusRightId(but.getId());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 ll.addView(myButton2, lp);
 
