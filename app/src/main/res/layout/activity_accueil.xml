@@ -1,80 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:focusableInTouchMode="true"
-    android:background="@color/Blancnacre"
-    tools:context=".Accueil">
-
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/MarronPrimaire"
-        android:layout_marginTop="20dp"
-        android:text="@string/presentation"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_marginTop="60dp"
-        android:layout_width="300dp"
-        android:drawablePadding="5dp"
-        android:layout_height="50dp"
-        android:text="User"
-        android:hint="@string/input_pseudo"
-        android:drawableStart="@drawable/client"
-        android:background="@drawable/border"
-
-        />
+    android:background="@color/Blancnacre">
 
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border"
-        android:inputType="textPassword"
-        android:text="Password"
-        android:hint="@string/input_password"
-        android:drawableLeft="@drawable/cadena"
-        android:drawablePadding="5dp"
-        />
 
-    <TextView
-        android:id="@+id/forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="20dp"
-        android:text="@string/motdepasseoublie"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-
-    <Button
-        android:id="@+id/connexion"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:onClick="login"
-
-        android:background="@color/MarronPrimaire"
-
-        android:text="@string/connexion" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/VertPrimaire"
+            android:minHeight="?attr/actionBarSize">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:text="@string/Home"/>-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rt_basev2"/>
 
 
-    <TextView
-        android:id="@+id/createAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:onClick="createAccount"
-        android:textSize="20dp"
-        android:text="@string/create_account"/>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
-</LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/MarronPrimaire"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/presentation"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_marginTop="60dp"
+                android:layout_width="300dp"
+                android:drawablePadding="5dp"
+                android:layout_height="50dp"
+                android:text="User"
+                android:hint="@string/input_pseudo"
+                android:layout_gravity="center"
+                android:drawableStart="@drawable/client"
+                android:background="@drawable/border"
+
+                />
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:inputType="textPassword"
+                android:text="Password"
+                android:hint="@string/input_password"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/cadena"
+                android:drawablePadding="5dp"
+                />
+
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:text="@string/motdepasseoublie"/>
+
+
+            <Button
+                android:id="@+id/connexion"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:onClick="login"
+
+                android:background="@color/MarronPrimaire"
+
+                android:text="@string/connexion" />
+
+
+            <TextView
+                android:id="@+id/createAccount"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:onClick="createAccount"
+                android:textSize="20dp"
+                android:text="@string/create_account"/>
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
 

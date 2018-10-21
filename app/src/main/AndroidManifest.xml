@@ -41,7 +41,10 @@
 
         <!-- <activity android:name=".Accueil" -->
         <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity> -->
-        <activity android:name=".Accueil"></activity>
+        <activity
+            android:name=".Accueil"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
