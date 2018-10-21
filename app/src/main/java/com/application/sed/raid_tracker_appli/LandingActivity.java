@@ -75,7 +75,8 @@ public class LandingActivity extends AppCompatActivity {
                 List attributlist;
                 attributlist = raidlist.get(i);
 
-                myButton.setText(attributlist.get(0).toString());
+                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
+                //myButton.setText(attributlist.get(2).toString());
                 myButton.setId(i);
 
                 listButton.add(myButton);
