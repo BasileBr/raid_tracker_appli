@@ -192,4 +192,10 @@ public class LandingActivity extends AppCompatActivity {
     public static void recupereraid(){
     }
 
+    public void createparcours(View view){
+        Intent intent=new Intent(LandingActivity.this,CreateParcours.class);
+        startActivity(intent);
+
+    }
+
 }

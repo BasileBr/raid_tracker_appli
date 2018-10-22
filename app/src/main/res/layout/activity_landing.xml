@@ -300,6 +300,11 @@
                         android:textColor="@color/white" />
                 </RelativeLayout>
 
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="clique "
+                    android:onClick="createparcours"/>
 
 
                 <!--<RelativeLayout-->
