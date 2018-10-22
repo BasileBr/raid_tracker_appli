@@ -12,6 +12,6 @@
 
     <color name="MarronPrimaire">#7c4325</color>
     <color name="VertPrimaire">#85C17E</color>
-    <color name="BleuPrimaire" id="5">#3999f9</color>
+    <color name="BleuPrimaire">#3999f9</color>
     <color name="Blancnacre">#F8F8FF</color>
 </resources>
