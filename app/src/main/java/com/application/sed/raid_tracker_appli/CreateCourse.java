@@ -179,9 +179,15 @@ public class CreateCourse extends AppCompatActivity {
 
                         LandingActivity.recupereraid();
                         Utils.info("EditText", Bdd.getElement(1).toString());
+
+                        //déclencher la création d'un parcours sur la page de landing
                         Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
                         intent.putExtra("name","Toto");
                         startActivity(intent);
+
+                        //redirection vers la page de création d'un parcours
+                        Intent intent2= new Intent(CreateCourse.this, CreateParcours.class);
+                        startActivity(intent2);
 
 
 
