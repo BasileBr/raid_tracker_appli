@@ -27,6 +27,7 @@ public class LandingActivity extends AppCompatActivity {
 
     private String TAG = "WelcomeActivity";
     private static String TAGs = "WelcomeActivity";
+
     // Attributs pour le menu Hamburger et l'actionBar
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -89,10 +90,9 @@ public class LandingActivity extends AppCompatActivity {
                 Utils.debug("Rajout des boutons", "Valeurs de i" +i);
                 Button myButton2 = listButton.get(i);
 
+//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
                 LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
-//                RelativeLayout but = findViewById(R.id.boutooondemerde);
-//                ll.setNextFocusRightId(but.getId());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 ll.addView(myButton2, lp);
 
