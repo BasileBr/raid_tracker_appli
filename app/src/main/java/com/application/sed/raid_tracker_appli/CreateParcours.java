@@ -13,6 +13,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
@@ -68,6 +69,20 @@ public class CreateParcours extends Activity {
         // ajouter l'echelle
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
         map.getOverlays().add(myScaleBarOverlay);
+
+        //ajouter marqueur
+        GeoPoint enssatpoint =  new GeoPoint(48.729673,-3.4624261999999817);
+
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(enssatpoint);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        String latitude=String.valueOf(enssatpoint.getLatitude());
+        String longitude=String.valueOf(enssatpoint.getLongitude());
+        startMarker.setTitle("ENSSAT"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+
+        //ajouter un icone particuliere
+        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+        map.getOverlays().add(startMarker);
 //
 //        // ajouter boussolle
 //        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
