@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
@@ -33,24 +33,23 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateParcours extends Activity implements MapEventsReceiver {
     MapView map = null;
-
-
     private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
     int ParcoursListGeoPoint = 0;
-
-
     MyLocationNewOverlay mLocationOverlay;
+    Marker standardmarker;
+    Marker standardmarker1;
 
-    // action sur un long appuie
+    public static ArrayList<List> Liste =new ArrayList<>();
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //handle permissions first, before map is created. not depicted here
+        //handle permissions first, before map is created. not depicted here TODO
 
         //load/initialize the osmdroid configuration, this can be done
         Context ctx = getApplicationContext();
@@ -72,18 +71,17 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         map.setMultiTouchControls(true);
 
 
-        //position de la carte
+        //positionnement lors de l'ouverture de la carte
         IMapController mapController = map.getController();
         mapController.setZoom(9);
-        GeoPoint startPoint = new GeoPoint(48.732084,-3.4591440000000375);
+        final GeoPoint startPoint = new GeoPoint(48.732084,-3.4591440000000375);
         mapController.setCenter(startPoint);
 
-
+        //géolocaliser l'appareil
         MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
         mLocationOverlay.enableMyLocation();
         map.setMultiTouchControls(true);
         map.getOverlays().add(mLocationOverlay);
-
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx),map);
         this.mLocationOverlay.enableMyLocation();
         map.getOverlays().add(this.mLocationOverlay);
@@ -91,6 +89,77 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         // ajouter l'echelle
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
         map.getOverlays().add(myScaleBarOverlay);
+
+        // ajouter boussolle
+        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
+        mCompassOverlay.enableCompass();
+        map.getOverlays().add(mCompassOverlay);
+
+        //créer un road manager (Appel vers l'api pour guider d'un point à un autre
+//        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
+
+        // fixer le point de départ et le point d'arrivée
+       // ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+        //waypoints.add(startPoint);
+        //GeoPoint endPoint = new GeoPoint(48.4, -1.9);
+        //waypoints.add(endPoint);
+
+
+        //choisir le type de route
+        //roadManager.addRequestOption("routeType=pedestrian");
+        // Road road = roadManager.getRoad(waypoints);
+
+        //créer les lignes
+        // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+        //map.getOverlays().add(roadOverlay);
+
+        // permet de mettre à jour la carte
+        //map.invalidate();
+
+
+        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+        map.getOverlays().add(0, mapEventsOverlay);
+
+
+
+
+        //point de repere de base
+        standardmarker = new Marker(map);
+        standardmarker1 = new Marker(map);
+
+        //standardmarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+        //map.getOverlays().add(standardmarker);
+
+
+        //récupère les id des boutons
+        ImageButton greenflag = (ImageButton) findViewById(R.id.greenflag);
+        ImageButton redflag = (ImageButton) findViewById(R.id.redflag);
+
+        //action listener sur le drapeau de depart
+        greenflag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.info("coucou", "ouiii");
+                standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag));
+
+
+                //map.getOverlays().add(standardmarker);
+
+            }
+        });
+
+
+        //action listenner sur le drapeau d'arrivée
+
+        redflag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.info("coucou", "rouuuuge");
+                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
+                //map.getOverlays().add(standardmarker1);
+            }
+        });
+
 
         //ajouter marqueur
 //        GeoPoint enssatpoint =  new GeoPoint(48.729673,-3.4624261999999817);
@@ -105,63 +174,55 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 //        //ajouter un icone particuliere
 //        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
 //        map.getOverlays().add(startMarker);
-////
-//        // ajouter boussolle
-        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
-        mCompassOverlay.enableCompass();
-        map.getOverlays().add(mCompassOverlay);
-
-        //créer un road manager
-
-//        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
-
-        // fixer le point de départ et le point d'arrivé
-
-        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-        waypoints.add(startPoint);
-        GeoPoint endPoint = new GeoPoint(48.4, -1.9);
-        waypoints.add(endPoint);
-
-
-        //rejoindre les points en passant par la route
-        //roadManager.addRequestOption("routeType=pedestrian");
-        // Road road = roadManager.getRoad(waypoints);
-
-        //créer les lignes
-
-        // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
-
-        //map.getOverlays().add(roadOverlay);
-
-        //map.invalidate();
-
-        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
-
-        map.getOverlays().add(0, mapEventsOverlay);
-
-//        Drawable nodeIcon = getResources().getDrawable(R.drawable.pointer);
-//        for (int i=0; i<road.mNodes.size(); i++){
-//            RoadNode node = road.mNodes.get(i);
-//            Marker nodeMarker = new Marker(map);
-//            nodeMarker.setPosition(node.mLocation);
-//            nodeMarker.setIcon(nodeIcon);
-//            nodeMarker.setTitle("Step "+i);
-//            map.getOverlays().add(nodeMarker);
-        //       }
-
 
     }
 
 
+
     @Override public boolean longPressHelper(GeoPoint p) {
+
         GeoPoint tmpgeo = new GeoPoint(p.getLatitude(),p.getLongitude());
-        Marker startMarker = new Marker(map);
-        startMarker.setPosition(tmpgeo);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        //Marker startMarker = new Marker(map);
+        //startMarker.setPosition(tmpgeo);
+
+        standardmarker.setPosition(tmpgeo);
+        standardmarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         String latitude=String.valueOf(p.getLatitude());
         String longitude=String.valueOf(p.getLongitude());
 
         Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+
+//        //Liste de points
+//        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+//
+//        //waypoints.add(startPoint);
+//
+//        //waypoints.add(endPoint);
+
+        standardmarker.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+
+        //ajouter un icone particuliere
+        //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+        map.getOverlays().add(standardmarker);
+
+        ListGeoPoint.add(tmpgeo);
+        map.invalidate();
+        //setRoad();
+
+
+        GeoPoint tmpgeo1 = new GeoPoint(p.getLatitude(),p.getLongitude());
+        //Marker startMarker = new Marker(map);
+        //startMarker.setPosition(tmpgeo);
+
+
+        standardmarker1.setPosition(tmpgeo1);
+        standardmarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        String latitude1=String.valueOf(p.getLatitude());
+        String longitude1=String.valueOf(p.getLongitude());
+
+        Utils.debug("longPressHelper","Lat "+latitude1 + "long " + longitude1);
+
+
 
 
 //        //Liste de points
@@ -171,13 +232,14 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 //
 //        //waypoints.add(endPoint);
 
-        startMarker.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+        standardmarker1.setTitle("nouveau point de passage2"+"\n"+"latitude: "+latitude1+'\n'+"longitude: "+longitude1);
 
         //ajouter un icone particuliere
-        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-        map.getOverlays().add(startMarker);
+        //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+        map.getOverlays().add(standardmarker1);
 
-        ListGeoPoint.add(tmpgeo);
+        ListGeoPoint.add(tmpgeo1);
+        map.invalidate();
         setRoad();
 
         return false;
@@ -187,6 +249,9 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     public void setRoad(){
 
         ArrayList<GeoPoint> parcours = new ArrayList<>();
+
+
+
         if (ParcoursListGeoPoint <1) {
             ParcoursListGeoPoint += 1;
         }
@@ -219,11 +284,6 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         Utils.debug("SingleTapConfirmedHelped", "Je rentre ici");
         return false;
     }
-
-
-
-
-
 
 
 

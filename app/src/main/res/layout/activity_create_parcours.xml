@@ -16,9 +16,10 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/greenflag"
             android:src="@drawable/green_flag"
             />
 
@@ -29,9 +30,10 @@
             android:textSize="15sp"
             android:text="Point de départ"/>
 
-        <ImageView
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
+            android:id="@+id/redflag"
             android:layout_height="match_parent"
             android:src="@drawable/red_flag"
             />
