@@ -38,41 +38,13 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     MapView map = null;
 
 
+    private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
+    int ParcoursListGeoPoint = 0;
 
 
     MyLocationNewOverlay mLocationOverlay;
 
     // action sur un long appuie
-
-    @Override public boolean longPressHelper(GeoPoint p) {
-        GeoPoint tmpgeo = new GeoPoint(p.getLatitude(),p.getLongitude());
-        Marker startMarker = new Marker(map);
-        startMarker.setPosition(tmpgeo);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        String latitude=String.valueOf(p.getLatitude());
-        String longitude=String.valueOf(p.getLongitude());
-
-
-        //Liste de points
-        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-        
-        //waypoints.add(startPoint);
-
-        //waypoints.add(endPoint);
-
-        startMarker.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
-
-        //ajouter un icone particuliere
-        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-        map.getOverlays().add(startMarker);
-
-        return false;
-    }
-
-    @Override
-    public boolean singleTapConfirmedHelper(GeoPoint p) {
-        return false;
-    }
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +74,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
         //position de la carte
         IMapController mapController = map.getController();
-        mapController.setZoom(9.0);
+        mapController.setZoom(9);
         GeoPoint startPoint = new GeoPoint(48.732084,-3.4591440000000375);
         mapController.setCenter(startPoint);
 
@@ -153,11 +125,11 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
         //rejoindre les points en passant par la route
         //roadManager.addRequestOption("routeType=pedestrian");
-       // Road road = roadManager.getRoad(waypoints);
+        // Road road = roadManager.getRoad(waypoints);
 
         //créer les lignes
 
-       // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+        // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
 
         //map.getOverlays().add(roadOverlay);
 
@@ -175,10 +147,81 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 //            nodeMarker.setIcon(nodeIcon);
 //            nodeMarker.setTitle("Step "+i);
 //            map.getOverlays().add(nodeMarker);
- //       }
+        //       }
 
 
     }
+
+
+    @Override public boolean longPressHelper(GeoPoint p) {
+        GeoPoint tmpgeo = new GeoPoint(p.getLatitude(),p.getLongitude());
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(tmpgeo);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        String latitude=String.valueOf(p.getLatitude());
+        String longitude=String.valueOf(p.getLongitude());
+
+        Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+
+
+//        //Liste de points
+//        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+//
+//        //waypoints.add(startPoint);
+//
+//        //waypoints.add(endPoint);
+
+        startMarker.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+
+        //ajouter un icone particuliere
+        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+        map.getOverlays().add(startMarker);
+
+        ListGeoPoint.add(tmpgeo);
+        setRoad();
+
+        return false;
+    }
+
+
+    public void setRoad(){
+
+        ArrayList<GeoPoint> parcours = new ArrayList<>();
+        if (ParcoursListGeoPoint <1) {
+            ParcoursListGeoPoint += 1;
+        }
+        else {
+            for (int i = ParcoursListGeoPoint; i < ListGeoPoint.size(); i++){
+                parcours.add(ListGeoPoint.get(i-1));
+                parcours.add(ListGeoPoint.get(i));
+                RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
+
+                roadManager.addRequestOption("routeType=pedestrian");
+                Road road = roadManager.getRoad(parcours);
+
+                Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+
+                map.getOverlays().add(roadOverlay);
+
+                map.invalidate();
+
+                MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+
+                map.getOverlays().add(0, mapEventsOverlay);
+                ParcoursListGeoPoint += 1;
+
+            }
+        }
+    }
+
+    @Override
+    public boolean singleTapConfirmedHelper(GeoPoint p) {
+        Utils.debug("SingleTapConfirmedHelped", "Je rentre ici");
+        return false;
+    }
+
+
+
 
 
 
