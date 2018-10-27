@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli;
 
 import android.view.ViewDebug;
+import android.widget.Button;
 
 import java.awt.font.TextAttribute;
 import java.io.StringReader;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Bdd {
     private static ArrayList<List> Liste =new ArrayList<>();
     private static ArrayList<List> ListeAccount =new ArrayList<>();
+    private static ArrayList<Button> ListButton = new ArrayList<>();
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
 
@@ -54,6 +56,34 @@ public class Bdd {
         return ListeAccount;
     }
 
+    /* Récupérer la liste qui contient l'utilisateur demandé*/
+    public static List getAccountByName(String name){
+        int intermediare = ListeAccount.indexOf(name);
+        return ListeAccount.get(intermediare);
+    }
+
+
+    /** TODO
+     * Non finie
+     * @param add
+     */
+    public static void updateAccount(ArrayList add){
+        int intermediare = ListeAccount.indexOf(add.get(1));
+    }
+
+
+
+    /*Ajouter un utilisateur */
+    public static void addButton(ArrayList myListAccount){
+        Utils.info("Check Value in my List","add Account");
+
+        ListeAccount.add(myListAccount);
+    }
+
+    /* Recupérer les informations de l'utilisateur */
+    public static ArrayList getButton(){
+        return ListeAccount;
+    }
 
 
     /*

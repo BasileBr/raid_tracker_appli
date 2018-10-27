@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +118,17 @@ public class LandingActivity extends AppCompatActivity {
 
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        for (int j = 0; j<listButton.size(); j++) {
+            Button newButton = listButton.get(j);
+
+            newButton.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

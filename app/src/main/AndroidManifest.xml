@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.application.sed.raid_tracker_appli">
 
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -43,18 +42,20 @@
         <activity
             android:name=".CreateCourse"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-         <activity android:name=".WelcomeActivity"
-             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-         </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".Accueil"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".CreateParcours"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <!--<activity android:name=".PerfomCalculations"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>-->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".CreateParcours"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- <activity android:name=".PerfomCalculations" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity> -->
+        <activity android:name=".organizer.CourseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
