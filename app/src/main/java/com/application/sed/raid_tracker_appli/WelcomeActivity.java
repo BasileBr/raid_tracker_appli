@@ -27,35 +27,35 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param view view
      *
      */
-    public void login(View view){
-
-        /*
-         * TODO login
-         * Bouton du login -> direction vers page HOME si ok (HomeActivity)
-         * Sinon, message d'erreur
-         */
-        final EditText user = findViewById(R.id.username);
-        final EditText pass = findViewById(R.id.password);
-
-        // Test du bouton avec le user toto et password test
-        if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
-            Utils.debug(TAG, "cool");
-            Utils.Name = "toto";
-            Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);
-            Utils.info(TAG,"connexion, new activity");
-
-            startActivity(intent);
-        }
-        else {
-            Utils.info(TAG, "pas cool");
-        }
-
-        // fin du test
-
-
-        Utils.info(TAG,"Login Button action");
-
-    }
+//    public void login(View view){
+//
+//        /*
+//         * TODO login
+//         * Bouton du login -> direction vers page HOME si ok (HomeActivity)
+//         * Sinon, message d'erreur
+//         */
+//        final EditText user = findViewById(R.id.username);
+//        final EditText pass = findViewById(R.id.password);
+//
+//        // Test du bouton avec le user toto et password test
+//        if (user.getText().toString().equals("User") & pass.getText().toString().equals("Password")){
+//            Utils.debug(TAG, "cool");
+//            Utils.Name = "toto";
+//            Intent intent = new Intent(WelcomeActivity.this, LandingActivity.class);
+//            Utils.info(TAG,"connexion, new activity");
+//
+//            startActivity(intent);
+//        }
+//        else {
+//            Utils.info(TAG, "pas cool");
+//        }
+//
+//        // fin du test
+//
+//
+//        Utils.info(TAG,"Login Button action");
+//
+//    }
 
     /**
      *
@@ -63,13 +63,13 @@ public class WelcomeActivity extends AppCompatActivity {
     public void join(View view) {
 
 
-        Intent intent = new Intent(WelcomeActivity.this, ConnexionActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, Accueil.class);
         startActivity(intent);
     }
 
 
     public void createAccount(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
+        Intent intent =  new Intent(WelcomeActivity.this, Accueil.class);
         startActivity(intent);
     }
 }

@@ -14,72 +14,40 @@
         android:gravity="center"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
-
-        <LinearLayout
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start">
-
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="82dp"
-                android:layout_height="38dp"
-                android:background="@null"
-                android:drawableStart="@drawable/client"
-                android:drawablePadding="5dp"
-                android:hint="@string/input_login"
-                android:inputType="text"
-                android:text="@string/input_username" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="82dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:drawableStart="@drawable/cadena"
-                android:drawablePadding="5dp"
-                android:inputType="textPassword"
-                android:text="@string/input_password" />
-
-            <Button
-                android:id="@+id/loginbutton"
-                android:layout_width="77dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="10dp"
-                android:onClick="login"
-                android:text="@string/input_login" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end">
-
-            <Button
-                android:id="@+id/inscription"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:layout_gravity="start"
-                android:onClick="createAccount"
-                android:text="@string/input_inscription" />
-        </LinearLayout>
-
+            android:layout_gravity="center"
+            android:background="@drawable/rt_basev2"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/text"
-        style="@style/Widget.AppCompat.Button.Borderless"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_gravity="left"
-        android:background="@color/Blancnacre"
-        android:gravity="left"
-        android:text="@string/motdepasseoublie"
-        android:textSize="12sp" />
+        android:layout_height="130dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/MarronPrimaire"
+            android:textSize="20dp"
+            android:text="@string/bievenue"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/inscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/BleuPrimaire"
+            android:onClick="createAccount"
+            android:text="@string/input_inscription" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -91,6 +59,11 @@
             android:background="@color/Blancnacre"
             android:orientation="vertical">
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listeraid"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -99,12 +72,12 @@
                     android:id="@+id/myImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:alpha=".75"
                     android:cropToPadding="true"
-                    android:src="@drawable/coureur" />
+                    android:src="@drawable/coureur2" />
 
                 <TextView
                     android:id="@+id/myImageViewText"
@@ -112,8 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/myImageView"
                     android:layout_alignTop="@+id/myImageView"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="82dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/description"
                     android:textColor="#000000" />
 
@@ -122,15 +95,17 @@
                     android:id="@+id/join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/myImageView"
+                    android:layout_alignEnd="@+id/myImageView"
+                    android:layout_alignBottom="@+id/myImageView"
                     android:layout_centerVertical="true"
                     android:background="#4D000000"
-                    android:layout_alignTop="@+id/myImageView"
-                    android:layout_alignBottom="@+id/myImageView"
-                    android:layout_alignEnd="@+id/myImageView"
                     android:onClick="join"
-                    android:textColor="@color/white"
-                    android:text="@string/join" />
+                    android:text="@string/join"
+                    android:textColor="@color/white" />
             </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -140,12 +115,12 @@
                     android:id="@+id/myImageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:alpha=".75"
                     android:cropToPadding="true"
-                    android:src="@drawable/coureur" />
+                    android:src="@drawable/coureur2" />
 
                 <TextView
                     android:id="@+id/myImageViewText2"
@@ -153,8 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/myImageView2"
                     android:layout_alignTop="@+id/myImageView2"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="82dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/description"
                     android:textColor="#000000" />
 
@@ -163,15 +138,17 @@
                     android:id="@+id/join2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/myImageView2"
+                    android:layout_alignEnd="@+id/myImageView2"
+                    android:layout_alignBottom="@+id/myImageView2"
                     android:layout_centerVertical="true"
                     android:background="#4D000000"
-                    android:layout_alignTop="@+id/myImageView2"
-                    android:layout_alignBottom="@+id/myImageView2"
-                    android:layout_alignEnd="@+id/myImageView2"
-                    android:textColor="@color/white"
                     android:onClick="join"
-                    android:text="@string/join" />
+                    android:text="@string/join"
+                    android:textColor="@color/white" />
             </RelativeLayout>
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -180,12 +157,12 @@
                     android:id="@+id/myImageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:alpha=".75"
                     android:cropToPadding="true"
-                    android:src="@drawable/coureur" />
+                    android:src="@drawable/coureur2" />
 
                 <TextView
                     android:id="@+id/myImageViewText3"
@@ -193,8 +170,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/myImageView3"
                     android:layout_alignTop="@+id/myImageView3"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="82dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/description"
                     android:textColor="#000000" />
 
@@ -203,15 +180,16 @@
                     android:id="@+id/join3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/myImageView3"
+                    android:layout_alignEnd="@+id/myImageView3"
+                    android:layout_alignBottom="@+id/myImageView3"
                     android:layout_centerVertical="true"
                     android:background="#4D000000"
-                    android:layout_alignTop="@+id/myImageView3"
-                    android:layout_alignBottom="@+id/myImageView3"
-                    android:layout_alignEnd="@+id/myImageView3"
-                    android:textColor="@color/white"
                     android:onClick="join"
-                    android:text="@string/join" />
+                    android:text="@string/join"
+                    android:textColor="@color/white" />
             </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>
