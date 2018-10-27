@@ -53,6 +53,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity android:name=".CreateParcours"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <!--<activity android:name=".PerfomCalculations"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>-->
     </application>
 
 </manifest>

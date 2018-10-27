@@ -43,6 +43,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
+    Marker standardmarker2;
 
     int numbouton = 0;
 
@@ -125,17 +126,13 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
 
 
-
-        //point de repere de base
-
-
-        //standardmarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-        //map.getOverlays().add(standardmarker);
-
-
         //récupère les id des boutons
         ImageButton greenflag = (ImageButton) findViewById(R.id.greenflag);
         ImageButton redflag = (ImageButton) findViewById(R.id.redflag);
+        ImageButton poi = (ImageButton) findViewById(R.id.poi);
+
+
+
 
         //action listener sur le drapeau de depart
         greenflag.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +163,31 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
             }
         });
 
+        //action listener sur les points de passage
+        redflag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.info("coucou", "rouuuuge");
+                standardmarker1 = new Marker(map);
+                numbouton = 2;
+                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
+                //map.getOverlays().add(standardmarker1);
+            }
+        });
+
+        //action listener sur les points de passage
+        poi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.info("coucou", "bleuuu");
+                standardmarker2 = new Marker(map);
+                numbouton = 3;
+                standardmarker2.setIcon(getResources().getDrawable(R.drawable.passage));
+                //map.getOverlays().add(standardmarker1);
+            }
+        });
+
+
 
         //ajouter marqueur
 //        GeoPoint enssatpoint =  new GeoPoint(48.729673,-3.4624261999999817);
@@ -182,6 +204,14 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 //        map.getOverlays().add(startMarker);
 
     }
+
+//    public void drawRouteAsync(){
+//        GeoPoint pointFrom = new GeoPoint(51.489878, 6.143294);
+//        GeoPoint pointTo = new GeoPoint(51.488978, 6.746994);
+//
+//        new GetRouteTask(getApplicationContext(), this).execute(new GeoPoint(){pointFrom , pointTo});
+//
+//    }
 
 
 
@@ -211,7 +241,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         //
         //        //waypoints.add(endPoint);
 
-                standardmarker.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+                standardmarker.setTitle("point de départ"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
 
                 //ajouter un icone particuliere
                 //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
@@ -235,7 +265,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                 //
                 //        //waypoints.add(endPoint);
 
-                standardmarker1.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+                standardmarker1.setTitle("point d'arrivée"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
 
                 //ajouter un icone particuliere
                 //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
@@ -247,6 +277,29 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                 setRoad();
 
                 break;
+
+            case 3:
+                standardmarker2.setPosition(tmpgeo);
+                standardmarker2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+
+                //        //Liste de points
+                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                //
+                //        //waypoints.add(startPoint);
+                //
+                //        //waypoints.add(endPoint);
+
+                standardmarker2.setTitle("nouveau point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+
+                //ajouter un icone particuliere
+                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                map.getOverlays().add(standardmarker2);
+                ListGeoPoint.add(tmpgeo);
+                map.invalidate();
+                setRoad();
+                break;
+
         }
 
 
@@ -326,4 +379,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         //Configuration.getInstance().save(this, prefs);
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
+
+
+
 }
