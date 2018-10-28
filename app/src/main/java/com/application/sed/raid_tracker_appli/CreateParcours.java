@@ -171,9 +171,9 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
             @Override
             public void onClick(View v) {
                 Utils.info("coucou", "ouiii");
-                standardmarker = new Marker(map);
+
                 numbouton = 1;
-                standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag));
+
 
 
                 //map.getOverlays().add(standardmarker);
@@ -188,33 +188,33 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
             @Override
             public void onClick(View v) {
                 Utils.info("coucou", "rouuuuge");
-                standardmarker1 = new Marker(map);
+
                 numbouton = 2;
-                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
+
                 //map.getOverlays().add(standardmarker1);
             }
         });
 
-        //action listener sur les points de passage
-        redflag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.info("coucou", "rouuuuge");
-                standardmarker1 = new Marker(map);
-                numbouton = 2;
-                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
-                //map.getOverlays().add(standardmarker1);
-            }
-        });
+        //action listener sur les points d'interets
+//        redflag.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Utils.info("coucou", "rouuuuge");
+//                standardmarker1 = new Marker(map);
+//                numbouton = 2;
+//                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
+//                //map.getOverlays().add(standardmarker1);
+//            }
+//        });
 
         //action listener sur les points de passage
         poi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.info("coucou", "bleuuu");
-                standardmarker2 = new Marker(map);
+
                 numbouton = 3;
-                standardmarker2.setIcon(getResources().getDrawable(R.drawable.passage));
+
                 //map.getOverlays().add(standardmarker1);
             }
         });
@@ -260,6 +260,9 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
             case 0:
                 break;
             case 1:
+
+                standardmarker = new Marker(map);
+                standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag));
                 standardmarker.setPosition(tmpgeo);
                 standardmarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 
@@ -286,6 +289,9 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
                 break;
             case 2:
+
+                standardmarker1 = new Marker(map);
+                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag));
                 standardmarker1.setPosition(tmpgeo);
                 standardmarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
@@ -311,6 +317,8 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                 break;
 
             case 3:
+                standardmarker2 = new Marker(map);
+                standardmarker2.setIcon(getResources().getDrawable(R.drawable.passage));
                 standardmarker2.setPosition(tmpgeo);
                 standardmarker2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
