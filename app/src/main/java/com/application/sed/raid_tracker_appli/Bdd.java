@@ -64,7 +64,7 @@ public class Bdd {
 
 
     /** TODO
-     * Non finie
+     * Non finie. Mais normalement non utile -> Utilisation de l'API + BDD
      * @param add
      */
     public static void updateAccount(ArrayList add){
@@ -73,16 +73,15 @@ public class Bdd {
 
 
 
-    /*Ajouter un utilisateur */
-    public static void addButton(ArrayList myListAccount){
+    /*Ajouter un nouveau bouton de parcours */
+    public static void addButton(Button mybutton){
         Utils.info("Check Value in my List","add Account");
-
-        ListeAccount.add(myListAccount);
+        ListButton.add(mybutton);
     }
 
-    /* Recupérer les informations de l'utilisateur */
+    /* Recupérer la liste des boutons */
     public static ArrayList getButton(){
-        return ListeAccount;
+        return ListButton;
     }
 
 

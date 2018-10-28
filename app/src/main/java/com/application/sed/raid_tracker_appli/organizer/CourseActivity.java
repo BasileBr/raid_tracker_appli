@@ -1,5 +1,6 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -8,15 +9,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.application.sed.raid_tracker_appli.Bdd;
+import com.application.sed.raid_tracker_appli.CreateCourse;
+import com.application.sed.raid_tracker_appli.CreateParcours;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils;
+
+import java.util.ArrayList;
 
 public class CourseActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +54,31 @@ public class CourseActivity extends AppCompatActivity {
 
             }
         });
+        LinearLayout ll = findViewById(R.id.ParcoursLayout);
+        ArrayList<Button> listebouton = new ArrayList<>();
+        listebouton = Bdd.getButton();
+        for (int i =0; i<Bdd.getButton().size();i++){
+
+            Button button = new Button(this);
+            button = listebouton.get(i);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(button, lp);
+        }
+
     }
 
+
+    public void Course(View view){
+
+        Button mybutton = new Button(this);
+        mybutton.setId(Bdd.getButton().size()+1);
+        mybutton.setText("Ceci est mon parcours " + Bdd.getButton().size()+1);
+        Bdd.addButton(mybutton);
+        Intent intent2= new Intent(CourseActivity.this, CreateParcours.class);
+        startActivity(intent2);
+
+    }
+    /* Méthodes pour le Drawer */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

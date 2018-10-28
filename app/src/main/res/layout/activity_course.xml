@@ -102,6 +102,7 @@
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:gravity="end"
+                        android:onClick="Course"
                         android:background="@drawable/ic_add_circle_outline_black_24dp">
 
                     </Button>
