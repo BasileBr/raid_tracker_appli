@@ -48,9 +48,10 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     Marker standardmarker1; // = new Marker(map);
     Marker standardmarker2;
 
+    GeoPoint pointa = new GeoPoint(51.489878, 6.143294);
+    GeoPoint pointb = new GeoPoint(51.488978, 6.746994);
     GeoPoint geotemporaire;
-    GeoPoint pointa;
-    GeoPoint pointb;
+
     int numbouton = 0;
     int compteur=0;
 
@@ -322,13 +323,14 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         ArrayList<GeoPoint> parcours = new ArrayList<>();
 
 
+
             //parcours l'arraylist contenant tous les geopoints lors d'un appui long
             for (int i = ParcoursListGeoPoint; i<ListGeoPoint.size();i++){
 
                 // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
                 if (compteur==0){
                     parcours.add(ListGeoPoint.get(i));
-                    //pointa=parcours.get(0);
+                    pointa = parcours.get(0);
                     compteur +=1;
                 }
 
@@ -336,11 +338,14 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                 else if (compteur==1){
                     parcours.add(ListGeoPoint.get(i));
                     compteur +=1;
-                    //pointb=parcours.get(1);
+                    pointb = (parcours.get(1));
 
                     //tache de fond
                     //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
-                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){pointa,pointb});
+                    GeoPoint[] toto = new GeoPoint[2];
+                    toto[0] = pointa;
+                    toto[1] = pointb;
+                    new PerfomCalculations(getApplicationContext(),this).execute(toto);
                 }
                 // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
                 else if (compteur==2){

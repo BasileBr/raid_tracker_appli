@@ -38,7 +38,7 @@ public class PerfomCalculations extends AsyncTask<GeoPoint,Void,Integer> {
 
     // permet d'effectuer des tâches de fond, tâches lourdes executées sur un autre thread
     @Override
-    protected Integer doInBackground(GeoPoint... params) {
+    protected Integer doInBackground(GeoPoint[] params) {
         ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
         waypoints.add(params[0]);
         waypoints.add(params[1]);
