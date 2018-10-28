@@ -30,7 +30,7 @@
                     android:layout_height="match_parent"
                     android:textSize="20sp"
                     android:textColor="#000000"
-                    android:text="@string/Home"/>
+                    android:text="@string/Landing"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

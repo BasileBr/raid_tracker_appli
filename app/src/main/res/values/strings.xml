@@ -33,6 +33,13 @@
     <string name="connexion">Se connecter</string>
     <string name="validsport">Valider les sports</string>
     <string name="choosesports">Les sports </string>
+    <string name="Landing">Page personnelle</string>
+
+    <!--Activity course-->
+    <string name="Listeparcours">Voici la liste de vos parcours :</string>
+    <string name="mapparcours">Voici la map qui résume vos parcours :</string>
+    <string name="Ajoutparcours">Ajouter un\nparcours</string>
+    <string name="Course">Page de gestion d\'un raid</string>
 
     <string name="Home">Page d\'accueil</string>
     <string name="Deconnexion">Deconnexion</string>
