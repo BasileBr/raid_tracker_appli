@@ -3,6 +3,7 @@ package com.application.sed.raid_tracker_appli;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceActivity;
@@ -32,6 +33,22 @@ import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+import android.content.Context;
+import android.os.AsyncTask;
+
+import org.json.JSONException;
+import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Polyline;
+
+import java.util.ArrayList;
+
+import okhttp3.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +79,11 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         super.onCreate(savedInstanceState);
 
         //handle permissions first, before map is created. not depicted here TODO
+
+
+
+
+
 
         //load/initialize the osmdroid configuration, this can be done
         Context ctx = getApplicationContext();
@@ -345,8 +367,10 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                     GeoPoint[] toto = new GeoPoint[2];
                     toto[0] = pointa;
                     toto[1] = pointb;
-                    new PerfomCalculations(getApplicationContext(),this).execute(toto);
+                    //new PerfomCalculations(getApplicationContext(),this).execute(toto);
+                    new PerfomCalculations().execute(pointa,pointb);
                 }
+
                 // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
                 else if (compteur==2){
 
@@ -354,9 +378,12 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                     geotemporaire = parcours.get(1);
                     //on l'ajoute en écrasant l'indice 0
                     parcours.add(0,geotemporaire);
+                    parcours.add(1,ListGeoPoint.get(i));
 
                     //balance la tache de fond
                     //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+
+                    new PerfomCalculations().execute(geotemporaire,parcours.get(1));
 
                 }
 
@@ -364,7 +391,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
 
 
-//
+
 //        if (ParcoursListGeoPoint <1) {
 //            ParcoursListGeoPoint += 1;
 //        }
@@ -438,6 +465,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
     }
 
+
     public void onPause(){
         super.onPause();
         //this will refresh the osmdroid configuration on resuming.
@@ -447,6 +475,41 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
+    private class PerfomCalculations extends AsyncTask<GeoPoint,Void,Road> {
+        @Override
+        protected Road doInBackground(GeoPoint[] params) {
+            ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+            waypoints.add(params[0]); //POINT A
+            waypoints.add(params[1]); // point b
+
+//            try {
+//            RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
+//            roadManager.addRequestOption("routeType=pedestrian");
+//            Road route = roadManager.getRoad(waypoints);
+
+            RoadManager roadManager = new OSRMRoadManager(getApplicationContext()); // your context
+            Road road = roadManager.getRoad(waypoints);
+
+            return road;
+//            } catch (Exception e) {
+//                return -1;
+        }
+
+        protected void onPostExecute(Road road) {
+////
+            Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+            map.getOverlays().add(roadOverlay);
+
+            map.invalidate();
+//
+            //MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getApplicationContext(),);
+//
+            // map.getOverlays().add(0, mapEventsOverlay);
+        }
+
+    }
+
 
 
 }
+

@@ -61,18 +61,18 @@ public class PerfomCalculations extends AsyncTask<GeoPoint,Void,Integer> {
     }
 
     //optionnel appelé après le traitement (!! s'execute avec le thread UI)
-//     @Override
-//    protected void onPostExecute(Integer success) {
+     @Override
+    protected void onPostExecute(Integer success) {
 //
 //        Polyline roadOverlay = RoadManager.buildRoadOverlay(route);
-////        map.getOverlays().add(roadOverlay);
-////
-////        map.invalidate();
-////
-////        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
-////
-////        map.getOverlays().add(0, mapEventsOverlay);
-//    }
+//        map.getOverlays().add(roadOverlay);
+//
+//        map.invalidate();
+//
+//        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+//
+//        map.getOverlays().add(0, mapEventsOverlay);
+    }
 
     // optionnel appelé pendant la progression (!! s'execute avec le thread UI)
     @Override
