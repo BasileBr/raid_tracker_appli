@@ -73,7 +73,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     int compteur=0;
 
     public static ArrayList<List> Liste =new ArrayList<>();
-
+    ArrayList<GeoPoint> parcours = new ArrayList<>();
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,7 +342,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     public void setRoad(){
 
         //arraylist pour stocker deux points maximum
-        ArrayList<GeoPoint> parcours = new ArrayList<>();
+
 
 
 
@@ -351,22 +351,30 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
                 // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
                 if (compteur==0){
+                    Utils.debug("setRoad","If cpt = 0 ");
                     parcours.add(ListGeoPoint.get(i));
                     pointa = parcours.get(0);
+                    Utils.debug("setRoad","PointA" + pointa.toString());
                     compteur +=1;
+                    ParcoursListGeoPoint += 1;
+
                 }
 
                 //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
                 else if (compteur==1){
+                    Utils.debug("setRoad","If cpt = 1 ");
                     parcours.add(ListGeoPoint.get(i));
+                    Utils.debug("setRoad","Parcours ");
                     compteur +=1;
-                    pointb = (parcours.get(1));
+                    pointb = parcours.get(1);
+                    Utils.debug("setRoad","pointB " + pointb.toString());
 
                     //tache de fond
                     //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
                     GeoPoint[] toto = new GeoPoint[2];
                     toto[0] = pointa;
                     toto[1] = pointb;
+                    ParcoursListGeoPoint += 1;
                     //new PerfomCalculations(getApplicationContext(),this).execute(toto);
                     new PerfomCalculations().execute(pointa,pointb);
                 }
@@ -374,6 +382,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
                 // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
                 else if (compteur==2){
 
+                    Utils.debug("setRoad","If cpt = 2 ");
                     //recupere le deuxieme point dans parcours
                     geotemporaire = parcours.get(1);
                     //on l'ajoute en écrasant l'indice 0
@@ -382,7 +391,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
                     //balance la tache de fond
                     //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
-
+                    ParcoursListGeoPoint += 1;
                     new PerfomCalculations().execute(geotemporaire,parcours.get(1));
 
                 }
