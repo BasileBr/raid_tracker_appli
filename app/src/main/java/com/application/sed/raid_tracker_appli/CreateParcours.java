@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -35,6 +36,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Route;
+
 public class CreateParcours extends Activity implements MapEventsReceiver {
     MapView map = null;
     private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
@@ -45,7 +48,11 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
     Marker standardmarker1; // = new Marker(map);
     Marker standardmarker2;
 
+    GeoPoint geotemporaire;
+    GeoPoint pointa;
+    GeoPoint pointb;
     int numbouton = 0;
+    int compteur=0;
 
     public static ArrayList<List> Liste =new ArrayList<>();
 
@@ -66,6 +73,8 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
         //inflate and create the map
         setContentView(R.layout.activity_create_parcours);
+
+        // à utiliser en phase de développement, autorise toutes les permissions sur le thread UI (pas terrible)
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -309,36 +318,89 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
     public void setRoad(){
 
+        //arraylist pour stocker deux points maximum
         ArrayList<GeoPoint> parcours = new ArrayList<>();
 
 
+            //parcours l'arraylist contenant tous les geopoints lors d'un appui long
+            for (int i = ParcoursListGeoPoint; i<ListGeoPoint.size();i++){
 
-        if (ParcoursListGeoPoint <1) {
-            ParcoursListGeoPoint += 1;
+                // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
+                if (compteur==0){
+                    parcours.add(ListGeoPoint.get(i));
+                    //pointa=parcours.get(0);
+                    compteur +=1;
+                }
+
+                //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
+                else if (compteur==1){
+                    parcours.add(ListGeoPoint.get(i));
+                    compteur +=1;
+                    //pointb=parcours.get(1);
+
+                    //tache de fond
+                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){pointa,pointb});
+                }
+                // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
+                else if (compteur==2){
+
+                    //recupere le deuxieme point dans parcours
+                    geotemporaire = parcours.get(1);
+                    //on l'ajoute en écrasant l'indice 0
+                    parcours.add(0,geotemporaire);
+
+                    //balance la tache de fond
+                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+
+                }
+
         }
-        else {
-            for (int i = ParcoursListGeoPoint; i < ListGeoPoint.size(); i++){
-                parcours.add(ListGeoPoint.get(i-1));
-                parcours.add(ListGeoPoint.get(i));
-                RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
 
-                roadManager.addRequestOption("routeType=pedestrian");
-                Road road = roadManager.getRoad(parcours);
 
-                Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
 
-                map.getOverlays().add(roadOverlay);
-
-                map.invalidate();
-
-                MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
-
-                map.getOverlays().add(0, mapEventsOverlay);
-                ParcoursListGeoPoint += 1;
-
-            }
-        }
+//
+//        if (ParcoursListGeoPoint <1) {
+//            ParcoursListGeoPoint += 1;
+//        }
+//        else {
+//            for (int i = ParcoursListGeoPoint; i < ListGeoPoint.size(); i++){
+//                parcours.add(ListGeoPoint.get(i-1));
+//                parcours.add(ListGeoPoint.get(i));
+//                RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
+//
+//                roadManager.addRequestOption("routeType=pedestrian");
+//                Road road = roadManager.getRoad(parcours);
+//
+//                Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+//
+//                map.getOverlays().add(roadOverlay);
+//
+//                map.invalidate();
+//
+//                MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+//
+//                map.getOverlays().add(0, mapEventsOverlay);
+//                ParcoursListGeoPoint += 1;
+//
+//            }
+//        }
     }
+
+//    @Override
+//    public void calculroute(boolean success, Route route) {
+//        if (success) {
+//                Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+//
+//                map.getOverlays().add(roadOverlay);
+//
+//                map.invalidate();
+//
+//                MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+//
+//                map.getOverlays().add(0, mapEventsOverlay);
+//        }
+//    }
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
