@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="80dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/Blancnacre">
 
     <LinearLayout
         android:layout_width="80dp"
@@ -36,7 +37,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="match_parent"
             android:background="@color/Blancnacre"
-            android:id="@+id/poi"
+            android:id="@+id/passagepoint"
             android:src="@drawable/passage"
             />
 
@@ -67,11 +68,13 @@
 
 
 
-        <ImageView
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_height="match_parent"
-            android:src="@drawable/red_flag"
+            android:background="@color/Blancnacre"
+            android:id="@+id/poi"
+            android:src="@drawable/poi"
             />
 
         <TextView
