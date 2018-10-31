@@ -58,14 +58,14 @@ public class Accueil extends AppCompatActivity {
          * Bouton du login -> direction vers page HOME si ok (HomeActivity)
          * Sinon, message d'erreur
          */
-        final EditText user = findViewById(R.id.username);
-        final EditText pass = findViewById(R.id.password);
+//        final EditText user = findViewById(R.id.addrmail);
+//        final EditText pass = findViewById(R.id.passwordconnexion);
 
 
-        mEdit = (EditText) findViewById(R.id.username);
-        mEdit1 = (EditText) findViewById(R.id.password);
+        mEdit = (EditText) findViewById(R.id.addrmail);
+        mEdit1 = (EditText) findViewById(R.id.passwordconnexion);
 
-        String identifiant = mEdit.getText().toString();
+        String email = mEdit.getText().toString();
         String mdp=mEdit1.getText().toString();
 
 
@@ -78,11 +78,11 @@ public class Accueil extends AppCompatActivity {
             List infoUsers  = AccountInfo.get(i);
             String info = infoUsers.toString();
             Utils.debug("Je suis ici", info);
-            if (infoUsers.get(0).equals(identifiant)& infoUsers.get(4).equals(mdp)){
+            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
                 isValid =true;
                 Intent intent = new Intent(Accueil.this, LandingActivity.class);
-                intent.putExtra("name",identifiant);
-                Bdd.setNomUtilisateur(identifiant);
+                intent.putExtra("name",infoUsers.get(0).toString());
+                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
                 startActivity(intent);
             }
             // else afficher la popup erreur de connexion

@@ -68,8 +68,13 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    public void createAccount(View view){
+    public void Connexion(View view){
         Intent intent =  new Intent(WelcomeActivity.this, Accueil.class);
+        startActivity(intent);
+    }
+
+    public void createAccount(View view){
+        Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
         startActivity(intent);
     }
 }

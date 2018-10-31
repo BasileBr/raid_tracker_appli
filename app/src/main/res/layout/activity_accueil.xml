@@ -24,8 +24,8 @@
                     <!--android:layout_height="match_parent"-->
                     <!--android:text="@string/Home"/>-->
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="208dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center"
                     android:background="@drawable/rt_basev2"/>
 
@@ -55,13 +55,12 @@
                     android:textSize="24sp" />
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/addrmail"
                     android:layout_marginTop="60dp"
                     android:layout_width="300dp"
                     android:drawablePadding="5dp"
                     android:layout_height="50dp"
-                    android:text="User"
-                    android:hint="@string/input_pseudo"
+                    android:hint="@string/input_mail"
                     android:layout_gravity="center"
                     android:drawableStart="@drawable/client"
                     android:background="@drawable/border"
@@ -70,13 +69,12 @@
 
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordconnexion"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
                     android:inputType="textPassword"
-                    android:text="Password"
                     android:hint="@string/input_password"
                     android:layout_gravity="center"
                     android:drawableLeft="@drawable/cadena"
@@ -100,7 +98,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="40dp"
                     android:onClick="login"
-
+                    android:textColor="@color/Blancnacre"
                     android:background="@color/MarronPrimaire"
 
                     android:text="@string/connexion" />

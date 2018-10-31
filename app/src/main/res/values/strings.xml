@@ -14,7 +14,7 @@
     <string name="already_account">Vous avez déjà un compte ?</string>
     <string name="input_pseudo">Identifiant</string>
     <string name="input_prenom">Prenom</string>
-    <string name="input_mail">Mail</string>
+    <string name="input_mail">Adresse email</string>
     <string name="new_account">Créer le compte</string>
     <string name="new_account2">Pas encore de compte ?</string>
     <string name="cancel">Annuler</string>
@@ -24,13 +24,16 @@
     <string name="input_location">Lieu</string>
     <string name="input_team">Equipe</string>
     <string name="connect">Se connecter</string>
-    <string name="input_inscription">S\'inscrire\nou\nse connecter</string>
+
+    <string name="input_inscription">S\'inscrire</string>
+    <string name="input_connexion">Se connecter</string>
+    <string name="ou">ou</string>
     <string name="motdepasseoublie">Mot de passe oublié ?</string>
     <string name="subscribe">Rejoignez un RAID en tant \nque bénévole dès aujourd\'hui :</string>
     <string name="input_nom">Nom </string>
     <string name="edition">Numéro de l\'édition</string>
     <string name="presentation">Raid Tracker,\nune application pour\ngérer tous les raids </string>
-    <string name="connexion">Se connecter</string>
+    <string name="connexion"> Se connecter </string>
     <string name="validsport">Valider les sports</string>
     <string name="choosesports">Les sports </string>
     <string name="Landing">Page personnelle</string>

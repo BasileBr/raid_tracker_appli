@@ -20,8 +20,8 @@
             android:layout_height="match_parent"
             android:gravity="center">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="208dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center"
                 android:background="@drawable/rt_basev2"/>
 
@@ -54,33 +54,13 @@
 
                     android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/identifiant"
-                    android:layout_marginTop="15dp"
-                    android:layout_width="300dp"
-                    android:drawablePadding="5dp"
-                    android:layout_height="50dp"
-                    android:text="User"
-                    android:hint="@string/input_pseudo"
-                    android:drawableStart="@drawable/client"
-                    android:background="@drawable/border"
-                    />
 
                 <EditText
                     android:id="@+id/prenom"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="40dp"
                     android:hint="@string/input_prenom"
-                    android:background="@drawable/border"
-                    />
-
-                <EditText
-                    android:id="@+id/nom"
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/input_nom"
                     android:background="@drawable/border"
                     />
 
@@ -90,8 +70,11 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:hint="@string/input_mail"
+                    android:drawableStart="@drawable/client"
                     android:background="@drawable/border"
                     />
+
+
 
 
                 <EditText
@@ -101,7 +84,6 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
                     android:inputType="textPassword"
-                    android:text="Password"
                     android:hint="@string/input_password"
                     android:drawableLeft="@drawable/cadena"
                     android:drawablePadding="5dp"

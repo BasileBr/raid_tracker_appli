@@ -72,7 +72,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
 
     public void login_connexion(View view){
-        final EditText user = findViewById(R.id.username);
+        final EditText user = findViewById(R.id.addrmail);
         final EditText pass = findViewById(R.id.password);
 
         Utils.info(TAG,"Login Button action");

@@ -26,16 +26,16 @@ public class CreateAccount extends AppCompatActivity{
     Button mButton;
 
 
-    EditText identifiant;
+    //EditText identifiant;
     EditText prenom;
-    EditText nom;
+    //EditText nom;
     EditText mail;
     EditText password;
 
 
-    String recupere_identifiant;
+    //String recupere_identifiant;
     String recupere_prenom;
-    String recupere_nom;
+    //String recupere_nom;
     String recupere_mail;
     String recupere_password;
 
@@ -51,9 +51,9 @@ public class CreateAccount extends AppCompatActivity{
 
         /* récupération des identifiants des éléments pour créer un compte */
         mButton = (Button) findViewById(R.id.createAccount);
-        identifiant = (EditText) findViewById(R.id.identifiant);
+        //identifiant = (EditText) findViewById(R.id.identifiant);
         prenom = (EditText) findViewById(R.id.prenom);
-        nom = (EditText) findViewById(R.id.nom);
+        //nom = (EditText) findViewById(R.id.nom);
         mail = (EditText) findViewById(R.id.mail);
         password = (EditText) findViewById(R.id.input_password);
 
@@ -118,17 +118,17 @@ public class CreateAccount extends AppCompatActivity{
 //
 //        Utils.info(TAG,"Login Button action");
 
-        recupere_identifiant=identifiant.getText().toString();
+        //recupere_identifiant=identifiant.getText().toString();
         recupere_prenom=prenom.getText().toString();
-        recupere_nom=nom.getText().toString();
+        //recupere_nom=nom.getText().toString();
         recupere_mail=mail.getText().toString();
         recupere_password=password.getText().toString();
 
 
         myListe = new ArrayList();
-        myListe.add(recupere_identifiant);
+        //myListe.add(recupere_identifiant);
         myListe.add(recupere_prenom);
-        myListe.add(recupere_nom);
+        //myListe.add(recupere_nom);
         myListe.add(recupere_mail);
         myListe.add(recupere_password);
 
