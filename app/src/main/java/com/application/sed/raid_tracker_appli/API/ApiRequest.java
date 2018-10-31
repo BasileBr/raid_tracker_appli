@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.R;
+import com.application.sed.raid_tracker_appli.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +30,9 @@ public class ApiRequest extends AppCompatActivity {
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
 //     */
+
+
+
     public void getUsers(){
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -100,9 +105,12 @@ public class ApiRequest extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
 
+
                 Map<String, String>  params = new HashMap<String, String>();
                 //Map<String, String>  params2 = new HashMap<String, String>();
                 params.put("name","ulas");
+
+
                 params.put("email","test@test.fr");
                 params.put("password","test");
 //                params2.put("first","coucou");
