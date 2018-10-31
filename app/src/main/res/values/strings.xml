@@ -13,7 +13,7 @@
     <string name="listeraid">Voici la liste des raids que vous pouvez rejoindre en tant que bénévole : </string>
     <string name="already_account">Vous avez déjà un compte ?</string>
     <string name="input_pseudo">Identifiant</string>
-    <string name="input_prenom">Prenom</string>
+    <string name="input_prenom"> Prenom</string>
     <string name="input_mail">Adresse email</string>
     <string name="new_account">Créer le compte</string>
     <string name="new_account2">Pas encore de compte ?</string>
