@@ -46,10 +46,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         },SPLASH_TIME_OUT);
 
-        //ApiRequest apiRequest= new ApiRequest();
-       // apiRequest.postMethod();
+        ApiRequest.getUsers(this);
 
     }
-
 
 }

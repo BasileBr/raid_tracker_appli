@@ -1,7 +1,7 @@
 package com.application.sed.raid_tracker_appli.API;
 
+import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -14,7 +14,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.R;
-import com.application.sed.raid_tracker_appli.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,19 +22,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiRequest extends AppCompatActivity {
 
-    final String url = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
+public class ApiRequest {
 
+    final static String url = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
 //     */
+    public static void getUsers(Context context){
 
-
-
-    public void getUsers(){
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -80,9 +76,9 @@ public class ApiRequest extends AppCompatActivity {
     }
 
 
-    public void postMethod(){
+    public static void postMethod(Context context){
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -105,12 +101,9 @@ public class ApiRequest extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
 
-
                 Map<String, String>  params = new HashMap<String, String>();
                 //Map<String, String>  params2 = new HashMap<String, String>();
                 params.put("name","ulas");
-
-
                 params.put("email","test@test.fr");
                 params.put("password","test");
 //                params2.put("first","coucou");
