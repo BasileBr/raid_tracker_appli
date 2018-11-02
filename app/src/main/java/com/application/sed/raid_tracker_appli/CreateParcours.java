@@ -141,6 +141,8 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
         mCompassOverlay.enableCompass();
         map.getOverlays().add(mCompassOverlay);
 
+
+
         //créer un road manager (Appel vers l'api pour guider d'un point à un autre
 //        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
 
@@ -267,7 +269,7 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 //        map.getOverlays().add(startMarker);
 
         //afficher une popup pour sélectionner le type de sport
-        ShowAlertDialog(map);
+        //ShowAlertDialog(map);
 
     }
 
@@ -393,6 +395,9 @@ public class CreateParcours extends Activity implements MapEventsReceiver {
 
 
         return false;
+
+
+
     }
 
     /**

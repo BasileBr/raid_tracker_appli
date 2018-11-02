@@ -24,6 +24,7 @@
     <string name="input_location">Lieu</string>
     <string name="input_team">Equipe</string>
     <string name="connect">Se connecter</string>
+    <string name="input_insc_conne">S\'inscrire \/ \n Se connecter</string>
 
     <string name="input_inscription">S\'inscrire</string>
     <string name="input_connexion">Se connecter</string>
@@ -48,6 +49,7 @@
     <string name="Deconnexion">Deconnexion</string>
 
     <string name="bievenue">Bienvenue sur l\'application de gestion \nd\'évenements sportifs!</string>
+    <string name="bievenue2">Bienvenue sur l\'application de gestion d\'évenements sportifs!</string>
     <string name="raiddispo">Vous trouverez ici une liste des évènements qui ont besoin de bénévoles.\nMerci de vous connecter ou de vous inscrire pour les rejoindre !</string>
     <string name="Ajoutraid">Ajouter \nun raid</string>
     <string-array name="sports">

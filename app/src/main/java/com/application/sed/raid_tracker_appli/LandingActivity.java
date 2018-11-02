@@ -202,7 +202,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
-        Intent intent =  new Intent(LandingActivity.this, Accueil.class);
+        Intent intent =  new Intent(LandingActivity.this, WelcomeActivity.class);
         startActivity(intent);
     }
 
