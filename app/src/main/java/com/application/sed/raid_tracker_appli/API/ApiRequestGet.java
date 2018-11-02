@@ -32,6 +32,7 @@ public class ApiRequestGet {
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
     final static String urlOrganisateur = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
+    final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
 
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
@@ -236,6 +237,57 @@ public class ApiRequestGet {
     }
 
 
+
+
+
+    public static void getSpecificBenevole(Context context, String id){
+
+        String UrlFianle = urlBenevoles + "/"+id;
+        Utils.debug("GetSpecificBenevole", UrlFianle);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                UrlFianle,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
+
+                        // Process the JSON
+                        try{
+                            // Loop through the array elements
+                            for(int i=1;i<response.length();i++){
+
+                                // Get the current account (json object) data
+                                String idUser = response.getString("idUser");
+                                String idRaid = response.getString("idRaid");
+                                Log.d("GetSpecificBenevole", idRaid);
+
+                                // Display the formatted json data in text view
+//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
+//                                mTextView.append("\n\n");
+                            }
+                        }catch (Exception e){
+                            Log.e("Json","error");
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response", error.toString());
+                    }
+                }
+        );
+
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
     public static void getBenevoles(final Context context){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -285,37 +337,38 @@ public class ApiRequestGet {
     }
 
 
-    public static void getSpecificBenevole(Context context, String id){
+    public static void getraid(final Context context){
 
-        String UrlFianle = urlBenevoles + "/"+id;
-        Utils.debug("GetSpecificBenevole", UrlFianle);
-        final RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                UrlFianle,
+                urlRaid,
                 null,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         // Do something with response
                         //mTextView.setText(response.toString());
 
                         // Process the JSON
                         try{
                             // Loop through the array elements
-                            for(int i=1;i<response.length();i++){
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject account = response.getJSONObject(i);
 
                                 // Get the current account (json object) data
-                                String idUser = response.getString("idUser");
-                                String idRaid = response.getString("idRaid");
-                                Log.d("GetSpecificBenevole", idRaid);
+                                String nom = account.getString("nom");
+                                String lieu = account.getString("lieu");
+
+                                Log.d("GetRaid", nom);
 
                                 // Display the formatted json data in text view
 //                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
 //                                mTextView.append("\n\n");
                             }
-                        }catch (Exception e){
-                            Log.e("Json","error");
+                        }catch (JSONException e){
+                            e.printStackTrace();
                         }
                     }
                 },
@@ -329,7 +382,7 @@ public class ApiRequestGet {
         );
 
         // Add JsonArrayRequest to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonArrayRequest);
     }
 
 }
