@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         },SPLASH_TIME_OUT);
 
-        ApiRequestGet.getUsers(this);
+        ApiRequestGet.getSpecificBenevole(this,"2");
 
     }
 
