@@ -7,12 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequest;
-import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +132,7 @@ public class CreateAccount extends AppCompatActivity{
         String pwd1 = recupere_password1;
         String pwd2 = recupere_password2;
 
-        ApiRequest.postUser(this, nom, mail, pwd1, pwd2);
+        ApiRequestPost.postUser(this, nom, mail, pwd1, pwd2);
         myListe = new ArrayList();
         //myListe.add(recupere_identifiant);
         myListe.add(recupere_prenom);

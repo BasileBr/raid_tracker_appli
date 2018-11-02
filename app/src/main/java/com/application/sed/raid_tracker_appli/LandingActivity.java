@@ -11,10 +11,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequest;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        //ApiRequest.postMethod();
+        //ApiRequestGet.postMethod();
 
         Utils.info(TAG, "OnCreate");
 
