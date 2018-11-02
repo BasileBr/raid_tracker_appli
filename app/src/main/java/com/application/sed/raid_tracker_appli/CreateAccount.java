@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
@@ -49,7 +52,6 @@ public class CreateAccount extends AppCompatActivity{
 
 
 
-
         /* récupération des identifiants des éléments pour créer un compte */
         mButton = (Button) findViewById(R.id.createAccount);
         //identifiant = (EditText) findViewById(R.id.identifiant);
@@ -58,6 +60,9 @@ public class CreateAccount extends AppCompatActivity{
         mail = (EditText) findViewById(R.id.mail);
         password1 = (EditText) findViewById(R.id.input_password1);
         password2 = (EditText) findViewById(R.id.input_password2);
+
+
+
 
 
 //        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
@@ -120,6 +125,11 @@ public class CreateAccount extends AppCompatActivity{
 //
 //        Utils.info(TAG,"Login Button action");
 
+
+
+        //récupère les infos du compte
+
+        mButton = (Button) findViewById(R.id.createAccount);
         //recupere_identifiant=identifiant.getText().toString();
         recupere_prenom=prenom.getText().toString();
         //recupere_nom=nom.getText().toString();
@@ -131,6 +141,17 @@ public class CreateAccount extends AppCompatActivity{
         String mail = recupere_mail;
         String pwd1 = recupere_password1;
         String pwd2 = recupere_password2;
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if (isEmpty(prenom)) {
+
+                   prenom.setError("eh oh le prenom là");
+               }
+
+           }
+        });
 
         ApiRequestPost.postUser(this, nom, mail, pwd1, pwd2);
         myListe = new ArrayList();
@@ -144,10 +165,21 @@ public class CreateAccount extends AppCompatActivity{
         Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
         Bdd.addAccount(myListe);
 
-        Intent intent =  new Intent(CreateAccount.this, Accueil.class);
-        startActivity(intent);
+        //Intent intent =  new Intent(CreateAccount.this, Accueil.class);
+        //startActivity(intent);
 
     }
+
+    boolean isEmail(EditText text){
+        CharSequence email=text.getText().toString();
+        return (!TextUtils.isEmpty(email)&& Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    boolean isEmpty (EditText text){
+        CharSequence str= text.getText().toString();
+        return TextUtils.isEmpty(str);
+    }
+
 
 
 
