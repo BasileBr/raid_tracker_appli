@@ -138,32 +138,69 @@ public class CreateAccount extends AppCompatActivity{
         recupere_password2=password2.getText().toString();
 
         String nom = recupere_prenom;
-        String mail = recupere_mail;
+        String mail1 = recupere_mail;
         String pwd1 = recupere_password1;
         String pwd2 = recupere_password2;
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if (isEmpty(prenom)) {
-
-                   prenom.setError("eh oh le prenom là");
-               }
-
-           }
-        });
-
-        ApiRequestPost.postUser(this, nom, mail, pwd1, pwd2);
-        myListe = new ArrayList();
-        //myListe.add(recupere_identifiant);
-        myListe.add(recupere_prenom);
-        //myListe.add(recupere_nom);
-        myListe.add(recupere_mail);
-        myListe.add(recupere_password1);
+        int checkprenom=1;
+        int checkmail=1;
+        int checkpassword1=1;
+        int checkpassword2=1;
 
 
-        Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
-        Bdd.addAccount(myListe);
+        if (isEmpty(prenom)) {
+            checkprenom=0;
+            prenom.setError("eh oh le prenom là");
+            }
+
+        if (isEmail(mail)==false){
+            checkmail=0;
+            mail.setError("le mail là");
+        }
+        if (isEmpty(password1)){
+            checkpassword1=0;
+            password1.setError("password 1");
+        }
+
+        if (isEmpty(password2)){
+            checkpassword2=0;
+            password2.setError("password 2");
+        }
+
+
+
+        if (checkprenom==1 && checkpassword1==1 && checkpassword2==1 && checkmail==1 && pwd1.equals(pwd2)){
+            Utils.info("je vérifie tout","youhou");
+
+            ApiRequestPost.postUser(this, nom, mail1, pwd1, pwd2);
+            myListe = new ArrayList();
+            //myListe.add(recupere_identifiant);
+            myListe.add(recupere_prenom);
+            //myListe.add(recupere_nom);
+            myListe.add(recupere_mail);
+            myListe.add(recupere_password1);
+
+
+            Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
+            Bdd.addAccount(myListe);
+
+            Intent intent =  new Intent(CreateAccount.this, Accueil.class);
+            startActivity(intent);
+        }
+
+
+
+//       ApiRequestPost.postUser(this, nom, mail1, pwd1, pwd2);
+//        myListe = new ArrayList();
+//        //myListe.add(recupere_identifiant);
+//        myListe.add(recupere_prenom);
+//        //myListe.add(recupere_nom);
+//        myListe.add(recupere_mail);
+//        myListe.add(recupere_password1);
+//
+//
+//        Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
+//        Bdd.addAccount(myListe);
 
         //Intent intent =  new Intent(CreateAccount.this, Accueil.class);
         //startActivity(intent);
