@@ -17,12 +17,12 @@ import java.util.Map;
 
 public class ApiRequestPost {
 
-    final static String url = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
+    final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
 
     public static void postUser(Context context, final String name, final String mail, final String pwd1, final String pwd2){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlUser,
                 new Response.Listener<String>()
                 {
                     @Override
