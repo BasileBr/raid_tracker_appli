@@ -28,7 +28,13 @@ public class ApiRequest {
     final static String url = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
-//     */
+     *
+     * https://riptutorial.com/fr/android/example/12633/creer-un-objet-json-imbrique
+     *
+     * http://tutorielandroid.francoiscolin.fr/recupjson.php
+     *
+     *
+     */
     public static void getUsers(Context context){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -76,7 +82,7 @@ public class ApiRequest {
     }
 
 
-    public static void postMethod(Context context){
+    public static void postUser(Context context, final String name, final String mail, final String pwd1, final String pwd2){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -102,12 +108,20 @@ public class ApiRequest {
             {
 
                 Map<String, String>  params = new HashMap<String, String>();
+                JSONObject pass = new JSONObject();
                 //Map<String, String>  params2 = new HashMap<String, String>();
-                params.put("name","ulas");
-                params.put("email","test@test.fr");
-                params.put("password","test");
-//                params2.put("first","coucou");
-//                params2.put("second","coucou2");
+                params.put("name",name);
+                params.put("email",mail);
+
+                try {
+                    pass.put("first",pwd1);
+                    pass.put("second",pwd2);
+                }catch (Exception e){
+                    return null;
+                }
+
+                params.put("password",pass.toString());
+
 
 
 //                JSONObject params = null;
@@ -132,5 +146,55 @@ public class ApiRequest {
         requestQueue.add(postRequest);
 
     }
+
+
+//    public static void getSpecificUsers(Context context, ){
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(context);
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+//                Request.Method.GET,
+//                url,
+//                null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        // Do something with response
+//                        //mTextView.setText(response.toString());
+//
+//                        // Process the JSON
+//                        try{
+//                            // Loop through the array elements
+//                            for(int i=0;i<response.length();i++){
+//                                // Get current json object
+//                                JSONObject account = response.getJSONObject(i);
+//
+//                                // Get the current account (json object) data
+//                                String name = account.getString("name");
+//                                Log.d("Response", name);
+//
+//                                // Display the formatted json data in text view
+////                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
+////                                mTextView.append("\n\n");
+//                            }
+//                        }catch (JSONException e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener()
+//                {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e("Error.Response", error.toString());
+//                    }
+//                }
+//        );
+//
+//        // Add JsonArrayRequest to the RequestQueue
+//        requestQueue.add(jsonArrayRequest);
+//    }
+
+
+
 }
 

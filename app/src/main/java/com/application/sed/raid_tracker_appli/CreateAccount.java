@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequest;
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 import java.util.ArrayList;
@@ -30,14 +31,16 @@ public class CreateAccount extends AppCompatActivity{
     EditText prenom;
     //EditText nom;
     EditText mail;
-    EditText password;
+    EditText password1;
+    EditText password2;
 
 
     //String recupere_identifiant;
     String recupere_prenom;
     //String recupere_nom;
     String recupere_mail;
-    String recupere_password;
+    String recupere_password1;
+    String recupere_password2;
 
 
     @Override
@@ -55,7 +58,8 @@ public class CreateAccount extends AppCompatActivity{
         prenom = (EditText) findViewById(R.id.prenom);
         //nom = (EditText) findViewById(R.id.nom);
         mail = (EditText) findViewById(R.id.mail);
-        password = (EditText) findViewById(R.id.input_password);
+        password1 = (EditText) findViewById(R.id.input_password1);
+        password2 = (EditText) findViewById(R.id.input_password2);
 
 
 //        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
@@ -122,15 +126,21 @@ public class CreateAccount extends AppCompatActivity{
         recupere_prenom=prenom.getText().toString();
         //recupere_nom=nom.getText().toString();
         recupere_mail=mail.getText().toString();
-        recupere_password=password.getText().toString();
+        recupere_password1=password1.getText().toString();
+        recupere_password2=password2.getText().toString();
 
+        String nom = recupere_prenom;
+        String mail = recupere_mail;
+        String pwd1 = recupere_password1;
+        String pwd2 = recupere_password2;
 
+        ApiRequest.postUser(this, nom, mail, pwd1, pwd2);
         myListe = new ArrayList();
         //myListe.add(recupere_identifiant);
         myListe.add(recupere_prenom);
         //myListe.add(recupere_nom);
         myListe.add(recupere_mail);
-        myListe.add(recupere_password);
+        myListe.add(recupere_password1);
 
 
         Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
