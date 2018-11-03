@@ -44,7 +44,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Accueil"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -53,9 +53,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- <activity android:name=".PerfomCalculations" -->
         <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity> -->
-        <activity android:name=".organizer.CourseActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+        <activity
+            android:name=".organizer.CourseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

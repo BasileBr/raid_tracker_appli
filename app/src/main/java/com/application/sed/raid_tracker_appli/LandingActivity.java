@@ -3,15 +3,20 @@ package com.application.sed.raid_tracker_appli;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 
@@ -19,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LandingActivity extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //public static List Tata;
     private String nomutilisateur = "test";
@@ -33,9 +38,10 @@ public class LandingActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     View button;
+    Button dec;
 
     private TextView nameofuser;
-
+    private ActionBarDrawerToggle toggle;
 
 
     String Element;
@@ -105,18 +111,6 @@ public class LandingActivity extends AppCompatActivity {
         }
 
 
-        this.toolbar = findViewById(R.id.toolbar);
-
-        //definir notre toolbar en tant qu'actionBar
-        setSupportActionBar(toolbar);
-
-        //getSupportActionBar().setIcon(getDrawable(R.drawable.ic_exit_to_app_black_24dp));
-
-
-        //getSupportActionBar().setTitle("Home");
-        //afficher le bouton retour
-        getSupportActionBar().setHomeButtonEnabled(true);
-
 
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -132,29 +126,93 @@ public class LandingActivity extends AppCompatActivity {
             });
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /**
+         * Création vieux Drawer
+         */
+//
+//        this.toolbar = findViewById(R.id.toolbar);
+//
+//        //definir notre toolbar en tant qu'actionBar
+//        setSupportActionBar(toolbar);
+//
+//        //getSupportActionBar().setIcon(getDrawable(R.drawable.ic_exit_to_app_black_24dp));
+//
+//
+//        //getSupportActionBar().setTitle("Home");
+//        //afficher le bouton retour
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//
+//
+//        this.drawerLayout = findViewById(R.id.drawerLayout);
+//        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
+//        this.drawerLayout.setDrawerListener(this.drawerToggle);
+//
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Utils.info("NICK", "button button button..................");
+//
+//                drawerLayout.openDrawer(Gravity.START);
+//
+//            }
+//        });
 
 
-
-        this.drawerLayout = findViewById(R.id.drawerLayout);
-        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
-        this.drawerLayout.setDrawerListener(this.drawerToggle);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.info("NICK", "button button button..................");
-
-                drawerLayout.openDrawer(Gravity.START);
-
-            }
-        });
+        /**
+         * Fin de la création du vieux layout
+         */
 //
 
 
 
+        toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
 
+//        drawerLayout = findViewById(R.id.drawer_layout);
+//
+//        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,0,R.string.app_name);
+//        drawerLayout.addDrawerListener(toggle);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//
+//
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//
+//        navigationView.setNavigationItemSelectedListener(this);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+    /*@Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        // 4 - Handle Navigation Item Click
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.dec :
+                break;
+            case R.id.adraid:
+                break;
+            default:
+                break;
+        }
+
+        this.drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
+    }*/
 
     public void getDescriptionRAid(View view) {
         //RelativeLayout ll=(RelativeLayout) findViewById(R.id.boutooondemerde);
@@ -177,16 +235,23 @@ public class LandingActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
-        drawerToggle.syncState();
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
+//        toggle.syncState();
+//    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
+        toggle.onConfigurationChanged(newConfig);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -213,4 +278,22 @@ public class LandingActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_item_one) {
+            Intent intent =  new Intent(LandingActivity.this, WelcomeActivity.class);
+            startActivity(intent);
+            Utils.debug("Nav","item 1");
+        } else if (id == R.id.nav_item_two) {
+            Utils.debug("Nav","item 2");
+        } else if (id == R.id.nav_item_three) {
+            Utils.debug("Nav", "item 3");
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

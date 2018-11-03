@@ -153,7 +153,7 @@ public class CreateAccount extends AppCompatActivity{
             prenom.setError("eh oh le prenom là");
             }
 
-        if (isEmail(mail)==false){
+        if (!isEmail(mail)){
             checkmail=0;
             mail.setError("le mail là");
         }
