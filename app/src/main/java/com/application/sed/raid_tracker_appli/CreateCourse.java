@@ -434,6 +434,7 @@ public class CreateCourse extends AppCompatActivity {
         int checkcourse=1;
         int checkwater=1;
         int checkterre=1;
+        
 
         int checkcoherence=0;
 
