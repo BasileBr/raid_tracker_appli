@@ -172,7 +172,7 @@ public class CreateAccount extends AppCompatActivity{
         if (checkprenom==1 && checkpassword1==1 && checkpassword2==1 && checkmail==1 && pwd1.equals(pwd2)){
             Utils.info("je vérifie tout","youhou");
 
-            ApiRequestPost.postUser(this, nom, mail1, pwd1, pwd2);
+            ApiRequestPost.postUser(this, nom, mail1, pwd1);
             myListe = new ArrayList();
             //myListe.add(recupere_identifiant);
             myListe.add(recupere_prenom);

@@ -19,7 +19,7 @@ public class ApiRequestPost {
 
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
 
-    public static void postUser(Context context, final String name, final String mail, final String pwd1, final String pwd2){
+    public static void postUser(Context context, final String name, final String mail, final String pwd){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest postRequest = new StringRequest(Request.Method.POST, urlUser,
@@ -45,19 +45,20 @@ public class ApiRequestPost {
             {
 
                 Map<String, String>  params = new HashMap<String, String>();
-                JSONObject pass = new JSONObject();
+//                JSONObject pass = new JSONObject();
                 //Map<String, String>  params2 = new HashMap<String, String>();
                 params.put("name",name);
                 params.put("email",mail);
+                params.put("password",pwd);
 
-                try {
+                /*try {
                     pass.put("first",pwd1);
                     pass.put("second",pwd2);
                 }catch (Exception e){
                     return null;
-                }
+                }*/
 
-                params.put("password",pass.toString());
+
 
 
 
