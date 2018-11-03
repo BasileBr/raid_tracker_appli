@@ -77,4 +77,9 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Utils.debug("WelcomeActivity","J'ai presse le back");
+    }
 }
