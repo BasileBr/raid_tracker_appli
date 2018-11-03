@@ -387,7 +387,26 @@ public class CreateCourse extends AppCompatActivity {
         //nom de l'équipe organisatrice
         organizer_team = (EditText) findViewById(R.id.organizer_team);
 
+        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
 
+        //kayak selectionné ?
+        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+
+        //natation selectionné ? ?
+        getitem2 = (CheckBox) findViewById(R.id.checkbox_natation);
+
+        //courseapied selectionné ?
+        getitem3 = (CheckBox) findViewById(R.id.checkbox_coursepied);
+
+        //velo selectionné ?
+        getitem4 = (CheckBox) findViewById(R.id.checkbox_velo);
+
+        //surface eau selectionné ?
+        getitem5=(CheckBox) findViewById(R.id.checkbox_water);
+
+        //surface terre selectionné ?
+
+        getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
 
 
         //nécessaire ?
@@ -467,16 +486,16 @@ public class CreateCourse extends AppCompatActivity {
 //        }
 
 
-        if((!getitem.isChecked())&& (!getitem2.isChecked())&& (!getitem3.isChecked()) && (!getitem4.isChecked())){
+        if(!getitem.isChecked()&& !getitem2.isChecked()&& !getitem3.isChecked() && !getitem4.isChecked()){
             choosesports.setError("aucun sport selectionné");
 
         }
 
-        if((getitem.isChecked() && (!getitem5.isChecked()) || getitem2.isChecked() && (!getitem5.isChecked()) || getitem.isChecked() && getitem2.isChecked() && (!getitem5.isChecked()))){
+        if((getitem.isChecked() && !getitem5.isChecked() || getitem2.isChecked() && !getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && !getitem5.isChecked())){
             choosesports.setError("type de surface incohérent");
         }
 
-        if((getitem3.isChecked() && (!getitem6.isChecked()) || getitem4.isChecked() && (!getitem6.isChecked()) || getitem3.isChecked() && getitem4.isChecked() && (!getitem6.isChecked()))){
+        if((getitem3.isChecked() && !getitem6.isChecked() || getitem4.isChecked() && !getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && !getitem6.isChecked())){
             choosesports.setError("type de surface incohérent");
         }
 
