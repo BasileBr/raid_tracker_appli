@@ -150,21 +150,24 @@ public class CreateAccount extends AppCompatActivity{
 
         if (isEmpty(prenom)) {
             checkprenom=0;
-            prenom.setError("eh oh le prenom là");
+            prenom.setError("le prénom n'est pas renseigné");
             }
 
         if (!isEmail(mail)){
             checkmail=0;
-            mail.setError("le mail là");
+            mail.setError("l'adresse mail n'est pas conforme");
         }
-        if (isEmpty(password1)){
+        if (isEmpty(password2)){
             checkpassword1=0;
-            password1.setError("password 1");
+            password2.setError("le champ est vide ");
         }
 
-        if (isEmpty(password2)){
+        if (isEmpty(password1 )){
             checkpassword2=0;
-            password2.setError("password 2");
+            password1.setError("le champ est vide ");
+        }else if (!pwd1.equals(pwd2)){
+            password1.setError("mot de passe non identique");
+            password2.setError("mot de passe non identique");
         }
 
 

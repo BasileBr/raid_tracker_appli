@@ -78,6 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     @Override
     public void onBackPressed() {
         Utils.debug("WelcomeActivity","J'ai presse le back");

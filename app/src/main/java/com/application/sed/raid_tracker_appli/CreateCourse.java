@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,6 +44,11 @@ public class CreateCourse extends AppCompatActivity {
 
     private CheckBox getitem;
     private CheckBox getitem2;
+    private  CheckBox getitem3;
+    private  CheckBox getitem4;
+    private CheckBox getitem5;
+    private CheckBox getitem6;
+
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -49,21 +56,35 @@ public class CreateCourse extends AppCompatActivity {
 
     public static List myListe;
 
-    CharSequence charSequence = "";
-    CharSequence charSequence2 = "";
-    CharSequence charSequence3 = "";
-    CharSequence charSequence4 = "";
-    CharSequence charSequence5 = "";
+    String charKayak = "";
+    String charNatation= "";
+    String charVelo = "";
+    String charCourse = "";
+    String charWater= "";
+    String charTerre = "";
 
 
     LinearLayout getLinear;
     String recupere;
     String recupere1;
     String recupere2;
+    String recupere3;
+    CharSequence recupere4;
+    CharSequence recupere5;
+    CharSequence recupere6;
+    CharSequence recupere7;
+    CharSequence recupere8;
+
     Button mButton;
-    EditText mEdit;
-    EditText mEdit1;
-    EditText mEdit2;
+    EditText name_raid;
+    EditText lieu;
+    EditText organizer_team;
+    EditText edition;
+
+    TextView getsports;
+    TextView selectdate;
+    TextView choosesports;
+
 
 
     @Override
@@ -107,12 +128,15 @@ public class CreateCourse extends AppCompatActivity {
 //        mySpinner.setAdapter(myAdapter);
 //
 //
-        mDisplayDate = (TextView) findViewById(R.id.tvDate);
+        mDisplayDate = (TextView) findViewById(R.id.selectdate);
 
 
         /**
          * Affichage pour sélectionner la date du RAID
          */
+
+        Date today = Calendar.getInstance().getTime();
+
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +148,7 @@ public class CreateCourse extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, 2018, 9, 22);
+                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -147,81 +171,178 @@ public class CreateCourse extends AppCompatActivity {
         };
 
 
-        mButton = (Button) findViewById(R.id.createAccount);
-        mEdit = (EditText) findViewById(R.id.name_raid);
-        mEdit1 = (EditText) findViewById(R.id.lieu);
-        mEdit2 = (EditText) findViewById(R.id.organizer_teame);
-
-        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
-        getitem2 = (CheckBox) findViewById(R.id.checkbox_cheese);
-        getLinear = (LinearLayout) findViewById(R.id.checkbox);
-
-
-        mButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        myListe =  new ArrayList<>();
-                        recupere = mEdit.getText().toString();
-                        recupere1 = mEdit1.getText().toString();
-                        recupere2 = mEdit2.getText().toString();
-
-                        myListe.add(recupere);  // récupère le nom du raid
-                        myListe.add(recupere1); // le lieu de l'évènement
-                        myListe.add(getdate); // sélectionne la date de l'évènement
-                        myListe.add(recupere2); // le nom de l'équipe organisatrice
-                        myListe.add(charSequence); //
-                        myListe.add(charSequence2);
-
-
-                        Utils.info("EditText", myListe.toString());
-                        //Utils.info(TAG,recupere[1]);
-                        Bdd.addString(myListe);
-
-                        LandingActivity.recupereraid();
-                        Utils.info("EditText", Bdd.getElement(1).toString());
-
-                        //déclencher la création d'un parcours sur la page de landing
-                        Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
-                        intent.putExtra("name","Toto");
-                        startActivity(intent);
-
-                        //redirection vers la page de création d'un parcours
-//                        Intent intent2= new Intent(CreateCourse.this, CreateParcours.class);
-//                        startActivity(intent2);
-
-
-
-                    }
-                });
+//
+//        //button de validation
+//        mButton = (Button) findViewById(R.id.createAccount);
+//
+//        //nom du raid
+//        name_raid = (EditText) findViewById(R.id.name_raid);
+//
+//        //lieu du raid
+//        lieu = (EditText) findViewById(R.id.lieu);
+//
+//        //année de l'édition
+//        edition=(EditText)findViewById(R.id.edition);
+//
+//        //nom de l'équipe organisatrice
+//        organizer_team = (EditText) findViewById(R.id.organizer_team);
+//
+//
+//
+//        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+//        getitem2 = (CheckBox) findViewById(R.id.checkbox_natation);
+//        getitem3 = (CheckBox) findViewById(R.id.checkbox_coursepied);
+//        getitem4 = (CheckBox) findViewById(R.id.checkbox_velo);
+//
+//        getitem5=(CheckBox) findViewById(R.id.checkbox_water);
+//        getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
+//        getLinear = (LinearLayout) findViewById(R.id.checkbox);
+//
+//
+//
+//
+//
+//        mButton.setOnClickListener(
+//                new View.OnClickListener() {
+//                    public void onClick(View view) {
+//
+//
+//                        int checknameraid=1;
+//                        int checklieu=1;
+//                        int checkdate=1;
+//                        int checkedition=1;
+//                        int checkteamname=1;
+//                        int checksports=1;
+//                        int checksurface;
+//
+//                        if (isEmpty(name_raid)) {
+//                            checknameraid=0;
+//                            name_raid.setError("le prénom n'est pas renseigné");
+//                        }
+//
+//
+//
+//
+//                        myListe =  new ArrayList<>();
+//                        recupere = name_raid.getText().toString();
+//                        recupere1 = lieu.getText().toString();
+//                        recupere2 = organizer_team.getText().toString();
+//
+//                        myListe.add(recupere);  // récupère le nom du raid
+//                        myListe.add(recupere1); // le lieu de l'évènement
+//                        myListe.add(getdate); // sélectionne la date de l'évènement
+//                        myListe.add(recupere2); // le nom de l'équipe organisatrice
+//                        myListe.add(charSequence); //
+//                        myListe.add(charSequence2);
+//
+//
+//                        Utils.info("EditText", myListe.toString());
+//                        //Utils.info(TAG,recupere[1]);
+//                        Bdd.addString(myListe);
+//
+//                        LandingActivity.recupereraid();
+//                        Utils.info("EditText", Bdd.getElement(1).toString());
+//
+//                        //déclencher la création d'un parcours sur la page de landing
+////                        Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+////                        intent.putExtra("name","Toto");
+////                        startActivity(intent);
+//
+//                        //redirection vers la page de création d'un parcours
+////                        Intent intent2= new Intent(CreateCourse.this, CreateParcours.class);
+////                        startActivity(intent2);
+//
+//
+//
+//                    }
+//                });
 
 
     }
 
     public void onCheckboxClicked(View view) {
 
-        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
+        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+
+        //kayak selectionné ?
+        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+
+        //natation selectionné ? ?
+        getitem2 = (CheckBox) findViewById(R.id.checkbox_natation);
+
+        //courseapied selectionné ?
+        getitem3 = (CheckBox) findViewById(R.id.checkbox_coursepied);
+
+        //velo selectionné ?
+        getitem4 = (CheckBox) findViewById(R.id.checkbox_velo);
+
+        //surface eau selectionné ?
+        getitem5=(CheckBox) findViewById(R.id.checkbox_water);
+
+        //surface terre selectionné ?
+
+        getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
         switch (view.getId()) {
-            case R.id.checkbox_meat:
+            case R.id.checkbox_kayak:
                 if (checked)
-                    charSequence = getitem.getText();
-
+                    charKayak = getitem.getText().toString();
+                    Utils.info("charkayal",charKayak);
 //                    int toto = getLinear.getId();
 //                    Utils.info(TAG,String.valueOf(toto));
 
                 break;
-            case R.id.checkbox_cheese:
+            case R.id.checkbox_natation:
                 if (checked)
-                    charSequence2 = getitem2.getText();
+                    charNatation = getitem2.getText().toString();
 
 
                 break;
+            case R.id.checkbox_velo:
+                if (checked)
+                    charVelo = getitem3.getText().toString();
+
+
+                break;
+            case R.id.checkbox_coursepied:
+                if (checked)
+                    charCourse = getitem4.getText().toString();
+
+
+                break;
+
+            case R.id.checkbox_water:
+                if (checked)
+                    charWater = getitem5.getText().toString();
+
+
+                break;
+            case R.id.checkbox_terre:
+                if (checked)
+                    charTerre = getitem6.getText().toString();
+
+
+                break;
+
+
         }
+ }
+
+
+    //vérifie qu'un élement editext n'est pas vide
+    boolean isEmpty (EditText text){
+        CharSequence str= text.getText().toString();
+        return TextUtils.isEmpty(str);
     }
 
+
+    boolean isEmpty2 (TextView text){
+        CharSequence str= text.getText().toString();
+        return TextUtils.isEmpty(str);
+    }
     /**
      * Permet de retourner à la vue "landingActivity
      */
@@ -243,5 +364,188 @@ public class CreateCourse extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
-}
+
+
+    public void createnewraid(View view){
+
+
+        /**
+         * récupération de tous les infos lors de la validation d'un compte
+         */
+        //button de validation
+        mButton = (Button) findViewById(R.id.createAccount);
+
+        //nom du raid
+        name_raid = (EditText) findViewById(R.id.name_raid);
+
+        //lieu du raid
+        lieu = (EditText) findViewById(R.id.lieu);
+
+        //année de l'édition
+        edition=(EditText)findViewById(R.id.edition);
+
+        //nom de l'équipe organisatrice
+        organizer_team = (EditText) findViewById(R.id.organizer_team);
+
+
+
+
+        //nécessaire ?
+        getLinear = (LinearLayout) findViewById(R.id.checkbox);
+
+        //afficher l'erreur sur la ligne selectionner les sports
+
+        choosesports = (TextView) findViewById(R.id.choosesport);
+
+        //afficher l'erreur sur la ligne selectdate
+
+        selectdate= (TextView) findViewById(R.id.selectdate);
+
+
+
+        //initation de variables par vérifier la complétude des champs
+        int checknameraid=1;
+        int checklieu=1;
+        int checkdate=1;
+        int checkedition=1;
+        int checkteamname=1;
+        int checkkayak=1;
+        int checknatation=1;
+        int checkvelo=1;
+        int checkcourse=1;
+        int checkwater=1;
+        int checkterre=1;
+
+        int checkcoherence=0;
+
+        if (isEmpty(name_raid)) {
+            checknameraid=0;
+            name_raid.setError("le nom du raid n'est pas renseigné");
+            }
+        if (isEmpty(lieu)) {
+            checklieu=0;
+            lieu.setError("le nom du lieu n'est pas renseigné");
+        }
+
+        if (isEmpty2(selectdate)) {
+            checkdate=0;
+            selectdate.setError("la date n'est pas sélectionnée");
+        }
+        if (isEmpty(edition)) {
+            checkedition=0;
+            edition.setError("l'édition du raid n'est pas renseigné");
+        }
+        if (isEmpty(organizer_team)) {
+            checkteamname=0;
+            organizer_team.setError("le nom de l'équipe n'est pas renseigné");
+        }
+
+        if (isEmpty(name_raid)) {
+            checknameraid=0;
+            name_raid.setError("le nom du raid n'est pas renseigné");
+        }
+//
+//        if(!getitem.isChecked()){
+//            checkkayak=0;
+//        }
+//
+//        if(!getitem2.isChecked()){
+//            checknatation=0;
+//        }
+//        if(!getitem3.isChecked()){
+//            checkvelo=0;
+//        }
+//        if(!getitem4.isChecked()){
+//            checkcourse=0;
+//        }
+//        if(!getitem5.isChecked()){
+//            checkwater=0;
+//        }
+//
+//        if(!getitem6.isChecked()){
+//            checkwater=0;
+//        }
+
+
+        if((!getitem.isChecked())&& (!getitem2.isChecked())&& (!getitem3.isChecked()) && (!getitem4.isChecked())){
+            choosesports.setError("aucun sport selectionné");
+
+        }
+
+        if((getitem.isChecked() && (!getitem5.isChecked()) || getitem2.isChecked() && (!getitem5.isChecked()) || getitem.isChecked() && getitem2.isChecked() && (!getitem5.isChecked()))){
+            choosesports.setError("type de surface incohérent");
+        }
+
+        if((getitem3.isChecked() && (!getitem6.isChecked()) || getitem4.isChecked() && (!getitem6.isChecked()) || getitem3.isChecked() && getitem4.isChecked() && (!getitem6.isChecked()))){
+            choosesports.setError("type de surface incohérent");
+        }
+
+        if(getitem.isChecked() && getitem5.isChecked() || getitem2.isChecked() && getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && getitem5.isChecked() || getitem3.isChecked() && getitem6.isChecked() || getitem4.isChecked() && getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && getitem6.isChecked() || getitem.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked() || getitem.isChecked() &&getitem5.isChecked() && getitem4.isChecked() && getitem6.isChecked() || getitem2.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked() || getitem2.isChecked() && getitem5.isChecked() && getitem4.isChecked()&& getitem6.isChecked()){
+            checkcoherence=1;
+        }
+
+
+        if(checknameraid==1 && checklieu ==1 && checkdate==1 && checkedition ==1 && checkteamname ==1 && checkcoherence==1){
+
+            myListe =  new ArrayList<>();
+            recupere = name_raid.getText().toString();
+            recupere1 = lieu.getText().toString();
+            recupere2= edition.getText().toString();
+            recupere3 = organizer_team.getText().toString();
+            recupere4= getitem.getText().toString();
+            recupere5=getitem2.getText().toString();
+            recupere6=getitem3.getText().toString();
+            recupere7=getitem4.getText().toString();
+            recupere7=getitem5.getText().toString();
+            recupere8=getitem6.getText().toString();
+
+
+
+
+
+
+
+
+            myListe.add(recupere);  // récupère le nom du raid
+            myListe.add(recupere1); // le lieu de l'évènement
+            myListe.add(getdate); // sélectionne la date de l'évènement
+            myListe.add(recupere2); // le nom de l'équipe organisatrice
+            myListe.add(recupere4);
+
+           //myListe.add(recupere4);
+           myListe.add(recupere5);
+            myListe.add(recupere6);
+            myListe.add(recupere7);
+            myListe.add(recupere8);
+//            myListe.add(charNatation);
+//            myListe.add(charVelo);
+//            myListe.add(charCourse);
+//            myListe.add(charWater);
+//            myListe.add(charTerre);
+
+
+            Utils.info("EditText", myListe.toString());
+            //Utils.info(TAG,recupere[1]);
+            Bdd.addString(myListe);
+
+            LandingActivity.recupereraid();
+            Utils.info("EditText", Bdd.getElement(1).toString());
+
+//            //déclencher la création d'un parcours sur la page de landing
+//                        Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+//                        intent.putExtra("name","Toto");
+//                        startActivity(intent);
+//
+//            //redirection vers la page de création d'un parcours
+//                        Intent intent2= new Intent(CreateCourse.this, CreateParcours.class);
+//                        startActivity(intent2);
+        }
+
+
+
+
+
+        }
+    }
+
 
