@@ -113,4 +113,8 @@ public class Accueil extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        Utils.debug("Accueil","J'ai presse le back");
+    }
 }
