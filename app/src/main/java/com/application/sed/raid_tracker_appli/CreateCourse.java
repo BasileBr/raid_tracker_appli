@@ -434,10 +434,11 @@ public class CreateCourse extends AppCompatActivity {
         int checkcourse=1;
         int checkwater=1;
         int checkterre=1;
-        
+
 
         int checkcoherence=0;
 
+        
         if (isEmpty(name_raid)) {
             checknameraid=0;
             name_raid.setError("le nom du raid n'est pas renseigné");
