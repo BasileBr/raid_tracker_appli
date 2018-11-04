@@ -78,6 +78,11 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void asupprimer(View view){
+        Intent intent =  new Intent(WelcomeActivity.this, CreateCourse.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onBackPressed() {

@@ -74,6 +74,7 @@ public class CreateCourse extends AppCompatActivity {
     CharSequence recupere6;
     CharSequence recupere7;
     CharSequence recupere8;
+    CharSequence recupere9;
 
     Button mButton;
     EditText name_raid;
@@ -438,7 +439,7 @@ public class CreateCourse extends AppCompatActivity {
 
         int checkcoherence=0;
 
-        
+
         if (isEmpty(name_raid)) {
             checknameraid=0;
             name_raid.setError("le nom du raid n'est pas renseigné");
@@ -465,7 +466,7 @@ public class CreateCourse extends AppCompatActivity {
             checknameraid=0;
             name_raid.setError("le nom du raid n'est pas renseigné");
         }
-//
+
 //        if(!getitem.isChecked()){
 //            checkkayak=0;
 //        }
@@ -484,24 +485,36 @@ public class CreateCourse extends AppCompatActivity {
 //        }
 //
 //        if(!getitem6.isChecked()){
-//            checkwater=0;
+//            checkterre=0;
 //        }
 
 
+        //vérifie si un sport est selectionné
         if(!getitem.isChecked()&& !getitem2.isChecked()&& !getitem3.isChecked() && !getitem4.isChecked()){
             choosesports.setError("aucun sport selectionné");
 
         }
 
+        //vérifie si la surface correspond au sport
         if((getitem.isChecked() && !getitem5.isChecked() || getitem2.isChecked() && !getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && !getitem5.isChecked())){
             choosesports.setError("type de surface incohérent");
         }
 
+        //pareil vérif de la surface
         if((getitem3.isChecked() && !getitem6.isChecked() || getitem4.isChecked() && !getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && !getitem6.isChecked())){
             choosesports.setError("type de surface incohérent");
         }
 
-        if(getitem.isChecked() && getitem5.isChecked() || getitem2.isChecked() && getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && getitem5.isChecked() || getitem3.isChecked() && getitem6.isChecked() || getitem4.isChecked() && getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && getitem6.isChecked() || getitem.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked() || getitem.isChecked() &&getitem5.isChecked() && getitem4.isChecked() && getitem6.isChecked() || getitem2.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked() || getitem2.isChecked() && getitem5.isChecked() && getitem4.isChecked()&& getitem6.isChecked()){
+        //vérification complète de la cohérence du/ des sports selectionnées en fonction de la surface
+        if(getitem.isChecked() && getitem5.isChecked() || getitem2.isChecked() && getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && getitem5.isChecked() ||
+                getitem3.isChecked() && getitem6.isChecked() || getitem4.isChecked() && getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && getitem6.isChecked() ||
+                getitem.isChecked() && getitem5.isChecked() && getitem3.isChecked() && getitem6.isChecked() || getitem.isChecked() &&getitem5.isChecked() && getitem4.isChecked() && getitem6.isChecked()
+                || getitem2.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked() || getitem2.isChecked() && getitem5.isChecked() && getitem4.isChecked()&& getitem6.isChecked()
+                || getitem.isChecked() && getitem2.isChecked() && getitem3.isChecked() && getitem5.isChecked() && getitem6.isChecked() || getitem2.isChecked() && getitem3.isChecked() && getitem4.isChecked()
+                && getitem5.isChecked() && getitem6.isChecked() || getitem.isChecked() && getitem3.isChecked() && getitem4.isChecked() && getitem5.isChecked() && getitem6.isChecked()
+                || getitem.isChecked() &&getitem2.isChecked() && getitem3.isChecked() && getitem4.isChecked() && getitem5.isChecked() && getitem6.isChecked()){
+
+            Utils.info("coherent","oui");
             checkcoherence=1;
         }
 
@@ -517,32 +530,78 @@ public class CreateCourse extends AppCompatActivity {
             recupere5=getitem2.getText().toString();
             recupere6=getitem3.getText().toString();
             recupere7=getitem4.getText().toString();
-            recupere7=getitem5.getText().toString();
-            recupere8=getitem6.getText().toString();
-
-
-
-
-
-
+            recupere8=getitem5.getText().toString();
+            recupere9=getitem6.getText().toString();
 
 
             myListe.add(recupere);  // récupère le nom du raid
             myListe.add(recupere1); // le lieu de l'évènement
             myListe.add(getdate); // sélectionne la date de l'évènement
-            myListe.add(recupere2); // le nom de l'équipe organisatrice
-            myListe.add(recupere4);
 
-           //myListe.add(recupere4);
-           myListe.add(recupere5);
+
+            myListe.add(recupere2); // le nom de l'équipe organisatrice
+            myListe.add(recupere3);
+            myListe.add(recupere4);
+            myListe.add(recupere4);
+            myListe.add(recupere5);
             myListe.add(recupere6);
             myListe.add(recupere7);
             myListe.add(recupere8);
-//            myListe.add(charNatation);
-//            myListe.add(charVelo);
-//            myListe.add(charCourse);
-//            myListe.add(charWater);
-//            myListe.add(charTerre);
+            myListe.add(recupere9);
+
+//trop long
+//            if(getitem.isChecked() && getitem5.isChecked()){
+//                myListe.add(recupere4);
+//                myListe.add (recupere7);
+//            }else if(getitem.isChecked() && getitem2.isChecked() && getitem5.isChecked()){
+//                myListe.add(recupere4);
+//                myListe.add(recupere5);
+//                myListe.add(recupere7);
+//            }else if(getitem2.isChecked() && getitem5.isChecked()){
+//                myListe.add(recupere5);
+//                myListe.add(recupere7);
+//            }else if( getitem3.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere6);
+//                myListe.add(recupere9);
+//
+//            }else if (getitem4.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere7);
+//                myListe.add(recupere9);
+//            }else if(getitem3.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere6);
+//                myListe.add(recupere9);
+//            }
+//            else if(getitem4.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere7);
+//                myListe.add(recupere9);
+//            }
+//            else if(getitem3.isChecked() && getitem4.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere6);
+//                myListe.add(recupere7);
+//                myListe.add(recupere9);
+//            }else if (getitem.isChecked() && getitem5.isChecked() && getitem3.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere4);
+//                myListe.add(recupere5);
+//                myListe.add(recupere6);
+//                myListe.add(recupere9);
+//            }else if(getitem.isChecked() &&getitem5.isChecked() && getitem4.isChecked() && getitem6.isChecked()){
+//                myListe.add(recupere4);
+//                myListe.add(recupere8);
+//                myListe.add(recupere7);
+//                myListe.add(recupere9);
+//            }else if (getitem2.isChecked() && getitem5.isChecked() && getitem3.isChecked() &&getitem6.isChecked(){
+//                myListe.add(recupere5);
+//                myListe.add(recupere8);
+//                myListe.add(recupere6);
+//                myListe.add(recupere9);
+//            }else if (getitem2.isChecked() && getitem5.isChecked() && getitem4.isChecked()&& getitem6.isChecked()){
+//
+//            }
+//
+//            else (getitem2.isChecked() && getitem5.isChecked() && getitem4.isChecked()&& getitem6.isChecked()){
+//
+//            }
+
 
 
             Utils.info("EditText", myListe.toString());
