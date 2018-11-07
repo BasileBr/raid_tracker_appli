@@ -75,6 +75,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     int ParcoursListGeoPoint = 0;
     MyLocationNewOverlay mLocationOverlay;
 
+    private int emptyname=0;
+
+
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
     Marker standardmarker2;
@@ -614,7 +617,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
      * création de la popup
      * @param view
      */
-    public void ShowAlertDialog(View view){
+    public void ShowAlertDialog(final View view){
 
         final TextView setNameParcours = (TextView) findViewById(R.id.textname);
 
@@ -627,18 +630,25 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         alert.setView(input);
 
+        if(emptyname==1){
+            input.setError("erreur");
+        }
 
+        m_Text = input.getText().toString();
 
         // Set up the buttons
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if(!(TextUtils.isEmpty(input.getText().toString()))){
-                m_Text = input.getText().toString();
-                setNameParcours.setText(m_Text);
+                if(m_Text.isEmpty()){
+                    emptyname=1;
+                    ShowAlertDialog(view);
+                    //input.setError(" nom vide");
+
                 }else {
-                    input.setError(" nom vide");
+                    emptyname=0;
+                    setNameParcours.setText(m_Text);
 
                 }
 
