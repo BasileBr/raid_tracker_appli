@@ -12,11 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Bdd;
 import com.application.sed.raid_tracker_appli.CreateCourse;
 import com.application.sed.raid_tracker_appli.CreateParcours;
+import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils;
+import com.application.sed.raid_tracker_appli.WelcomeActivity;
 
 import java.util.ArrayList;
 
@@ -34,39 +37,54 @@ public class CourseActivity extends AppCompatActivity {
         Utils.info("test", "Creation of the new activity");
 
 
-        this.toolbar = findViewById(R.id.toolbar);
 
-        //definir notre toolbar en tant qu'actionBar
+        toolbar =(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        this.drawerLayout = findViewById(R.id.drawerLayout);
-        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
-        this.drawerLayout.setDrawerListener(this.drawerToggle);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.info("NICK", "button button button..................");
 
-                drawerLayout.openDrawer(Gravity.START);
+                Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                startActivity(intent);
 
             }
         });
+
         LinearLayout ll = findViewById(R.id.ParcoursLayout);
         ArrayList<Button> listebouton = new ArrayList<>();
         listebouton = Bdd.getButton();
         for (int i =0; i<Bdd.getButton().size();i++){
 
-            Button button = new Button(this);
+            Button button;
             button = listebouton.get(i);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             ll.addView(button, lp);
         }
 
+        for (int j = 0; j<listebouton.size(); j++) {
+            Button newButton = listebouton.get(j);
+
+            newButton.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent =  new Intent(CourseActivity.this, CreateCourse.class);
+                    startActivity(intent);
+
+                }
+            });
+        }
+
     }
 
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+        startActivity(intent);
+    }
 
     public void Course(View view){
 
@@ -78,17 +96,17 @@ public class CourseActivity extends AppCompatActivity {
         startActivity(intent2);
 
     }
-    /* Méthodes pour le Drawer */
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
+//    /* Méthodes pour le Drawer */
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
+//        drawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        drawerToggle.onConfigurationChanged(newConfig);
+//    }
 }

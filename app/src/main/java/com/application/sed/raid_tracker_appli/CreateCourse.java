@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 import java.util.ArrayList;
@@ -655,7 +656,7 @@ public class CreateCourse extends AppCompatActivity {
                         startActivity(intent);
 
             //redirection vers la page de création d'un parcours
-                        Intent intent2= new Intent(CreateCourse.this, CreateParcours.class);
+                        Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
                         startActivity(intent2);
         }
 
