@@ -11,37 +11,43 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/VertPrimaire"
         android:focusable="true"
+        android:gravity="end"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:gravity="start"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="175dp"
-                android:layout_marginStart="3dp"
-                android:layout_gravity="center"
-                android:layout_height="40dp"
-                android:background="@drawable/rt_basev2"/>
-        </LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="end">
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="175dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rt_basev2"/>
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/inscription"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="130dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:background="@color/MarronPrimaire"
                 android:textColor="@color/Blancnacre"
                 android:layout_marginEnd="2dp"
                 android:layout_height="wrap_content"
                 android:onClick="Connexion"
                 android:text="@string/input_insc_conne" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 

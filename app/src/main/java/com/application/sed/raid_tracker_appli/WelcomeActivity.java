@@ -75,6 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void createAccount(View view){
         Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
+        intent.putExtra("Classname","Welcome");
         startActivity(intent);
     }
 

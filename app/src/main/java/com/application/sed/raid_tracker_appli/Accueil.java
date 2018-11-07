@@ -32,7 +32,7 @@ public class Accueil extends AppCompatActivity {
     private ArrayList<List> AccountInfo = new ArrayList<>();
 
 
-
+    Toolbar toolbar;
     //private ArrayList<Button> listButton;
 
 
@@ -48,6 +48,21 @@ public class Accueil extends AppCompatActivity {
         // Récupération des informations de la liste
 
 
+        toolbar =(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Accueil.this, WelcomeActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -110,6 +125,7 @@ public class Accueil extends AppCompatActivity {
 
     public void createAccount(View view){
         Intent intent =  new Intent(Accueil.this, CreateAccount.class);
+        intent.putExtra("Classname","Accueil");
         startActivity(intent);
     }
 

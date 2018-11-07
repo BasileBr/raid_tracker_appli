@@ -3,17 +3,21 @@ package com.application.sed.raid_tracker_appli;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.constraint.solver.widgets.WidgetContainer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
+import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class CreateAccount extends AppCompatActivity{
     String recupere_mail;
     String recupere_password1;
     String recupere_password2;
+    Toolbar toolbar;
+    String classname;
 
 
     @Override
@@ -50,9 +56,15 @@ public class CreateAccount extends AppCompatActivity{
         setContentView(R.layout.activity_creationaccount);
         Utils.info(TAG, "OnCreate");
 
+        Intent intent=getIntent();
+
+        if (intent != null) {
+
+            classname = intent.getStringExtra("Classname");
+        }
 
 
-        /* récupération des identifiants des éléments pour créer un compte */
+            /* récupération des identifiants des éléments pour créer un compte */
         mButton = (Button) findViewById(R.id.createAccount);
         //identifiant = (EditText) findViewById(R.id.identifiant);
         prenom = (EditText) findViewById(R.id.prenom);
@@ -62,7 +74,26 @@ public class CreateAccount extends AppCompatActivity{
         password2 = (EditText) findViewById(R.id.input_password2);
 
 
+        toolbar =(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (classname.equals("Accueil")) {
+                    Intent intent = new Intent(CreateAccount.this, Accueil.class);
+                    startActivity(intent);
+                }
+                else if (classname.equals("Welcome")) {
+                    Intent intent = new Intent(CreateAccount.this, WelcomeActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
 
 
 //        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
@@ -224,8 +255,14 @@ public class CreateAccount extends AppCompatActivity{
 
 
     public void cancel(View view){
-        Intent intent = new Intent(CreateAccount.this, Accueil.class);
-        startActivity(intent);
+        if (classname.equals("Accueil")) {
+            Intent intent = new Intent(CreateAccount.this, Accueil.class);
+            startActivity(intent);
+        }
+        else if (classname.equals("Welcome")) {
+            Intent intent = new Intent(CreateAccount.this, WelcomeActivity.class);
+            startActivity(intent);
+        }
     }
 
 

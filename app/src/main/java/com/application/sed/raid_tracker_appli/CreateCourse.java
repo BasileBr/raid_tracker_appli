@@ -50,6 +50,7 @@ public class CreateCourse extends AppCompatActivity {
     private CheckBox getitem6;
 
 
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
@@ -94,7 +95,9 @@ public class CreateCourse extends AppCompatActivity {
         setContentView(R.layout.activity_createcourse);
         Utils.info(TAG, "OnCreate");
 
-        this.toolbar2 = findViewById(R.id.toolbar3);
+//        this.toolbar2 = findViewById(R.id.toolbar3);
+        toolbar2 = findViewById(R.id.toolbar3);
+
 
         //definir notre toolbar en tant qu'actionBar
         setSupportActionBar(toolbar2);
@@ -104,19 +107,33 @@ public class CreateCourse extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        this.drawerLayout = findViewById(R.id.drawerLayout3);
-        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, 0, 0);
-        this.drawerLayout.setDrawerListener(this.drawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.info("NICK", "button button button..................");
-
-                drawerLayout.openDrawer(Gravity.START);
-
+                Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+                startActivity(intent);
             }
         });
+
+
+
+
+//        this.drawerLayout = findViewById(R.id.drawerLayout3);
+//        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, 0, 0);
+//        this.drawerLayout.setDrawerListener(this.drawerToggle);
+//
+//        toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Utils.info("NICK", "button button button..................");
+//
+//                drawerLayout.openDrawer(Gravity.START);
+//
+//            }
+//        });
 
 
         /**
@@ -163,11 +180,13 @@ public class CreateCourse extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                selectdate= (TextView) findViewById(R.id.selectdate);
                 Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
 
                 String date = dayOfMonth + "/" + (month+1) + "/" + year;
                 mDisplayDate.setText(date);
                 getdate = date;
+                selectdate.setError(null);
             }
         };
 
@@ -285,32 +304,37 @@ public class CreateCourse extends AppCompatActivity {
         getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
+        choosesports = (TextView) findViewById(R.id.choosesport);
 
         // Check which checkbox was clicked
         switch (view.getId()) {
             case R.id.checkbox_kayak:
                 if (checked)
                     charKayak = getitem.getText().toString();
-                    Utils.info("charkayal",charKayak);
+                choosesports.setError(null);
+                Utils.info("charkayal", charKayak);
 //                    int toto = getLinear.getId();
 //                    Utils.info(TAG,String.valueOf(toto));
 
                 break;
             case R.id.checkbox_natation:
                 if (checked)
-                    charNatation = getitem2.getText().toString();
+                    choosesports.setError(null);
+                charNatation = getitem2.getText().toString();
 
 
                 break;
             case R.id.checkbox_velo:
                 if (checked)
-                    charVelo = getitem3.getText().toString();
+                    choosesports.setError(null);
+                charVelo = getitem3.getText().toString();
 
 
                 break;
             case R.id.checkbox_coursepied:
                 if (checked)
-                    charCourse = getitem4.getText().toString();
+                    choosesports.setError(null);
+                charCourse = getitem4.getText().toString();
 
 
                 break;
@@ -328,8 +352,22 @@ public class CreateCourse extends AppCompatActivity {
 
                 break;
 
-
+            //vérifie si la surface correspond au sport
         }
+
+
+
+        if ((getitem.isChecked() || getitem2.isChecked()) && (getitem5.isChecked() && !getitem6.isChecked())) {
+            choosesports.setError(null);
+        }
+
+        if ((getitem3.isChecked() || getitem4.isChecked()) && (getitem6.isChecked() && !getitem5.isChecked())) {
+            choosesports.setError(null);
+        }
+        if ((getitem.isChecked() || getitem2.isChecked() || getitem3.isChecked() || getitem4.isChecked()) && (getitem5.isChecked() && getitem6.isChecked()) ) {
+            choosesports.setError(null);
+        }
+
  }
 
 
@@ -353,18 +391,7 @@ public class CreateCourse extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
-        drawerToggle.syncState();
-    }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
 
 
     public void createnewraid(View view){
@@ -496,13 +523,24 @@ public class CreateCourse extends AppCompatActivity {
         }
 
         //vérifie si la surface correspond au sport
-        if((getitem.isChecked() && !getitem5.isChecked() || getitem2.isChecked() && !getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && !getitem5.isChecked())){
+//        if((getitem.isChecked() && !getitem5.isChecked() || getitem2.isChecked() && !getitem5.isChecked() || getitem.isChecked() && getitem2.isChecked() && !getitem5.isChecked())){
+//            choosesports.setError("type de surface incohérent");
+//        }
+
+        if ((getitem.isChecked() || getitem2.isChecked()) && (!getitem5.isChecked() || getitem6.isChecked()) ) {
             choosesports.setError("type de surface incohérent");
         }
 
         //pareil vérif de la surface
-        if((getitem3.isChecked() && !getitem6.isChecked() || getitem4.isChecked() && !getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && !getitem6.isChecked())){
+//        if((getitem3.isChecked() && !getitem6.isChecked() || getitem4.isChecked() && !getitem6.isChecked() || getitem3.isChecked() && getitem4.isChecked() && !getitem6.isChecked())){
+//            choosesports.setError("type de surface incohérent");
+//        }
+
+        if ((getitem3.isChecked() || getitem4.isChecked()) && (!getitem6.isChecked() || getitem5.isChecked())) {
             choosesports.setError("type de surface incohérent");
+        }
+        if ((getitem.isChecked() || getitem2.isChecked() || getitem3.isChecked() || getitem4.isChecked()) && (getitem5.isChecked() && getitem6.isChecked()) ) {
+            choosesports.setError(null);
         }
 
         //vérification complète de la cohérence du/ des sports selectionnées en fonction de la surface
