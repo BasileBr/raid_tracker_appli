@@ -9,6 +9,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.application.sed.raid_tracker_appli.Bdd;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
@@ -18,6 +21,7 @@ import java.util.Map;
 public class ApiRequestPost {
 
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
+    final static String urlAuthToken = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/auth-tokens";
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
 
@@ -47,9 +51,9 @@ public class ApiRequestPost {
                 Map<String, String>  params = new HashMap<String, String>();
 //                JSONObject pass = new JSONObject();
                 //Map<String, String>  params2 = new HashMap<String, String>();
-                params.put("name",name);
+                params.put("username",name);
                 params.put("email",mail);
-                params.put("password",pwd);
+                params.put("plainPassword",pwd);
 
                 /*try {
                     pass.put("first",pwd1);
@@ -77,6 +81,45 @@ public class ApiRequestPost {
 //                }catch(JSONException e) {
 //                    Log.e("Erro.JSON",e.toString());
 //                }
+
+                return params;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+    public static void postToken(Context context, final String name, final String pwd){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlAuthToken,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+
+                        Log.d("Response", response);
+                        Bdd.setResponse(response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("login",name);
+                params.put("password",pwd);
+
 
                 return params;
             }

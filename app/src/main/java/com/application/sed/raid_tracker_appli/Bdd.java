@@ -15,6 +15,7 @@ public class Bdd {
     private static ArrayList<Button> ListButton = new ArrayList<>();
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
+    private static String response;
 
     public ArrayList<List> getStringList(){
         return Liste;
@@ -94,5 +95,13 @@ public class Bdd {
 
     public static String getNomUtilisateur() {
         return nomUtilisateur;
+    }
+
+    public static void setResponse(String res){
+        response = res;
+    }
+
+    public static String getResponse(){
+        return response;
     }
 }

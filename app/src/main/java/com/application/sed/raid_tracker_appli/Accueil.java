@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
 
 import java.util.ArrayList;
@@ -93,20 +94,21 @@ public class Accueil extends AppCompatActivity {
             List infoUsers  = AccountInfo.get(i);
             String info = infoUsers.toString();
             Utils.debug("Je suis ici", info);
-            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
-                isValid =true;
-                Intent intent = new Intent(Accueil.this, LandingActivity.class);
-                intent.putExtra("name",infoUsers.get(0).toString());
-                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
-                startActivity(intent);
-            }
+//            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
+//                isValid =true;
+//                Intent intent = new Intent(Accueil.this, LandingActivity.class);
+//                intent.putExtra("name",infoUsers.get(0).toString());
+//                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
+//                startActivity(intent);
+//            }
+
             // else afficher la popup erreur de connexion
 
             isValid=false;
 
 
         }
-
+        ApiRequestPost.postToken(this, email, mdp);
 
 //        /*vérification lors de la connexon */
 //        for (int j = 0; j < listUsers.size(); j ++){

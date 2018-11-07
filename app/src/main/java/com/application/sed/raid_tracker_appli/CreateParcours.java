@@ -657,6 +657,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         }
 
 
+
         // Set up the buttons
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
