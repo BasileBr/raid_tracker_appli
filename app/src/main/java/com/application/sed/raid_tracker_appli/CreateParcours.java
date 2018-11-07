@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -79,7 +80,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     Marker standardmarker2;
     Marker standarmarker3;
 
-    Toolbar toolbar;
+    Toolbar toolbar1;
 
     GeoPoint pointa = new GeoPoint(51.489878, 6.143294);
     GeoPoint pointb = new GeoPoint(51.488978, 6.746994);
@@ -97,18 +98,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         setContentView(R.layout.activity_create_parcours);
 
 
-        toolbar =(Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar1 =(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar1);
 
-        //afficher le bouton retour
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        //retour
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -134,7 +131,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's tile servers will get you banned based on this string
 
         //inflate and create the map
-        setContentView(R.layout.activity_create_parcours);
+       // setContentView(R.layout.activity_create_parcours);
 
         // à utiliser en phase de développement, autorise toutes les permissions sur le thread UI (pas terrible)
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -281,7 +278,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 //        map.getOverlays().add(startMarker);
 
         //afficher une popup pour sélectionner le type de sport
-        ShowAlertDialog(map);
+       ShowAlertDialog(map);
 
 
 
@@ -621,7 +618,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         final TextView setNameParcours = (TextView) findViewById(R.id.textname);
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Nom du parcours");
 
         // Set up the input
@@ -630,12 +627,20 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         alert.setView(input);
 
+
+
         // Set up the buttons
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                if(!(TextUtils.isEmpty(input.getText().toString()))){
                 m_Text = input.getText().toString();
                 setNameParcours.setText(m_Text);
+                }else {
+                    input.setError(" nom vide");
+
+                }
 
             }
         });
@@ -649,11 +654,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         alert.show();
     }
-
-
-
-
-
 
 
 }

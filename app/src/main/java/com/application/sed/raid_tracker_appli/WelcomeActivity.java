@@ -80,7 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void asupprimer(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, CreateCourse.class);
+        Intent intent =  new Intent(WelcomeActivity.this, CreateParcours.class);
         startActivity(intent);
     }
 
