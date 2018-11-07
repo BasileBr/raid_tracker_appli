@@ -288,6 +288,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
     }
 
+    int compteurpointdepart=0;
+    int compteurpointarrivee=0;
+    int compteurpointpoi=0;
+
     //effectuer des actions lors d'un appui long
     @Override public boolean longPressHelper(GeoPoint p) {
 
@@ -296,87 +300,105 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //startMarker.setPosition(tmpgeo);
         String latitude=String.valueOf(p.getLatitude());
         String longitude=String.valueOf(p.getLongitude());
-        switch (numbouton){
+        switch (numbouton) {
 
 
             case 0:
                 break;
             case 1:
+                if (compteurpointdepart==0 && compteurpointpoi == 0 && compteurpointarrivee == 0) {
+                    compteurpointdepart = 1;
+                    standardmarker = new Marker(map);
+                    standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag2));
+                    standardmarker.setPosition(tmpgeo);
+                    standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
 
-                standardmarker = new Marker(map);
-                standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag2));
-                standardmarker.setPosition(tmpgeo);
-                standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+
+                    Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
+
+                    //        //Liste de points
+                    //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                    //
+                    //        //waypoints.add(startPoint);
+                    //
+                    //        //waypoints.add(endPoint);
+
+                    standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + latitude + '\n' + "longitude: " + longitude);
+
+                    //ajouter un icone particuliere
+                    //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                    map.getOverlays().add(standardmarker);
+                    ListGeoPoint.add(tmpgeo);
+                    map.invalidate();
+                    setRoad();
+                    break;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Vous avez déjà positionné le point de départ", Toast.LENGTH_SHORT).show();
+                    break;
+                }
 
 
-                Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
-
-        //        //Liste de points
-        //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-        //
-        //        //waypoints.add(startPoint);
-        //
-        //        //waypoints.add(endPoint);
-
-                standardmarker.setTitle("Point de départ"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
-
-                //ajouter un icone particuliere
-                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-                map.getOverlays().add(standardmarker);
-                ListGeoPoint.add(tmpgeo);
-                map.invalidate();
-                setRoad();
-
-                break;
             case 2:
 
-                standardmarker1 = new Marker(map);
-                standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag2));
-                standardmarker1.setPosition(tmpgeo);
-                standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+                if (compteurpointdepart == 1 && compteurpointpoi == 1) {
+                    compteurpointarrivee = 1;
+                    standardmarker1 = new Marker(map);
+                    standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag2));
+                    standardmarker1.setPosition(tmpgeo);
+                    standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                    Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
 
-                //        //Liste de points
-                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                //
-                //        //waypoints.add(startPoint);
-                //
-                //        //waypoints.add(endPoint);
+                    //        //Liste de points
+                    //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                    //
+                    //        //waypoints.add(startPoint);
+                    //
+                    //        //waypoints.add(endPoint);
 
-                standardmarker1.setTitle("Point d'arrivée"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+                    standardmarker1.setTitle("Point d'arrivée" + "\n" + "latitude: " + latitude + '\n' + "longitude: " + longitude);
 
-                //ajouter un icone particuliere
-                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-                map.getOverlays().add(standardmarker1);
-                ListGeoPoint.add(tmpgeo);
-                map.invalidate();
-                setRoad();
+                    //ajouter un icone particuliere
+                    //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                    map.getOverlays().add(standardmarker1);
+                    ListGeoPoint.add(tmpgeo);
+                    map.invalidate();
+                    setRoad();
 
-                break;
-
+                    break;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Vous ne pouvez pas ajouter ce point", Toast.LENGTH_SHORT).show();
+                    break;
+                }
             case 3:
-                standardmarker2 = new Marker(map);
-                standardmarker2.setIcon(getResources().getDrawable(R.drawable.passage2));
-                standardmarker2.setPosition(tmpgeo);
-                standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+                if (compteurpointdepart == 1 && compteurpointarrivee == 0 ) {
+                    compteurpointpoi = 1;
+                    standardmarker2 = new Marker(map);
+                    standardmarker2.setIcon(getResources().getDrawable(R.drawable.passage23));
+                    standardmarker2.setPosition(tmpgeo);
+                    standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                    Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
 
-                //        //Liste de points
-                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                //
-                //        //waypoints.add(startPoint);
-                //
-                //        //waypoints.add(endPoint);
+                    //        //Liste de points
+                    //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                    //
+                    //        //waypoints.add(startPoint);
+                    //
+                    //        //waypoints.add(endPoint);
 
-                standardmarker2.setTitle("Point de passage"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+                    standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + latitude + '\n' + "longitude: " + longitude);
 
-                //ajouter un icone particuliere
-                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-                map.getOverlays().add(standardmarker2);
-                ListGeoPoint.add(tmpgeo);
-                map.invalidate();
-                setRoad();
-                break;
+                    //ajouter un icone particuliere
+                    //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                    map.getOverlays().add(standardmarker2);
+                    ListGeoPoint.add(tmpgeo);
+                    map.invalidate();
+                    setRoad();
+                    break;
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Vous ne pouvez pas ajouter ce point", Toast.LENGTH_SHORT).show();
+                    break;
+                }
 
 
             case 4:
@@ -634,12 +656,12 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             input.setError("erreur");
         }
 
-        m_Text = input.getText().toString();
 
         // Set up the buttons
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
 
                 if(m_Text.isEmpty()){
                     emptyname=1;
