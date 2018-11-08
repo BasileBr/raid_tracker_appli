@@ -136,16 +136,38 @@
 
         </ScrollView>
 
-
-
-        <org.osmdroid.views.MapView
-            android:id="@+id/map"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/validateparcours"
+                android:background="@color/VertPrimaire"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="invisible"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:text="Valider" />
         <!--<Button-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:onClick="geolocateme"-->
         <!--android:text="coucou" />-->
+    </RelativeLayout>
     </LinearLayout>
+
 </LinearLayout>

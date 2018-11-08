@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -100,26 +101,24 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_parcours);
 
+        //on récupère l'identifiant de la toolbar
+        toolbar1 = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar1 =(Toolbar) findViewById(R.id.toolbar);
+        // on définit la toolbar
         setSupportActionBar(toolbar1);
 
-        //retour
+        //ajouter un bouton retour dans l'action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //si on appuie sur le bouton retour, on arrive sur la page landing
         toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
-                    startActivity(intent);
-
+                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                startActivity(intent);
             }
         });
-
-
-
 
 
         //handle permissions first, before map is created. not depicted here TODO
@@ -134,7 +133,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's tile servers will get you banned based on this string
 
         //inflate and create the map
-       // setContentView(R.layout.activity_create_parcours);
+        // setContentView(R.layout.activity_create_parcours);
 
         // à utiliser en phase de développement, autorise toutes les permissions sur le thread UI (pas terrible)
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -149,7 +148,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //positionnement lors de l'ouverture de la carte
         IMapController mapController = map.getController();
         mapController.setZoom(9.0);
-        GeoPoint centermap = new GeoPoint(48.732084,-3.4591440000000375);
+        GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
         mapController.setCenter(centermap);
 
         //géolocaliser l'appareil
@@ -174,7 +173,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 //        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
 
         // fixer le point de départ et le point d'arrivée
-       // ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+        // ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
         //waypoints.add(startPoint);
         //GeoPoint endPoint = new GeoPoint(48.4, -1.9);
         //waypoints.add(endPoint);
@@ -195,16 +194,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         map.getOverlays().add(0, mapEventsOverlay);
 
 
-
-        //récupère les id des boutons
+        //récupère les identifiants des drapeaux
         final ImageButton greenflag = (ImageButton) findViewById(R.id.greenflag);
         final ImageButton redflag = (ImageButton) findViewById(R.id.redflag);
         final ImageButton passagepoint = (ImageButton) findViewById(R.id.passagepoint);
         final ImageButton poi = (ImageButton) findViewById(R.id.poi);
 
 
-
-        //action listener sur le drapeau de depart
+        //action sur le drapeau de départ (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
         greenflag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,14 +211,11 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
                 passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
                 poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                //map.getOverlays().add(standardmarker);
-
             }
         });
 
 
-        //action listenner sur le drapeau d'arrivée
-
+        //action sur le drapeau d'arrivée (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
         redflag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,7 +229,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             }
         });
 
-        //action listener sur les points de passage
+        //action sur le drapeau de point de passage (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
         passagepoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,21 +245,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             }
         });
 
-        //action listener sur les points d'intéret
+        ////action sur le drapeau des points d'intérêtes (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
         poi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 numbouton = 4;
-
                 poi.setBackgroundColor(Color.rgb(209, 196, 190));
                 greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
                 passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
                 redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                //poi.setBackgroundColor(Color.rgb(209, 196, 190));
-                //map.getOverlays().add(standardmarker1);
             }
         });
-
 
 
         //ajouter marqueur
@@ -281,13 +271,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 //        map.getOverlays().add(startMarker);
 
         //afficher une popup pour sélectionner le type de sport
-       ShowAlertDialog(map);
+        ShowAlertDialog(map);
 
 
 
 
     }
 
+    //initialisation de compteur pour tester si on peut ajouter un nouveau drapeau
     int compteurpointdepart=0;
     int compteurpointarrivee=0;
     int compteurpointpoi=0;
@@ -295,52 +286,47 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     //effectuer des actions lors d'un appui long
     @Override public boolean longPressHelper(GeoPoint p) {
 
+        // création d'un nouveau point de géolocalisation
         GeoPoint tmpgeo = new GeoPoint(p.getLatitude(),p.getLongitude());
         //Marker startMarker = new Marker(map);
         //startMarker.setPosition(tmpgeo);
+
+        //récupération des valeurs de localisation (latitude, longitude)
         String latitude=String.valueOf(p.getLatitude());
         String longitude=String.valueOf(p.getLongitude());
         switch (numbouton) {
-
-
             case 0:
                 break;
-            case 1:
+            case 1: // cas du point de départ, on vérifie s'il est possible d'en créer un nouveau
                 if (compteurpointdepart==0 && compteurpointpoi == 0 && compteurpointarrivee == 0) {
                     compteurpointdepart = 1;
                     standardmarker = new Marker(map);
                     standardmarker.setIcon(getResources().getDrawable(R.drawable.green_flag2));
                     standardmarker.setPosition(tmpgeo);
                     standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-
-
                     Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
-
                     //        //Liste de points
                     //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
                     //
                     //        //waypoints.add(startPoint);
                     //
                     //        //waypoints.add(endPoint);
-
                     standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + latitude + '\n' + "longitude: " + longitude);
-
-                    //ajouter un icone particuliere
-                    //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
                     map.getOverlays().add(standardmarker);
                     ListGeoPoint.add(tmpgeo);
                     map.invalidate();
                     setRoad();
                     break;
-                } else {
-                    Toast.makeText(getApplicationContext(), "Vous avez déjà positionné le point de départ", Toast.LENGTH_SHORT).show();
-                    break;
-                }
+                    }
+                else{ // sinon impossible de le créer
+                        Toast.makeText(getApplicationContext(), "Vous ne pouvez pas ajouter ce point", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
 
 
             case 2:
 
-                if (compteurpointdepart == 1 && compteurpointpoi == 1) {
+                if (compteurpointdepart == 1 && compteurpointpoi == 1 && compteurpointarrivee==0) {
                     compteurpointarrivee = 1;
                     standardmarker1 = new Marker(map);
                     standardmarker1.setIcon(getResources().getDrawable(R.drawable.red_flag2));
@@ -365,7 +351,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     setRoad();
 
                     break;
-                } else {
+                } else if (compteurpointarrivee==1) {
+                    Toast.makeText(getApplicationContext(), "Vous ne pouvez pas ajouter ce point", Toast.LENGTH_SHORT).show();
+                    break;
+                }else {
                     Toast.makeText(getApplicationContext(), "Vous ne pouvez pas ajouter ce point", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -428,67 +417,67 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         }
 
+        // Création d'un nouveau bouton
+        Button b1=(Button)findViewById(R.id.validateparcours);
 
+        //si le point d'arrivée a été placé alors on propose d'enregistrer les points
+        if (compteurpointarrivee==1) {
+            b1.setVisibility(View.VISIBLE);
+        }
         return false;
-
-
-
     }
 
     /**
-     * algo pour ajouter les points d'un parcours et envoi du traitement dans l'asynctask
+     * Algorithme pour ajouter les points d'un parcours et envoi du traitement en tache de fond (asynctask)
      */
     public void setRoad(){
+        //parcours l'arraylist contenant tous les geopoints lors d'un appui long
+        for (int i = ParcoursListGeoPoint; i<ListGeoPoint.size();i++){
+            // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
+            if (compteur==0){
+                Utils.debug("setRoad","If cpt = 0 ");
+                parcours.add(ListGeoPoint.get(i));
+                pointa = parcours.get(0);
+                Utils.debug("setRoad","PointA" + pointa.toString());
+                compteur +=1;
+                ParcoursListGeoPoint += 1;
+            }
 
-            //parcours l'arraylist contenant tous les geopoints lors d'un appui long
-            for (int i = ParcoursListGeoPoint; i<ListGeoPoint.size();i++){
+            //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
+            else if (compteur==1){
+                Utils.debug("setRoad","If cpt = 1 ");
+                parcours.add(ListGeoPoint.get(i));
+                Utils.debug("setRoad","Parcours ");
+                compteur +=1;
+                pointb = parcours.get(1);
+                Utils.debug("setRoad","pointB " + pointb.toString());
 
-                // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
-                if (compteur==0){
-                    Utils.debug("setRoad","If cpt = 0 ");
-                    parcours.add(ListGeoPoint.get(i));
-                    pointa = parcours.get(0);
-                    Utils.debug("setRoad","PointA" + pointa.toString());
-                    compteur +=1;
-                    ParcoursListGeoPoint += 1;
+                //tache de fond
+                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+                GeoPoint[] toto = new GeoPoint[2];
+                toto[0] = pointa;
+                toto[1] = pointb;
+                ParcoursListGeoPoint += 1;
+                //new PerfomCalculations(getApplicationContext(),this).execute(toto);
+                new PerfomCalculations().execute(pointa,pointb);
+            }
 
-                }
+            // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
+            else if (compteur==2){
 
-                //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
-                else if (compteur==1){
-                    Utils.debug("setRoad","If cpt = 1 ");
-                    parcours.add(ListGeoPoint.get(i));
-                    Utils.debug("setRoad","Parcours ");
-                    compteur +=1;
-                    pointb = parcours.get(1);
-                    Utils.debug("setRoad","pointB " + pointb.toString());
+                Utils.debug("setRoad","If cpt = 2 ");
+                //recupere le deuxieme point dans parcours
+                geotemporaire = parcours.get(1);
+                //on l'ajoute en écrasant l'indice 0
+                parcours.add(0,geotemporaire);
+                parcours.add(1,ListGeoPoint.get(i));
 
-                    //tache de fond
-                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
-                    GeoPoint[] toto = new GeoPoint[2];
-                    toto[0] = pointa;
-                    toto[1] = pointb;
-                    ParcoursListGeoPoint += 1;
-                    //new PerfomCalculations(getApplicationContext(),this).execute(toto);
-                    new PerfomCalculations().execute(pointa,pointb);
-                }
+                //balance la tache de fond
+                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+                ParcoursListGeoPoint += 1;
+                new PerfomCalculations().execute(geotemporaire,parcours.get(1));
 
-                // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
-                else if (compteur==2){
-
-                    Utils.debug("setRoad","If cpt = 2 ");
-                    //recupere le deuxieme point dans parcours
-                    geotemporaire = parcours.get(1);
-                    //on l'ajoute en écrasant l'indice 0
-                    parcours.add(0,geotemporaire);
-                    parcours.add(1,ListGeoPoint.get(i));
-
-                    //balance la tache de fond
-                    //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
-                    ParcoursListGeoPoint += 1;
-                    new PerfomCalculations().execute(geotemporaire,parcours.get(1));
-
-                }
+            }
 
         }
 
@@ -585,7 +574,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 //    }
 
     /*
-    ** réaliser le calcul de tracé d'une ligne entre deux points
+     ** réaliser le calcul de tracé d'une ligne entre deux points
      */
     private class PerfomCalculations extends AsyncTask<GeoPoint,Void,Polyline> {
         @Override
@@ -618,14 +607,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
          */
         protected void onPostExecute(Polyline line) {
 ////
-           // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+            // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
             map.getOverlays().add(line);
 
             map.invalidate();
 
 //
             //MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getApplicationContext(), );
-           // map.getOverlays().add(0, mapEventsOverlay);
+            // map.getOverlays().add(0, mapEventsOverlay);
         }
 
     }
@@ -636,47 +625,55 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
     /**
-     * création de la popup
+     * création de la popup pour définir le nom du parcours
      * @param view
      */
     public void ShowAlertDialog(final View view){
 
+
+        //création textview pour afficher le nom du parcours
         final TextView setNameParcours = (TextView) findViewById(R.id.textname);
 
+        //création de la popup
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Nom du parcours");
+        //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
+        alert.setCancelable(false);
 
-        // Set up the input
+        // création d'un edittext pour récupérer le nom du parcours
         final EditText input = new EditText(this);
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+
+        // indiquer que l'input est de type texte
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        //ajouter l'edittext à la popup
         alert.setView(input);
 
+
+        //si aucun nom de parcours n'est entré, on affiche une erreure
         if(emptyname==1){
-            input.setError("erreur");
+            input.setError("le champ est vide");
         }
 
-
-
-        // Set up the buttons
+        // Effectuer une action si on appuie le bouton valider la popup
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //on récupère le nom du parcours entré par l'utilisateur
                 m_Text = input.getText().toString();
 
+                // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
                 if(m_Text.isEmpty()){
                     emptyname=1;
                     ShowAlertDialog(view);
-                    //input.setError(" nom vide");
-
-                }else {
+                }else // sinon on ajoute le nom du parcours dans la textview
+                {
                     emptyname=0;
                     setNameParcours.setText(m_Text);
-
                 }
 
             }
         });
+        // si on appuie sur annuler, on retourne à la page de landing
         alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -684,10 +681,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 startActivity(intent);
             }
         });
-
         alert.show();
     }
-
-
 }
 

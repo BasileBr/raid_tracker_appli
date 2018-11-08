@@ -103,15 +103,17 @@ public class Accueil extends AppCompatActivity {
             List infoUsers  = AccountInfo.get(i);
             String info = infoUsers.toString();
             Utils.debug("Je suis ici", info);
-//            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
-//                isValid =true;
-//                Intent intent = new Intent(Accueil.this, LandingActivity.class);
-//                intent.putExtra("name",infoUsers.get(0).toString());
-//                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
-//                startActivity(intent);
-//            }
-
-            // else afficher la popup erreur de connexion
+            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
+                isValid =true;
+                Intent intent = new Intent(Accueil.this, LandingActivity.class);
+                intent.putExtra("name",infoUsers.get(0).toString());
+                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
+                startActivity(intent);
+            }
+             else {
+                Utils.info("oh oh","je pas");
+                mEdit.setError("adresse mail ou mot de passe invalide");
+            }
 
             isValid=false;
 
@@ -131,6 +133,7 @@ public class Accueil extends AppCompatActivity {
 //        }
 
 
+        Utils.info(TAG,"Login Button action");
 
     }
 
