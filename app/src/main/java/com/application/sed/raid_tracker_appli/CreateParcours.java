@@ -424,6 +424,16 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         if (compteurpointarrivee==1) {
             b1.setVisibility(View.VISIBLE);
         }
+
+        b1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                startActivity(intent);
+
+            }
+        });
         return false;
     }
 

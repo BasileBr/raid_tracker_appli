@@ -1,7 +1,9 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,17 @@ import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils;
 import com.application.sed.raid_tracker_appli.WelcomeActivity;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
 import java.util.ArrayList;
 
 public class CourseActivity extends AppCompatActivity {
@@ -29,7 +42,7 @@ public class CourseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
 
-
+    MapView map = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +66,35 @@ public class CourseActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //création de la map
+        map = (MapView) findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+
+        //positionnement lors de l'ouverture de la carte
+        IMapController mapController = map.getController();
+        mapController.setZoom(9.0);
+        GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
+        mapController.setCenter(centermap);
+
+        //géolocaliser l'appareil
+        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+        mLocationOverlay.enableMyLocation();
+        map.getOverlays().add(mLocationOverlay);
+
+        // ajouter l'echelle
+        ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
+        map.getOverlays().add(myScaleBarOverlay);
+
+        // ajouter boussolle
+        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
+        mCompassOverlay.enableCompass();
+        map.getOverlays().add(mCompassOverlay);
+
+
 
         LinearLayout ll = findViewById(R.id.ParcoursLayout);
         ArrayList<Button> listebouton = new ArrayList<>();

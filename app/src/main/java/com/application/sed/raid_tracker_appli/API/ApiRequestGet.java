@@ -145,6 +145,7 @@ public class ApiRequestGet {
 
                 Map<String, String> header = new HashMap<>();
                 Utils.debug("Header",token);
+                header.put("Accept", "application/json");
                 header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;

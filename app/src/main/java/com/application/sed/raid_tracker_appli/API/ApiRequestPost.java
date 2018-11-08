@@ -76,6 +76,7 @@ public class ApiRequestPost {
 
 
                         Log.d("Response", response);
+
                         Accueil.redirection(response);
                     }
                 },

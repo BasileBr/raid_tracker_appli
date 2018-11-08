@@ -1,5 +1,6 @@
 package com.application.sed.raid_tracker_appli;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -55,6 +56,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     private ArrayList<List> raidlist;
     private ArrayList<Button> listButton;
+    private static Context context;
+
+    public static Context getAppContext() {
+        return LandingActivity.context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -288,11 +294,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     public static void recupereraid(){
     }
 
-    public void createparcours(View view){
-        Intent intent=new Intent(LandingActivity.this,CreateParcours.class);
-        startActivity(intent);
-
-    }
+//    public void createparcours(View view){
+//        Intent intent=new Intent(LandingActivity.this,CreateParcours.class);
+//        startActivity(intent);
+//
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

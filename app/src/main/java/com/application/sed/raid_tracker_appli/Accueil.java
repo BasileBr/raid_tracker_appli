@@ -119,7 +119,7 @@ public class Accueil extends AppCompatActivity {
 
 
         }
-        ApiRequestPost.postToken(this, email, mdp);
+        //ApiRequestPost.postToken(this, email, mdp);
 
 
 //        /*vérification lors de la connexon */
@@ -162,9 +162,14 @@ public class Accueil extends AppCompatActivity {
 
         Bdd.setValue(value,id);
 
-        userid = Bdd.getUserid();
+        String utilisateur = user.get("username").toString();
+        Utils.debug("Accueil",utilisateur);
+        Intent intent = new Intent(Accueil.getAppContext(), LandingActivity.class);
+        intent.putExtra("name",utilisateur);
+        Bdd.setNomUtilisateur(utilisateur);
+        LandingActivity.getAppContext().startActivity(intent);
 
-        ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
+        //ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
 
 
     }

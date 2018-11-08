@@ -29,54 +29,19 @@
                     android:textColor="#000000"
                     android:text="@string/Course"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/nameofuser"
-                        android:textSize="20sp"
-                        android:textColor="#000000"
-                        android:gravity="end"
-                        android:text="@string/input_username"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="10dp"
-                        android:contentDescription="@string/Deconnexion"
-                        android:onClick="logout"
-                        android:src="@drawable/ic_exit_to_app_black_24dp"/>
-                </LinearLayout>
-
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
     </LinearLayout>
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_gravity="start">
-        <include layout="@layout/drawer"/>
-
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_marginTop="?attr/actionBarSize">
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <!--<ScrollView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,18 +106,25 @@
 
 
                 </RelativeLayout>
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mapparcours"/>
-                </RelativeLayout>
+                    <org.osmdroid.views.MapView
+                        android:id="@+id/map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        <!--</ScrollView>-->
 
     </LinearLayout>
+
+
 </android.support.v4.widget.DrawerLayout>

@@ -14,7 +14,7 @@ public class Bdd {
     private static ArrayList<List> ListeAccount =new ArrayList<>();
     private static ArrayList<Button> ListButton = new ArrayList<>();
     private static String TAG = "Bdd";
-    private static String nomUtilisateur = "toto";
+    private static String nomUtilisateur;
     private static String response;
     private static String value,id, userid;
 
