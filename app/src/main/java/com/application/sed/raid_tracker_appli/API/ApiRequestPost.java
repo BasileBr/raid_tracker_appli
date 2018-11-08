@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Bdd;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -55,33 +56,6 @@ public class ApiRequestPost {
                 params.put("email",mail);
                 params.put("plainPassword",pwd);
 
-                /*try {
-                    pass.put("first",pwd1);
-                    pass.put("second",pwd2);
-                }catch (Exception e){
-                    return null;
-                }*/
-
-
-
-
-
-//                JSONObject params = null;
-//                JSONObject params2 = null;
-//
-//                try{
-//                    params2 = new JSONObject();
-//                    params2.put("first","coucou");
-//                    params2.put("second","coucou2");
-//                    params = new JSONObject();
-//                    params.put("name", "ulas");
-//                    params.put("email", "ulas@gmail.com");
-//                    params.put("password",params2);
-//
-//                }catch(JSONException e) {
-//                    Log.e("Erro.JSON",e.toString());
-//                }
-
                 return params;
             }
         };
@@ -91,6 +65,7 @@ public class ApiRequestPost {
 
     public static void postToken(Context context, final String name, final String pwd){
 
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest postRequest = new StringRequest(Request.Method.POST, urlAuthToken,
                 new Response.Listener<String>()
@@ -99,8 +74,9 @@ public class ApiRequestPost {
                     public void onResponse(String response) {
                         // response
 
+
                         Log.d("Response", response);
-                        Bdd.setResponse(response);
+                        Accueil.redirection(response);
                     }
                 },
                 new Response.ErrorListener()

@@ -18,7 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     private TextView nameofuser;
     private ActionBarDrawerToggle toggle;
-
+    private String value;
+    private String id;
 
     String Element;
     private ActionBarDrawerToggle drawerToggle;
@@ -265,6 +269,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     }
 
     public void logout(View view){
+
+
+        value = Bdd.getValue();
+        id = Bdd.getId();
+
+        ApiRequestDelete.deleteToken(this,value,id);
+
         Intent intent =  new Intent(LandingActivity.this, WelcomeActivity.class);
         startActivity(intent);
     }

@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.application.sed.raid_tracker_appli.Bdd;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils;
 import com.google.gson.JsonElement;
@@ -115,6 +116,7 @@ public class ApiRequestGet {
                                 // Get the current account (json object) data
                                 String name = response.getString("name");
                                 Log.d("GetSpecificUsers", name);
+                                Bdd.setApiNomUtilisateur(name);
 
                                 // Display the formatted json data in text view
 //                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);

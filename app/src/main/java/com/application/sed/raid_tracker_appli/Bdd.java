@@ -16,6 +16,7 @@ public class Bdd {
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
     private static String response;
+    private static String value,id, userid;
 
     public ArrayList<List> getStringList(){
         return Liste;
@@ -97,11 +98,26 @@ public class Bdd {
         return nomUtilisateur;
     }
 
-    public static void setResponse(String res){
-        response = res;
+    public static void setApiNomUtilisateur(String nom){
+        nomUtilisateur = nom;
+    }
+    public static void setUserid (String id){
+        userid = id;
+    }
+    public static String getUserid(){
+        return userid;
     }
 
-    public static String getResponse(){
-        return response;
+
+    public static void setValue (String val, String i){
+        value = val;
+        id = i;
+    }
+
+    public static String getValue(){
+        return value;
+    }
+    public static String getId(){
+        return id;
     }
 }

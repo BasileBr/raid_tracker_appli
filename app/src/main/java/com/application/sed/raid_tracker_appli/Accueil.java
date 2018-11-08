@@ -1,5 +1,7 @@
 package com.application.sed.raid_tracker_appli;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -12,13 +14,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Accueil extends AppCompatActivity {
+    private static Context context;
     private String TAG="Accueil";
 
 
@@ -32,20 +39,22 @@ public class Accueil extends AppCompatActivity {
     private ArrayList<String> listUsers;
     private ArrayList<List> AccountInfo = new ArrayList<>();
 
-
+    private String userid;
     Toolbar toolbar;
     //private ArrayList<Button> listButton;
 
 
 
-
+    public static Context getAppContext() {
+        return Accueil.context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-
+        Accueil.context = getApplicationContext();
         // Récupération des informations de la liste
 
 
@@ -110,6 +119,7 @@ public class Accueil extends AppCompatActivity {
         }
         ApiRequestPost.postToken(this, email, mdp);
 
+
 //        /*vérification lors de la connexon */
 //        for (int j = 0; j < listUsers.size(); j ++){
 //
@@ -121,7 +131,6 @@ public class Accueil extends AppCompatActivity {
 //        }
 
 
-        Utils.info(TAG,"Login Button action");
 
     }
 
@@ -130,6 +139,38 @@ public class Accueil extends AppCompatActivity {
         intent.putExtra("Classname","Accueil");
         startActivity(intent);
     }
+
+    public static void redirection(String response){
+        String toto = response;
+
+
+        JsonParser parser = new JsonParser();
+        JsonObject token = (JsonObject) parser.parse(toto);
+
+        Utils.debug("Accueil", token.toString());
+
+        String id = token.get("id").toString();
+        String value = token.get("value").toString();
+
+        JsonObject user = token.get("user").getAsJsonObject();
+        String userid = user.get("id").toString();
+        Bdd.setUserid(userid);
+        Utils.debug("Accueil", "id : " + id + " Value " +value);
+
+        Bdd.setValue(value,id);
+
+       userid = Bdd.getUserid();
+
+        ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), userid);
+
+        String utilisateur = Bdd.getNomUtilisateur();
+        Intent intent = new Intent(Accueil.getAppContext(), LandingActivity.class);
+        intent.putExtra("name",utilisateur);
+        Bdd.setNomUtilisateur(utilisateur);
+        startActivity(intent);
+        Utils.info("Accueil","Login Button action");
+    }
+
 
 
 }
