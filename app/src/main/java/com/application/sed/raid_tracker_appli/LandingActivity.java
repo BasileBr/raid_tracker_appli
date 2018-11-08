@@ -65,8 +65,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         Utils.info(TAG, "OnCreate");
 
+        nomutilisateur = "toto";
         setContentView(R.layout.activity_landing);
         Intent intent=getIntent();
+        nomutilisateur = Bdd.getNomUtilisateur();
+        this.nameofuser = findViewById(R.id.nameofuser);
+        nameofuser.setText(nomutilisateur);
+        Utils.debug("Landing",nomutilisateur);
 
         if (intent != null) {
 

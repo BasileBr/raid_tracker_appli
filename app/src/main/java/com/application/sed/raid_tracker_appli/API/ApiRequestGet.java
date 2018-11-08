@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,11 +15,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Bdd;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,7 +83,7 @@ public class ApiRequestGet {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error.Response", error.toString());
+                        Log.e("Error.Response get user", error.toString());
                     }
                 }
         );
@@ -93,30 +96,30 @@ public class ApiRequestGet {
 
 
 
-    public static void getSpecificUsers(Context context, String id){
+    public static void getSpecificUsers(Context context, final String token, final String id){
 
-        String UrlFianle = urlUser + "/"+id;
+        String UrlFianle = urlUser+'/'+id ;
         Utils.debug("GetSpecificUsers", UrlFianle);
-        final RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                UrlFianle,
-                null,
-                new Response.Listener<JSONObject>() {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFianle,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
                         // Do something with response
                         //mTextView.setText(response.toString());
 
+                        JsonParser parser = new JsonParser();
+                        JsonObject res = (JsonObject) parser.parse(response);
                         // Process the JSON
                         try{
                             // Loop through the array elements
-                            for(int i=1;i<response.length();i++){
+                            for(int i=1;i<res.size();i++){
 
                                 // Get the current account (json object) data
-                                String name = response.getString("name");
+                                String name = res.get("username").toString();
                                 Log.d("GetSpecificUsers", name);
                                 Bdd.setApiNomUtilisateur(name);
+                                Accueil.change(name);
 
                                 // Display the formatted json data in text view
 //                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
@@ -126,18 +129,40 @@ public class ApiRequestGet {
                             Log.e("Json","error");
                         }
                     }
+
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error.Response", error.toString());
+                        Log.e("Error.Response specific", error.toString());
                     }
                 }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                super.getHeaders();
 
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//
+//                Map<String, String>  params = new HashMap<String, String>();
+//                Utils.debug("params", id);
+//                params.put("id",id);
+//
+//                return params;
+//            }
+        };
         // Add JsonArrayRequest to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(getRequest);
     }
 
 

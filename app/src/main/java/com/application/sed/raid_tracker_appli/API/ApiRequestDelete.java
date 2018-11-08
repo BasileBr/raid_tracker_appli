@@ -60,7 +60,7 @@ public class ApiRequestDelete {
             protected Map<String, String> getParams()
             {
 
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 Utils.debug("params", id);
                 params.put("id",id);
 

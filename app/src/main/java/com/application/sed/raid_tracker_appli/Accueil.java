@@ -159,15 +159,18 @@ public class Accueil extends AppCompatActivity {
 
         Bdd.setValue(value,id);
 
-       userid = Bdd.getUserid();
+        userid = Bdd.getUserid();
 
-        ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), userid);
+        ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
 
-        String utilisateur = Bdd.getNomUtilisateur();
+
+    }
+
+    public static void change(String utilisateur){
         Intent intent = new Intent(Accueil.getAppContext(), LandingActivity.class);
         intent.putExtra("name",utilisateur);
         Bdd.setNomUtilisateur(utilisateur);
-        startActivity(intent);
+        Accueil.getAppContext().startActivity(intent);
         Utils.info("Accueil","Login Button action");
     }
 
