@@ -140,9 +140,7 @@ public class CreateAccount extends AppCompatActivity{
 //        // Test du bouton avec le user toto et password test
 //        if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
 //            Utils.debug(TAG, "cool");
-//            Intent intent = new Intent(CreateAccount.this, NewraidActivity.class);
-//            Utils.info(TAG,"connexion, new activity");
-//            startActivity(intent);
+//
 //        }
 //        else {
 //            Utils.info(TAG, "pas cool");

@@ -28,9 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".organizer.NewraidActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".LandingActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
