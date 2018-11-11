@@ -1,8 +1,7 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,19 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
-import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
+import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.R;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;

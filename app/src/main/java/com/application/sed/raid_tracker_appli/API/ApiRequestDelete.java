@@ -1,7 +1,6 @@
 package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
-import android.media.session.MediaSession;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -11,8 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.application.sed.raid_tracker_appli.Bdd;
-import com.application.sed.raid_tracker_appli.Utils;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;

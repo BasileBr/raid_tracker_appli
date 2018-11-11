@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.Utils;
 
 import android.util.Log;
 

@@ -1,10 +1,7 @@
 package com.application.sed.raid_tracker_appli.API;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,10 +13,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
-import com.application.sed.raid_tracker_appli.Bdd;
-import com.application.sed.raid_tracker_appli.R;
-import com.application.sed.raid_tracker_appli.Utils;
-import com.google.gson.JsonElement;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

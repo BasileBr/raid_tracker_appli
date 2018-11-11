@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
-import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 
 
 public class WelcomeActivity extends AppCompatActivity {

@@ -31,16 +31,13 @@
             android:name=".organizer.NewraidActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".ConnexionActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".LandingActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".CreateAccount"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".CreateCourse"
+            android:name=".organizer.CreateCourse"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WelcomeActivity"
@@ -49,7 +46,7 @@
             android:name=".Accueil"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".CreateParcours"
+            android:name=".organizer.CreateParcours"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
         <!-- <activity android:name=".PerfomCalculations" -->

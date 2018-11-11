@@ -1,12 +1,10 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.Utils;
 
-import android.view.ViewDebug;
 import android.widget.Button;
 
-import java.awt.font.TextAttribute;
-import java.io.StringReader;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Bdd {

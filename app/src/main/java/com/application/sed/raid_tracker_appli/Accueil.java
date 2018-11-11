@@ -1,23 +1,15 @@
 package com.application.sed.raid_tracker_appli;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
-import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
-import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

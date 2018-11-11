@@ -1,33 +1,24 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.application.sed.raid_tracker_appli.Accueil;
-import com.application.sed.raid_tracker_appli.Bdd;
-import com.application.sed.raid_tracker_appli.CreateCourse;
-import com.application.sed.raid_tracker_appli.CreateParcours;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
-import com.application.sed.raid_tracker_appli.Utils;
-import com.application.sed.raid_tracker_appli.WelcomeActivity;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;

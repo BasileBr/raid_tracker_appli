@@ -1,5 +1,7 @@
 package com.application.sed.raid_tracker_appli;
 
+
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,18 +13,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 
 import java.util.ArrayList;
 import java.util.List;

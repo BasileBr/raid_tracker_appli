@@ -3,7 +3,6 @@ package com.application.sed.raid_tracker_appli;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.widgets.WidgetContainer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +11,10 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.organizer.NewraidActivity;
+import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 
 import java.util.ArrayList;
 import java.util.List;
