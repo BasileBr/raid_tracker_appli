@@ -33,7 +33,7 @@ public class CourseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
 
-    MapView map = null;
+    //MapView map = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +57,7 @@ public class CourseActivity extends AppCompatActivity {
 
             }
         });
-
+/*
 
         //création de la map
         map = (MapView) findViewById(R.id.map);
@@ -86,7 +86,7 @@ public class CourseActivity extends AppCompatActivity {
         map.getOverlays().add(mCompassOverlay);
 
 
-
+*/
         LinearLayout ll = findViewById(R.id.ParcoursLayout);
         ArrayList<Button> listebouton = new ArrayList<>();
         listebouton = Bdd.getButton();

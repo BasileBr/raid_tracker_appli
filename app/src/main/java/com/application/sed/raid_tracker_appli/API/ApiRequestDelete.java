@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +25,9 @@ public class ApiRequestDelete {
 
     public static void deleteToken(Context context, final String token, final String id){
 
+        String urlFinale = urlAuthToken+"/"+id;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, urlAuthToken,
+        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, urlFinale,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -46,26 +48,28 @@ public class ApiRequestDelete {
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                super.getHeaders();
+                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
+                String auth;
                 Utils.debug("Header",token);
+                header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
-            @Override
-            protected Map<String, String> getParams()
-            {
-
-                Map<String, String>  params = new HashMap<>();
-                Utils.debug("params", id);
-                params.put("id",id);
-
-                return params;
-            }
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//
+//                Map<String, String>  params = new HashMap<>();
+//                Utils.debug("params", id);
+//                params.put("id",id);
+//
+//                return params;
+//            }
         };
-        requestQueue.add(postRequest);
+        requestQueue.add(deleteRequest);
 
     }
 

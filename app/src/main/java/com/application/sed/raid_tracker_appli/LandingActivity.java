@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli;
 
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,10 @@ import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     //public static List Tata;
     private String nomutilisateur = "test";
+    private String iduser;
+    private String token;
 
 
 
@@ -55,17 +62,17 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
     private ArrayList<List> raidlist;
-    private ArrayList<Button> listButton;
+
     private static Context context;
 
-    public static Context getAppContext() {
-        return LandingActivity.context;
-    }
+
+    private static LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = this;
 
         //ApiRequestGet.postMethod();
 
@@ -87,41 +94,46 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             this.nameofuser = findViewById(R.id.nameofuser);
             nameofuser.setText(nomutilisateur);
 
+            iduser = Bdd.getUserid();
+            token = Bdd.getValue();
+
             Utils.debug(TAG, "Je rentre la");
             /* get List from Create Raid */
             raidlist = Bdd.getArrayList();
 
-            listButton = new ArrayList<>();
+//            listButton = new ArrayList<>();
+//
+//            for (int i = 0; i < raidlist.size(); i ++){
+//
+//                Button myButton = new Button(this);
+//                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
+//
+//                List attributlist;
+//                attributlist = raidlist.get(i);
+//
+//                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
+//                //myButton.setText(attributlist.get(2).toString());
+//                myButton.setId(i);
+//
+//                listButton.add(myButton);
+//                Utils.debug("listbutton", listButton.get(i).toString());
+//
+//            }
+//
+//            for (int i = 0; i < listButton.size(); i ++){
+//
+//                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
+//                Button myButton2 = listButton.get(i);
+//
+////                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
+//                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
+//
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                ll.addView(myButton2, lp);
+//
+//            }
 
-            for (int i = 0; i < raidlist.size(); i ++){
-
-                Button myButton = new Button(this);
-                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
-
-                List attributlist;
-                attributlist = raidlist.get(i);
-
-                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
-                //myButton.setText(attributlist.get(2).toString());
-                myButton.setId(i);
-
-                listButton.add(myButton);
-                Utils.debug("listbutton", listButton.get(i).toString());
-
-            }
-
-            for (int i = 0; i < listButton.size(); i ++){
-
-                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
-                Button myButton2 = listButton.get(i);
-
-//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
-                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
-
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                ll.addView(myButton2, lp);
-
-            }
+            ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
         }
 
@@ -129,17 +141,18 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        for (int j = 0; j<listButton.size(); j++) {
-            Button newButton = listButton.get(j);
-
-            newButton.setOnClickListener( new View.OnClickListener() {
-                public void onClick(View view) {
-                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-        }
+//        ArrayList<Button> listButton = new ArrayList<>();
+//        for (int j = 0; j<listButton.size(); j++) {
+//            Button newButton = listButton.get(j);
+//
+//            newButton.setOnClickListener( new View.OnClickListener() {
+//                public void onClick(View view) {
+//                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
+//                    startActivity(intent);
+//
+//                }
+//            });
+//        }
 
 
         /**
@@ -183,6 +196,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 //
 
 
+        Utils.debug("Juste avant api request","JE suis la");
+
+        ApiRequestGet.getSpecificRaid(context, token, iduser);
 
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -317,5 +333,72 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public static void raidlist (String response){
+
+        Utils.debug("raidlist","JE suis ici");
+        ArrayList<Button> listButton;
+        listButton = new ArrayList<>();
+
+        //String response = Bdd.getListFromApi();
+        JsonParser parser = new JsonParser();
+        JsonArray raidlist = (JsonArray) parser.parse(response);
+        Utils.debug("raidlist + size", "size : " + raidlist.size() + " raidlist : "+raidlist.toString());
+
+        for (int i = 0; i < raidlist.size(); i ++){
+
+            Button myButton = new Button(context);
+            Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
+
+            JsonParser parser1 = new JsonParser();
+            JsonObject raid = (JsonObject) raidlist.get(i);
+            String nomraid = raid.get("nom").toString().replace("\""," ");
+            String idraid = raid.get("id").toString();
+            String date = raid.get("date").toString().replace("\""," ").substring(0,11);
+
+
+            Utils.debug("raid ", "Nomraid : " + nomraid + " date : "+ date);
+
+            myButton.setText(nomraid+System.getProperty("line.separator")+date);
+            //myButton.setText(attributlist.get(2).toString());
+            myButton.setId(i);
+
+            listButton.add(myButton);
+            Utils.debug("listbutton", listButton.get(i).toString());
+
+        }
+
+        for (int i = 0; i < listButton.size(); i ++){
+
+            Utils.debug("Rajout des boutons", "Valeurs de i" +i);
+            Button myButton2 = listButton.get(i);
+
+//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton2, lp);
+
+        }
+
+
+        buttonlist(listButton);
+    }
+
+    public static void buttonlist(ArrayList<Button> listButton){
+
+//        ArrayList<Button> listButton = new ArrayList<>();
+        for (int j = 0; j<listButton.size(); j++) {
+            Button newButton = listButton.get(j);
+
+            newButton.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent =  new Intent(context, CourseActivity.class);
+                    context.startActivity(intent);
+
+                }
+            });
+        }
     }
 }

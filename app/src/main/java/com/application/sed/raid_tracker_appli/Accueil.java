@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.API.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -37,17 +38,16 @@ public class Accueil extends AppCompatActivity {
 
 
 
-    public static Context getAppContext() {
-        return Accueil.context;
-    }
+//    public static Context getAppContext() {
+//        return Accueil.context;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
+    // Récupération des informations de la liste
 
-        Accueil.context = getApplicationContext();
-        // Récupération des informations de la liste
 
 
         toolbar =(Toolbar) findViewById(R.id.toolbar);
@@ -65,6 +65,8 @@ public class Accueil extends AppCompatActivity {
 
             }
         });
+
+        context = this;
 
     }
 
@@ -90,7 +92,7 @@ public class Accueil extends AppCompatActivity {
 
         AccountInfo = Bdd.getAccount();
 
-        for (int i = 0; i < AccountInfo.size(); i++) {
+       /* for (int i = 0; i < AccountInfo.size(); i++) {
             // Liste pour un user
             List infoUsers  = AccountInfo.get(i);
             String info = infoUsers.toString();
@@ -110,8 +112,8 @@ public class Accueil extends AppCompatActivity {
             isValid=false;
 
 
-        }
-        //ApiRequestPost.postToken(this, email, mdp);
+        }*/
+        ApiRequestPost.postToken(this, email, mdp);
 
 
 //        /*vérification lors de la connexon */
@@ -145,7 +147,8 @@ public class Accueil extends AppCompatActivity {
         Utils.debug("Accueil", token.toString());
 
         String id = token.get("id").toString();
-        String value = token.get("value").toString();
+        String test = token.get("value").toString();
+        String value = test.replace("\""," ");
 
         JsonObject user = token.get("user").getAsJsonObject();
         String userid = user.get("id").toString();
@@ -154,12 +157,15 @@ public class Accueil extends AppCompatActivity {
 
         Bdd.setValue(value,id);
 
+
         String utilisateur = user.get("username").toString();
+        String iduser = user.get("id").toString();
         Utils.debug("Accueil",utilisateur);
-        Intent intent = new Intent(Accueil.getAppContext(), LandingActivity.class);
+        Intent intent = new Intent(context, LandingActivity.class);
         intent.putExtra("name",utilisateur);
+
         Bdd.setNomUtilisateur(utilisateur);
-        LandingActivity.getAppContext().startActivity(intent);
+        context.startActivity(intent);
 
         //ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
 
@@ -167,10 +173,10 @@ public class Accueil extends AppCompatActivity {
     }
 
     public static void change(String utilisateur){
-        Intent intent = new Intent(Accueil.getAppContext(), LandingActivity.class);
+        Intent intent = new Intent(context, LandingActivity.class);
         intent.putExtra("name",utilisateur);
         Bdd.setNomUtilisateur(utilisateur);
-        Accueil.getAppContext().startActivity(intent);
+        context.startActivity(intent);
         Utils.info("Accueil","Login Button action");
     }
 

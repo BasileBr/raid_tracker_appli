@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
@@ -85,6 +86,9 @@ public class CreateCourse extends AppCompatActivity {
     TextView getsports;
     TextView selectdate;
     TextView choosesports;
+
+    private int hours;
+    private int min;
 
 
 
@@ -163,6 +167,8 @@ public class CreateCourse extends AppCompatActivity {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
+                hours = cal.get(Calendar.HOUR_OF_DAY);
+                min = cal.get(Calendar.MINUTE);
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
@@ -180,9 +186,9 @@ public class CreateCourse extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 selectdate= (TextView) findViewById(R.id.selectdate);
-                Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
+                Log.d(TAG, "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hours +":"+min);
 
-                String date = dayOfMonth + "/" + (month+1) + "/" + year;
+                String date = year + "/" + (month+1) + "/" + dayOfMonth + " " + hours + ":"+min;
                 mDisplayDate.setText(date);
                 getdate = date;
                 selectdate.setError(null);
@@ -576,8 +582,8 @@ public class CreateCourse extends AppCompatActivity {
             myListe.add(getdate); // sélectionne la date de l'évènement
 
 
-            myListe.add(recupere2); // le nom de l'équipe organisatrice
-            myListe.add(recupere3);
+            myListe.add(recupere2); // L'édition
+            myListe.add(recupere3); // le nom de l'équipe organisatrice
             myListe.add(recupere4);
             myListe.add(recupere4);
             myListe.add(recupere5);
@@ -649,20 +655,20 @@ public class CreateCourse extends AppCompatActivity {
             Utils.info("EditText", Bdd.getElement(1).toString());
 
             //déclencher la création d'un parcours sur la page de landing
-                        Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
-                        intent.putExtra("name","Toto");
-                        startActivity(intent);
+            Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+            intent.putExtra("name","Toto");
+            startActivity(intent);
 
-            //redirection vers la page de création d'un parcours
-                        Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
-                        startActivity(intent2);
-        }
-
-
-
-
+//redirection vers la page de création d'un parcours
+            Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
+            //Utils.debug("StartActivity", "course");
+            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3 );
+            startActivity(intent2);
 
         }
+
+
     }
+}
 
 

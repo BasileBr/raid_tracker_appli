@@ -15,6 +15,7 @@ public class Bdd {
     private static String nomUtilisateur;
     private static String response;
     private static String value,id, userid;
+    private static String listFromApi;
 
     public ArrayList<List> getStringList(){
         return Liste;
@@ -99,6 +100,16 @@ public class Bdd {
     public static void setApiNomUtilisateur(String nom){
         nomUtilisateur = nom;
     }
+
+
+
+
+    /**
+     * APÏ Methods
+     * @param id
+     */
+
+
     public static void setUserid (String id){
         userid = id;
     }
@@ -115,10 +126,16 @@ public class Bdd {
     public static String getValue(){
         return value;
     }
-    public static String getId(){
+    public static String getId() {
         return id;
     }
 
+    public static void setListFromApi( String string){
+        listFromApi = string;
+    }
+    public static String getListFromApi(){
+        return listFromApi;
+    }
 
 
 }

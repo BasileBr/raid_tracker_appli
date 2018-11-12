@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
+import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.google.gson.JsonObject;
@@ -32,6 +33,7 @@ public class ApiRequestGet {
     final static String urlOrganisateur = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
     final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
+    final static String urlRaidUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids/organisateurs/users";
 
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
@@ -408,5 +410,65 @@ public class ApiRequestGet {
         requestQueue.add(jsonArrayRequest);
     }
 
+    public static void getSpecificRaid(Context context, final String token, final String id){
+
+        String UrlFinale = urlRaidUser+'/'+id ;
+        Utils.debug("getSpecificRaid", UrlFinale);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
+
+//                        JsonParser parser = new JsonParser();
+//                        JsonObject res = (JsonObject) parser.parse(response);
+//                        // Process the JSON
+//                        try{
+//                            // Loop through the array elements
+//                            for(int i=1;i<res.size();i++){
+//
+//                                // Get the current account (json object) data
+//                                String name = res.get("username").toString();
+//                                Log.d("GetSpecificUsers", name);
+//                                Bdd.setApiNomUtilisateur(name);
+//                                Accueil.change(name);
+//
+//                                // Display the formatted json data in text view
+////                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
+////                                mTextView.append("\n\n");
+//                            }
+//                        }catch (Exception e){
+//                            Log.e("Json","error");
+//                        }
+                        //Bdd.setListFromApi(response);
+                        LandingActivity.raidlist(response);
+                  }
+
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
 }
 
