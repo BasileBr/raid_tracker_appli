@@ -48,8 +48,33 @@
                 android:background="@color/Blancnacre"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                   >
+                    <Switch
+                        android:id="@+id/switchVisibility"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/setTextVisibility"
+                        />
+
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="activer la visibililité du raid pour les bénévoles "/>-->
+                </LinearLayout>
                 <RelativeLayout
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
 

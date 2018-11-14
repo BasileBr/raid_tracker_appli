@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 
 
@@ -81,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void asupprimer(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, CreateParcours.class);
+        Intent intent =  new Intent(WelcomeActivity.this, LandingActivity.class);
         startActivity(intent);
     }
 

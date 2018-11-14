@@ -1,6 +1,9 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +11,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
@@ -35,7 +42,7 @@ public class CourseActivity extends AppCompatActivity {
 
     //MapView map = null;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Utils.info("test", "Creation of the new activity");
@@ -87,6 +94,55 @@ public class CourseActivity extends AppCompatActivity {
 
 
 */
+        // bouton switch pour la visiblité du raid
+        final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
+
+        //texte associé à la visibilité du raid
+        final TextView setTextVisibility =(TextView)findViewById(R.id.setTextVisibility);
+
+        //message lorsque rien n'est sélectionné
+        setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+
+        //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
+        simpleSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //String statusSwitch1, statusSwitch2;
+                if (simpleSwitch.isChecked()) {
+                    setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
+                    //LandingActivity.diffuserRaid();
+                    Intent intent =  new Intent(CourseActivity.this, LandingActivity.class);
+                    intent.putExtra(switch_value,"coucou");
+                    startActivity(intent);
+
+                } else {
+                    setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+                }
+            }
+        });
+
+
+        // garder la position du switch
+        //boolean value = false; // default value if no value was found
+        final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
+        //value = sharedPreferences.getBoolean("isChecked",value); // retrieve the value of your key
+        //simpleSwitch.setChecked(value);
+
+        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    sharedPreferences.edit().putBoolean("isChecked", true).apply();
+                    setTextVisibility.setText("Le raid est partagé aux bénévoles");
+                }else {
+                    sharedPreferences.edit().putBoolean("isChecked", false).apply();
+                    setTextVisibility.setText("Le raid n'est pas partagé aux bénévoles");
+                }
+            }
+        });
+
+
+
         LinearLayout ll = findViewById(R.id.ParcoursLayout);
         ArrayList<Button> listebouton = new ArrayList<>();
         listebouton = Bdd.getButton();

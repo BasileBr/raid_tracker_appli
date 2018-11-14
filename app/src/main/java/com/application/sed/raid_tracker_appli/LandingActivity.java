@@ -6,6 +6,7 @@ import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,15 +18,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -56,10 +59,12 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private String value;
     private String id;
 
+
     String Element;
     private ActionBarDrawerToggle drawerToggle;
 
 
+    private static TextView b1;
 
     private ArrayList<List> raidlist;
 
@@ -84,7 +89,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         nomutilisateur = Bdd.getNomUtilisateur();
         this.nameofuser = findViewById(R.id.nameofuser);
         nameofuser.setText(nomutilisateur);
-        Utils.debug("Landing",nomutilisateur);
+       // Utils.debug("Landing",nomutilisateur);
 
         if (intent != null) {
 
@@ -220,8 +225,12 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
+
+
+        b1 = findViewById(R.id.testvalue);
+        b1.setText(getIntent().getStringExtra("switch_value"));
     }
 
 
@@ -244,6 +253,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         return true;
     }*/
+
+
 
     public void getDescriptionRAid(View view) {
         //RelativeLayout ll=(RelativeLayout) findViewById(R.id.boutooondemerde);
@@ -333,6 +344,17 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    public static void diffuserRaid(){
+
+//        TextView b1=(TextView) findViewById(R.id.testvalue);
+        //Utils.info("je passe la ", "ici meme");
+
+        //b1.setText("coucou");
+        //b1.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
 
