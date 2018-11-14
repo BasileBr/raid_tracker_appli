@@ -39,8 +39,9 @@ public class CourseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    private static final String switch_value = "switch_value";
 
-    //MapView map = null;
+    MapView map = null;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +65,10 @@ public class CourseActivity extends AppCompatActivity {
 
             }
         });
-/*
+
 
         //création de la map
-        map = (MapView) findViewById(R.id.map);
+      /*  map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -91,14 +92,15 @@ public class CourseActivity extends AppCompatActivity {
         CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
         mCompassOverlay.enableCompass();
         map.getOverlays().add(mCompassOverlay);
-
-
 */
+
         // bouton switch pour la visiblité du raid
         final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
 
         //texte associé à la visibilité du raid
         final TextView setTextVisibility =(TextView)findViewById(R.id.setTextVisibility);
+
+        //final String switch_value="coucou";
 
         //message lorsque rien n'est sélectionné
         setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
