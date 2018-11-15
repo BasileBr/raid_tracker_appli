@@ -104,62 +104,65 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             token = Bdd.getValue();
 
             Utils.debug(TAG, "Je rentre la");
-            /* get List from Create Raid */
-            raidlist = Bdd.getArrayList();
-
-            listButton = new ArrayList<>();
-
-
-            for (int i = 0; i < raidlist.size(); i ++){
-
-                Button myButton = new Button(this);
-                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
-
-                List attributlist;
-                attributlist = raidlist.get(i);
-
-                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
-                //myButton.setText(attributlist.get(2).toString());
-                myButton.setId(i);
-
-                listButton.add(myButton);
-                Utils.debug("listbutton", listButton.get(i).toString());
-
-            }
-
-            for (int i = 0; i < listButton.size(); i ++){
-
-                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
-                Button myButton2 = listButton.get(i);
-
-//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
-                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
-
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                ll.addView(myButton2, lp);
-
-            }
 
             ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
+            /* get List from Create Raid */
+//            raidlist = Bdd.getArrayList();
+//
+//            listButton = new ArrayList<>();
+//
+//
+//            for (int i = 0; i < raidlist.size(); i ++){
+//
+//                Button myButton = new Button(this);
+//                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
+//
+//                List attributlist;
+//                attributlist = raidlist.get(i);
+//
+//                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
+//                //myButton.setText(attributlist.get(2).toString());
+//                myButton.setId(i);
+//
+//                listButton.add(myButton);
+//                Utils.debug("listbutton", listButton.get(i).toString());
+//
+//            }
+//
+//            for (int i = 0; i < listButton.size(); i ++){
+//
+//                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
+//                Button myButton2 = listButton.get(i);
+//
+////                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
+//                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
+//
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                ll.addView(myButton2, lp);
+//
+//            }
+//
+//
+//
         }
-
-
-
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        //ArrayList<Button> listButton = new ArrayList<>();
-        for (int j = 0; j<listButton.size(); j++) {
-            Button newButton = listButton.get(j);
-
-            newButton.setOnClickListener( new View.OnClickListener() {
-                public void onClick(View view) {
-                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-        }
+//
+//
+//
+//        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+//
+//        //ArrayList<Button> listButton = new ArrayList<>();
+//        for (int j = 0; j<listButton.size(); j++) {
+//            Button newButton = listButton.get(j);
+//
+//            newButton.setOnClickListener( new View.OnClickListener() {
+//                public void onClick(View view) {
+//                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
+//                    startActivity(intent);
+//
+//                }
+//            });
+//        }
 
 
         /**
@@ -205,7 +208,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         Utils.debug("Juste avant api request","JE suis la");
 
-        //ApiRequestGet.getSpecificRaid(context, token, iduser);
+        ApiRequestGet.getSpecificRaid(context, token, iduser);
 
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -227,7 +230,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //NavigationView navigationView = (Navi  gationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
 
 

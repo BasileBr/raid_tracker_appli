@@ -114,7 +114,7 @@ public class CourseActivity extends AppCompatActivity {
                     setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
                     //LandingActivity.diffuserRaid();
                     Intent intent =  new Intent(CourseActivity.this, LandingActivity.class);
-                    intent.putExtra(switch_value,"coucou");
+                    //intent.putExtra(switch_value,"coucou");
                     startActivity(intent);
 
                 } else {
