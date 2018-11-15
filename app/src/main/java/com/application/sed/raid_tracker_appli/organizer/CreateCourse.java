@@ -662,7 +662,8 @@ public class CreateCourse extends AppCompatActivity {
 //redirection vers la page de création d'un parcours
             Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
             //Utils.debug("StartActivity", "course");
-            //ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3 );
+            Utils.debug("CreateRaid","Nom : " + recupere + " Lieu : "+recupere1+" date : "+getdate+" edition : "+recupere2+" team : "+recupere3);
+            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3 );
             startActivity(intent2);
 
         }

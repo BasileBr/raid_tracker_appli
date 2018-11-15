@@ -66,6 +66,13 @@ public class ApiRequestPost {
 
     }
 
+
+    /**
+     * FOnctionne : connexion utilisateur
+     * @param context
+     * @param name
+     * @param pwd
+     */
     public static void postToken(Context context, final String name, final String pwd){
 
 
@@ -76,7 +83,6 @@ public class ApiRequestPost {
                     @Override
                     public void onResponse(String response) {
                         // response
-
 
                         Log.d("Response", response);
 
@@ -109,7 +115,6 @@ public class ApiRequestPost {
     }
 
     public static void postRaid(Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe){
-
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest postRequest = new StringRequest(Request.Method.POST, urlRaid,
@@ -149,7 +154,7 @@ public class ApiRequestPost {
             protected Map<String, String> getParams()
             {
 
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 params.put("nom",name);
                 params.put("lieu",lieu);
                 params.put("date",date);

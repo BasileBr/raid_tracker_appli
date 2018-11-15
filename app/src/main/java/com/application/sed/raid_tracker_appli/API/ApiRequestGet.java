@@ -43,6 +43,16 @@ public class ApiRequestGet {
      * http://tutorielandroid.francoiscolin.fr/recupjson.php
      *
      *
+     * http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/doc
+     *
+     * q@q.fr : q
+     * madox@contact.fr : test
+     */
+
+
+    /**
+     * Ne doit pas fonctionner
+     * @param context
      */
     public static void getUsers(Context context){
 
@@ -90,9 +100,13 @@ public class ApiRequestGet {
     }
 
 
-
-
-
+    /**
+     *
+     * NE doit pas fonctionner non plus
+     * @param context
+     * @param token
+     * @param id
+     */
     public static void getSpecificUsers(Context context, final String token, final String id){
 
         String UrlFianle = urlUser+'/'+id ;
@@ -410,6 +424,14 @@ public class ApiRequestGet {
         requestQueue.add(jsonArrayRequest);
     }
 
+    /**
+     *
+     * Fonctionne correctement
+     *
+     * @param context
+     * @param token
+     * @param id
+     */
     public static void getSpecificRaid(Context context, final String token, final String id){
 
         String UrlFinale = urlRaidUser+'/'+id ;
@@ -417,36 +439,19 @@ public class ApiRequestGet {
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
                 new Response.Listener<String>() {
+                    /**
+                     * Si tout se passe bien
+                     * @param response
+                     */
                     @Override
                     public void onResponse(String response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
-
-//                        JsonParser parser = new JsonParser();
-//                        JsonObject res = (JsonObject) parser.parse(response);
-//                        // Process the JSON
-//                        try{
-//                            // Loop through the array elements
-//                            for(int i=1;i<res.size();i++){
-//
-//                                // Get the current account (json object) data
-//                                String name = res.get("username").toString();
-//                                Log.d("GetSpecificUsers", name);
-//                                Bdd.setApiNomUtilisateur(name);
-//                                Accueil.change(name);
-//
-//                                // Display the formatted json data in text view
-////                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-////                                mTextView.append("\n\n");
-//                            }
-//                        }catch (Exception e){
-//                            Log.e("Json","error");
-//                        }
-                        //Bdd.setListFromApi(response);
                         LandingActivity.raidlist(response);
                   }
 
                 },
+                /**
+                 * Se tout se passe pas bien
+                 */
                 new Response.ErrorListener()
                 {
                     @Override
@@ -455,6 +460,11 @@ public class ApiRequestGet {
                     }
                 }
         ){
+            /**
+             * Envoie le header -> en gros, le token
+             * @return
+             * @throws AuthFailureError
+             */
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 //super.getHeaders();

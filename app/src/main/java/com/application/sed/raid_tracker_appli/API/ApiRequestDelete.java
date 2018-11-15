@@ -57,17 +57,6 @@ public class ApiRequestDelete {
                 header.put("X-Auth-Token",token);
                 return header;
             }
-
-//            @Override
-//            protected Map<String, String> getParams()
-//            {
-//
-//                Map<String, String>  params = new HashMap<>();
-//                Utils.debug("params", id);
-//                params.put("id",id);
-//
-//                return params;
-//            }
         };
         requestQueue.add(deleteRequest);
 
