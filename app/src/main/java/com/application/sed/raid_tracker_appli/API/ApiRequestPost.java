@@ -228,7 +228,6 @@ public class ApiRequestPost {
                 }
         ) {
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
                 String auth;
@@ -242,7 +241,7 @@ public class ApiRequestPost {
 
     }
 
-    public static void postparcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final String etat){
+    public static void postParcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final String etat){
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -306,7 +305,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postpoint(final Context context, final String token, final String idTrace, final String longitude, final String latitude, final String type){
+    public static void postPoint(final Context context, final String token, final String idTrace, final String longitude, final String latitude, final String type){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -366,7 +365,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postrace(final Context context, final String token, final String idParcours, final String isCalibre) {
+    public static void possTrace(final Context context, final String token, final String idParcours, final String isCalibre) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
