@@ -496,6 +496,7 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
                         LandingActivity.raidlist(response);
+                        
                     }
 
                 },
