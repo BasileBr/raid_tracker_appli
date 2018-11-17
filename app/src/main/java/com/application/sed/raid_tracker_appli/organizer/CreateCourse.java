@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,10 +27,15 @@ import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 
 public class CreateCourse extends AppCompatActivity {
@@ -90,6 +96,8 @@ public class CreateCourse extends AppCompatActivity {
     private int hours;
     private int min;
 
+    private static Context context;
+
 
 
     @Override
@@ -98,6 +106,7 @@ public class CreateCourse extends AppCompatActivity {
         setContentView(R.layout.activity_createcourse);
         Utils.info(TAG, "OnCreate");
 
+        context = this;
 //        this.toolbar2 = findViewById(R.id.toolbar3);
         toolbar2 = findViewById(R.id.toolbar3);
 
@@ -655,20 +664,33 @@ public class CreateCourse extends AppCompatActivity {
             Utils.info("EditText", Bdd.getElement(1).toString());
 
             //déclencher la création d'un parcours sur la page de landing
-            Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
+            /*Intent intent = new Intent(CreateCourse.this, LandingActivity.class);
             intent.putExtra("name","Toto");
-            startActivity(intent);
+            startActivity(intent);*/
 
 //redirection vers la page de création d'un parcours
-            Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
+            //Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
             //Utils.debug("StartActivity", "course");
             Utils.debug("CreateRaid","Nom : " + recupere + " Lieu : "+recupere1+" date : "+getdate+" edition : "+recupere2+" team : "+recupere3);
             ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3 );
-            startActivity(intent2);
+            //startActivity(intent2);
 
         }
 
 
+    }
+
+    public static void createRaid(JSONObject jsonObject) throws JSONException {
+        String nom = jsonObject.getString("nom");
+        String lieu = jsonObject.getString("lieu");
+        String date = jsonObject.getString("date");
+        Integer edition = jsonObject.getInt("edition");
+        String equipe = jsonObject.getString("equipe");
+        Utils.debug("Info","nom "+ nom+ " lieu "+ lieu+" date "+date +" edition "+edition.toString() +" equipe "+ equipe);
+
+
+        Intent intent2= new Intent(context, CourseActivity.class);
+        context.startActivity(intent2);
     }
 }
 
