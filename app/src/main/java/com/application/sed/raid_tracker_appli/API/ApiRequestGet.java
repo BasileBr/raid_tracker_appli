@@ -16,6 +16,7 @@ import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -527,10 +528,10 @@ public class ApiRequestGet {
     }
 
 // urlraid user ??
-    public static void getSpecificParcours(Context context, final String token, final String id){
+    public static void getSpecificParcours(Context context, final String token, final String idRaid){
 
-        String UrlFinale = urlRaidUser+'/'+id ;
-        Utils.debug("getSpecificRaid", UrlFinale);
+        String UrlFinale = urlParcours+"/raids/"+idRaid ;
+        Utils.debug("getSpecificParcours", UrlFinale);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
                 new Response.Listener<String>() {
@@ -540,7 +541,7 @@ public class ApiRequestGet {
                      */
                     @Override
                     public void onResponse(String response) {
-                        LandingActivity.raidlist(response);
+                        CourseActivity.afficheParcours(response);
                     }
 
                 },

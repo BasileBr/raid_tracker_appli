@@ -35,6 +35,8 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.internal.Util;
+
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,8 +60,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private ActionBarDrawerToggle toggle;
     private String value;
     private String id;
+    private static ArrayList<String> listIdRaid = new ArrayList<>();
+    private static ArrayList<String> listid;
 
 
+    private static int j;
     String Element;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -368,7 +373,16 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         Utils.debug("raidlist","JE suis ici");
         ArrayList<Button> listButton;
         listButton = new ArrayList<>();
+        int k;
+        int taille = listIdRaid.size();
+        Utils.debug("raid","raid : "+listIdRaid.toString() + " taille : "+taille);
+        for ( k=taille-1; k>-1; k--){
 
+            listIdRaid.remove(k);
+            Utils.debug("taille","Je suis dans la boucle " + k);
+        }
+
+        Utils.debug("raid ","taille : "+taille + " Raid list "+listIdRaid.toString());
         //String response = Bdd.getListFromApi();
         JsonParser parser = new JsonParser();
         JsonArray raidlist = (JsonArray) parser.parse(response);
@@ -385,8 +399,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             String idraid = raid.get("id").toString();
             String date = raid.get("date").toString().replace("\""," ").substring(0,11);
 
-
-            Utils.debug("raid ", "Nomraid : " + nomraid + " date : "+ date);
+            listIdRaid.add(idraid);
+            Utils.debug("raid ", "Nomraid : " + nomraid + " date : "+ date + " idraid"+idraid);
 
             myButton.setText(nomraid+System.getProperty("line.separator")+date);
             //myButton.setText(attributlist.get(2).toString());
@@ -396,7 +410,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             Utils.debug("listbutton", listButton.get(i).toString());
 
         }
+        Utils.debug("raid","idRaid " +listIdRaid.toString());
 
+        Bdd.setListIdRaid(listIdRaid);
+        Utils.debug("raid","idRaid " +Bdd.getlistIdRaid().toString());
         for (int i = 0; i < listButton.size(); i ++){
 
             Utils.debug("Rajout des boutons", "Valeurs de i" +i);
@@ -416,12 +433,22 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     public static void buttonlist(ArrayList<Button> listButton){
 
 //        ArrayList<Button> listButton = new ArrayList<>();
-        for (int j = 0; j<listButton.size(); j++) {
-            Button newButton = listButton.get(j);
+        listid = new ArrayList<>();
+        listid = Bdd.getlistIdRaid();
+        Utils.debug("raid list",listid.toString());
 
+        for ( j = 0; j<listButton.size(); j++) {
+            final Button newButton = listButton.get(j);
+            //Bdd.setIdRaid(listIdRaid.get(j));
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
+                    //Bdd.setIdRaid(Bdd.getIdRaid());
+                    int id = newButton.getId();
+                    //Utils.debug("CourseActivity","idraid : "+listIdRaid.get(j)+" j:"+j);
+                    String idraid = listid.get(id);
+                    Utils.debug("CourseActivity","idraid :"+ idraid);
                     Intent intent =  new Intent(context, CourseActivity.class);
+                    intent.putExtra("idRaid",idraid);
                     context.startActivity(intent);
 
                 }

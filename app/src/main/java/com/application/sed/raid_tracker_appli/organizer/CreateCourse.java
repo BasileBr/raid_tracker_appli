@@ -687,10 +687,12 @@ public class CreateCourse extends AppCompatActivity {
         String date = jsonObject.getString("date");
         Integer edition = jsonObject.getInt("edition");
         String equipe = jsonObject.getString("equipe");
+        String idRaid = jsonObject.getString("id");
         Utils.debug("Info","nom "+ nom+ " lieu "+ lieu+" date "+date +" edition "+edition.toString() +" equipe "+ equipe);
 
 
         Intent intent2= new Intent(context, CourseActivity.class);
+        intent2.putExtra("idRaid",idRaid);
         context.startActivity(intent2);
     }
 }

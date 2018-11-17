@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli.Utils;
 
 import android.widget.Button;
 
+import com.android.volley.toolbox.StringRequest;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 
 import java.util.ArrayList;
@@ -11,11 +12,13 @@ public class Bdd {
     private static ArrayList<List> Liste =new ArrayList<>();
     private static ArrayList<List> ListeAccount =new ArrayList<>();
     private static ArrayList<Button> ListButton = new ArrayList<>();
+    private static ArrayList<String> listIdRaid = new ArrayList<>();
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
     private static String response;
     private static String value,id, userid;
     private static String listFromApi;
+    private static String idRaid;
 
     public ArrayList<List> getStringList(){
         return Liste;
@@ -85,7 +88,12 @@ public class Bdd {
         return ListButton;
     }
 
-
+    public static void setListIdRaid(ArrayList<String> listidraid){
+        listIdRaid =listidraid;
+    }
+    public static ArrayList<String> getlistIdRaid(){
+        return listIdRaid;
+    }
     /*
     Connaitre l'utilisateur courant en fonction des sessions
      */

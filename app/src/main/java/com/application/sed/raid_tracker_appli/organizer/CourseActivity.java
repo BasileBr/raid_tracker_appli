@@ -17,10 +17,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.StringRequest;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -33,6 +38,11 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.internal.Util;
+
+import static android.media.CamcorderProfile.get;
 
 public class CourseActivity extends AppCompatActivity {
 
@@ -41,6 +51,16 @@ public class CourseActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private static final String switch_value = "switch_value";
 
+    private ArrayList<Button> listebouton;
+    private ArrayList<List> raidlist;
+
+
+    private static Context context;
+
+
+    private static LinearLayout ll;
+    private String idRaid;
+
     MapView map = null;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,125 +68,117 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         Utils.info("test", "Creation of the new activity");
 
+        Intent intent=getIntent();
+        context = this;
 
+        if (intent != null) {
 
-        toolbar =(Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            Utils.debug("CourseActivity", "je rentre ici");
+            idRaid = intent.getStringExtra("idRaid");
+            Utils.debug("CourseActivity","idRaid = "+idRaid);
+            ll = (LinearLayout) findViewById(R.id.ParcoursLayout);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-                Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                startActivity(intent);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            }
-        });
-
-
-        //création de la map
-      /*  map = (MapView) findViewById(R.id.map);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-
-        //positionnement lors de l'ouverture de la carte
-        IMapController mapController = map.getController();
-        mapController.setZoom(9.0);
-        GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
-        mapController.setCenter(centermap);
-
-        //géolocaliser l'appareil
-        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.getOverlays().add(mLocationOverlay);
-
-        // ajouter l'echelle
-        ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
-        map.getOverlays().add(myScaleBarOverlay);
-
-        // ajouter boussolle
-        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
-        mCompassOverlay.enableCompass();
-        map.getOverlays().add(mCompassOverlay);
-*/
-
-        // bouton switch pour la visiblité du raid
-        final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
-
-        //texte associé à la visibilité du raid
-        final TextView setTextVisibility =(TextView)findViewById(R.id.setTextVisibility);
-
-        //final String switch_value="coucou";
-
-        //message lorsque rien n'est sélectionné
-        setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
-
-        //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
-        simpleSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //String statusSwitch1, statusSwitch2;
-                if (simpleSwitch.isChecked()) {
-                    setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
-                    //LandingActivity.diffuserRaid();
-                    Intent intent =  new Intent(CourseActivity.this, LandingActivity.class);
-                    //intent.putExtra(switch_value,"coucou");
-                    startActivity(intent);
-
-                } else {
-                    setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
-                }
-            }
-        });
-
-
-        // garder la position du switch
-        //boolean value = false; // default value if no value was found
-        final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
-        //value = sharedPreferences.getBoolean("isChecked",value); // retrieve the value of your key
-        //simpleSwitch.setChecked(value);
-
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    sharedPreferences.edit().putBoolean("isChecked", true).apply();
-                    setTextVisibility.setText("Le raid est partagé aux bénévoles");
-                }else {
-                    sharedPreferences.edit().putBoolean("isChecked", false).apply();
-                    setTextVisibility.setText("Le raid n'est pas partagé aux bénévoles");
-                }
-            }
-        });
-
-
-
-        LinearLayout ll = findViewById(R.id.ParcoursLayout);
-        ArrayList<Button> listebouton = new ArrayList<>();
-        listebouton = Bdd.getButton();
-        for (int i =0; i<Bdd.getButton().size();i++){
-
-            Button button;
-            button = listebouton.get(i);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(button, lp);
-        }
-
-        for (int j = 0; j<listebouton.size(); j++) {
-            Button newButton = listebouton.get(j);
-
-            newButton.setOnClickListener( new View.OnClickListener() {
-                public void onClick(View view) {
-                    Intent intent =  new Intent(CourseActivity.this, CreateCourse.class);
+                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
                     startActivity(intent);
 
                 }
             });
+
+
+            //création de la map
+          /*  map = (MapView) findViewById(R.id.map);
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setBuiltInZoomControls(true);
+            map.setMultiTouchControls(true);
+
+            //positionnement lors de l'ouverture de la carte
+            IMapController mapController = map.getController();
+            mapController.setZoom(9.0);
+            GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
+            mapController.setCenter(centermap);
+
+            //géolocaliser l'appareil
+            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+            mLocationOverlay.enableMyLocation();
+            map.getOverlays().add(mLocationOverlay);
+
+            // ajouter l'echelle
+            ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
+            map.getOverlays().add(myScaleBarOverlay);
+
+            // ajouter boussolle
+            CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
+            mCompassOverlay.enableCompass();
+            map.getOverlays().add(mCompassOverlay);
+    */
+
+            // bouton switch pour la visiblité du raid
+            final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
+
+            //texte associé à la visibilité du raid
+            final TextView setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
+
+            //final String switch_value="coucou";
+
+            //message lorsque rien n'est sélectionné
+            setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+
+            //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
+            simpleSwitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //String statusSwitch1, statusSwitch2;
+                    if (simpleSwitch.isChecked()) {
+                        setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
+                        //LandingActivity.diffuserRaid();
+                        Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                        //intent.putExtra(switch_value,"coucou");
+                        startActivity(intent);
+
+                    } else {
+                        setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+                    }
+                }
+            });
+
+
+            // garder la position du switch
+            //boolean value = false; // default value if no value was found
+            final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
+            //value = sharedPreferences.getBoolean("isChecked",value); // retrieve the value of your key
+            //simpleSwitch.setChecked(value);
+
+            simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        sharedPreferences.edit().putBoolean("isChecked", true).apply();
+                        setTextVisibility.setText("Le raid est partagé aux bénévoles");
+                    } else {
+                        sharedPreferences.edit().putBoolean("isChecked", false).apply();
+                        setTextVisibility.setText("Le raid n'est pas partagé aux bénévoles");
+                    }
+                }
+            });
+
+            ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid);
         }
+
+
+
+
+
+
 
     }
 
@@ -177,14 +189,63 @@ public class CourseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void Course(View view){
 
-        Button mybutton = new Button(this);
-        mybutton.setId(Bdd.getButton().size()+1);
-        mybutton.setText("Ceci est mon parcours " + Bdd.getButton().size()+1);
-        Bdd.addButton(mybutton);
-        Intent intent2= new Intent(CourseActivity.this, CreateParcours.class);
-        startActivity(intent2);
+
+    public static void afficheParcours(String response){
+
+        ArrayList<Button> listButton;
+        listButton = new ArrayList<>();
+
+        JsonParser parser = new JsonParser();
+        JsonArray parcourslist = (JsonArray) parser.parse(response);
+
+        for (int i =0; i<parcourslist.size();i++){
+
+            Button myButton = new Button(context);
+            Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
+
+            JsonObject parcours = (JsonObject) parcourslist.get(i);
+            String nomParcours = parcours.get("nom").toString();
+
+            myButton.setText("Nom :" + nomParcours);
+            myButton.setId(i);
+
+            listButton.add(myButton);
+
+            Utils.debug("listbutton", listButton.get(i).toString());
+
+        }
+
+        for (int i = 0; i < listButton.size(); i ++){
+
+            Utils.debug("Rajout des boutons", "Valeurs de i" +i);
+            Button myButton2 = listButton.get(i);
+
+//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton2, lp);
+
+        }
+
+
+        parcoursButton(listButton);
+
+    }
+
+    public static void parcoursButton(ArrayList<Button> listButton){
+
+        for (int j = 0; j<listButton.size(); j++) {
+            Button newButton = listButton.get(j);
+
+            newButton.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent =  new Intent(context, CreateParcours.class);
+                    context.startActivity(intent);
+
+                }
+            });
+        }
 
     }
 //    /* Méthodes pour le Drawer */
