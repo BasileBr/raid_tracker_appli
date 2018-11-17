@@ -15,20 +15,13 @@ import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ChoiceFormat;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.internal.Util;
 
 public class ApiRequestPost {
 
