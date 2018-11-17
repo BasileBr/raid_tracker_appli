@@ -422,4 +422,64 @@ public class ApiRequestPost {
         requestQueue.add(postRequest);
 
     }
+
+
+
+    public static void postSpecificTrace(final Context context, final String token, final String idParcours, final String isCalibre) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idParcours", idParcours);
+            if (!isCalibre.equals("-1")) {
+                jsonObject.put("isCalibre", isCalibre);
+            }
+            jsonArray.put(jsonObject);
+        } catch (Exception e) {
+
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlTraces, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+
+                        Log.d("Response creation trace", response.toString());
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header", token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token", token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
 }

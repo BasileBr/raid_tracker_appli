@@ -182,6 +182,7 @@ public class CreateCourse extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(
                         CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
 
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
