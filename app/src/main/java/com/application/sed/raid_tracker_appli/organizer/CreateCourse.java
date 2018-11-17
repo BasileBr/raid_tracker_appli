@@ -71,7 +71,6 @@ public class CreateCourse extends AppCompatActivity {
     String charTerre = "";
 
 
-
     LinearLayout getLinear;
     String recupere;
     String recupere1;

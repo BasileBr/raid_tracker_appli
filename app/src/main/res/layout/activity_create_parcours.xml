@@ -170,4 +170,9 @@
     </RelativeLayout>
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/myspinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog" />
 </LinearLayout>

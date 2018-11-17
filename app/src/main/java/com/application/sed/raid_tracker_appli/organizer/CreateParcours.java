@@ -13,9 +13,11 @@ import android.support.v7.widget.Toolbar;
 
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +66,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     Marker standardmarker2;
     Marker standarmarker3;
 
+    private static ArrayList<String> listsport;
+
+
     Toolbar toolbar1;
 
     GeoPoint pointa = new GeoPoint(51.489878, 6.143294);
@@ -108,6 +113,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             //récuperation du context
             context = this;
 
+            listsport = intent.getStringArrayListExtra("listsport");
 
             //handle permissions first, before map is created. not depicted here TODO
 
@@ -421,7 +427,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             @Override
             public void onClick(View v) {
 
-                ApiRequestPost.postParcours(context,Bdd.getValue(),idraidtest,idraidpere,m_Text,type_test,false);
+                ApiRequestPost.postParcours(context,Bdd.getValue(),idRaid,idraidpere,m_Text,type_test,false);
 
                 //Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
                 //startActivity(intent);
@@ -635,6 +641,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     public void ShowAlertDialog(final View view){
 
 
+
         //création textview pour afficher le nom du parcours
         final TextView setNameParcours = (TextView) findViewById(R.id.textname);
 
@@ -644,6 +651,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
         alert.setCancelable(false);
 
+        alert.setMessage(listsport.toString());
         // création d'un edittext pour récupérer le nom du parcours
         final EditText input = new EditText(this);
 
@@ -654,7 +662,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
         //si aucun nom de parcours n'est entré, on affiche une erreure
-        if(emptyname==1){
+       /* if(emptyname==1){
             input.setError("le champ est vide");
         }
 
@@ -684,7 +692,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         alert.show();
     }
 
