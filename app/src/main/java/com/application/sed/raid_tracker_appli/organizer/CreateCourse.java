@@ -71,6 +71,7 @@ public class CreateCourse extends AppCompatActivity {
     String charTerre = "";
 
 
+
     LinearLayout getLinear;
     String recupere;
     String recupere1;
@@ -98,6 +99,8 @@ public class CreateCourse extends AppCompatActivity {
 
     private static Context context;
 
+
+    private static ArrayList<String> listSport;
 
 
     @Override
@@ -509,26 +512,20 @@ public class CreateCourse extends AppCompatActivity {
             name_raid.setError("le nom du raid n'est pas renseigné");
         }
 
-//        if(!getitem.isChecked()){
-//            checkkayak=0;
-//        }
-//
-//        if(!getitem2.isChecked()){
-//            checknatation=0;
-//        }
-//        if(!getitem3.isChecked()){
-//            checkvelo=0;
-//        }
-//        if(!getitem4.isChecked()){
-//            checkcourse=0;
-//        }
-//        if(!getitem5.isChecked()){
-//            checkwater=0;
-//        }
-//
-//        if(!getitem6.isChecked()){
-//            checkterre=0;
-//        }
+        listSport = new ArrayList<>();
+        if(getitem.isChecked()){
+            listSport.add("Kayak");
+        }
+        if(getitem2.isChecked()){
+            listSport.add("Natation");
+        }
+        if(getitem3.isChecked()){
+            listSport.add("Velo");
+        }
+        if(getitem4.isChecked()){
+            listSport.add("Course");
+        }
+
 
 
         //vérifie si un sport est selectionné
@@ -691,8 +688,10 @@ public class CreateCourse extends AppCompatActivity {
         Utils.debug("Info","nom "+ nom+ " lieu "+ lieu+" date "+date +" edition "+edition.toString() +" equipe "+ equipe);
 
 
+        Utils.debug("sport",listSport.toString());
         Intent intent2= new Intent(context, CourseActivity.class);
         intent2.putExtra("idRaid",idRaid);
+        intent2.putExtra("Sports",listSport);
         context.startActivity(intent2);
     }
 }

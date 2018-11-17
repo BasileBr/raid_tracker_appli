@@ -78,6 +78,8 @@ public class CourseActivity extends AppCompatActivity {
             Utils.debug("CourseActivity","idRaid = "+idRaid);
             ll = (LinearLayout) findViewById(R.id.ParcoursLayout);
 
+            ArrayList<String> listsport = intent.getStringArrayListExtra("Sports");
+            Utils.debug("Sports",listsport.toString());
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
