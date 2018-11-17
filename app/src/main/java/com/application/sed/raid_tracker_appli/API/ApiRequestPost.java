@@ -251,16 +251,41 @@ public class ApiRequestPost {
 
     public static void postparcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final String etat){
 
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, urlParcours,
-                new Response.Listener<String>()
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idRaid",idRaid);
+            if(!idParcoursPere.equals("-1")){
+                jsonObject.put("idParcoursPere",idParcoursPere);
+            }
+            jsonObject.put("nom",name);
+            jsonObject.put("type",type);
+            jsonObject.put("etat",Boolean.valueOf(etat));
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+       // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlParcours, jsonObject,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
+                        // response
 
-                        Log.d("Response", response);
 
-                        //Accueil.redirection(response);
+                        Log.d("Response creation parc", response.toString());
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
                     }
                 },
                 new Response.ErrorListener()
@@ -278,25 +303,9 @@ public class ApiRequestPost {
                 Map<String, String> header = new HashMap<>();
                 String auth;
                 Utils.debug("Header",token);
-                header.put("Content-Type", "application/json");
+                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
-            }
-
-            @Override
-            protected Map<String, String> getParams()
-            {
-
-                Map<String, String>  params = new HashMap<>();
-                params.put("idRaid",idRaid);
-                if(!idParcoursPere.equals("-1")){
-                    params.put("idParcoursPere",idParcoursPere);
-                }
-                params.put("nom",name);
-                params.put("type",type);
-                params.put("etat", etat);
-
-                return params;
             }
         };
         requestQueue.add(postRequest);
@@ -307,15 +316,36 @@ public class ApiRequestPost {
     public static void postpoint(final Context context, final String token, final String idTrace, final String longitude, final String latitude, final String type){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, urlPoints,
-                new Response.Listener<String>()
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idTrace",idTrace);
+            jsonObject.put("lon",Integer.valueOf(longitude));
+            jsonObject.put("lat",Integer.valueOf(latitude));
+            jsonObject.put("type",Integer.valueOf(type));
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPoints, jsonObject,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
+                        // response
 
-                        Log.d("Response", response);
 
-                        //Accueil.redirection(response);
+                        Log.d("Response creation poin", response.toString());
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
                     }
                 },
                 new Response.ErrorListener()
@@ -333,28 +363,9 @@ public class ApiRequestPost {
                 Map<String, String> header = new HashMap<>();
                 String auth;
                 Utils.debug("Header",token);
-                header.put("Content-Type", "application/json");
+                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
-            }
-
-            @Override
-            protected Map<String, String> getParams()
-            {
-
-                Map<String, String>  params = new HashMap<>();
-                params.put("idTrace",idTrace);
-                if(!longitude.equals("-1")){
-                    params.put("lon",longitude);
-                }
-                if(!latitude.equals("-1")){
-                    params.put("lat",latitude);
-                }
-                if(!type.equals("-1")){
-                    params.put("lon",type);
-                }
-
-                return params;
             }
         };
         requestQueue.add(postRequest);
@@ -362,22 +373,41 @@ public class ApiRequestPost {
     }
 
 
-    public static void postrace(final Context context, final String token, final String idParcours, final String isCalibre){
+    public static void postrace(final Context context, final String token, final String idParcours, final String isCalibre) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, urlTraces,
-                new Response.Listener<String>()
-                {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idParcours", idParcours);
+            if (!isCalibre.equals("-1")) {
+                jsonObject.put("isCalibre", isCalibre);
+            }
+            jsonArray.put(jsonObject);
+        } catch (Exception e) {
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlTraces, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
+                        // response
 
-                        Log.d("Response", response);
 
-                        //Accueil.redirection(response);
+                        Log.d("Response creation trace", response.toString());
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -390,26 +420,11 @@ public class ApiRequestPost {
 
                 Map<String, String> header = new HashMap<>();
                 String auth;
-                Utils.debug("Header",token);
-                header.put("Content-Type", "application/json");
-                header.put("X-Auth-Token",token);
+                Utils.debug("Header", token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token", token);
                 return header;
             }
-
-            @Override
-            protected Map<String, String> getParams()
-            {
-
-                Map<String, String>  params = new HashMap<>();
-                params.put("idParcours",idParcours);
-                if(!isCalibre.equals("-1")){
-                    params.put("isCalibre",isCalibre);
-                }
-                return params;
-            }
-
-
-
         };
         requestQueue.add(postRequest);
 
