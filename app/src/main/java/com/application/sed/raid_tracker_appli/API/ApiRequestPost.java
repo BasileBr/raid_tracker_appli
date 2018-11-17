@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
+import java.text.ChoiceFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,10 @@ public class ApiRequestPost {
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
     final static String urlAuthToken = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/auth-tokens";
     final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
+    final static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
+    final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
+    final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
+
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
 
@@ -162,6 +167,169 @@ public class ApiRequestPost {
                 params.put("equipe", equipe);
 
 
+                return params;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+    public static void postparcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final String etat){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlParcours,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Response", response);
+
+                        //Accueil.redirection(response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String>  params = new HashMap<>();
+                params.put("idRaid",idRaid);
+                if(!idParcoursPere.equals("-1")){
+                    params.put("idParcoursPere",idParcoursPere);
+                }
+                params.put("nom",name);
+                params.put("type",type);
+                params.put("etat", etat);
+
+                return params;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postpoint(final Context context, final String token, final String idTrace, final String longitude, final String latitude, final String type){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlPoints,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Response", response);
+
+                        //Accueil.redirection(response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String>  params = new HashMap<>();
+                params.put("idTrace",idTrace);
+                if(!longitude.equals("-1")){
+                    params.put("lon",longitude);
+                }
+                if(!latitude.equals("-1")){
+                    params.put("lat",latitude);
+                }
+                if(!type.equals("-1")){
+                    params.put("lon",type);
+                }
+
+                return params;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postrace(final Context context, final String token, final String idParcours, final String isCalibre){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlTraces,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Response", response);
+
+                        //Accueil.redirection(response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String>  params = new HashMap<>();
+                params.put("idParcours",idParcours);
+                if(!isCalibre.equals("-1")){
+                    params.put("isCalibre",isCalibre);
+                }
                 return params;
             }
         };

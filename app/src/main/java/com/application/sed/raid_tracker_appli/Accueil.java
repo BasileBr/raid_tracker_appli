@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.API.*;
+import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -169,6 +170,13 @@ public class Accueil extends AppCompatActivity {
 
         //ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
 
+
+    }
+
+
+    public static void redirectionaftercreateparcours(String reponse){
+        Intent intent = new Intent(context, CreateParcours.class);
+        context.startActivity(intent);
 
     }
 
