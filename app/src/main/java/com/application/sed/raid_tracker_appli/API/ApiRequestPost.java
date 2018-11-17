@@ -172,7 +172,7 @@ public class ApiRequestPost {
 
                 Map<String, String> header = new HashMap<>();
                 String auth;
-                Utils.debug("Header",token);
+             //   Utils.debug("Header",token);
                 //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
@@ -241,7 +241,7 @@ public class ApiRequestPost {
 
     }
 
-    public static void postParcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final String etat){
+    public static void postParcours(final Context context, final String token, final String idRaid, final String idParcoursPere, final String name, final String type, final Boolean etat){
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -254,7 +254,7 @@ public class ApiRequestPost {
             }
             jsonObject.put("nom",name);
             jsonObject.put("type",type);
-            jsonObject.put("etat",Boolean.valueOf(etat));
+            jsonObject.put("etat",etat);
             jsonArray.put(jsonObject);
         }catch (Exception e){
 

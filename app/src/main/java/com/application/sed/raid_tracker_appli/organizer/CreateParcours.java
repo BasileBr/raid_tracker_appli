@@ -18,6 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
@@ -33,8 +36,10 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 
 import java.util.ArrayList;
@@ -51,6 +56,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
     private int emptyname=0;
 
+    private static Context context;
 
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
@@ -92,6 +98,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 startActivity(intent);
             }
         });
+
+        //récuperation du context
+        context = this;
 
 
         //handle permissions first, before map is created. not depicted here TODO
@@ -247,8 +256,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         ShowAlertDialog(map);
 
 
-
-
     }
 
     //initialisation de compteur pour tester si on peut ajouter un nouveau drapeau
@@ -397,13 +404,19 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         if (compteurpointarrivee==1) {
             b1.setVisibility(View.VISIBLE);
         }
+        final String idraidtest="10";
+        final String idraidpere=null;
+        final String type_test="je sais pas";
 
         b1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
-                startActivity(intent);
+
+                ApiRequestPost.postParcours(context,Bdd.getValue(),idraidtest,idraidpere,m_Text,type_test,false);
+
+                //Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                //startActivity(intent);
 
             }
         });
@@ -666,5 +679,20 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         });
         alert.show();
     }
+
+
+
+    public static void createParcours(JSONObject jsonObject) throws JSONException {
+        String idRaid = jsonObject.getString("idRaid");
+        String idParcoursPere = jsonObject.getString("idParcoursPere");
+        String name = jsonObject.getString("nom");
+        String type = jsonObject.getString("type");
+        String etat = jsonObject.getString("etat");
+
+
+        Intent intent2= new Intent(context, LandingActivity.class);
+        context.startActivity(intent2);
+    }
+
 }
 
