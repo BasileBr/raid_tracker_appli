@@ -59,7 +59,7 @@ public class CourseActivity extends AppCompatActivity {
 
 
     private static LinearLayout ll;
-    private String idRaid;
+    private static String idRaid;
 
     MapView map = null;
     @Override
@@ -182,6 +182,12 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
+    public void Course(View view){
+        Intent intent = new Intent(CourseActivity.this, CreateParcours.class);
+        intent.putExtra("idRaid",idRaid);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -241,6 +247,7 @@ public class CourseActivity extends AppCompatActivity {
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, CreateParcours.class);
+                    intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 
                 }

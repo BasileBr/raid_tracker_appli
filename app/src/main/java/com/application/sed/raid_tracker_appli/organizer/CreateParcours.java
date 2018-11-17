@@ -36,6 +36,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import com.android.volley.toolbox.StringRequest;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
@@ -71,6 +72,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
     int numbouton = 0;
     int compteur=0;
+    String idRaid;
 
     public static ArrayList<List> Liste =new ArrayList<>();
     ArrayList<GeoPoint> parcours = new ArrayList<>();
@@ -81,166 +83,170 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         setContentView(R.layout.activity_create_parcours);
 
         //on récupère l'identifiant de la toolbar
-        toolbar1 = (Toolbar) findViewById(R.id.toolbar);
+        Intent intent = getIntent();
+        if (intent != null){
 
-        // on définit la toolbar
-        setSupportActionBar(toolbar1);
+            idRaid = intent.getStringExtra("idRaid");
+            toolbar1 = (Toolbar) findViewById(R.id.toolbar);
 
-        //ajouter un bouton retour dans l'action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+            // on définit la toolbar
+            setSupportActionBar(toolbar1);
 
-        //si on appuie sur le bouton retour, on arrive sur la page landing
-        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
-                startActivity(intent);
-            }
-        });
+            //ajouter un bouton retour dans l'action bar
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //récuperation du context
-        context = this;
+            //si on appuie sur le bouton retour, on arrive sur la page landing
+            toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-
-        //handle permissions first, before map is created. not depicted here TODO
-
-        //load/initialize the osmdroid configuration, this can be done
-        Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        //setting this before the layout is inflated is a good idea
-        //it 'should' ensure that the map has a writable location for the map cache, even without permissions
-        //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
-        //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's tile servers will get you banned based on this string
-
-        //inflate and create the map
-        // setContentView(R.layout.activity_create_parcours);
-
-        // à utiliser en phase de développement, autorise toutes les permissions sur le thread UI (pas terrible)
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
-
-        //création de la map
-        map = (MapView) findViewById(R.id.map);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-
-        //positionnement lors de l'ouverture de la carte
-        IMapController mapController = map.getController();
-        mapController.setZoom(9.0);
-        GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
-        mapController.setCenter(centermap);
-
-        //géolocaliser l'appareil
-        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.getOverlays().add(mLocationOverlay);
-
-        // ajouter l'echelle
-        ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
-        map.getOverlays().add(myScaleBarOverlay);
-
-        // ajouter boussolle
-        CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
-        mCompassOverlay.enableCompass();
-        map.getOverlays().add(mCompassOverlay);
+            //récuperation du context
+            context = this;
 
 
-        /**
-         * à utiliser si besoin de tracer un parcours en passant par la route
-         */
-        //créer un road manager (Appel vers l'api pour guider d'un point à un autre
+            //handle permissions first, before map is created. not depicted here TODO
+
+            //load/initialize the osmdroid configuration, this can be done
+            Context ctx = getApplicationContext();
+            Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+            //setting this before the layout is inflated is a good idea
+            //it 'should' ensure that the map has a writable location for the map cache, even without permissions
+            //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
+            //see also StorageUtils
+            //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's tile servers will get you banned based on this string
+
+            //inflate and create the map
+            // setContentView(R.layout.activity_create_parcours);
+
+            // à utiliser en phase de développement, autorise toutes les permissions sur le thread UI (pas terrible)
+            //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            //StrictMode.setThreadPolicy(policy);
+
+            //création de la map
+            map = (MapView) findViewById(R.id.map);
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setBuiltInZoomControls(true);
+            map.setMultiTouchControls(true);
+
+            //positionnement lors de l'ouverture de la carte
+            IMapController mapController = map.getController();
+            mapController.setZoom(9.0);
+            GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
+            mapController.setCenter(centermap);
+
+            //géolocaliser l'appareil
+            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+            mLocationOverlay.enableMyLocation();
+            map.getOverlays().add(mLocationOverlay);
+
+            // ajouter l'echelle
+            ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
+            map.getOverlays().add(myScaleBarOverlay);
+
+            // ajouter boussolle
+            CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
+            mCompassOverlay.enableCompass();
+            map.getOverlays().add(mCompassOverlay);
+
+
+            /**
+             * à utiliser si besoin de tracer un parcours en passant par la route
+             */
+            //créer un road manager (Appel vers l'api pour guider d'un point à un autre
 //        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
 
-        // fixer le point de départ et le point d'arrivée
-        // ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-        //waypoints.add(startPoint);
-        //GeoPoint endPoint = new GeoPoint(48.4, -1.9);
-        //waypoints.add(endPoint);
+            // fixer le point de départ et le point d'arrivée
+            // ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+            //waypoints.add(startPoint);
+            //GeoPoint endPoint = new GeoPoint(48.4, -1.9);
+            //waypoints.add(endPoint);
 
 
-        //choisir le type de route
-        //roadManager.addRequestOption("routeType=pedestrian");
-        // Road road = roadManager.getRoad(waypoints);
+            //choisir le type de route
+            //roadManager.addRequestOption("routeType=pedestrian");
+            // Road road = roadManager.getRoad(waypoints);
 
-        //créer les lignes
-        // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
-        //map.getOverlays().add(roadOverlay);
+            //créer les lignes
+            // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+            //map.getOverlays().add(roadOverlay);
 
-        // permet de mettre à jour la carte
-        //map.invalidate();
+            // permet de mettre à jour la carte
+            //map.invalidate();
 
-        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
-        map.getOverlays().add(0, mapEventsOverlay);
-
-
-        //récupère les identifiants des drapeaux
-        final ImageButton greenflag = (ImageButton) findViewById(R.id.greenflag);
-        final ImageButton redflag = (ImageButton) findViewById(R.id.redflag);
-        final ImageButton passagepoint = (ImageButton) findViewById(R.id.passagepoint);
-        final ImageButton poi = (ImageButton) findViewById(R.id.poi);
+            MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(this, this);
+            map.getOverlays().add(0, mapEventsOverlay);
 
 
-        //action sur le drapeau de départ (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
-        greenflag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.info("coucou", "ouiii");
-                numbouton = 1;
-                greenflag.setBackgroundColor(Color.rgb(209, 196, 190));
-                redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-            }
-        });
+            //récupère les identifiants des drapeaux
+            final ImageButton greenflag = (ImageButton) findViewById(R.id.greenflag);
+            final ImageButton redflag = (ImageButton) findViewById(R.id.redflag);
+            final ImageButton passagepoint = (ImageButton) findViewById(R.id.passagepoint);
+            final ImageButton poi = (ImageButton) findViewById(R.id.poi);
 
 
-        //action sur le drapeau d'arrivée (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
-        redflag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.info("coucou", "rouuuuge");
-                numbouton = 2;
-                redflag.setBackgroundColor(Color.rgb(209, 196, 190));
-                greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                //map.getOverlays().add(standardmarker1);
-            }
-        });
-
-        //action sur le drapeau de point de passage (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
-        passagepoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.info("coucou", "bleuuu");
-                numbouton = 3;
-
-                passagepoint.setBackgroundColor(Color.rgb(209, 196, 190));
-                greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                //poi.setBackgroundColor(Color.rgb(209, 196, 190));
-                //map.getOverlays().add(standardmarker1);
-            }
-        });
-
-        ////action sur le drapeau des points d'intérêtes (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
-        poi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                numbouton = 4;
-                poi.setBackgroundColor(Color.rgb(209, 196, 190));
-                greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-                redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
-            }
-        });
+            //action sur le drapeau de départ (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
+            greenflag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.info("coucou", "ouiii");
+                    numbouton = 1;
+                    greenflag.setBackgroundColor(Color.rgb(209, 196, 190));
+                    redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                }
+            });
 
 
-        //ajouter marqueur
+            //action sur le drapeau d'arrivée (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
+            redflag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.info("coucou", "rouuuuge");
+                    numbouton = 2;
+                    redflag.setBackgroundColor(Color.rgb(209, 196, 190));
+                    greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    //map.getOverlays().add(standardmarker1);
+                }
+            });
+
+            //action sur le drapeau de point de passage (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
+            passagepoint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.info("coucou", "bleuuu");
+                    numbouton = 3;
+
+                    passagepoint.setBackgroundColor(Color.rgb(209, 196, 190));
+                    greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    poi.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    //poi.setBackgroundColor(Color.rgb(209, 196, 190));
+                    //map.getOverlays().add(standardmarker1);
+                }
+            });
+
+            ////action sur le drapeau des points d'intérêtes (ajout d'un fond ecran et fond ecran par defaut pour les autres boutons)
+            poi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    numbouton = 4;
+                    poi.setBackgroundColor(Color.rgb(209, 196, 190));
+                    greenflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    passagepoint.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                    redflag.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
+                }
+            });
+
+
+            //ajouter marqueur
 //        GeoPoint enssatpoint =  new GeoPoint(48.729673,-3.4624261999999817);
 //        Marker startMarker = new Marker(map);
 //        startMarker.setPosition(enssatpoint);
@@ -252,8 +258,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 //        startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
 //        map.getOverlays().add(startMarker);
 
-        //afficher une popup pour sélectionner le type de sport
-        ShowAlertDialog(map);
+            //afficher une popup pour sélectionner le type de sport
+            ShowAlertDialog(map);
+        }
+
 
 
     }
