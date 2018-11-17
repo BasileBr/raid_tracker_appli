@@ -200,4 +200,5 @@ public class CourseActivity extends AppCompatActivity {
 //        super.onConfigurationChanged(newConfig);
 //        drawerToggle.onConfigurationChanged(newConfig);
 //    }
+
 }

@@ -14,10 +14,14 @@ import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -30,6 +34,7 @@ public class ApiRequestPost {
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
     final static String urlAuthToken = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/auth-tokens";
     final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
+    final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
 
@@ -118,30 +123,41 @@ public class ApiRequestPost {
 
     }
 
-    public static void postRaid(Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe){
+    public static void postRaid(final Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObject params = new JsonObject();
-        JsonParser parser = new JsonParser();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
         Utils.debug("CreateRaid", "nom " + name+" lieu " + lieu+ " date " + date+" edition  " + edition+ " equipe" +equipe);
-        params.add("nom",parser.parse(name));
-        params.add("lieu",parser.parse(lieu);
-        params.add("date",parser.parse(date);
-        params.add("edition",parser.parse(edition));
-        params.add("equipe", parser.parse(equipe);
+        try {
+            jsonObject.put("nom",name);
+            jsonObject.put("lieu",lieu);
+            jsonObject.put("date",date);
+            jsonObject.put("edition",Integer.valueOf(edition));
+            jsonObject.put("equipe", equipe);
+            jsonArray.put(jsonObject);
+            }catch (Exception e){
 
-        Utils.debug("CreateRaid",params.toString());
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlRaid,
-                new Response.Listener<String>()
+        }
+
+        Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlRaid, jsonObject,
+                new Response.Listener<JSONObject>()
                 {   
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         // response
 
 
-                        Log.d("Response creation raid", response);
+                        Log.d("Response creation raid", response.toString());
 
-                        Accueil.redirection(response);
+                        try {
+                            String idRaid = response.getString("id");
+                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener()
@@ -164,21 +180,66 @@ public class ApiRequestPost {
                 return header;
             }
 
-//            @Override
-//            protected Map<String, String> getParams()
-//            {
-//
-//                Map<String, String>  params = new HashMap<>();
-//                Utils.debug("CreateRaid", "nom " + name+" lieu " + lieu+ " date " + date+" edition  " + edition+ " equipe" +equipe);
-//                params.put("nom",name);
-//                params.put("lieu",lieu);
-//                params.put("date",date);
-//                params.put("edition",edition);
-//                params.put("equipe", equipe);
-//
-//                Utils.debug("CreateRaid",params.toString());
-//                return params;
-//            }
+
+
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+    public static void postUserToRaid(Context context, final String token, final String idUser, final String idRaid, final JSONObject infoRaid){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String urlFinale = urlOrganisateursRaids+"/"+idRaid+"/"+"users"+"/"+idUser;
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        Utils.debug("CreateRaid", "idUser " + idUser+" idRaid " + idRaid);
+        try {
+            jsonObject.put("idUser",idUser);
+            jsonObject.put("idRaid",idRaid);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlFinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+
+                        Log.d("Response creation raid", response.toString());
+
+                        try {
+                            CreateCourse.createRaid(infoRaid);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
 
 
         };
