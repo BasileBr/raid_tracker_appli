@@ -51,9 +51,9 @@
         <activity
             android:name=".organizer.CourseActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ManageParcours"
-            android:screenOrientation="portrait"
+        <activity android:name=".ManageParcoursActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
     </application>
 
 </manifest>

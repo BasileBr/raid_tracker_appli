@@ -23,7 +23,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-public class ManageParcours extends AppCompatActivity {
+public class ManageParcoursActivity extends AppCompatActivity {
 
     Toolbar toolbar1;
 
@@ -34,6 +34,7 @@ public class ManageParcours extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_parcours);
+
 
         //récupération de l'id de la toolbar
         toolbar1 = (Toolbar) findViewById(R.id.toolbar);
@@ -49,7 +50,7 @@ public class ManageParcours extends AppCompatActivity {
         toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(ManageParcours.this, LandingActivity.class);
+                //Intent intent = new Intent(ManageParcoursActivity.this, LandingActivity.class);
                 //startActivity(intent);
             }
         });

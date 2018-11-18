@@ -1,15 +1,11 @@
 package com.application.sed.raid_tracker_appli;
 
 import android.content.Intent;
-import android.net.MacAddress;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
-import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -83,7 +79,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void asupprimer(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, ManageParcours.class);
+        Intent intent =  new Intent(WelcomeActivity.this, ManageParcoursActivity.class);
         startActivity(intent);
     }
 
