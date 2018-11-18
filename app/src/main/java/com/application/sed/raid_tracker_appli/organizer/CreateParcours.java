@@ -434,29 +434,28 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 for (int k = 0; k<ListGeoPoint.size(); k++ ){
 
 
-                    Utils.debug("onClick",idTrace);
+                    //Utils.debug("onClick",idTrace);
                     Double lon = ListGeoPoint.get(k).getLongitude();
                     Double lat = ListGeoPoint.get(k).getLatitude();
 
-                    String longitude = lon.toString();
-                    String latitude = lat.toString();
-                    Utils.debug("onClick"," long : "+ lon +" lat : "+lat);
+                    /*Utils.debug("onClick"," long : "+ lon +" lat : "+lat);
+                    Utils.debug("onClick","k : "+String.valueOf(k) + " taille list point : " + String.valueOf(ListGeoPoint.size()));*/
 
                     if (k == 0){
                         //Point départ type = 1
-                        Utils.debug("Onclick", "k if : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"1");
+                        //Utils.debug("onclick", "k if : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1);
                     }
 
-                    else if (k - ListGeoPoint.size() ==1){
+                    else if ( ListGeoPoint.size() - k ==1){
                         //Point arrivée type = 2
-                        Utils.debug("Onclick", "k elseif : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"2");
+                        //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2);
                     }
                     else {
                         //Point passage type = 0
-                        Utils.debug("Onclick", "k else : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"0");
+                        //Utils.debug("onclick", "k else : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0);
                     }
 
                 }

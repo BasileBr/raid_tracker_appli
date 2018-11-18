@@ -314,7 +314,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final String type){
+    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -324,9 +324,9 @@ public class ApiRequestPost {
 
             jsonObject.put("lon",longitude);
             jsonObject.put("lat",latitude);
-            jsonObject.put("type",Integer.valueOf(type));
+            jsonObject.put("type",type);
             jsonArray.put(jsonObject);
-            Log.d("TAG",jsonObject.toString(2));
+            Utils.debug("TAG",jsonObject.toString(2));
         }catch (Exception e){
 
         }
