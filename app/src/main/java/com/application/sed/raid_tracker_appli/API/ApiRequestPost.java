@@ -321,8 +321,6 @@ public class ApiRequestPost {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idTrace",idTrace);
-//            jsonObject.put("lon",Double.valueOf(longitude));
-//            jsonObject.put("lat",Double.valueOf(latitude));
 
             jsonObject.put("lon",longitude);
             jsonObject.put("lat",latitude);
