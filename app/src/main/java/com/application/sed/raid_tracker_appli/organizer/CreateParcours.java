@@ -49,6 +49,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import okhttp3.internal.Util;
+
 
 //piste garder les éléments lors d'un changement d'orientation setRetainInstance
 public class CreateParcours extends AppCompatActivity implements MapEventsReceiver {
@@ -60,6 +62,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     private int emptyname=0;
 
     private static Context context;
+    private static String idTrace;
 
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
@@ -272,6 +275,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
     }
 
+    public static void trace(String id){
+        idTrace = id;
+    }
     //initialisation de compteur pour tester si on peut ajouter un nouveau drapeau
     int compteurpointdepart=0;
     int compteurpointarrivee=0;
@@ -428,14 +434,49 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             public void onClick(View v) {
 
 
+                for (int k = 0; k<ListGeoPoint.size(); k++ ){
 
-                //Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
-                //startActivity(intent);
+
+                    Utils.debug("onClick",idTrace);
+                    Double lon = ListGeoPoint.get(k).getLongitude();
+                    Double lat = ListGeoPoint.get(k).getLatitude();
+
+                    String longitude = lon.toString();
+                    String latitude = lat.toString();
+                    Utils.debug("onClick"," long : "+ longitude +" lat : "+latitude);
+
+                    if (k == 0){
+                        //Point départ type = 1
+                        Utils.debug("Onclick", "k if : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"1");
+                    }
+
+                    else if (k - ListGeoPoint.size() ==1){
+                        //Point arrivée type = 2
+                        Utils.debug("Onclick", "k elseif : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"2");
+                    }
+                    else {
+                        //Point passage type = 0
+                        Utils.debug("Onclick", "k else : "+String.valueOf(k));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"0");
+                    }
+
+                }
+
+                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                startActivity(intent);
+
 
             }
         });
         return false;
     }
+
+//    public static void changeVue(){
+//        Intent intent = new Intent(context, LandingActivity.class);
+//        context.startActivity(intent);
+//    }
 
     /**
      * Algorithme pour ajouter les points d'un parcours et envoi du traitement en tache de fond (asynctask)

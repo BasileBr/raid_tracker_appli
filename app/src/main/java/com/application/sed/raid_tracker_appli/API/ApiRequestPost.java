@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -15,6 +16,7 @@ import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
+import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -338,6 +340,7 @@ public class ApiRequestPost {
 
                         Log.d("Response creation poin", response.toString());
 
+
                        /* try {
                             String idRaid = response.getString("id");
                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
@@ -397,7 +400,12 @@ public class ApiRequestPost {
 
 
                         Log.d("Response creation trace", response.toString());
-
+                        try {
+                            String idTrace = response.getString("id");
+                            CreateParcours.trace(idTrace);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                        /* try {
                             String idRaid = response.getString("id");
                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
