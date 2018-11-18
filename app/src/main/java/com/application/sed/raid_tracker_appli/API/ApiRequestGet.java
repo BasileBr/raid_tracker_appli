@@ -39,6 +39,7 @@ public class ApiRequestGet {
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
     final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
 
+
     /**
      * https://android--examples.blogspot.com/2017/02/android-volley-json-array-request.html
      *
@@ -673,7 +674,9 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        LandingActivity.raidlist(response);
+                        //LandingActivity.raidlist(response);
+                        Log.d("Response creation poin", response);
+
                     }
 
                 },
@@ -717,7 +720,48 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        LandingActivity.raidlist(response);
+                        Log.d("Response creation poin", response);
+                    }
+
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header", token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token", token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+
+    }
+
+
+    public static void getPointsfromSpecificTrace(Context context, final String token, final int id) {
+
+        String UrlFinale = urlPoints + '/' + "traces"+'/'+id;
+        Utils.debug("getPointsfromSpecificTrace", UrlFinale);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response creation poin", response);
                     }
 
                 },

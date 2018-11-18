@@ -367,6 +367,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         //b1.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
+    public void asupprimer (View view){
+        Intent intent =  new Intent(context, ManageParcours.class);
+        context.startActivity(intent);
+    }
+
 
     public static void raidlist (String response){
 
