@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.StringRequest;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
@@ -250,6 +251,7 @@ public class CourseActivity extends AppCompatActivity {
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, CreateParcours.class);
+                    //Id du parcours qu'on veut récupérer
                     intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 
