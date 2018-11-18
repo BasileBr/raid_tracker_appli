@@ -427,7 +427,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             @Override
             public void onClick(View v) {
 
-                ApiRequestPost.postParcours(context,Bdd.getValue(),idRaid,idraidpere,m_Text,type_test,false);
+
 
                 //Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
                 //startActivity(intent);
@@ -680,6 +680,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 }else // sinon on ajoute le nom du parcours dans la textview
                 {
                     emptyname=0;
+                    ApiRequestPost.postParcours(context,Bdd.getValue(),idRaid,"-1",m_Text,"toto",false);
                     setNameParcours.setText(m_Text);
                 }
 

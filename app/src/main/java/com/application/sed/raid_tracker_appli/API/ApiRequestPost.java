@@ -268,8 +268,15 @@ public class ApiRequestPost {
                     public void onResponse(JSONObject response) {
                         // response
 
+                        try {
+                            String idParcours = response.getString("id");
+                            ApiRequestPost.postTrace(context,token,idParcours,"false");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         Log.d("Response creation parc", response.toString());
+
 
                        /* try {
                             String idRaid = response.getString("id");
@@ -365,7 +372,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void possTrace(final Context context, final String token, final String idParcours, final String isCalibre) {
+    public static void postTrace(final Context context, final String token, final String idParcours, final String isCalibre) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -373,7 +380,7 @@ public class ApiRequestPost {
         try {
             jsonObject.put("idParcours", idParcours);
             if (!isCalibre.equals("-1")) {
-                jsonObject.put("isCalibre", isCalibre);
+                jsonObject.put("isCalibre", Boolean.valueOf(isCalibre));
             }
             jsonArray.put(jsonObject);
         } catch (Exception e) {
