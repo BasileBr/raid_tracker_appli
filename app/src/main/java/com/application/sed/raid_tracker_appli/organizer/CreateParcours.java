@@ -66,8 +66,8 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     Marker standardmarker2;
     Marker standarmarker3;
 
-    private static ArrayList<String> listsport;
-
+    //private static ArrayList<String> listsport;
+    private Spinner test;
 
     Toolbar toolbar1;
 
@@ -113,7 +113,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             //récuperation du context
             context = this;
 
-            listsport = intent.getStringArrayListExtra("listsport");
+            //listsport = intent.getStringArrayListExtra("listsport");
 
             //handle permissions first, before map is created. not depicted here TODO
 
@@ -651,7 +651,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
         alert.setCancelable(false);
 
-        alert.setMessage(listsport.toString());
+        //alert.setMessage(listsport.toString());
         // création d'un edittext pour récupérer le nom du parcours
         final EditText input = new EditText(this);
 
@@ -662,7 +662,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
         //si aucun nom de parcours n'est entré, on affiche une erreure
-       /* if(emptyname==1){
+        if(emptyname==1){
             input.setError("le champ est vide");
         }
 
@@ -692,7 +692,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
         alert.show();
     }
 

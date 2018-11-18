@@ -53,7 +53,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private ArrayList<Button> listebouton;
     private ArrayList<List> raidlist;
-    private static ArrayList<String> listsport;
+    //private static ArrayList<String> listsport;
 
     private static Context context;
 
@@ -78,8 +78,8 @@ public class CourseActivity extends AppCompatActivity {
             Utils.debug("CourseActivity","idRaid = "+idRaid);
             ll = (LinearLayout) findViewById(R.id.ParcoursLayout);
 
-            listsport = intent.getStringArrayListExtra("Sports");
-            Utils.debug("Sports",listsport.toString());
+            /*listsport = intent.getStringArrayListExtra("Sports");
+            Utils.debug("Sports",listsport.toString());*/
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -187,7 +187,7 @@ public class CourseActivity extends AppCompatActivity {
     public void Course(View view){
         Intent intent = new Intent(CourseActivity.this, CreateParcours.class);
         intent.putExtra("idRaid",idRaid);
-        intent.putExtra("listsport",listsport);
+        //intent.putExtra("listsport",listsport);
         startActivity(intent);
     }
 

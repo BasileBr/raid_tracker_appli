@@ -99,7 +99,7 @@ public class CreateCourse extends AppCompatActivity {
     private static Context context;
 
 
-    private static ArrayList<String> listSport;
+    //private static ArrayList<String> listSport;
 
 
     @Override
@@ -511,7 +511,7 @@ public class CreateCourse extends AppCompatActivity {
             name_raid.setError("le nom du raid n'est pas renseigné");
         }
 
-        listSport = new ArrayList<>();
+       /* listSport = new ArrayList<>();
         if(getitem.isChecked()){
             listSport.add("Kayak");
         }
@@ -524,7 +524,7 @@ public class CreateCourse extends AppCompatActivity {
         if(getitem4.isChecked()){
             listSport.add("Course");
         }
-
+*/
 
 
         //vérifie si un sport est selectionné
@@ -687,10 +687,10 @@ public class CreateCourse extends AppCompatActivity {
         Utils.debug("Info","nom "+ nom+ " lieu "+ lieu+" date "+date +" edition "+edition.toString() +" equipe "+ equipe);
 
 
-        Utils.debug("sport",listSport.toString());
+        //Utils.debug("sport",listSport.toString());
         Intent intent2= new Intent(context, CourseActivity.class);
         intent2.putExtra("idRaid",idRaid);
-        intent2.putExtra("Sports",listSport);
+        //intent2.putExtra("Sports",listSport);
         context.startActivity(intent2);
     }
 }
