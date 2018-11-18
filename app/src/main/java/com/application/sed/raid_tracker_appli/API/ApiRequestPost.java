@@ -314,17 +314,21 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPoint(final Context context, final String token, final String idTrace, final String longitude, final String latitude, final String type){
+    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final String type){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idTrace",idTrace);
-            jsonObject.put("lon",Integer.valueOf(longitude));
-            jsonObject.put("lat",Integer.valueOf(latitude));
+//            jsonObject.put("lon",Double.valueOf(longitude));
+//            jsonObject.put("lat",Double.valueOf(latitude));
+
+            jsonObject.put("lon",longitude);
+            jsonObject.put("lat",latitude);
             jsonObject.put("type",Integer.valueOf(type));
             jsonArray.put(jsonObject);
+            Log.d("TAG",jsonObject.toString(2));
         }catch (Exception e){
 
         }

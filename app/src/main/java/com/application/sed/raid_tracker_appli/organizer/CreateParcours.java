@@ -424,9 +424,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         if (compteurpointarrivee==1) {
             b1.setVisibility(View.VISIBLE);
         }
-        final String idraidtest="10";
-        final String idraidpere=null;
-        final String type_test="je sais pas";
 
         b1.setOnClickListener(new View.OnClickListener() {
 
@@ -443,23 +440,23 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
                     String longitude = lon.toString();
                     String latitude = lat.toString();
-                    Utils.debug("onClick"," long : "+ longitude +" lat : "+latitude);
+                    Utils.debug("onClick"," long : "+ lon +" lat : "+lat);
 
                     if (k == 0){
                         //Point départ type = 1
                         Utils.debug("Onclick", "k if : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"1");
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"1");
                     }
 
                     else if (k - ListGeoPoint.size() ==1){
                         //Point arrivée type = 2
                         Utils.debug("Onclick", "k elseif : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"2");
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"2");
                     }
                     else {
                         //Point passage type = 0
                         Utils.debug("Onclick", "k else : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,longitude,latitude,"0");
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,"0");
                     }
 
                 }
@@ -700,6 +697,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         //ajouter l'edittext à la popup
         alert.setView(input);
+
 
 
         //si aucun nom de parcours n'est entré, on affiche une erreure
