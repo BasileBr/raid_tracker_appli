@@ -430,7 +430,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             @Override
             public void onClick(View v) {
 
-
+                Utils.debug("ListGeoPoint", ListGeoPoint.toString());
                 for (int k = 0; k<ListGeoPoint.size(); k++ ){
 
 

@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
@@ -761,7 +762,8 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response creation poin", response);
+                        Log.d("Response creation point", response);
+                        ManageParcoursActivity.recupParcours(response);
                     }
 
                 },
