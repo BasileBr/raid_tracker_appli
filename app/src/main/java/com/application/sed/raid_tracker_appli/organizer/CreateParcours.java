@@ -469,10 +469,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         return false;
     }
 
-//    public static void changeVue(){
-//        Intent intent = new Intent(context, LandingActivity.class);
-//        context.startActivity(intent);
-//    }
 
     /**
      * Algorithme pour ajouter les points d'un parcours et envoi du traitement en tache de fond (asynctask)

@@ -39,10 +39,6 @@ public class Accueil extends AppCompatActivity {
 
 
 
-//    public static Context getAppContext() {
-//        return Accueil.context;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,39 +89,9 @@ public class Accueil extends AppCompatActivity {
 
         AccountInfo = Bdd.getAccount();
 
-       /* for (int i = 0; i < AccountInfo.size(); i++) {
-            // Liste pour un user
-            List infoUsers  = AccountInfo.get(i);
-            String info = infoUsers.toString();
-            Utils.debug("Je suis ici", info);
-            if (infoUsers.get(1).equals(email)& infoUsers.get(2).equals(mdp)){
-                isValid =true;
-                Intent intent = new Intent(Accueil.this, LandingActivity.class);
-                intent.putExtra("name",infoUsers.get(0).toString());
-                Bdd.setNomUtilisateur(infoUsers.get(0).toString());
-                startActivity(intent);
-            }
-             else {
-                Utils.info("oh oh","je pas");
-                mEdit.setError("adresse mail ou mot de passe invalide");
-            }
-
-            isValid=false;
-
-
-        }*/
         ApiRequestPost.postToken(this, email, mdp);
 
 
-//        /*vérification lors de la connexon */
-//        for (int j = 0; j < listUsers.size(); j ++){
-//
-//            String test= listUsers.get(j);
-//
-//            Utils.info("Identifiant  eet je sais pas quoi",test);
-//
-//
-//        }
 
 
         Utils.info(TAG,"Login Button action");
@@ -168,7 +134,6 @@ public class Accueil extends AppCompatActivity {
         Bdd.setNomUtilisateur(utilisateur);
         context.startActivity(intent);
 
-        //ApiRequestGet.getSpecificUsers(Accueil.getAppContext(), value, userid);
 
 
     }
@@ -187,7 +152,5 @@ public class Accueil extends AppCompatActivity {
         context.startActivity(intent);
         Utils.info("Accueil","Login Button action");
     }
-
-
 
 }

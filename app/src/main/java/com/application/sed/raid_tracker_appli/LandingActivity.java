@@ -6,7 +6,6 @@ import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -18,11 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
@@ -34,8 +30,6 @@ import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.internal.Util;
 
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -85,7 +79,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         context = this;
 
-        //ApiRequestGet.postMethod();
 
         Utils.info(TAG, "OnCreate");
 
@@ -368,7 +361,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     }
 
     public void asupprimer (View view){
-        Intent intent =  new Intent(context, ManageParcours.class);
+        Intent intent =  new Intent(context, ManageParcoursActivity.class);
         context.startActivity(intent);
     }
 
