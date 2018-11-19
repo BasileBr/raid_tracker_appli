@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -77,6 +78,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final TextView setNameParcours = (TextView) findViewById(R.id.textname);
+
+
         context = this;
 
 
@@ -88,6 +92,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         nomutilisateur = Bdd.getNomUtilisateur();
         this.nameofuser = findViewById(R.id.nameofuser);
         nameofuser.setText(nomutilisateur);
+
        // Utils.debug("Landing",nomutilisateur);
 
         if (intent != null) {
@@ -104,6 +109,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             Utils.debug(TAG, "Je rentre la");
 
             ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
+
+
+
 
             /* get List from Create Raid */
 //            raidlist = Bdd.getArrayList();
@@ -228,6 +236,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         //NavigationView navigationView = (Navi  gationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
 
@@ -301,7 +313,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
     public void join(View view) {
-
+        Intent intent =  new Intent(LandingActivity.this, VolunteerPreferenceActivity.class);
+        startActivity(intent);
     }
 
     public void CreateCourse(View view){
@@ -330,20 +343,24 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 //
 //    }
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         int id = menuItem.getItemId();
 
-        if (id == R.id.nav_item_one) {
-            Intent intent =  new Intent(LandingActivity.this, WelcomeActivity.class);
-            startActivity(intent);
-            Utils.debug("Nav","item 1");
-        } else if (id == R.id.nav_item_two) {
-            Utils.debug("Nav","item 2");
-        } else if (id == R.id.nav_item_three) {
-            Utils.debug("Nav", "item 3");
-        }
+       if (id == R.id.mail) {
+           Intent intent =  new Intent(context, InviteVolunteersActivity.class);
+           context.startActivity(intent);
+           Utils.debug("coucou","basile");
+       }
+//            Utils.debug("Nav","item 1");
+//        } else if (id == R.id.nav_item_two) {
+//            Utils.debug("Nav","item 2");
+//        } else if (id == R.id.nav_item_three) {
+//            Utils.debug("Nav", "item 3");
+//        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

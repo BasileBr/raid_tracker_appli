@@ -33,8 +33,9 @@ public class ApiRequestPost {
     final static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
     final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
-
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
+    final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
+
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
 

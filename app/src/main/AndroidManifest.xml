@@ -51,9 +51,17 @@
         <activity
             android:name=".organizer.CourseActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ManageParcoursActivity"
+        <activity
+            android:name=".ManageParcoursActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <activity
+            android:name=".ManageVolunteersActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".VolunteerPreferenceActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".InviteVolunteersActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
