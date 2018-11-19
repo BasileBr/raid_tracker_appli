@@ -53,11 +53,11 @@ public class ManageParcoursActivity extends AppCompatActivity {
     public static GeoPoint pointb = new GeoPoint(51.488978, 6.746994);
     public static GeoPoint geotemporaire;
 
-    public static int ParcoursListGeoPoint = 0;
-    public static int compteur=0;
+    public static int ParcoursListGeoPoint;
+    public static int compteur = 0;
 
     public static Context context;
-    public static ArrayList<GeoPoint> parcours = new ArrayList<>();
+    public static ArrayList<GeoPoint> parcours;
 
     private static ArrayList<GeoPoint> listGeoPoint;
 
@@ -176,6 +176,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
     public static void trace (ArrayList<GeoPoint> myListe){
 
         GeoPoint myPoint;
+        ParcoursListGeoPoint = -1;
+        compteur = -1;
+        parcours = new ArrayList<>();
         for (int i = 0; i < myListe.size() ; i++) {
             standardmarker = new Marker(map2);
             standardmarker.setIcon(context.getResources().getDrawable(R.drawable.green_flag2));
@@ -185,31 +188,43 @@ public class ManageParcoursActivity extends AppCompatActivity {
             standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
             map2.getOverlays().add(standardmarker);
             map2.invalidate();
-            setRoad(myListe);
+            if ( (compteur == -1) || ( compteur == 0)|| ( compteur == 1)){
+                compteur = compteur +1 ;
+                Utils.debug("cpt ", "cpt : "+compteur);
+            }
+            ParcoursListGeoPoint = ParcoursListGeoPoint+1;
+            setRoad(myListe, ParcoursListGeoPoint, compteur, parcours);
+
+
+
+
         }
     }
-    public static void setRoad(ArrayList<GeoPoint> myListe){
+    public static void setRoad(ArrayList<GeoPoint> myListe, int mycompteurs, int cpt, ArrayList<GeoPoint> parc){
 
 
         //parcours l'arraylist contenant tous les geopoints lors d'un appui long
-        for (int i = ParcoursListGeoPoint; i<myListe.size();i++){
+        Utils.debug("setRoad","Je rentre dans setRoad "+mycompteurs + " cpt : "+cpt);
+
+
+        for (int i = mycompteurs; i<myListe.size();i++){
             // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
-            if (compteur==0){
+            if (cpt==0){
                 Utils.debug("setRoad","If cpt = 0 ");
-                parcours.add(myListe.get(i));
-                pointa = parcours.get(0);
+                parc.add(myListe.get(i));
+                pointa = parc.get(0);
                 Utils.debug("setRoad","PointA" + pointa.toString());
-                compteur +=1;
-                ParcoursListGeoPoint += 1;
+                //compteur +=1;
+                mycompteurs += 1;
             }
 
             //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
-            else if (compteur==1){
+            else if (cpt==1){
                 Utils.debug("setRoad","If cpt = 1 ");
-                parcours.add(myListe.get(i));
+                parc.add(myListe.get(i));
                 Utils.debug("setRoad","Parcours ");
-                compteur +=1;
-                pointb = parcours.get(1);
+                //compteur +=1;
+                pointb = parc.get(1);
                 Utils.debug("setRoad","pointB " + pointb.toString());
 
                 //tache de fond
@@ -217,24 +232,24 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 GeoPoint[] toto = new GeoPoint[2];
                 toto[0] = pointa;
                 toto[1] = pointb;
-                ParcoursListGeoPoint += 1;
+                mycompteurs += 1;
                 //new PerfomCalculations(getApplicationContext(),this).execute(toto);
                 new PerfomCalculations().execute(pointa,pointb);
             }
 
             // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
-            else if (compteur==2){
+            else if (cpt==2){
 
                 Utils.debug("setRoad","If cpt = 2 ");
                 //recupere le deuxieme point dans parcours
-                geotemporaire = parcours.get(1);
+                geotemporaire = parc.get(1);
                 //on l'ajoute en écrasant l'indice 0
-                parcours.add(0,geotemporaire);
-                parcours.add(1,myListe.get(i));
+                parc.add(0,geotemporaire);
+                parc.add(1,myListe.get(i));
 
                 //balance la tache de fond
                 //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
-                ParcoursListGeoPoint += 1;
+                mycompteurs += 1;
                 new PerfomCalculations().execute(geotemporaire,parcours.get(1));
 
             }

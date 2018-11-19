@@ -38,6 +38,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.security.KeyManagementException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,9 +217,11 @@ public class CourseActivity extends AppCompatActivity {
 
             JsonObject parcours = (JsonObject) parcourslist.get(i);
             String nomParcours = parcours.get("nom").toString();
-
+            String idParcours = parcours.get("id").toString();
             myButton.setText("Nom :" + nomParcours);
+
             myButton.setId(i);
+            myButton.setTag(idParcours);
 
             listButton.add(myButton);
 
@@ -246,13 +249,15 @@ public class CourseActivity extends AppCompatActivity {
     public static void parcoursButton(ArrayList<Button> listButton){
 
         for (int j = 0; j<listButton.size(); j++) {
-            Button newButton = listButton.get(j);
+            final Button newButton = listButton.get(j);
 
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
-                    Intent intent =  new Intent(context, CreateParcours.class);
+                    Intent intent =  new Intent(context, ManageParcoursActivity.class);
+                    String idParcours = (String) newButton.getTag();
+                    Utils.debug("parcoursButton", "idParcours : "+idParcours);
                     //Id du parcours qu'on veut récupérer
-                    intent.putExtra("idRaid",idRaid);
+                    //intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 
                 }
@@ -260,18 +265,6 @@ public class CourseActivity extends AppCompatActivity {
         }
 
     }
-//    /* Méthodes pour le Drawer */
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
-//        drawerToggle.syncState();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        drawerToggle.onConfigurationChanged(newConfig);
-//    }
+
 
 }

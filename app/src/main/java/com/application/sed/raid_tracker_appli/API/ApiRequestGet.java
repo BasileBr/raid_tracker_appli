@@ -580,7 +580,6 @@ public class ApiRequestGet {
     }
 
 
-
     public static void getTrace(Context context, final String token){
 
         String UrlFinale = urlTraces ;
@@ -620,14 +619,11 @@ public class ApiRequestGet {
         // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
 
-
-
-
     }
 
-    public static void getSpecificTrace(Context context, final String token, final String id) {
+    public static void getSpecificTrace(Context context, final String token, final String idTrace) {
 
-        String UrlFinale = urlTraces + '/' + id;
+        String UrlFinale = urlTraces + '/' + idTrace;
         //Utils.debug("getSpecificRaid", UrlFinale);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
@@ -663,6 +659,55 @@ public class ApiRequestGet {
         // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
 
+    }
+
+    public static void getSpecificTraceFromParcours(Context context, final String token, final String idParcours){
+
+        String UrlFinale = urlTraces+"/parcours/"+idParcours ;
+        Utils.debug("getSpecificTraceFromParcours", UrlFinale);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+                    /**
+                     * Si tout se passe bien
+                     * @param response
+                     */
+                    @Override
+                    public void onResponse(String response) {
+                        //CourseActivity.afficheParcours(response);
+                    }
+
+                },
+                /**
+                 * Se tout se passe pas bien
+                 */
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            /**
+             * Envoie le header -> en gros, le token
+             * @return
+             * @throws AuthFailureError
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
     }
 
     public static void getPoint(Context context, final String token){
