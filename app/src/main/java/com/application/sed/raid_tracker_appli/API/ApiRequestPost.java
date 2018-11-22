@@ -128,18 +128,19 @@ public class ApiRequestPost {
 
     }
 
-    public static void postRaid(final Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe){
+    public static void postRaid(final Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe, final boolean visibility){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
-        Utils.debug("CreateRaid", "nom " + name+" lieu " + lieu+ " date " + date+" edition  " + edition+ " equipe" +equipe);
+        Utils.debug("CreateRaid", "nom " + name+" lieu " + lieu+ " date " + date+" edition  " + edition+ " equipe" +equipe+ " Visibility "+visibility);
         try {
             jsonObject.put("nom",name);
             jsonObject.put("lieu",lieu);
             jsonObject.put("date",date);
             jsonObject.put("edition",Integer.valueOf(edition));
             jsonObject.put("equipe", equipe);
+            jsonObject.put("visibility", visibility);
             jsonArray.put(jsonObject);
             }catch (Exception e){
 
@@ -319,7 +320,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type){
+    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type, final int ordre){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -330,6 +331,7 @@ public class ApiRequestPost {
             jsonObject.put("lon",longitude);
             jsonObject.put("lat",latitude);
             jsonObject.put("type",type);
+            jsonObject.put("ordre",ordre);
             jsonArray.put(jsonObject);
             Utils.debug("TAG",jsonObject.toString(2));
         }catch (Exception e){

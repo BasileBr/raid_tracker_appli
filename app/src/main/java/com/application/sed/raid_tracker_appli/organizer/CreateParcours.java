@@ -292,7 +292,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         //startMarker.setPosition(tmpgeo);
 
         //récupération des valeurs de localisation (latitude, longitude)
-        String latitude=String.valueOf(p.getLatitude());
+        final String latitude=String.valueOf(p.getLatitude());
         String longitude=String.valueOf(p.getLongitude());
         switch (numbouton) {
             case 0:
@@ -437,6 +437,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     //Utils.debug("onClick",idTrace);
                     Double lon = ListGeoPoint.get(k).getLongitude();
                     Double lat = ListGeoPoint.get(k).getLatitude();
+                    Utils.debug("NomPoint","Ordre : "+k+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
 
                     /*Utils.debug("onClick"," long : "+ lon +" lat : "+lat);
                     Utils.debug("onClick","k : "+String.valueOf(k) + " taille list point : " + String.valueOf(ListGeoPoint.size()));*/
@@ -444,18 +445,18 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     if (k == 0){
                         //Point départ type = 1
                         //Utils.debug("onclick", "k if : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, k);
                     }
 
                     else if ( ListGeoPoint.size() - k ==1){
                         //Point arrivée type = 2
                         //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, k);
                     }
                     else {
                         //Point passage type = 0
                         //Utils.debug("onclick", "k else : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k);
                     }
 
                 }

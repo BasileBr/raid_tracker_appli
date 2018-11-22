@@ -665,7 +665,7 @@ public class CreateCourse extends AppCompatActivity {
             //Intent intent2= new Intent(CreateCourse.this, CourseActivity.class);
             //Utils.debug("StartActivity", "course");
             Utils.debug("CreateRaid","Nom : " + recupere + " Lieu : "+recupere1+" date : "+getdate+" edition : "+recupere2+" team : "+recupere3);
-            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3 );
+            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3, false);
             //startActivity(intent2);
 
         }

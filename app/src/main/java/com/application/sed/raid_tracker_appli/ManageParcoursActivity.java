@@ -34,6 +34,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.UTFDataFormatException;
 import java.util.ArrayList;
 
 import okhttp3.internal.Util;
@@ -60,6 +61,10 @@ public class ManageParcoursActivity extends AppCompatActivity {
     public static ArrayList<GeoPoint> parcours;
 
     private static ArrayList<GeoPoint> listGeoPoint;
+    private static ArrayListAnySize<GeoPoint> listInter;
+    private static ArrayList<GeoPoint> finaleListGeoPoint;
+    private static ArrayList<GeoPoint> listFinale;
+    private static String idParcours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_parcours);
 
         context = this;
+
+        Intent intent = getIntent();
+
 
         //récupération de l'id de la toolbar
         toolbar1 = (Toolbar) findViewById(R.id.toolbar);
@@ -119,88 +127,284 @@ public class ManageParcoursActivity extends AppCompatActivity {
         map.getOverlays().add(mCompassOverlay);
 
         map2 = map;
-        ApiRequestGet.getPointsfromSpecificTrace(ctx,Bdd.getValue(),22);
 
+        if( intent != null) {
+
+            idParcours = intent.getStringExtra("idParcours");
+            ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours);
+
+        }
+        else {
+            ApiRequestGet.getSpecificTraceFromParcours(ctx, Bdd.getValue(), "30");
+        }
     }
 
     public static void recupParcours(String response){
 
         listGeoPoint = new ArrayList<>();
+        //listInter = new ArrayListAnySize<>();
+        listFinale = new ArrayList<>();
         JsonParser parser = new JsonParser();
         JsonArray listPoints = (JsonArray) parser.parse(response);
-        Utils.debug("recupParcours","Taille du Json : "+listPoints.size());
 
-        for (int k = 0; k < listPoints.size() ; k++){
+        GeoPoint ini = new GeoPoint(1.1,1.1);
+
+        Utils.debug("recupParcours","Taille du Json : "+listPoints.size());
+        Utils.debug("Nom", "listePoits "+listPoints.toString());
+        GeoPoint listInter[] = new GeoPoint[listPoints.size()+10];
+
+
+        for (int k = 0; k < listPoints.size() ; k++) {
 
             GeoPoint newPoint;
             JsonObject myPoint = (JsonObject) listPoints.get(k);
-            JsonElement t = myPoint.get("type");
             JsonElement lat = myPoint.get("lat");
             JsonElement lon = myPoint.get("lon");
+            JsonElement ord = myPoint.get("ordre");
 
             Double longitude = lon.getAsDouble();
             Double latitude = lat.getAsDouble();
+            int ordre = ord.getAsInt();
+            Utils.debug("NomPoint", "Ordre : " + ordre + " lat : "+latitude.toString()+" lon : " +longitude.toString());
+            Utils.debug("recupParcours", "Longitude : " + longitude + " Latitude : " + latitude);
+            //int type = t.getAsInt();
 
-            Utils.debug("recupParcours", "Longitude : "+longitude+" Latitude : "+latitude);
-            int type = t.getAsInt();
+            newPoint = new GeoPoint(latitude, longitude);
 
-            newPoint = new GeoPoint(latitude,longitude);
+            listInter[ordre]= newPoint;
+            //listType.add(ordre,type);
+            Utils.debug("Trace",listInter.toString());
+            //Utils.debug("Trace",listType.toString());
 
-            if (type == 2){
-                //Point arrivée type = 2
+        }
 
-                listGeoPoint.add(newPoint);
-                //Utils.debug("onclick", "k if : "+String.valueOf(k));
-
-            }
-
-            else if (type == 1){
-                //Point départ type = 1
-                listGeoPoint.add(newPoint);
-                //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
-
+        for (int k = 0;  k< listInter.length; k++){
+            if (listInter[k] == null){
+                Utils.debug("recupParcours","Point null");
             }
             else {
-                //Point passage type = 0
-
-                listGeoPoint.add(newPoint);
-                //Utils.debug("onclick", "k else : "+String.valueOf(k));
-
+                listFinale.add(listInter[k]);
             }
         }
 
-        Utils.debug("recupParcours","list : "+listGeoPoint.toString());
-        trace(listGeoPoint);
+        Utils.debug("NomPoint", "list : " + listFinale.toString());
+
+        trace(listFinale);
     }
 
-    public static void trace (ArrayList<GeoPoint> myListe){
+    public static void trace(ArrayList<GeoPoint> myListe){
 
+        finaleListGeoPoint = new ArrayList<>();
+        ParcoursListGeoPoint = 0;
+        parcours = new ArrayList<>();
+        compteur = 0;
+        for (int i = 0; i < myListe.size(); i ++) {
+
+            GeoPoint myPoint = myListe.get(i);
+
+            if (i == 0) {
+                // Point de départ
+                Utils.debug("recupParcours", "Point de départ");
+                standardmarker = new Marker(map2);
+                standardmarker.setIcon(context.getResources().getDrawable(R.drawable.green_flag2));
+                standardmarker.setPosition(myPoint);
+                standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
+                //        //Liste de points
+                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                //
+                //        //waypoints.add(startPoint);
+                //
+                //        //waypoints.add(endPoint);
+                standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+                map2.getOverlays().add(standardmarker);
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                setRoad(finaleListGeoPoint);
+
+            }
+            else if (i == myListe.size() -1){
+                // Point d'arrivée
+                Utils.debug("recupParcours", "Point de d'arrivée");
+                standardmarker1 = new Marker(map2);
+                standardmarker1.setIcon(context.getResources().getDrawable(R.drawable.red_flag2));
+                standardmarker1.setPosition(myPoint);
+                standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
+
+                //        //Liste de points
+                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                //
+                //        //waypoints.add(startPoint);
+                //
+                //        //waypoints.add(endPoint);
+
+                standardmarker1.setTitle("Point d'arrivée" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+
+                //ajouter un icone particuliere
+                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                map2.getOverlays().add(standardmarker1);
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                setRoad(finaleListGeoPoint);
+
+            }
+
+            else {
+                // Point de Passage
+                Utils.debug("recupParcours", "Point de passage");
+                standardmarker2 = new Marker(map2);
+                standardmarker2.setIcon(context.getResources().getDrawable(R.drawable.passage23));
+                standardmarker2.setPosition(myPoint);
+                standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
+
+                //        //Liste de points
+                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                //
+                //        //waypoints.add(startPoint);
+                //
+                //        //waypoints.add(endPoint);
+
+                standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+
+                //ajouter un icone particuliere
+                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                map2.getOverlays().add(standardmarker2);
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                setRoad(finaleListGeoPoint);
+            }
+        }
+    }
+    public static void setRoad(ArrayList<GeoPoint> listGeoPoint) {
+        //parcours l'arraylist contenant tous les geopoints lors d'un appui long
+        for (int i = ParcoursListGeoPoint; i < listGeoPoint.size(); i++) {
+            // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
+            if (compteur == 0) {
+                Utils.debug("setRoad", "If cpt = 0 ");
+                parcours.add(listGeoPoint.get(i));
+                pointa = parcours.get(0);
+                Utils.debug("setRoad", "PointA" + pointa.toString());
+                compteur += 1;
+                ParcoursListGeoPoint += 1;
+            }
+
+            //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
+            else if (compteur == 1) {
+                Utils.debug("setRoad", "If cpt = 1 ");
+                parcours.add(listGeoPoint.get(i));
+                Utils.debug("setRoad", "Parcours ");
+                compteur += 1;
+                pointb = parcours.get(1);
+                Utils.debug("setRoad", "pointB " + pointb.toString());
+
+                //tache de fond
+                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+                GeoPoint[] toto = new GeoPoint[2];
+                toto[0] = pointa;
+                toto[1] = pointb;
+                ParcoursListGeoPoint += 1;
+                //new PerfomCalculations(getApplicationContext(),this).execute(toto);
+                new PerfomCalculations().execute(pointa, pointb);
+            }
+
+            // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
+            else if (compteur == 2) {
+
+                Utils.debug("setRoad", "If cpt = 2 ");
+                //recupere le deuxieme point dans parcours
+                geotemporaire = parcours.get(1);
+                //on l'ajoute en écrasant l'indice 0
+                parcours.add(0, geotemporaire);
+                parcours.add(1, listGeoPoint.get(i));
+
+                //balance la tache de fond
+                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
+                ParcoursListGeoPoint += 1;
+                new PerfomCalculations().execute(geotemporaire, parcours.get(1));
+
+            }
+
+        }
+    }
+    /*public static void trace (ArrayList<GeoPoint> myListe){
+
+        finaleListGeoPoint = new ArrayList<>();
         GeoPoint myPoint;
         ParcoursListGeoPoint = -1;
         compteur = -1;
         parcours = new ArrayList<>();
         for (int i = 0; i < myListe.size() ; i++) {
-            standardmarker = new Marker(map2);
-            standardmarker.setIcon(context.getResources().getDrawable(R.drawable.green_flag2));
+
             myPoint = new GeoPoint(myListe.get(i));
-            standardmarker.setPosition(myPoint);
-            standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-            standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
-            map2.getOverlays().add(standardmarker);
-            map2.invalidate();
-            if ( (compteur == -1) || ( compteur == 0)|| ( compteur == 1)){
-                compteur = compteur +1 ;
-                Utils.debug("cpt ", "cpt : "+compteur);
+            if (i == 1) {
+                standardmarker = new Marker(map2);
+                standardmarker.setIcon(context.getResources().getDrawable(R.drawable.green_flag2));
+
+                standardmarker.setPosition(myPoint);
+                standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+                map2.getOverlays().add(standardmarker);
+                ParcoursListGeoPoint = ParcoursListGeoPoint + 1;
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                if ((compteur == -1) || (compteur == 0) || (compteur == 1)) {
+                    compteur = compteur + 1;
+                    Utils.debug("cpt ", "cpt : " + compteur);
+                }
+                ParcoursListGeoPoint = ParcoursListGeoPoint + 1;
+                setRoad(finaleListGeoPoint, ParcoursListGeoPoint, compteur, parcours);
             }
-            ParcoursListGeoPoint = ParcoursListGeoPoint+1;
-            setRoad(myListe, ParcoursListGeoPoint, compteur, parcours);
+
+            else if (i == myListe.size()-1){
+                standardmarker1 = new Marker(map2);
+                standardmarker1.setIcon(context.getResources().getDrawable(R.drawable.red_flag2));
+                standardmarker1.setPosition(myPoint);
+                standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+
+                standardmarker1.setTitle("Point d'arrivée" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+
+                //ajouter un icone particuliere
+                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                map2.getOverlays().add(standardmarker1);
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                if ((compteur == -1) || (compteur == 0) || (compteur == 1)) {
+                    compteur = compteur + 1;
+                    Utils.debug("cpt ", "cpt : " + compteur);
+                }
+                ParcoursListGeoPoint = ParcoursListGeoPoint + 1;
+                setRoad(finaleListGeoPoint, ParcoursListGeoPoint, compteur, parcours);
+            }
+
+            else {
+                standardmarker2 = new Marker(map2);
+                standardmarker2.setIcon(context.getResources().getDrawable(R.drawable.passage23));
+                standardmarker2.setPosition(myPoint);
+                standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+                standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude()+ '\n' + "longitude: " + myPoint.getLongitude());
+
+                //ajouter un icone particuliere
+                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
+                map2.getOverlays().add(standardmarker2);
+                finaleListGeoPoint.add(myPoint);
+                map2.invalidate();
+                if ((compteur == -1) || (compteur == 0) || (compteur == 1)) {
+                    compteur = compteur + 1;
+                    Utils.debug("cpt ", "cpt : " + compteur);
+                }
+                ParcoursListGeoPoint = ParcoursListGeoPoint + 1;
+                setRoad(finaleListGeoPoint, ParcoursListGeoPoint, compteur, parcours);
+            }
+            //setRoad(myListe, ParcoursListGeoPoint, compteur, parcours);
 
 
 
 
         }
     }
-    public static void setRoad(ArrayList<GeoPoint> myListe, int mycompteurs, int cpt, ArrayList<GeoPoint> parc){
+    public static void setRoad(ArrayList<GeoPoint> myListe, int cpt, int mycompteurs, ArrayList<GeoPoint> parc){
 
 
         //parcours l'arraylist contenant tous les geopoints lors d'un appui long
@@ -255,7 +459,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             }
 
         }
-    }
+    }*/
 
     private static class PerfomCalculations extends AsyncTask<GeoPoint,Void,Polyline> {
         @Override
@@ -298,6 +502,21 @@ public class ManageParcoursActivity extends AppCompatActivity {
             // map.getOverlays().add(0, mapEventsOverlay);
         }
 
+    }
+
+    public static class ArrayListAnySize<E> extends ArrayList<E>{
+        @Override
+        public void add(int index, E element){
+            if(index >= 0 && index <= size()){
+                super.add(index, element);
+                return;
+            }
+            int insertNulls = index - size();
+            for(int i = 0; i < insertNulls; i++){
+                super.add(null);
+            }
+            super.add(element);
+        }
     }
 
 }

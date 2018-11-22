@@ -271,7 +271,7 @@ public class CourseActivity extends AppCompatActivity {
                     String idParcours = (String) newButton.getTag();
                     Utils.debug("parcoursButton", "idParcours : "+idParcours);
                     //Id du parcours qu'on veut récupérer
-                    //intent.putExtra("idRaid",idRaid);
+                    intent.putExtra("idParcours",idParcours);
                     context.startActivity(intent);
 
                 }

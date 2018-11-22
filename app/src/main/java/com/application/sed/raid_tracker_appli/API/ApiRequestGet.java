@@ -19,6 +19,8 @@ import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -57,9 +59,9 @@ public class ApiRequestGet {
      */
 
 
-    /*
-    PARTIE BENEVOLE
-     */
+    /**
+    * PARTIE BENEVOLE
+     **/
 
 
     //get all benevoles
@@ -302,9 +304,9 @@ public class ApiRequestGet {
 
 
 
-    /*
-    PARTIE ORGANISATEUR
-     */
+    /**
+    *PARTIE ORGANISATEUR
+     **/
 
     //get all organisateurs
     public static void getOrganisateur(final Context context){
@@ -355,53 +357,6 @@ public class ApiRequestGet {
         requestQueue.add(jsonArrayRequest);
     }
 
-    //
-//    public static void getSpecificOrganisateur(Context context, String id){
-//
-//        String UrlFinale = urlOrganisateur + "/"+id;
-//        Utils.debug("GetSpecificOrganisateur", UrlFinale);
-//        final RequestQueue requestQueue = Volley.newRequestQueue(context);
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-//                Request.Method.GET,
-//                UrlFinale,
-//                null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        // Do something with response
-//                        //mTextView.setText(response.toString());
-//
-//                        // Process the JSON
-//                        try{
-//                            // Loop through the array elements
-//                            for(int i=1;i<response.length();i++){
-//
-//                                // Get the current account (json object) data
-//                                String idUser = response.getString("idUser");
-//                                String idRaid = response.getString("idRaid");
-//                                Log.d("GetSpecificOrganisateur", idRaid);
-//
-//                                // Display the formatted json data in text view
-////                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-////                                mTextView.append("\n\n");
-//                            }
-//                        }catch (Exception e){
-//                            Log.e("Json","error");
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener()
-//                {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.e("Error.Response", error.toString());
-//                    }
-//                }
-//        );
-//
-//        // Add JsonArrayRequest to the RequestQueue
-//        requestQueue.add(jsonObjectRequest);
-//    }
 
     //get organisateur of one raid
     public static void getOrganisateursofOneRaid(Context context, final String token, String id_raid){
@@ -594,9 +549,9 @@ public class ApiRequestGet {
     }
 
 
-    /*
-    PARTIE PARCOURS
-     */
+    /**
+    * PARTIE PARCOURS
+     **/
 
     //Get all parcours
     public static void getParcours(Context context, final String token){
@@ -754,9 +709,9 @@ public class ApiRequestGet {
     }
 
 
-    /*
-    PARTIE POINT
-     */
+    /**
+    *PARTIE POINT
+     **/
 
     // get all points
     public static void getPoint(Context context, final String token){
@@ -1057,9 +1012,11 @@ public class ApiRequestGet {
 
     }
 
-     /*
-     PARTIE TRACE
-      */
+    /**
+     * PARTIE TRACE
+     * @param context
+     * @param token
+     */
 
     //get all traces
     public static void getTrace(Context context, final String token){
@@ -1094,6 +1051,55 @@ public class ApiRequestGet {
                 Utils.debug("Header",token);
                 //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+
+    }
+
+    //get one trace by parcours id
+    public static void getSpecificTraceFromParcours(final Context context, final String token, final String idParcours) {
+
+        String UrlFinale = urlTraces + "/parcours/" + idParcours;
+        //Utils.debug("getSpecificRaid", UrlFinale);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        JsonArray jsonArray;
+                        JsonParser jsonParser = new JsonParser();
+                        JsonObject jsonObject;
+                        jsonArray = (JsonArray) jsonParser.parse(response);
+                        jsonObject = (JsonObject) jsonArray.get(0);
+                        String idParcours = jsonObject.get("id").toString();
+                        //Utils.debug("getSpecificTraceFromParcours",jsonArray.get(0).toString());
+
+                        ApiRequestGet.getPointsfromSpecificTrace(context, token, Integer.valueOf(idParcours));
+                    }
+
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header", token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token", token);
                 return header;
             }
 
@@ -1145,9 +1151,9 @@ public class ApiRequestGet {
     }
 
 
-    /*
-    PARTIE USER
-     */
+    /**
+    * PARTIE USER
+     **/
 
     /**
      * Ne doit pas fonctionner
@@ -1445,62 +1451,6 @@ public class ApiRequestGet {
         requestQueue.add(getRequest);
     }
 
-
-
-
-
-
-
-
-
-    public static void getSpecificTraceFromParcours(Context context, final String token, final String idParcours){
-
-        String UrlFinale = urlTraces+"/parcours/"+idParcours ;
-        Utils.debug("getSpecificTraceFromParcours", UrlFinale);
-        final RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
-                new Response.Listener<String>() {
-                    /**
-                     * Si tout se passe bien
-                     * @param response
-                     */
-                    @Override
-                    public void onResponse(String response) {
-                        //CourseActivity.afficheParcours(response);
-                    }
-
-                },
-                /**
-                 * Se tout se passe pas bien
-                 */
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Error.Response specific", error.toString());
-                    }
-                }
-        ){
-            /**
-             * Envoie le header -> en gros, le token
-             * @return
-             * @throws AuthFailureError
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
-                Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
-                header.put("X-Auth-Token",token);
-                return header;
-            }
-
-        };
-        // Add JsonArrayRequest to the RequestQueue
-        requestQueue.add(getRequest);
-    }
 
 
 
