@@ -214,7 +214,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         Utils.debug("Juste avant api request","JE suis la");
 
-        ApiRequestGet.getSpecificRaid(context, token, iduser);
+        ApiRequestGet.getSpecificRaid(context, token, iduser,"LandingActivity");
 
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);

@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
+import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -1390,7 +1391,7 @@ public class ApiRequestGet {
      * @param token
      * @param id
      */
-    public static void getSpecificRaid(Context context, final String token, final String id){
+    public static void getSpecificRaid(Context context, final String token, final String id, final String classe){
 
         String UrlFinale = urlRaidUser+'/'+id ;
         Utils.debug("getSpecificRaid", UrlFinale);
@@ -1403,7 +1404,12 @@ public class ApiRequestGet {
                      */
                     @Override
                     public void onResponse(String response) {
-                        LandingActivity.raidlist(response);
+                        if(classe.equals("LandingActivity")) {
+                            LandingActivity.raidlist(response);
+                        }
+                        else if(classe.equals("InviteActivity")){
+                            InviteVolunteersActivity.raidlist(response);
+                        }
                   }
 
                 },

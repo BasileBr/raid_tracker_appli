@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".CreateAccount"
+    tools:context=".InviteVolunteersActivity"
     android:background="@color/Blancnacre">
 
     <android.support.v7.widget.Toolbar
@@ -30,8 +30,8 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center">
         <ScrollView
             android:layout_width="match_parent"
@@ -45,12 +45,14 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/text2"
+                    android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
-                    android:text="Adresse mail des bénévoles"
+                    style="@android:style/Widget.EditText"
+                    android:textColor="@color/MarronPrimaire"
+                    android:text="Adresse mail des bénévoles "
                     android:textSize="20sp" />
 
 
@@ -94,6 +96,7 @@
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
                     android:text="Choix du raid"
+                    android:textColor="@color/MarronPrimaire"
                     android:textSize="20sp" />
 
                 <Spinner
@@ -105,31 +108,40 @@
                 </Spinner>
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
                     android:orientation="horizontal">
 
+
+
                     <Button
                         android:id="@+id/cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:onClick="cancelSend"
+                        android:layout_marginStart="10dp"
                         android:text="@string/cancel" />
+
 
                     <Button
                         android:id="@+id/sendEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="Envoyer" />
+                        android:layout_width="150dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@id/cancel"
+                        android:onClick="sendMail"
+                        android:text="@string/valide" />
 
-                </LinearLayout>
 
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

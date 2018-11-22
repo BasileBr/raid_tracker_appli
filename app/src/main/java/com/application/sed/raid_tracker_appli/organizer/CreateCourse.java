@@ -55,11 +55,7 @@ public class CreateCourse extends AppCompatActivity {
     private CheckBox getitem5;
     private CheckBox getitem6;
 
-
-
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
-
 
     public static List myListe;
 

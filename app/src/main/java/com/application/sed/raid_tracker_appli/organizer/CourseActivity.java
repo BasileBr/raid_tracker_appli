@@ -1,6 +1,5 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +16,10 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.toolbox.StringRequest;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
+import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
@@ -30,21 +28,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
-import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.security.KeyManagementException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.internal.Util;
 
 import static android.media.CamcorderProfile.get;
 
@@ -194,12 +181,12 @@ public class CourseActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.edit_raid) {
             //return true;
-            //Intent intent = new Intent(CourseActivity.this, .class);
-            //startActivity(intent);
+            Intent intent = new Intent(CourseActivity.this, EditCourse.class);
+            startActivity(intent);
         }
         else if (id==R.id.manage_points){
-           // Intent intent = new Intent(CourseActivity.this, .Re);
-            //startActivity(intent);
+           Intent intent = new Intent(CourseActivity.this, ManageVolunteersPositionActivity.class);
+            startActivity(intent);
         }
 
 

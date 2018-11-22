@@ -1,16 +1,19 @@
 package com.application.sed.raid_tracker_appli;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
@@ -43,6 +46,10 @@ public class CreateAccount extends AppCompatActivity{
     String recupere_mail;
     String recupere_password1;
     String recupere_password2;
+    private static String nom="";
+    private static String mail1="";
+    private static Context context;
+
     Toolbar toolbar;
     String classname;
 
@@ -52,6 +59,9 @@ public class CreateAccount extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creationaccount);
         Utils.info(TAG, "OnCreate");
+
+        context = this;
+
 
         Intent intent=getIntent();
 
@@ -163,8 +173,8 @@ public class CreateAccount extends AppCompatActivity{
         recupere_password1=password1.getText().toString();
         recupere_password2=password2.getText().toString();
 
-        String nom = recupere_prenom;
-        String mail1 = recupere_mail;
+        nom = recupere_prenom;
+        mail1 = recupere_mail;
         String pwd1 = recupere_password1;
         String pwd2 = recupere_password2;
 
@@ -213,9 +223,10 @@ public class CreateAccount extends AppCompatActivity{
             Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
             Bdd.addAccount(myListe);
 
-            Intent intent =  new Intent(CreateAccount.this, Accueil.class);
-            startActivity(intent);
+
+
         }
+
 
 
 
@@ -235,6 +246,39 @@ public class CreateAccount extends AppCompatActivity{
         //startActivity(intent);
 
     }
+
+
+    //confirmation de la création d'un compte
+    public static void sendmail (){
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    GMailSender sender = new GMailSender("sporteventdevelopment@gmail.com",
+                            "Sp6!b&hsv89%");
+                    sender.sendMail("Bienvenue sur RaidTracker", "Bonjour "+nom+", vous venez de créer votre compte sur l'application RaidTracker",
+                            "sporteventdevelopment@gmail.com",mail1);
+
+                    Utils.info("envoi", "mail");
+                } catch (Exception e) {
+                    Log.e("SendMail", e.getMessage(), e);
+                }
+            }
+
+        }).start();
+
+
+        Intent intent =  new Intent(context, Accueil.class);
+        context.startActivity(intent);
+    }
+
+
+    public static void creationFailure (){
+        Toast.makeText(context, "La création du compte a échoué ", Toast.LENGTH_LONG).show();
+    }
+
+
 
     boolean isEmail(EditText text){
         CharSequence email=text.getText().toString();
