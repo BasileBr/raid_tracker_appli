@@ -103,65 +103,9 @@ public class CreateAccount extends AppCompatActivity{
         });
 
 
-//        getitem = (CheckBox) findViewById(R.id.checkbox_meat);
-//        getitem2 = (CheckBox) findViewById(R.id.checkbox_cheese);
-//        getLinear = (LinearLayout) findViewById(R.id.checkbox);
-
-        /* ActionListener sur le bouton Valider */
-//        mButton.setOnClickListener(
-//                new View.OnClickListener() {
-//                    public void onClick(View view) {
-//                        recupere_identifiant=identifiant.getText().toString();
-//                        recupere_prenom=prenom.getText().toString();
-//                        recupere_nom=nom.getText().toString();
-//                        recupere_mail=mail.getText().toString();
-//                        recupere_password=password.getText().toString();
-//
-//
-//                        myListe = new ArrayList();
-//                        myListe.add(recupere_identifiant);
-//                        myListe.add(recupere_prenom);
-//                        myListe.add(recupere_nom);
-//                        myListe.add(recupere_mail);
-//                        myListe.add(recupere_password);
-//
-//
-//                        Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
-//                        Bdd.addAccount(myListe);
-//
-//                        Intent intent =  new Intent(CreateAccount.this, Accueil.class);
-//                        startActivity(intent);
-//
-//                    }
-//
-//                });
     }
 
     public void login(View view){
-
-        /*
-         * TODO login
-         * Bouton du login -> direction vers page HOME si ok (HomeActivity)
-         * Sinon, message d'erreur
-//         */
-//        final EditText user = findViewById(R.id.username);
-//        final EditText pass = findViewById(R.id.password);
-//
-//        // Test du bouton avec le user toto et password test
-//        if (user.getText().toString().equals("Username") & pass.getText().toString().equals("Password")){
-//            Utils.debug(TAG, "cool");
-//
-//        }
-//        else {
-//            Utils.info(TAG, "pas cool");
-//        }
-//
-//        // fin du test
-//
-//
-//        Utils.info(TAG,"Login Button action");
-
-
 
         //récupère les infos du compte
 
@@ -223,27 +167,7 @@ public class CreateAccount extends AppCompatActivity{
             Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
             Bdd.addAccount(myListe);
 
-
-
         }
-
-
-
-
-//       ApiRequestPost.postUser(this, nom, mail1, pwd1, pwd2);
-//        myListe = new ArrayList();
-//        //myListe.add(recupere_identifiant);
-//        myListe.add(recupere_prenom);
-//        //myListe.add(recupere_nom);
-//        myListe.add(recupere_mail);
-//        myListe.add(recupere_password1);
-//
-//
-//        Utils.info("Toutes les valeurs du tableau",myListe.toString()); // OK
-//        Bdd.addAccount(myListe);
-
-        //Intent intent =  new Intent(CreateAccount.this, Accueil.class);
-        //startActivity(intent);
 
     }
 

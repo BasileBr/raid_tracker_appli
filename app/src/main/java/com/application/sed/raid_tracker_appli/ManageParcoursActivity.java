@@ -167,14 +167,12 @@ public class ManageParcoursActivity extends AppCompatActivity {
             int ordre = ord.getAsInt();
             Utils.debug("NomPoint", "Ordre : " + ordre + " lat : "+latitude.toString()+" lon : " +longitude.toString());
             Utils.debug("recupParcours", "Longitude : " + longitude + " Latitude : " + latitude);
-            //int type = t.getAsInt();
 
             newPoint = new GeoPoint(latitude, longitude);
 
             listInter[ordre]= newPoint;
-            //listType.add(ordre,type);
+
             Utils.debug("Trace",listInter.toString());
-            //Utils.debug("Trace",listType.toString());
 
         }
 
@@ -210,12 +208,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 standardmarker.setPosition(myPoint);
                 standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
-                //        //Liste de points
-                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                //
-                //        //waypoints.add(startPoint);
-                //
-                //        //waypoints.add(endPoint);
+
                 standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
                 map2.getOverlays().add(standardmarker);
                 finaleListGeoPoint.add(myPoint);
@@ -232,17 +225,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
 
-                //        //Liste de points
-                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                //
-                //        //waypoints.add(startPoint);
-                //
-                //        //waypoints.add(endPoint);
-
                 standardmarker1.setTitle("Point d'arrivée" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
-
-                //ajouter un icone particuliere
-                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
                 map2.getOverlays().add(standardmarker1);
                 finaleListGeoPoint.add(myPoint);
                 map2.invalidate();
@@ -259,17 +242,8 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
 
-                //        //Liste de points
-                //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                //
-                //        //waypoints.add(startPoint);
-                //
-                //        //waypoints.add(endPoint);
-
                 standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
 
-                //ajouter un icone particuliere
-                //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
                 map2.getOverlays().add(standardmarker2);
                 finaleListGeoPoint.add(myPoint);
                 map2.invalidate();
@@ -305,7 +279,6 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 toto[0] = pointa;
                 toto[1] = pointb;
                 ParcoursListGeoPoint += 1;
-                //new PerfomCalculations(getApplicationContext(),this).execute(toto);
                 new PerfomCalculations().execute(pointa, pointb);
             }
 
@@ -320,7 +293,6 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 parcours.add(1, listGeoPoint.get(i));
 
                 //balance la tache de fond
-                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
                 ParcoursListGeoPoint += 1;
                 new PerfomCalculations().execute(geotemporaire, parcours.get(1));
 
@@ -351,8 +323,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             //Road road = roadManager.getRoad(waypoints);
 
             return line;
-//            } catch (Exception e) {
-//                return -1;
+
         }
 
 
@@ -360,15 +331,11 @@ public class ManageParcoursActivity extends AppCompatActivity {
          affiche la ligne entre deux points
          */
         protected void onPostExecute(Polyline line) {
-////
-            // Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+
             map2.getOverlays().add(line);
 
             map2.invalidate();
 
-//
-            //MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getApplicationContext(), );
-            // map.getOverlays().add(0, mapEventsOverlay);
         }
 
     }

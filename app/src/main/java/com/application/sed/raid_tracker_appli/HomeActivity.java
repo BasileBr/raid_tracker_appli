@@ -29,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         },SPLASH_TIME_OUT);
 
-        //ApiRequestGet.getraid(this);
 
 
     }

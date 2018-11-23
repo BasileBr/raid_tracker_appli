@@ -1,8 +1,6 @@
 package com.application.sed.raid_tracker_appli;
 
 
-import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
-import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
@@ -93,8 +92,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         this.nameofuser = findViewById(R.id.nameofuser);
         nameofuser.setText(nomutilisateur);
 
-       // Utils.debug("Landing",nomutilisateur);
-
         if (intent != null) {
 
             Utils.debug(TAG,"je rentre ici");
@@ -110,106 +107,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
             ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
 
-
-
-
-            /* get List from Create Raid */
-//            raidlist = Bdd.getArrayList();
-//
-//            listButton = new ArrayList<>();
-//
-//
-//            for (int i = 0; i < raidlist.size(); i ++){
-//
-//                Button myButton = new Button(this);
-//                Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
-//
-//                List attributlist;
-//                attributlist = raidlist.get(i);
-//
-//                myButton.setText(attributlist.get(0).toString()+System.getProperty("line.separator")+attributlist.get(2).toString());
-//                //myButton.setText(attributlist.get(2).toString());
-//                myButton.setId(i);
-//
-//                listButton.add(myButton);
-//                Utils.debug("listbutton", listButton.get(i).toString());
-//
-//            }
-//
-//            for (int i = 0; i < listButton.size(); i ++){
-//
-//                Utils.debug("Rajout des boutons", "Valeurs de i" +i);
-//                Button myButton2 = listButton.get(i);
-//
-////                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
-//                LinearLayout ll = (LinearLayout) findViewById(R.id.Myfuckinglayout);
-//
-//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                ll.addView(myButton2, lp);
-//
-//            }
-//
-//
-//
         }
-//
-//
-//
-//        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        //ArrayList<Button> listButton = new ArrayList<>();
-//        for (int j = 0; j<listButton.size(); j++) {
-//            Button newButton = listButton.get(j);
-//
-//            newButton.setOnClickListener( new View.OnClickListener() {
-//                public void onClick(View view) {
-//                    Intent intent =  new Intent(LandingActivity.this, CourseActivity.class);
-//                    startActivity(intent);
-//
-//                }
-//            });
-//        }
 
-
-        /**
-         * Création vieux Drawer
-         */
-//
-//        this.toolbar = findViewById(R.id.toolbar);
-//
-//        //definir notre toolbar en tant qu'actionBar
-//        setSupportActionBar(toolbar);
-//
-//        //getSupportActionBar().setIcon(getDrawable(R.drawable.ic_exit_to_app_black_24dp));
-//
-//
-//        //getSupportActionBar().setTitle("Home");
-//        //afficher le bouton retour
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//
-//
-//        this.drawerLayout = findViewById(R.id.drawerLayout);
-//        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
-//        this.drawerLayout.setDrawerListener(this.drawerToggle);
-//
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Utils.info("NICK", "button button button..................");
-//
-//                drawerLayout.openDrawer(Gravity.START);
-//
-//            }
-//        });
-
-
-        /**
-         * Fin de la création du vieux layout
-         */
-//
 
 
         Utils.debug("Juste avant api request","JE suis la");
@@ -219,17 +118,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-//        drawerLayout = findViewById(R.id.drawer_layout);
-//
-//        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,0,R.string.app_name);
-//        drawerLayout.addDrawerListener(toggle);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//
-//
-//        NavigationView navigationView = findViewById(R.id.nav_view);
-//
-//        navigationView.setNavigationItemSelectedListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -240,35 +128,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //NavigationView navigationView = (Navi  gationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
-
 
         b1 = findViewById(R.id.testvalue);
         b1.setText(getIntent().getStringExtra("switch_value"));
     }
-
-
-    /*@Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        // 4 - Handle Navigation Item Click
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.dec :
-                break;
-            case R.id.adraid:
-                break;
-            default:
-                break;
-        }
-
-        this.drawerLayout.closeDrawer(GravityCompat.START);
-
-        return true;
-    }*/
-
 
 
     public void getDescriptionRAid(View view) {
@@ -291,13 +154,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     }
 
-
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
-//        toggle.syncState();
-//    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -336,13 +192,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void recupereraid(){
     }
-
-//    public void createparcours(View view){
-//        Intent intent=new Intent(LandingActivity.this,CreateParcours.class);
-//        startActivity(intent);
-//
-//    }
-
 
 
     @Override
