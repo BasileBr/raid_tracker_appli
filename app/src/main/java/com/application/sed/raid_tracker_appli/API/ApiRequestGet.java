@@ -18,6 +18,7 @@ import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -1452,7 +1453,55 @@ public class ApiRequestGet {
     }
 
 
+/**
+* PARTIE POSTE
+ **/
 
+
+public static void getPostefromSpecificRaid(final Context context,final String token, final String idraid ){
+
+    String urlfinale= urlRaid+'/'+idraid;
+    final RequestQueue requestQueue = Volley.newRequestQueue(context);
+    StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                        VolunteerPreferenceActivity.posteListe(response);
+                    }
+
+            },
+            /**
+             *
+             */
+            new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Error.Response specific", error.toString());
+                }
+            }
+    ){
+        /**
+         * Envoie le header -> en gros, le token
+         * @return
+         * @throws AuthFailureError
+         */
+        @Override
+        public Map<String, String> getHeaders() throws AuthFailureError {
+            //super.getHeaders();
+
+            Map<String, String> header = new HashMap<>();
+            Utils.debug("Header",token);
+            //header.put("Content-Type", "application/json");
+            header.put("X-Auth-Token",token);
+            return header;
+        }
+
+    };
+    // Add JsonArrayRequest to the RequestQueue
+    requestQueue.add(getRequest);
+}
 
 }
 

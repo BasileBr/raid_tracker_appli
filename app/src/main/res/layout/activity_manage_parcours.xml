@@ -58,6 +58,86 @@
                     android:layout_height="match_parent"
                     android:textSize="15sp"
                     android:text="Point de départ"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Blancnacre"
+                    android:id="@+id/passagepoint"
+                    android:src="@drawable/passage"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Point de passage"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/redflag"
+                    android:layout_height="match_parent"
+                    android:background="@color/Blancnacre"
+                    android:src="@drawable/red_flag"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Point d'arrivée"/>
+
+
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Blancnacre"
+                    android:id="@+id/poi"
+                    android:src="@drawable/poi1"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Point d'intérêt"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/calibrationstart"
+                    android:background="@color/Blancnacre"
+                    android:src="@drawable/calibrationstart"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Démarrer calibration"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fincalibration"
+                    android:background="@color/Blancnacre"
+                    android:src="@drawable/calibrationend"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Fin de la calibration"/>
             </LinearLayout>
         </ScrollView>
 
