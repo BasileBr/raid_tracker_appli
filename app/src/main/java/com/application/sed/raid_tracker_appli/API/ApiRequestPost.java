@@ -16,8 +16,10 @@ import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.CreateAccount;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
+import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -192,6 +194,76 @@ public class ApiRequestPost {
         requestQueue.add(postRequest);
 
     }
+
+    //update informations Raid
+    public static void postUpdateRaid(final Context context, final String token, final String idRaid, final String name, final String lieu, final String date, final String edition, final String equipe, final boolean visibility ){
+
+        String urlfinale=urlRaid+'/'+idRaid;
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        Utils.debug("CreateRaid", "nom " + name+" lieu " + lieu+ " date " + date+" edition  " + edition+ " equipe" +equipe);
+        try {
+            jsonObject.put("nom",name);
+            jsonObject.put("lieu",lieu);
+            jsonObject.put("date",date);
+            jsonObject.put("edition",Integer.valueOf(edition));
+            jsonObject.put("equipe", equipe);
+            jsonObject.put("visibility",visibility);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        //Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlfinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+
+                        Log.d("Response update RAid", response.toString());
+                        Intent intent = new Intent(context, CourseActivity.class);
+                        context.startActivity(intent);
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                //   Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+
+
+        };
+        requestQueue.add(postRequest);
+
+    }
+
 
     public static void postUserToRaid(Context context, final String token, final String idUser, final String idRaid, final JSONObject infoRaid){
 
@@ -382,6 +454,69 @@ public class ApiRequestPost {
         requestQueue.add(postRequest);
 
     }
+
+
+    public static void postPoste(final Context context, final String token, final String idPoint, final String type, final int nombre, final String heureDebut, final String heureFin){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idPoint",idPoint);
+            jsonObject.put("type",type);
+            jsonObject.put("nombre",nombre);
+            jsonObject.put("heureDebut",heureDebut);
+            jsonObject.put("heureFin",heureFin);
+            jsonArray.put(jsonObject);
+            Utils.debug("TAG",jsonObject.toString(2));
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPoints, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+                        Log.d("Response creation poin", response.toString());
+
+
+                       /* try {
+                            String idRaid = response.getString("id");
+                           postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
 
 
     public static void postTrace(final Context context, final String token, final String idParcours, final String isCalibre) {

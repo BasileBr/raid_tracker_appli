@@ -182,6 +182,7 @@ public class CourseActivity extends AppCompatActivity {
         if (id == R.id.edit_raid) {
             //return true;
             Intent intent = new Intent(CourseActivity.this, EditCourse.class);
+            intent.putExtra("idRaid",idRaid);
             startActivity(intent);
         }
         else if (id==R.id.manage_points){

@@ -56,6 +56,9 @@ import okhttp3.internal.Util;
 public class CreateParcours extends AppCompatActivity implements MapEventsReceiver {
     MapView map = null;
     private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
+    private ArrayList<GeoPoint> ListGeopoi = new ArrayList<>();
+
+
     int ParcoursListGeoPoint = 0;
     MyLocationNewOverlay mLocationOverlay;
 
@@ -392,7 +395,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
             case 4:
                 standarmarker3 = new Marker(map);
-                standarmarker3.setIcon(getResources().getDrawable(R.drawable.poi));
+                standarmarker3.setIcon(getResources().getDrawable(R.drawable.poi1));
                 standarmarker3.setPosition(tmpgeo);
                 standarmarker3.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
@@ -409,7 +412,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 //ajouter un icone particuliere
                 //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
                 map.getOverlays().add(standarmarker3);
-                ListGeoPoint.add(tmpgeo);
+                ListGeopoi.add(tmpgeo);
                 map.invalidate();
                 //setRoad();
                 break;
@@ -459,6 +462,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                         ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k);
                     }
 
+                }
+
+
+                //envoyer les points d'intérêts
+               if (!ListGeopoi.isEmpty()){
+                    for (int y=0; y<ListGeopoi.size(); y++){
+                        Double lon = ListGeopoi.get(y).getLongitude();
+                        Double lat = ListGeopoi.get(y).getLatitude();
+                        Utils.info("onclick",String.valueOf(y));
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,4);
+                    }
                 }
 
                 Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
