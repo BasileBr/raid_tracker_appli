@@ -434,7 +434,8 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             public void onClick(View v) {
 
                 Utils.debug("ListGeoPoint", ListGeoPoint.toString());
-                for (int k = 0; k<ListGeoPoint.size(); k++ ){
+                int k;
+                for (k = 0; k<ListGeoPoint.size(); k++ ){
 
 
                     //Utils.debug("onClick",idTrace);
@@ -466,14 +467,16 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
                 //envoyer les points d'intérêts
-               if (!ListGeopoi.isEmpty()){
-                    for (int y=0; y<ListGeopoi.size(); y++){
-                        Double lon = ListGeopoi.get(y).getLongitude();
-                        Double lat = ListGeopoi.get(y).getLatitude();
-                        Utils.info("onclick",String.valueOf(y));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,4);
-                    }
+               //if (!ListGeopoi.isEmpty()){
+                for (int y=0; y<ListGeopoi.size(); y++){
+                    Double lon = ListGeopoi.get(y).getLongitude();
+                    Double lat = ListGeopoi.get(y).getLatitude();
+                    Utils.info("onclick",String.valueOf(y));
+                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k);
+                    Utils.debug("NomPoint","Ordre : "+k+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
+                    k = k+1;
                 }
+                //}
 
                 Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
                 startActivity(intent);
