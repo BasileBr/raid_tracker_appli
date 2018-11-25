@@ -129,148 +129,6 @@ public class ManageParcoursActivity extends AppCompatActivity {
     RotationGestureOverlay mRotationGestureOverlay;
     ArrayList<GeoPoint> trajet;
 
-    //partie calibration //
-    LocationListener ecouteurGPS = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location localisation)
-        {
-            Toast.makeText(getApplicationContext(), fournisseur + " localisation", Toast.LENGTH_SHORT).show();
-
-            Log.d("GPS", "localisation : " + localisation.toString());
-            String coordonnees = String.format("Latitude : %f - Longitude : %f\n", localisation.getLatitude(), localisation.getLongitude());
-            Log.d("GPS", coordonnees);
-            String autres = String.format("Vitesse : %f - Altitude : %f - Cap : %f\n", localisation.getSpeed(), localisation.getAltitude(), localisation.getBearing());
-            Log.d("GPS", autres);
-            //String timestamp = String.format("Timestamp : %d\n", localisation.getTime());
-            //Log.d("GPS", "timestamp : " + timestamp);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date date = new Date(localisation.getTime());
-            Log.d("GPS", sdf.format(date));
-
-            String strLatitude = String.format("Latitude : %f", localisation.getLatitude());
-            String strLongitude = String.format("Longitude : %f", localisation.getLongitude());
-//            latitude.setText(strLatitude);
-            //    longitude.setText(strLongitude);
-
-            map.getController().setCenter(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
-            //myOpenMapView.setMapOrientation(localisation.getBearing());
-
-            trajet.add(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
-
-
-            // Un tracé à base de lignes rouges
-            Polyline line = new Polyline();
-            line.setTitle("Un trajet");
-            line.setSubDescription(Polyline.class.getCanonicalName());
-            line.setWidth(10f);
-            line.setColor(Color.RED);
-            line.setPoints(trajet);
-            line.setGeodesic(true);
-            line.setInfoWindow(new BasicInfoWindow(R.layout.bonuspack_bubble, map));
-            map.getOverlayManager().add(line);
-
-            /*Marker tec = new Marker(myOpenMapView);
-            tec.setPosition(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
-            tec.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            tec.setIcon(getResources().getDrawable(R.drawable.trottinette));
-            tec.setTitle("TEC");
-            myOpenMapView.getOverlays().add(tec);*/
-
-            /*ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-            items.add(new OverlayItem("Title", "Description", new GeoPoint(localisation.getLatitude(), localisation.getLongitude())));
-
-            ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), items,
-                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                        @Override
-                        public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                            Toast.makeText( getApplicationContext(), "Overlay Titled: " +
-                                    item.getTitle() + " Single Tapped" + "\n" + "Description: " +
-                                    item.getSnippet(), Toast.LENGTH_LONG).show();
-                            return true;
-                        }
-                        @Override
-                        public boolean onItemLongPress(final int index, final OverlayItem item) {
-                            return false;
-                        }
-                    });
-            //mOverlay.setFocusItemsOnTap(true);
-            myOpenMapView.getOverlays().add(mOverlay);*/
-
-            map.invalidate();
-
-         /*   List<Address> adresses = null;
-            try
-            {
-                adresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
-            }
-            catch (IOException ioException)
-            {
-                Log.e("GPS", "erreur", ioException);
-            } catch (IllegalArgumentException illegalArgumentException)
-            {
-                Log.e("GPS", "erreur " + coordonnees, illegalArgumentException);
-            }
-
-            if (adresses == null || adresses.size()  == 0)
-            {
-                Log.e("GPS", "erreur aucune adresse !");
-            }
-            else
-            {
-                Address adresse = adresses.get(0);
-                ArrayList<String> addressFragments = new ArrayList<String>();
-
-                String strAdresse = adresse.getAddressLine(0) + ", " + adresse.getLocality();
-                Log.d("GPS", "adresse : " + strAdresse);
-
-                for(int i = 0; i <= adresse.getMaxAddressLineIndex(); i++)
-                {
-                    addressFragments.add(adresse.getAddressLine(i));
-                }
-                Log.d("GPS", TextUtils.join(System.getProperty("line.separator"), addressFragments));
-                Adresse.setText(TextUtils.join(System.getProperty("line.separator"), addressFragments));
-            }*/
-        }
-
-        @Override
-        public void onProviderDisabled(String fournisseur)
-        {
-            Toast.makeText(getApplicationContext(), fournisseur + " désactivé !", Toast.LENGTH_SHORT).show();
-        }
-
-        
-        @Override
-        public void onProviderEnabled(String fournisseur)
-        {
-            Toast.makeText(getApplicationContext(), fournisseur + " activé !", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onStatusChanged(String fournisseur, int status, Bundle extras)
-        {
-            if (etat != status)
-            {
-                switch (status)
-                {
-                    case LocationProvider.AVAILABLE:
-                        Toast.makeText(getApplicationContext(), fournisseur + " état disponible", Toast.LENGTH_SHORT).show();
-                        break;
-                    case LocationProvider.OUT_OF_SERVICE:
-                        Toast.makeText(getApplicationContext(), fournisseur + " état indisponible", Toast.LENGTH_SHORT).show();
-                        break;
-                    case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                        Toast.makeText(getApplicationContext(), fournisseur + " état temporairement indisponible", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        Toast.makeText(getApplicationContext(), fournisseur + " état : " + status, Toast.LENGTH_SHORT).show();
-                }
-            }
-            etat = status;
-        }
-    };
-
-    //fin partie calibration //
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -340,12 +198,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
         Log.d("GPS", "onCreate");
 
-        initialiserLocalisation();
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.setMultiTouchControls(true);
-        map.getOverlays().add(mLocationOverlay);
 
 
         map2 = map;
@@ -642,5 +495,158 @@ public class ManageParcoursActivity extends AppCompatActivity {
             ecouteurGPS = null;
         }
     }
+
+
+    public void startcalibration(View view){
+        initialiserLocalisation();
+
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+        mLocationOverlay.enableMyLocation();
+        map.setMultiTouchControls(true);
+        map.getOverlays().add(mLocationOverlay);
+    }
+
+    //partie calibration //
+    LocationListener ecouteurGPS = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location localisation)
+        {
+            Toast.makeText(getApplicationContext(), fournisseur + " localisation", Toast.LENGTH_SHORT).show();
+
+            Log.d("GPS", "localisation : " + localisation.toString());
+            String coordonnees = String.format("Latitude : %f - Longitude : %f\n", localisation.getLatitude(), localisation.getLongitude());
+            Log.d("GPS", coordonnees);
+            String autres = String.format("Vitesse : %f - Altitude : %f - Cap : %f\n", localisation.getSpeed(), localisation.getAltitude(), localisation.getBearing());
+            Log.d("GPS", autres);
+            //String timestamp = String.format("Timestamp : %d\n", localisation.getTime());
+            //Log.d("GPS", "timestamp : " + timestamp);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date(localisation.getTime());
+            Log.d("GPS", sdf.format(date));
+
+            String strLatitude = String.format("Latitude : %f", localisation.getLatitude());
+            String strLongitude = String.format("Longitude : %f", localisation.getLongitude());
+//            latitude.setText(strLatitude);
+            //    longitude.setText(strLongitude);
+
+            map.getController().setCenter(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
+            //myOpenMapView.setMapOrientation(localisation.getBearing());
+
+            trajet.add(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
+
+
+            // Un tracé à base de lignes rouges
+            Polyline line = new Polyline();
+            line.setTitle("Un trajet");
+            line.setSubDescription(Polyline.class.getCanonicalName());
+            line.setWidth(10f);
+            line.setColor(Color.RED);
+            line.setPoints(trajet);
+            line.setGeodesic(true);
+            line.setInfoWindow(new BasicInfoWindow(R.layout.bonuspack_bubble, map));
+            map.getOverlayManager().add(line);
+
+            /*Marker tec = new Marker(myOpenMapView);
+            tec.setPosition(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
+            tec.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            tec.setIcon(getResources().getDrawable(R.drawable.trottinette));
+            tec.setTitle("TEC");
+            myOpenMapView.getOverlays().add(tec);*/
+
+            /*ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+            items.add(new OverlayItem("Title", "Description", new GeoPoint(localisation.getLatitude(), localisation.getLongitude())));
+
+            ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), items,
+                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                        @Override
+                        public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                            Toast.makeText( getApplicationContext(), "Overlay Titled: " +
+                                    item.getTitle() + " Single Tapped" + "\n" + "Description: " +
+                                    item.getSnippet(), Toast.LENGTH_LONG).show();
+                            return true;
+                        }
+                        @Override
+                        public boolean onItemLongPress(final int index, final OverlayItem item) {
+                            return false;
+                        }
+                    });
+            //mOverlay.setFocusItemsOnTap(true);
+            myOpenMapView.getOverlays().add(mOverlay);*/
+
+            map.invalidate();
+
+         /*   List<Address> adresses = null;
+            try
+            {
+                adresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
+            }
+            catch (IOException ioException)
+            {
+                Log.e("GPS", "erreur", ioException);
+            } catch (IllegalArgumentException illegalArgumentException)
+            {
+                Log.e("GPS", "erreur " + coordonnees, illegalArgumentException);
+            }
+
+            if (adresses == null || adresses.size()  == 0)
+            {
+                Log.e("GPS", "erreur aucune adresse !");
+            }
+            else
+            {
+                Address adresse = adresses.get(0);
+                ArrayList<String> addressFragments = new ArrayList<String>();
+
+                String strAdresse = adresse.getAddressLine(0) + ", " + adresse.getLocality();
+                Log.d("GPS", "adresse : " + strAdresse);
+
+                for(int i = 0; i <= adresse.getMaxAddressLineIndex(); i++)
+                {
+                    addressFragments.add(adresse.getAddressLine(i));
+                }
+                Log.d("GPS", TextUtils.join(System.getProperty("line.separator"), addressFragments));
+                Adresse.setText(TextUtils.join(System.getProperty("line.separator"), addressFragments));
+            }*/
+        }
+
+        @Override
+        public void onProviderDisabled(String fournisseur)
+        {
+            Toast.makeText(getApplicationContext(), fournisseur + " désactivé !", Toast.LENGTH_SHORT).show();
+        }
+
+
+        @Override
+        public void onProviderEnabled(String fournisseur)
+        {
+            Toast.makeText(getApplicationContext(), fournisseur + " activé !", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onStatusChanged(String fournisseur, int status, Bundle extras)
+        {
+            if (etat != status)
+            {
+                switch (status)
+                {
+                    case LocationProvider.AVAILABLE:
+                        Toast.makeText(getApplicationContext(), fournisseur + " état disponible", Toast.LENGTH_SHORT).show();
+                        break;
+                    case LocationProvider.OUT_OF_SERVICE:
+                        Toast.makeText(getApplicationContext(), fournisseur + " état indisponible", Toast.LENGTH_SHORT).show();
+                        break;
+                    case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                        Toast.makeText(getApplicationContext(), fournisseur + " état temporairement indisponible", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), fournisseur + " état : " + status, Toast.LENGTH_SHORT).show();
+                }
+            }
+            etat = status;
+        }
+    };
+
+    //fin partie calibration //
+
 
 }
