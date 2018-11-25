@@ -146,8 +146,8 @@ public class CreateAccount extends AppCompatActivity{
         if (isEmpty(password2)){
             checkpassword1=0;
             password2.setError("le champ est vide ");
-
         }
+
         if (isEmpty(password1 )){
             checkpassword2=0;
             password1.setError("le champ est vide ");
