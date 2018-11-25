@@ -3,6 +3,7 @@ package com.application.sed.raid_tracker_appli.organizer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,10 +97,11 @@ public class CourseActivity extends AppCompatActivity {
                 }
             });
 
-
+            /*Context ctx = getApplicationContext();
+            Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
             //création de la map
-          /*  map = (MapView) findViewById(R.id.map);
+            map = (MapView) findViewById(R.id.map);
             map.setTileSource(TileSourceFactory.MAPNIK);
             map.setBuiltInZoomControls(true);
             map.setMultiTouchControls(true);
@@ -113,8 +124,8 @@ public class CourseActivity extends AppCompatActivity {
             // ajouter boussolle
             CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
             mCompassOverlay.enableCompass();
-            map.getOverlays().add(mCompassOverlay);
-    */
+            map.getOverlays().add(mCompassOverlay);*/
+
 
             // bouton switch pour la visiblité du raid
             final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
@@ -273,6 +284,7 @@ public class CourseActivity extends AppCompatActivity {
                     Utils.debug("parcoursButton", "idParcours : "+idParcours);
                     //Id du parcours qu'on veut récupérer
                     intent.putExtra("idParcours",idParcours);
+                    intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 
                 }

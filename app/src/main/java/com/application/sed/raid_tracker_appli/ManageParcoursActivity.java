@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -76,6 +77,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private static String idParcours;
 
 
+    private String idRaid;
 
     //partie calibration //
     LocationManager locationManager = null;
@@ -113,14 +115,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //si on appuie sur le bouton retour, on arrive sur la page X
-        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(ManageParcoursActivity.this, LandingActivity.class);
-                //startActivity(intent);
-            }
-        });
+
 
         //charger/initialiser la configuration osmdroid
         Context ctx = getApplicationContext();
@@ -171,7 +166,19 @@ public class ManageParcoursActivity extends AppCompatActivity {
         if( intent != null) {
 
             idParcours = intent.getStringExtra("idParcours");
+            idRaid = intent.getStringExtra("idRaid");
             ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours);
+
+            Utils.debug("idRaidParcours",idRaid);
+            //si on appuie sur le bouton retour, on arrive sur la page X
+            toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                    intent.putExtra("idRaid",idRaid);
+                    startActivity(intent);
+                }
+            });
 
         }
         else {
