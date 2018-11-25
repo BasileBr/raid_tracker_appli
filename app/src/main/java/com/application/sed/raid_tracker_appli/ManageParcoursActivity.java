@@ -238,6 +238,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), fournisseur + " désactivé !", Toast.LENGTH_SHORT).show();
         }
 
+        
         @Override
         public void onProviderEnabled(String fournisseur)
         {
