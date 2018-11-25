@@ -126,12 +126,18 @@ public class CreateAccount extends AppCompatActivity{
         int checkmail=1;
         int checkpassword1=1;
         int checkpassword2=1;
+        int checklengthpassword=1;
 
 
         if (isEmpty(prenom)) {
             checkprenom=0;
             prenom.setError("le prénom n'est pas renseigné");
             }
+
+        if (password1.length()<8){
+            checklengthpassword=0;
+            password1.setError("Le mot de passe doit être composé de 8 caractères au minimum");
+        }
 
         if (!isEmail(mail)){
             checkmail=0;
@@ -152,7 +158,7 @@ public class CreateAccount extends AppCompatActivity{
 
 
 
-        if (checkprenom==1 && checkpassword1==1 && checkpassword2==1 && checkmail==1 && pwd1.equals(pwd2)){
+        if (checkprenom==1 && checkpassword1==1 && checkpassword2==1 && checkmail==1 && pwd1.equals(pwd2) &&checklengthpassword==1){
             Utils.info("je vérifie tout","youhou");
 
             ApiRequestPost.postUser(this, nom, mail1, pwd1);
