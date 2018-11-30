@@ -11,8 +11,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -46,7 +48,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
     private String idraid;
     private String token;
+    private static TextView dispMission;
 
+    private static Button submit;
 
 
 
@@ -113,12 +117,21 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         mCompassOverlay.enableCompass();
         map.getOverlays().add(mCompassOverlay);
 
+        //récupérer le TextView pour afficher la mission
+        dispMission= (TextView) findViewById(R.id.displayMissions);
+
+        //récupération du bouton pour inscrire un bénévole à un poste
+        submit=(Button) findViewById(R.id.submit);
+
+
 
         token = Bdd.getValue();
         idraid= intent.getStringExtra("idRaid");
 
-//
-        ApiRequestGet.getPostefromSpecificRaid(context, token, idraid);
+        //récupération des postes à partir de l'id d'un Raid
+        ApiRequestGet.getAllPostesfromOneRaid(context, token, idraid);
+
+
     }
 
     //méthode pour récupérer l'élement selectionné dans la liste des postes
@@ -127,6 +140,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         Object item = parent.getItemAtPosition(position);
         getselectedposte=item.toString();
+
+        //lors de la selection d'un poste, on affiche la mission associée
+        ApiRequestGet.getMissionsofOnePoste(context,token,getselectedposte);
+
     }
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -152,20 +169,45 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         JsonParser parser = new JsonParser();
         JsonArray posteliste = (JsonArray) parser.parse(response);
-        Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
+        //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
         posteRaid = new ArrayList<>();
 
         for (int i = 0; i < posteliste.size(); i ++) {
 
             JsonParser parser1 = new JsonParser();
             JsonObject raid = (JsonObject) posteliste.get(i);
-            String posteraid = raid.get("nom").toString().replace("\""," ");
-            posteRaid.add(posteraid);
+            //String posteraid = raid.get("nom").toString().replace("\""," ");
+
+            String id_point = raid.get("idPoint").toString();
+            posteRaid.add(id_point);
 
         }
 
         createSpinner(posteRaid);
 
     }
+
+
+    //afficher la mission associée au poste selectionné
+    public static void getMission(String response){
+
+        JsonParser parser = new JsonParser();
+        JsonArray mission = (JsonArray) parser.parse(response);
+        //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
+       // posteRaid = new ArrayList<>();
+
+       String missionassocie= mission.get(0).toString();
+
+       Utils.debug("affichage_mission",missionassocie);
+
+       dispMission.setText(missionassocie);
+    }
+
+    public static void  validerPreference (){
+
+
+    }
+
+
 
 }

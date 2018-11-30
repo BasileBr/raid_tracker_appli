@@ -90,6 +90,7 @@ android:orientation="horizontal">
             android:background="@color/VertPrimaire"
             android:textColor="@color/Blancnacre"
             android:text="Valider"
+            android:onClick="validerPreference"
             android:layout_gravity="center"
             />
     </LinearLayout>

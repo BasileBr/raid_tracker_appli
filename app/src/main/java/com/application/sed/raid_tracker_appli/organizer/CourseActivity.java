@@ -30,6 +30,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -98,13 +101,18 @@ public class CourseActivity extends AppCompatActivity {
             });
 
             /*Context ctx = getApplicationContext();
-            Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+            Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));*/
 
             //création de la map
+           map = (MapView) findViewById(R.id.map);
             map = (MapView) findViewById(R.id.map);
             map.setTileSource(TileSourceFactory.MAPNIK);
             map.setBuiltInZoomControls(true);
             map.setMultiTouchControls(true);
+
+            map.setClickable(true);
+            map.setFocusable(true);
+            map.setDuplicateParentStateEnabled(false);
 
             //positionnement lors de l'ouverture de la carte
             IMapController mapController = map.getController();
@@ -113,9 +121,9 @@ public class CourseActivity extends AppCompatActivity {
             mapController.setCenter(centermap);
 
             //géolocaliser l'appareil
-            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-            mLocationOverlay.enableMyLocation();
-            map.getOverlays().add(mLocationOverlay);
+            //MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+            //mLocationOverlay.enableMyLocation();
+            //map.getOverlays().add(mLocationOverlay);
 
             // ajouter l'echelle
             ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
@@ -124,7 +132,9 @@ public class CourseActivity extends AppCompatActivity {
             // ajouter boussolle
             CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
             mCompassOverlay.enableCompass();
-            map.getOverlays().add(mCompassOverlay);*/
+            map.getOverlays().add(mCompassOverlay);
+
+            map.getOverlays().add(mCompassOverlay);
 
 
             // bouton switch pour la visiblité du raid
