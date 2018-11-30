@@ -1912,7 +1912,7 @@ public class ApiRequestGet {
 
 
     //get all raids
-    public static void getAllRaids(final Context context){
+    public static void getAllRaids(final Context context, final String classe){
 
         String urlfinale = urlRaid+'/'+"visible"+'/'+"all";
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -1921,8 +1921,15 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("reponse get raids", response);
-                        WelcomeActivity.recupRaid(response);
+                        Utils.debug("reponse des raids",response);
+
+
+                        if(classe.equals("WelcomeActivity")) {
+                            WelcomeActivity.recupRaid(response);
+                        }
+                        else if(classe.equals("LandingActivity")){
+                            LandingActivity.recupRaid(response);
+                        }
 
                     }
 

@@ -97,9 +97,6 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         token = Bdd.getValue();
 
 
-//
-
-
         ApiRequestGet.getSpecificRaid(context, token, iduser, "InviteActivity");
     }
 

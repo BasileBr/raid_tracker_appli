@@ -290,10 +290,10 @@ public class CourseActivity extends AppCompatActivity {
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, ManageParcoursActivity.class);
-                    String idParcours = (String) newButton.getTag();
-                    Utils.debug("parcoursButton", "idParcours : "+idParcours);
+                    String idRaid= (String) newButton.getTag();
+                    Utils.debug("parcoursButton", "idRaid : "+idRaid);
                     //Id du parcours qu'on veut récupérer
-                    intent.putExtra("idParcours",idParcours);
+                    //intent.putExtra("idParcours",idParcours);
                     intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 

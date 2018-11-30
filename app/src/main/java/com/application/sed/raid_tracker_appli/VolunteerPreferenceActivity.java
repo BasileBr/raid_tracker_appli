@@ -52,6 +52,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
     private static Button submit;
 
+    private static String idRaid;
+
 
 
     @Override
@@ -126,10 +128,16 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         token = Bdd.getValue();
-        idraid= intent.getStringExtra("idRaid");
+        //idraid= intent.getStringExtra("idRaid");
+
+        idraid= intent.getStringExtra("idRaidtest");
+
+
+
+
 
         //récupération des postes à partir de l'id d'un Raid
-        ApiRequestGet.getAllPostesfromOneRaid(context, token, idraid);
+        ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
 
 
     }
@@ -140,6 +148,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         Object item = parent.getItemAtPosition(position);
         getselectedposte=item.toString();
+
+        Utils.debug("poste",getselectedposte);
 
         //lors de la selection d'un poste, on affiche la mission associée
         ApiRequestGet.getMissionsofOnePoste(context,token,getselectedposte);
@@ -178,7 +188,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
             JsonObject raid = (JsonObject) posteliste.get(i);
             //String posteraid = raid.get("nom").toString().replace("\""," ");
 
-            String id_point = raid.get("idPoint").toString();
+            String id_point = raid.get("id").toString();
             posteRaid.add(id_point);
 
         }
