@@ -698,7 +698,7 @@ public class ApiRequestPost {
 
     public static void postNewBenevole(final Context context, final String token, final String idRaid, final String idUser){
 
-        String urlFinale= urlRaid+'/'+idRaid+'/'+"users"+'/'+idUser;
+        String urlFinale= urlBenevoles+"/raids/"+idRaid+"/users/"+idUser;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();

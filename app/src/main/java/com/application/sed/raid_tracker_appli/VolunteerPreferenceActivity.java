@@ -64,7 +64,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
     private static HashMap<String, String>meMap;
 
-    private static String idraid;
+
     private static String token;
     private static TextView dispMission;
 
@@ -86,6 +86,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         if (intent != null) {
 
+            idRaid= intent.getStringExtra("idRaid");
+            Utils.debug("idRaidVolunteer",idRaid);
+
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -101,6 +104,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 }
             });
+
+
         }
 
         // Spinner element
@@ -150,7 +155,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         token = Bdd.getValue();
         //idraid= intent.getStringExtra("idRaid");
 
-        idraid= intent.getStringExtra("idRaidtest");
+
 
         iduser = Bdd.getUserid();
 
@@ -282,7 +287,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         //ajouter un bénévole à un RAID
-        ApiRequestPost.postNewBenevole(context,token,iduser,idRaid);
+
+        ApiRequestPost.postNewBenevole(context,token,String.valueOf(43),iduser);
 
         //récupération des bénévoles du raid
         //ApiRequestGet.getBenevolesOfOneRaid(context,token,idRaid);

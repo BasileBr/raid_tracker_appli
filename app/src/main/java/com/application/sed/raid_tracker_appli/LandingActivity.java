@@ -58,6 +58,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private static ArrayList<String> listIdRaid = new ArrayList<>();
     private static ArrayList<String> listid;
     private static String nomRaid;
+    public static String idRaid = "0";
+    public static int cptid;
 
 
     private static int j;
@@ -68,7 +70,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private static TextView b1;
     private ArrayList<Button> listButton;
     private ArrayList<List> raidlist;
-
+    private static String idRaidBenevole;
+    private static ArrayList<String> listidRaidBenevoles;
 
     private static Context context;
 
@@ -106,6 +109,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
             iduser = Bdd.getUserid();
             token = Bdd.getValue();
+            //Utils.debug("Utilisateur",iduser);
+            Bdd.setUserid(iduser);
 
             Utils.debug(TAG, "Je rentre la");
 
@@ -331,18 +336,20 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         ArrayList<Button> listRaidstoJoin;
         listRaidstoJoin = new ArrayList<>();
 
+        ArrayList<String> listIdRaidBenevoles = new ArrayList<>();
+
         //recupération de la requete
         JsonParser parser = new JsonParser();
-        JsonArray listRaids = (JsonArray) parser.parse(response);
+        JsonArray listRaidsBenevoles = (JsonArray) parser.parse(response);
 
         //boucle pour parcourir la requête
-        for (int k = 0; k < listRaids.size(); k++) {
+        for (int k = 0; k < listRaidsBenevoles.size(); k++) {
 
             //création des boutons
             Button btn = new Button(context);
 
             //récupére chaque élément
-            JsonObject raidVisible = (JsonObject) listRaids.get(k);
+            JsonObject raidVisible = (JsonObject) listRaidsBenevoles.get(k);
 
             //on recupere le nom et l'id
             JsonElement nom = raidVisible.get("nom");
@@ -357,6 +364,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             btn.setId(k);
             btn.setTag(idraid2);
 
+            Utils.debug("idRaidtest",btn.getTag().toString());
+
+            listIdRaidBenevoles.add(idraid2);
 
             listRaidstoJoin.add(btn);
 
@@ -366,6 +376,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
             Button btn2 = listRaidstoJoin.get(i);
+            String idRaidBenevole = listIdRaid.get(i);
 
             //création des boutons
             Button btn = new Button(context);
@@ -379,6 +390,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             btn2.setTextColor(context.getResources().getColor(R.color.black));
             btn2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             btn2.setGravity(Gravity.END);
+            btn2.setTag(idRaidBenevole);
+            btn.setTag(idRaidBenevole);
 
            // btn2.setTag(idraid2);
            // listRaidstoJoin.add(btn2);
@@ -402,15 +415,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void parcoursButton(ArrayList<Button> listButton){
 
-        for (int j = 0; j<listButton.size(); j++) {
+        int j;
+        for (j = 0; j<listButton.size(); j++) {
             final Button newButton = listButton.get(j);
-
+            Utils.debug("parcoursButtontest", "idParcours : "+newButton.getTag());
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, VolunteerPreferenceActivity.class);
-                    String idRaid = (String) newButton.getTag();
-                    Utils.debug("parcoursButton", "idParcours : "+idRaid);
-                    intent.putExtra("idRaidtest",idRaid);
+                    String idRaid = newButton.getTag().toString();
+                    intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
 
                 }
