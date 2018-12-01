@@ -610,7 +610,7 @@ public class ApiRequestGet {
 
 
     //Get missions of one poste
-    public static void getMissionsofOnePoste(Context context, final String token, final String id_poste ){
+    public static void getMissionsofOnePoste(Context context, final String token, final Integer id_poste ){
 
         String urlFinale=urlMissions+'/'+"postes"+'/'+id_poste;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);

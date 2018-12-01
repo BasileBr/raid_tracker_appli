@@ -162,7 +162,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         Utils.debug("poste",getselectedposte);
 
-        ListIdPoste[select-1];
+
 
 //        if (meMap.containsKey(getselectedposte)){
 //            Object value =meMap.get(getselectedposte);
@@ -173,7 +173,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         //lors de la selection d'un poste, on affiche la mission associée
-        ApiRequestGet.getMissionsofOnePoste(context,token,getselectedposte);
+        ApiRequestGet.getMissionsofOnePoste(context,token, ListIdPoste.get(select-1));
 
     }
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
@@ -249,7 +249,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
        // posteRaid = new ArrayList<>();
 
-       String missionassocie= mission.get(0).toString();
+       String missionassocie= mission.get(2).toString();
 
        Utils.debug("affichage_mission",missionassocie);
 
