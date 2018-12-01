@@ -87,7 +87,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         if (intent != null) {
 
             idRaid= intent.getStringExtra("idRaid");
-            Utils.debug("idRaidVolunteer",idRaid);
+            //Utils.debug("idRaidVolunteer",idRaid);
 
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
