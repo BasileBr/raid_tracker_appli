@@ -74,6 +74,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private static ArrayListAnySize<GeoPoint> listInter;
     private static ArrayList<GeoPoint> finaleListGeoPoint;
     private static ArrayList<GeoPoint> listFinale;
+    private static ArrayList<GeoPoint> listFinalePoste;
     private static String idParcours;
 
 
@@ -191,6 +192,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
         listGeoPoint = new ArrayList<>();
         //listInter = new ArrayListAnySize<>();
         listFinale = new ArrayList<>();
+        listFinalePoste = new ArrayList<>();
         JsonParser parser = new JsonParser();
         JsonArray listPoints = (JsonArray) parser.parse(response);
 
@@ -198,7 +200,8 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
         Utils.debug("recupParcours","Taille du Json : "+listPoints.size());
         Utils.debug("Nom", "listePoits "+listPoints.toString());
-        GeoPoint listInter[] = new GeoPoint[listPoints.size()+10];
+        GeoPoint listInter[] = new GeoPoint[listPoints.size()+3];
+        GeoPoint listPoste[] = new GeoPoint[listPoints.size()+3];
 
 
         for (int k = 0; k < listPoints.size() ; k++) {
@@ -208,19 +211,31 @@ public class ManageParcoursActivity extends AppCompatActivity {
             JsonElement lat = myPoint.get("lat");
             JsonElement lon = myPoint.get("lon");
             JsonElement ord = myPoint.get("ordre");
+            JsonElement type = myPoint.get("type");
 
             Double longitude = lon.getAsDouble();
             Double latitude = lat.getAsDouble();
             int ordre = ord.getAsInt();
-            Utils.debug("NomPoint", "Ordre : " + ordre + " lat : "+latitude.toString()+" lon : " +longitude.toString());
-            Utils.debug("recupParcours", "Longitude : " + longitude + " Latitude : " + latitude);
+            int typePoint = type.getAsInt();
+            if ( typePoint == 3){
+                newPoint = new GeoPoint(latitude, longitude);
 
-            newPoint = new GeoPoint(latitude, longitude);
+                Utils.debug("NomPointPoste", "Ordre : " + ordre + " lat : " + latitude.toString() + " lon : " + longitude.toString());
+                Utils.debug("recupParcoursPoste", "Longitude : " + longitude + " Latitude : " + latitude);
+                listPoste[ordre]= newPoint;
 
-            listInter[ordre]= newPoint;
+                Utils.debug("Trace",listPoste.toString());
+            }
+            else {
+                Utils.debug("NomPoint", "Ordre : " + ordre + " lat : " + latitude.toString() + " lon : " + longitude.toString());
+                Utils.debug("recupParcours", "Longitude : " + longitude + " Latitude : " + latitude);
 
-            Utils.debug("Trace",listInter.toString());
+                newPoint = new GeoPoint(latitude, longitude);
 
+                listInter[ordre] = newPoint;
+
+                Utils.debug("Trace", listInter.toString());
+            }
         }
 
         for (int k = 0;  k< listInter.length; k++){
@@ -231,10 +246,19 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 listFinale.add(listInter[k]);
             }
         }
+        for (int k = 0; k< listPoste.length; k++){
+            if (listPoste[k] == null){
+                Utils.debug("recupParcours","Point null");
+            }
+            else {
+                listFinalePoste.add(listPoste[k]);
+            }
+        }
 
         Utils.debug("NomPoint", "list : " + listFinale.toString());
 
         trace(listFinale);
+        tracePoste(listFinalePoste);
     }
 
     public static void trace(ArrayList<GeoPoint> myListe){
@@ -348,6 +372,31 @@ public class ManageParcoursActivity extends AppCompatActivity {
         }
     }
 
+    public static void tracePoste(ArrayList<GeoPoint> myListe){
+
+
+        for (int i = 0; i < myListe.size(); i ++) {
+
+            GeoPoint myPoint = myListe.get(i);
+            //Poste
+            Utils.debug("recupPoste", "poste numéro"+i);
+            standarmarker3 = new Marker(map2);
+            standarmarker3.setIcon(context.getResources().getDrawable(R.drawable.poi1));
+            standarmarker3.setPosition(myPoint);
+            standarmarker3.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+            Utils.debug("recupPoste", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
+
+            standarmarker3.setTitle("Poste" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+
+            map2.getOverlays().add(standarmarker3);
+
+            map2.invalidate();
+
+
+
+
+        }
+    }
 
     private static class PerfomCalculations extends AsyncTask<GeoPoint,Void,Polyline> {
         @Override

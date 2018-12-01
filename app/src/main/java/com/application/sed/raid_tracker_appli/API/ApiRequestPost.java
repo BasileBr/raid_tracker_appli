@@ -421,7 +421,9 @@ public class ApiRequestPost {
 
                         Log.d("Response creation poin", response.toString());
 
+                        if (type == 3){
 
+                        }
                        /* try {
                             String idRaid = response.getString("id");
                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
