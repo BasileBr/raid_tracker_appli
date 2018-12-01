@@ -9,13 +9,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.CreateAccount;
+import com.application.sed.raid_tracker_appli.RegisterVolunteersActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
@@ -696,7 +699,7 @@ public class ApiRequestPost {
     public static void postNewBenevole(final Context context, final String token, final String idRaid, final String idUser){
 
         String urlFinale= urlRaid+'/'+idRaid+'/'+"users"+'/'+idUser;
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -714,6 +717,7 @@ public class ApiRequestPost {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Rep crea postNewBenevol", response.toString());
+                        VolunteerPreferenceActivity.recupId(response.toString());
                     }
                 },
                 new Response.ErrorListener()

@@ -285,17 +285,21 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ApiRequestPost.postNewBenevole(context,token,iduser,idRaid);
 
         //récupération des bénévoles du raid
-        ApiRequestGet.getBenevolesOfOneRaid(context,token,idRaid);
+        //ApiRequestGet.getBenevolesOfOneRaid(context,token,idRaid);
 
+
+
+
+    }
+
+    public static void recupId(String response){
         //récupération de l'id bénévole d'un utilisateur
 
 
         //ajouter la préférence de poste
         //ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,);
 
-        Utils.debug("idPoste",stockerIdPoste.toString());
-
-
+        Utils.debug("idPoste",response);
     }
 
     //récupération de l'id bénévole d'un utilisateur
