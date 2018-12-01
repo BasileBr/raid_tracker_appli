@@ -38,6 +38,9 @@ public class ApiRequestPost {
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
+    final static String urlPrefPostes = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
+
+
 
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
@@ -635,6 +638,101 @@ public class ApiRequestPost {
                 Utils.debug("Header", token);
                 //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token", token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postPrefPostes(final Context context, final String token, final Integer idPoste, final String idBenevole){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idPoste",idPoste);
+            jsonObject.put("idBenevole",idBenevole);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPrefPostes, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Respons crea prefpostes", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postNewBenevole(final Context context, final String token, final String idRaid, final String idUser){
+
+        String urlFinale= urlRaid+'/'+idRaid+'/'+"users"+'/'+idUser;
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idUser",idUser);
+            jsonObject.put("idRaid",idRaid);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlFinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Rep crea postNewBenevol", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
                 return header;
             }
         };
