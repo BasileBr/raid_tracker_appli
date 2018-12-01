@@ -157,12 +157,13 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         Object item = parent.getItemAtPosition(position);
         getselectedposte=item.toString();
+        Utils.debug("Item", String.valueOf(position));
 
-        int select = Integer.valueOf(getselectedposte);
+        //int select = Integer.valueOf(getselectedposte);
 
         Utils.debug("poste",getselectedposte);
 
-        
+
 
 
 //        if (meMap.containsKey(getselectedposte)){
@@ -174,7 +175,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         //lors de la selection d'un poste, on affiche la mission associée
-        ApiRequestGet.getMissionsofOnePoste(context,token, ListIdPoste.get(select-1));
+        ApiRequestGet.getMissionsofOnePoste(context,token, ListIdPoste.get(position));
 
     }
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
@@ -250,11 +251,16 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
        // posteRaid = new ArrayList<>();
 
-       String missionassocie= mission.get(2).toString();
+       //String missionassocie= mission.get(2).toString();
 
-       Utils.debug("affichage_mission",missionassocie);
+        JsonObject miss = (JsonObject) mission.get(0);
 
-       dispMission.setText(missionassocie);
+        String missionDescription=miss.get("objectif").toString();
+        //récupération de l'id de point d'un poste
+
+       Utils.debug("affichage_mission",missionDescription);
+
+       dispMission.setText(missionDescription);
     }
 
     public static void  validerPreference (){
