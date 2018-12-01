@@ -47,6 +47,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     private Toolbar toolbar;
     private static Spinner spinner;
     private static List<String> posteRaid;
+
+    private static ArrayList<Integer> ListIdPoste= new ArrayList<>();
     private String getselectedposte;
 
     private static String test2;
@@ -156,13 +158,17 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         Object item = parent.getItemAtPosition(position);
         getselectedposte=item.toString();
 
+        int select = Integer.valueOf(getselectedposte);
+
         Utils.debug("poste",getselectedposte);
 
-        if (meMap.containsKey(getselectedposte)){
-            Object value =meMap.get(getselectedposte);
-            Utils.debug("key","value"+value);
-            test2=(String) value;
-        }
+        ListIdPoste[select-1];
+
+//        if (meMap.containsKey(getselectedposte)){
+//            Object value =meMap.get(getselectedposte);
+//            Utils.debug("key","value"+value);
+//            test2=(String) value;
+//        }
 
 
 
@@ -197,6 +203,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
         posteRaid = new ArrayList<>();
 
+
+
+
+
         //création d'un hashmap pour associer l'id d'un poste à son id de point
          meMap=new HashMap<String, String>();
 
@@ -214,13 +224,16 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
             //String posteraid = raid.get("nom").toString().replace("\""," ");
 
 
-            String id_poste = raid.get("id").toString();
+            String type = raid.get("type").toString();
 
-            meMap.put(id_poste,test);
+            Integer ListIdPoste2= raid.get("id").getAsInt();
+
+           // meMap.put(id_poste,test);
 
 
+            posteRaid.add(type);
 
-            posteRaid.add(id_poste);
+            ListIdPoste.add(ListIdPoste2);
 
         }
         createSpinner(posteRaid);
