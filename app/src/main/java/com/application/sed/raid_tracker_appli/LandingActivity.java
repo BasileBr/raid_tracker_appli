@@ -338,7 +338,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         ArrayList<String> listIdRaidBenevoles = new ArrayList<>();
 
-        //recupération de la requete
+        //recupération des raids benevoles dispo
         JsonParser parser = new JsonParser();
         JsonArray listRaidsBenevoles = (JsonArray) parser.parse(response);
 
@@ -351,16 +351,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             //récupére chaque élément
             JsonObject raidVisible = (JsonObject) listRaidsBenevoles.get(k);
 
-            //on recupere le nom et l'id
+            //on recupere le nom du raid et l'id associé
             JsonElement nom = raidVisible.get("nom");
             JsonElement id_raid = raidVisible.get("id");
 
-            //on les mets en String
+            //on les convertit en string
             nomRaid = nom.getAsString();
             String idraid2 = id_raid.getAsString();
 
 
-           // btn.setText("Nom :");
             btn.setId(k);
             btn.setTag(idraid2);
 
