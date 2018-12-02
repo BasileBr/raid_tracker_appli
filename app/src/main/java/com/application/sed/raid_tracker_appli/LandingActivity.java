@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
@@ -31,7 +32,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,6 +77,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private ArrayList<List> raidlist;
     private static String idRaidBenevole;
     private static ArrayList<String> listidRaidBenevoles;
+
+    private static HashMap<String, String> meMap;
+   // private static LinkedHashMap<String, String> profileMap;
 
     private static Context context;
 
@@ -333,23 +341,43 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void recupRaid(String response) {
 
-        ArrayList<Button> listRaidstoJoin;
-        listRaidstoJoin = new ArrayList<>();
+        ArrayList<Button> listRaidstoJoin= new ArrayList<>();
 
         ArrayList<String> listIdRaidBenevoles = new ArrayList<>();
 
+        meMap=new HashMap<>();
+
         //recupération des raids benevoles dispo
         JsonParser parser = new JsonParser();
+
+        //on parse les réponses
         JsonArray listRaidsBenevoles = (JsonArray) parser.parse(response);
 
         //boucle pour parcourir la requête
         for (int k = 0; k < listRaidsBenevoles.size(); k++) {
 
-            //création des boutons
-            Button btn = new Button(context);
-
             //récupére chaque élément
             JsonObject raidVisible = (JsonObject) listRaidsBenevoles.get(k);
+
+            // on récupère chaque élément important
+            String nom_raid = raidVisible.get("nom").toString().replace("\"", " ");;
+            String id_raid = raidVisible.get("id").toString();
+
+            meMap.put(id_raid,nom_raid);
+
+
+            for (Map.Entry<String, String> entry : meMap.entrySet())
+            {
+                TextView textView = new TextView(context);
+                textView.setText(entry.getValue());
+                LinearLayout ll = new LinearLayout(context);
+                ll.addView(textView);
+                layout.addView(ll);
+                System.out.println(entry.getKey() + "/" + entry.getValue());
+            }
+            //déclare un bouton pour
+           /* Button myButton = new Button(context);
+
 
             //on recupere le nom du raid et l'id associé
             JsonElement nom = raidVisible.get("nom");
@@ -359,19 +387,22 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             nomRaid = nom.getAsString();
             String idraid2 = id_raid.getAsString();
 
-
-            btn.setId(k);
+            //on ajoute un tag qui corrspond à l'id du raid
+            //btn.setId(k);
             btn.setTag(idraid2);
 
             Utils.debug("idRaidtest",btn.getTag().toString());
 
-            listIdRaidBenevoles.add(idraid2);
+            //
+            //listIdRaidBenevoles.add(idraid2);
 
-            listRaidstoJoin.add(btn);
+
+            //on a une arraylist de buttons pour chaque bouton on a le tag qui correspond à l'id du raid
+            listRaidstoJoin.add(btn);*/
 
         }
 
-        for (int i = 0; i < listRaidstoJoin.size(); i ++){
+       /* for (int i = 0; i < listRaidstoJoin.size(); i ++){
 
 
             Button btn2 = listRaidstoJoin.get(i);
@@ -427,7 +458,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
                 }
             });
-        }
+        }*/
 
     }
 }

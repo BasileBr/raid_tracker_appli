@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
@@ -25,6 +26,7 @@ import com.google.gson.JsonParser;
 import com.sun.mail.imap.Rights;
 
 import org.osmdroid.util.GeoPoint;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -49,49 +51,51 @@ public class WelcomeActivity extends AppCompatActivity {
         // Here, thisActivity is the current activity
         Utils.Permission(this);
 
-
-
         layout = (LinearLayout)findViewById(R.id.ListeRaid);
-
-
         ApiRequestGet.getAllRaids(context,"WelcomeActivity");
-//
-//        for (int i=0; i<4; i++) {
-//            Button btn = new Button(this);
-//            btn.setId(i);
-//            btn.setText("some_text");
-//            layout.addView(btn);
-//        }
 
     }
 
-
+    /**
+     * récupération des raids visibles
+     * @param response
+     */
     public static void recupRaid(String response){
 
-
-        //LinearLayout.LayoutParams test= new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-
+        //parse la réponse
         JsonParser parser = new JsonParser();
         JsonArray listRaids = (JsonArray) parser.parse(response);
 
+        //parcours la liste de raids
         for (int k = 0; k < listRaids.size() ; k++) {
 
+            //on récupère les infos du raid sous forme d'un JsonObject
             JsonObject raidVisible = (JsonObject) listRaids.get(k);
+            //on récupère le nom du raid de cet objet
             JsonElement nom = raidVisible.get("nom");
-
+            //on convertit en String
             String nomRaid = nom.getAsString();
 
+            //création du visuel
+            TextView text = new TextView(context);
             Button btn = new Button(context);
-            Button btn2 = new Button(context);
+
+            //ajout d'un id au bouton
             btn.setId(k);
-            btn.setText(nomRaid + '\n'+"Rejoignez l'aventure");
-            btn2.setText("Rejoignez -NOUS ");
+
+            //ajout du texte
+            text.setText(nomRaid + '\n'+"Rejoignez l'aventure");
+            btn.setText("Rejoignez -NOUS ");
+
+            //choix de la couleur du texte
+            text.setTextColor(context.getResources().getColor(R.color.black));
             btn.setTextColor(context.getResources().getColor(R.color.black));
-            btn2.setTextColor(context.getResources().getColor(R.color.black));
 
-             btn.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            //btn.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
-             btn2.setGravity(Gravity.RIGHT);
+             //btn.setGravity(Gravity.END);
+
+             btn.setX(200);
             //btn.setHeight(150);
             //btn.setBackgroundColor(80000000);
 
@@ -101,46 +105,37 @@ public class WelcomeActivity extends AppCompatActivity {
 
             // Create LinearLayout
             LinearLayout ll = new LinearLayout(context);
-            LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
 
             //ll.setOrientation(LinearLayout.HORIZONTAL);
 
 
             ll.setBackgroundResource(R.drawable.coureur2);
+            ll.getBackground().setAlpha(200);
+
             //ll.setBackgroundResource(R.color.VertPrimaire);
 
+            //ajout des éléments au linear layout
+            ll.addView(text);
             ll.addView(btn);
-            ll.addView(btn2);
 
+            ll.setBackgroundResource(R.color.VertPrimaire);
 
+            //ajout des élement au linear layout parent
             layout.addView(ll);
 
-
-
-//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            lp.setMargins(left, top, right, bottom);
-//            imageView.setLayoutParams(lp);
-
-          btn.setOnClickListener(new View.OnClickListener() {
+            //on affiche la page de connexion si on appuie sur le rejoins -nous
+              btn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-
                   Intent intent = new Intent(context, Accueil.class);
                   context.startActivity(intent);
               }
-          });
-
-            //layout.addView(btn);
-           // layout.addView(btn2);
-            //layout.setPadding(20,20,20,20);
-            //btn.setBackgroundResource(R.drawable.coureur2);
-
+          });;
         }
 
     }
-
-
-
     /**
      *
      */
