@@ -295,27 +295,15 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     public static void recupId(String response) {
 
         JsonParser parser = new JsonParser();
-        JsonArray RepAjoutUser = (JsonArray) parser.parse(response);
+        JsonObject RepAjoutUser = (JsonObject) parser.parse(response);
+
+        Utils.debug("recupId",RepAjoutUser.get("id").toString());
 
 
-        //parcours la liste avec le Json
-        for (int i = 0; i < RepAjoutUser.size(); i++) {
+        //ajouter la préférence de poste
+        ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,RepAjoutUser.get("id").toString());
 
-            //JsonParser parser1 = new JsonParser();
-            JsonObject raid = (JsonObject) RepAjoutUser.get(i);
-
-            //récupération de l'id d'un bénévole
-            JsonObject idBenevole = raid.getAsJsonObject("id");
-            String finalidBenevole = idBenevole.get("id").toString();
-
-            Utils.debug("idBenevole",finalidBenevole);
-
-
-            //ajouter la préférence de poste
-            ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,finalidBenevole);
-
-            Utils.debug("idPoste", response);
-        }
+        Utils.debug("idPoste", response);
 
     }
 
