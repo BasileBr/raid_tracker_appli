@@ -21,6 +21,7 @@ import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.WelcomeActivity;
+import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -1722,7 +1723,9 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        if(context.toString().contains("com.application.sed.raid_tracker_appli.helper.EditPosteActivity")){
+                            EditPosteActivity.AfficheInfoPoste(response);
+                        }
                     }
 
                 },
