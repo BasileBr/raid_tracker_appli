@@ -100,7 +100,7 @@ public class ManageVolunteersPositionActivity extends AppCompatActivity {
 
             button.setId(i);
             listIdPoste.add(id.toString());
-            button.setText(nom.toString());
+            button.setText(nom.toString().replace("\"", " "));
 
             listButton.add(button);
             ll.addView(button);
