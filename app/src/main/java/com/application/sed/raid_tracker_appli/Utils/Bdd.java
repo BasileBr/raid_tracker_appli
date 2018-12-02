@@ -13,6 +13,8 @@ public class Bdd {
     private static ArrayList<List> ListeAccount =new ArrayList<>();
     private static ArrayList<Button> ListButton = new ArrayList<>();
     private static ArrayList<String> listIdRaid = new ArrayList<>();
+    private static ArrayList<String> listIdRaid2 = new ArrayList<>();
+
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
     private static String response;
@@ -91,9 +93,17 @@ public class Bdd {
     public static void setListIdRaid(ArrayList<String> listidraid){
         listIdRaid =listidraid;
     }
+    public static void setListIdRaid2(ArrayList<String> listidraidBenevoles){
+        listIdRaid2 =listidraidBenevoles;
+    }
     public static ArrayList<String> getlistIdRaid(){
         return listIdRaid;
     }
+
+    public static ArrayList<String> getlistIdRaid2(){
+        return listIdRaid2;
+    }
+
     /*
     Connaitre l'utilisateur courant en fonction des sessions
      */

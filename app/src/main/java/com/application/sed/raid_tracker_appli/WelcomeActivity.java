@@ -73,7 +73,10 @@ public class WelcomeActivity extends AppCompatActivity {
             JsonObject raidVisible = (JsonObject) listRaids.get(k);
             //on récupère le nom du raid de cet objet
             JsonElement nom = raidVisible.get("nom");
+
             //on convertit en String
+            String date = raidVisible.get("date").toString().replace("\"", " ").substring(0, 11);
+
             String nomRaid = nom.getAsString();
 
             //création du visuel
@@ -83,19 +86,24 @@ public class WelcomeActivity extends AppCompatActivity {
             //ajout d'un id au bouton
             btn.setId(k);
 
+
+
             //ajout du texte
-            text.setText(nomRaid + '\n'+"Rejoignez l'aventure");
-            btn.setText("Rejoignez -NOUS ");
+            text.setText(nomRaid + '\n'+"Rejoignez l'aventure"+'\n'+date);
+            text.setX(20);
+            btn.setText("Rejoins-nous ! ");
 
             //choix de la couleur du texte
             text.setTextColor(context.getResources().getColor(R.color.black));
-            btn.setTextColor(context.getResources().getColor(R.color.black));
 
             //btn.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
              //btn.setGravity(Gravity.END);
 
              btn.setX(200);
+             btn.setBackgroundResource(R.color.black);
+             btn.getBackground().setAlpha(125);
+             btn.setTextColor(context.getResources().getColor(R.color.Blancnacre));
             //btn.setHeight(150);
             //btn.setBackgroundColor(80000000);
 
@@ -105,25 +113,24 @@ public class WelcomeActivity extends AppCompatActivity {
 
             // Create LinearLayout
             LinearLayout ll = new LinearLayout(context);
-            LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
 
-            //ll.setOrientation(LinearLayout.HORIZONTAL);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 150);
+
+            ll.addView(text);
+            ll.addView(btn,layoutParams);
 
 
             ll.setBackgroundResource(R.drawable.coureur2);
             ll.getBackground().setAlpha(200);
 
-            //ll.setBackgroundResource(R.color.VertPrimaire);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)layout.getLayoutParams();
+            params.setMargins(30, 0, 35, 0); //substitute parameters for left, top, right, bottom
+            layout.setLayoutParams(params);
 
-            //ajout des éléments au linear layout
-            ll.addView(text);
-            ll.addView(btn);
-
-            ll.setBackgroundResource(R.color.VertPrimaire);
-
-            //ajout des élement au linear layout parent
             layout.addView(ll);
+            //layout.getLayoutParams();
 
             //on affiche la page de connexion si on appuie sur le rejoins -nous
               btn.setOnClickListener(new View.OnClickListener() {

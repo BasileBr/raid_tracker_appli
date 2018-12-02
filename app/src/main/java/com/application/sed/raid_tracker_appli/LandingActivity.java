@@ -70,8 +70,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private static int j;
     String Element;
     private ActionBarDrawerToggle drawerToggle;
-
-
     private static TextView b1;
     private ArrayList<Button> listButton;
     private ArrayList<List> raidlist;
@@ -130,6 +128,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         Utils.debug("Juste avant api request", "JE suis la");
 
         ApiRequestGet.getSpecificRaid(context, token, iduser, "LandingActivity");
+
+        ApiRequestGet.getAllRaidsofOneUser(context, token, iduser, "LandingActivity");
+
+
 
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -365,32 +367,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
             meMap.put(id_raid, nom_raid);
 
-
-            //déclare un bouton pour
-           /* Button myButton = new Button(context);
-
-
-            //on recupere le nom du raid et l'id associé
-            JsonElement nom = raidVisible.get("nom");
-            JsonElement id_raid = raidVisible.get("id");
-
-            //on les convertit en string
-            nomRaid = nom.getAsString();
-            String idraid2 = id_raid.getAsString();
-
-            //on ajoute un tag qui corrspond à l'id du raid
-            //btn.setId(k);
-            btn.setTag(idraid2);
-
-            Utils.debug("idRaidtest",btn.getTag().toString());
-
-            //
-            //listIdRaidBenevoles.add(idraid2);
-
-
-            //on a une arraylist de buttons pour chaque bouton on a le tag qui correspond à l'id du raid
-            listRaidstoJoin.add(btn);*/
-
         }
 
         for (Map.Entry<String, String> entry : meMap.entrySet()) {
@@ -398,65 +374,42 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             Button button = new Button(context);
             TextView textView = new TextView(context);
 
+
             //affectation des valeurs
             textView.setText(entry.getValue() + '\n' + "Rejoignez l\'aventure");
-            button.setText("Rejoignez-nous !");
+            textView.setTextColor(context.getResources().getColor(R.color.black));
+            button.setText("Rejoins-nous !");
             button.setTag(entry.getKey());
 
+            button.setLeft(200);
+            button.setBackgroundResource(R.color.black);
+            button.getBackground().setAlpha(125);
+            button.setTextColor(context.getResources().getColor(R.color.Blancnacre));
+
+
+
+            // Create LinearLayout
             LinearLayout ll = new LinearLayout(context);
+
+
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 150);
+            layoutParams.setMargins(0, 0, 50, 0);
+
             ll.addView(textView);
-            ll.addView(button);
+            ll.addView(button,layoutParams);
+
+
+            ll.setBackgroundResource(R.drawable.coureur2);
+            ll.getBackground().setAlpha(200);
+
 
             listRaidstoJoin.add(button);
 
             layout.addView(ll);
 
-            //listRaidstoJoin
-            //System.out.println(entry.getKey() + "/" + entry.getValue());
         }
         parcoursButton(listRaidstoJoin);
-
-
-       /* for (int i = 0; i < listRaidstoJoin.size(); i ++){
-
-
-            Button btn2 = listRaidstoJoin.get(i);
-            String idRaidBenevole = listIdRaid.get(i);
-
-            //création des boutons
-            Button btn = new Button(context);
-            //Button btn2 = new Button(context);
-
-            //ajout de l'id
-            btn2.setId(i);
-            btn.setText(nomRaid+ '\n' + "Rejoignez l'aventure");
-            btn2.setText("Rejoignez -NOUS ");
-            btn.setTextColor(context.getResources().getColor(R.color.black));
-            btn2.setTextColor(context.getResources().getColor(R.color.black));
-            btn2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            btn2.setGravity(Gravity.END);
-            btn2.setTag(idRaidBenevole);
-            btn.setTag(idRaidBenevole);
-
-           // btn2.setTag(idraid2);
-           // listRaidstoJoin.add(btn2);
-
-
-            //btn.setHeight(150);
-            //btn.setBackgroundColor(80000000);
-
-            // Create LinearLayout
-            LinearLayout ll = new LinearLayout(context);
-            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.setBackgroundResource(R.drawable.coureur2);
-            //ll.setBackgroundResource(R.color.VertPrimaire);
-            ll.addView(btn);
-            ll.addView(btn2);
-            layout.addView(ll);
-
-        }
-        parcoursButton(listRaidstoJoin);
-    }*/
     }
 
     public static void parcoursButton(ArrayList<Button> listButton){
@@ -477,4 +430,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         }
 
     }
+
+
+
 }

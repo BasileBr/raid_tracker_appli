@@ -2042,11 +2042,8 @@ public class ApiRequestGet {
     }
 
 
-   // GET /api/raids/visible/users/{id_user}
 
     //Get all raids visibles for a user without raids benevoles
-
-
 
     public static void getAllRaidswithoutRaidsBenevoles(final Context context, final String token,final String iduser, final String classe){
 
@@ -2060,6 +2057,58 @@ public class ApiRequestGet {
                         Utils.debug("rep raid dispo ben",response);
                         if(classe.equals("LandingActivity")) {
                             LandingActivity.recupRaid(response);
+                        }
+                        /*else if(classe.equals("InviteActivity")){
+                            InviteVolunteersActivity.raidlist(response);
+                        }*/
+                    }
+
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            /**
+             * Envoie le header -> en gros, le token
+             * @return
+             * @throws AuthFailureError
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+
+    //Get all raids benevoles of one user
+
+    public static void getAllRaidsofOneUser(final Context context, final String token,final String iduser, final String classe){
+
+        String urlfinale = urlRaid+'/'+"benevoles"+'/'+"users"+'/'+iduser;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Utils.debug("rep raid dispo ben",response);
+                        if(classe.equals("LandingActivity")) {
+                            //LandingActivity.raidlistBenevole(response);
                         }
                         /*else if(classe.equals("InviteActivity")){
                             InviteVolunteersActivity.raidlist(response);
