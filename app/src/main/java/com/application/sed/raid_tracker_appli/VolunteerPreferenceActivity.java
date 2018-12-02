@@ -86,8 +86,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         if (intent != null) {
 
-            idRaid= intent.getStringExtra("idRaid");
-            //Utils.debug("idRaidVolunteer",idRaid);
+            idRaid= intent.getStringExtra("idRaidpourVolunteer");
+            Utils.debug("idRaidVolunteer",idRaid);
 
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -160,11 +160,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         iduser = Bdd.getUserid();
 
 
-
-
-
         //récupération des postes à partir de l'id d'un Raid
-        ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
+        //ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
+
+        ApiRequestGet.getAllPostesfromOneRaid(context, token,idRaid);
 
 
     }
@@ -179,10 +178,13 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         //int select = Integer.valueOf(getselectedposte);
 
-        Utils.debug("poste",getselectedposte);
+        //Utils.debug("poste",getselectedposte);
 
 
         stockerIdPoste=ListIdPoste.get(position);
+
+        Utils.debug("idposte",String.valueOf(stockerIdPoste));
+
 
 //        if (meMap.containsKey(getselectedposte)){
 //            Object value =meMap.get(getselectedposte);
@@ -283,87 +285,39 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     }
 
     //ajouter un bénévole à un raid
-    public static void  validerPreference(View view){
+    public static void  validerPreference(View view) {
+        ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
 
 
-        //ajouter un bénévole à un RAID
-
-        ApiRequestPost.postNewBenevole(context,token,String.valueOf(43),iduser);
-
-        //récupération des bénévoles du raid
-        //ApiRequestGet.getBenevolesOfOneRaid(context,token,idRaid);
-
-
-
-
-    }
-
-    public static void recupId(String response){
-        //récupération de l'id bénévole d'un utilisateur
-
-
-        //ajouter la préférence de poste
-        //ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,);
-
-        Utils.debug("idPoste",response);
     }
 
     //récupération de l'id bénévole d'un utilisateur
-    public static void AddBenevole(String response){
+    public static void recupId(String response) {
 
         JsonParser parser = new JsonParser();
-        JsonArray benevolelist = (JsonArray) parser.parse(response);
-
-        //posteRaid = new ArrayList<>();
-
-
-
-
-
-        //création d'un hashmap pour associer l'id d'un poste à son id de point
-        getidBenevole=new HashMap<String, String>();
+        JsonArray RepAjoutUser = (JsonArray) parser.parse(response);
 
 
         //parcours la liste avec le Json
-        for (int i = 0; i < benevolelist.size(); i ++) {
+        for (int i = 0; i < RepAjoutUser.size(); i++) {
 
-            JsonParser parser1 = new JsonParser();
-            JsonObject raid = (JsonObject) benevolelist.get(i);
+            //JsonParser parser1 = new JsonParser();
+            JsonObject raid = (JsonObject) RepAjoutUser.get(i);
 
             //récupération de l'id d'un bénévole
-            JsonObject idBenevole=raid.getAsJsonObject("id");
-            String test=idBenevole.get("id").toString();
+            JsonObject idBenevole = raid.getAsJsonObject("id");
+            String finalidBenevole = idBenevole.get("id").toString();
+
+            Utils.debug("idBenevole",finalidBenevole);
 
 
+            //ajouter la préférence de poste
+            ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,finalidBenevole);
 
-
-
-
-
-//
-//            //récupération de l'id de point d'un poste
-//            JsonObject deuxiem=raid.getAsJsonObject("idPoint");
-//
-//            String test=deuxiem.get("id").toString();
-            //String posteraid = raid.get("nom").toString().replace("\""," ");
-
-
-           // String type = raid.get("type").toString().replace("\"", " ");;
-
-            //Integer ListIdPoste2= raid.get("id").getAsInt();
-
-            // meMap.put(id_poste,test);
-
-
-            //posteRaid.add(type);
-
-          //  ListIdPoste.add(ListIdPoste2);
-
+            Utils.debug("idPoste", response);
         }
-        //createSpinner(posteRaid);
 
     }
-
 
 
 }

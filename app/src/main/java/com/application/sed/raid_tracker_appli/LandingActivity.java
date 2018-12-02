@@ -78,8 +78,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private static String idRaidBenevole;
     private static ArrayList<String> listidRaidBenevoles;
 
-    private static HashMap<String, String> meMap;
-   // private static LinkedHashMap<String, String> profileMap;
+    //private static HashMap<String, String> meMap;
+    private static LinkedHashMap<String, String> meMap;
 
     private static Context context;
 
@@ -148,8 +148,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         b1.setText(getIntent().getStringExtra("switch_value"));
 
         layout = (LinearLayout) findViewById(R.id.ListeRaid);
-
-        ApiRequestGet.getAllRaids(context, "LandingActivity");
+        ApiRequestGet.getAllRaidswithoutRaidsBenevoles(context,token,iduser ,"LandingActivity");
     }
 
 
@@ -341,11 +340,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void recupRaid(String response) {
 
-        ArrayList<Button> listRaidstoJoin= new ArrayList<>();
+        ArrayList<Button> listRaidstoJoin = new ArrayList<>();
 
         ArrayList<String> listIdRaidBenevoles = new ArrayList<>();
 
-        meMap=new HashMap<>();
+        meMap = new LinkedHashMap<>();
 
         //recupération des raids benevoles dispo
         JsonParser parser = new JsonParser();
@@ -360,21 +359,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             JsonObject raidVisible = (JsonObject) listRaidsBenevoles.get(k);
 
             // on récupère chaque élément important
-            String nom_raid = raidVisible.get("nom").toString().replace("\"", " ");;
+            String nom_raid = raidVisible.get("nom").toString().replace("\"", " ");
+            ;
             String id_raid = raidVisible.get("id").toString();
 
-            meMap.put(id_raid,nom_raid);
+            meMap.put(id_raid, nom_raid);
 
 
-            for (Map.Entry<String, String> entry : meMap.entrySet())
-            {
-                TextView textView = new TextView(context);
-                textView.setText(entry.getValue());
-                LinearLayout ll = new LinearLayout(context);
-                ll.addView(textView);
-                layout.addView(ll);
-                System.out.println(entry.getKey() + "/" + entry.getValue());
-            }
             //déclare un bouton pour
            /* Button myButton = new Button(context);
 
@@ -401,6 +392,30 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             listRaidstoJoin.add(btn);*/
 
         }
+
+        for (Map.Entry<String, String> entry : meMap.entrySet()) {
+            //création des éléments
+            Button button = new Button(context);
+            TextView textView = new TextView(context);
+
+            //affectation des valeurs
+            textView.setText(entry.getValue() + '\n' + "Rejoignez l\'aventure");
+            button.setText("Rejoignez-nous !");
+            button.setTag(entry.getKey());
+
+            LinearLayout ll = new LinearLayout(context);
+            ll.addView(textView);
+            ll.addView(button);
+
+            listRaidstoJoin.add(button);
+
+            layout.addView(ll);
+
+            //listRaidstoJoin
+            //System.out.println(entry.getKey() + "/" + entry.getValue());
+        }
+        parcoursButton(listRaidstoJoin);
+
 
        /* for (int i = 0; i < listRaidstoJoin.size(); i ++){
 
@@ -441,6 +456,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         }
         parcoursButton(listRaidstoJoin);
+    }*/
     }
 
     public static void parcoursButton(ArrayList<Button> listButton){
@@ -452,13 +468,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, VolunteerPreferenceActivity.class);
-                    String idRaid = newButton.getTag().toString();
-                    intent.putExtra("idRaid",idRaid);
+                    String idRaidpourVolunteer = newButton.getTag().toString();
+                    intent.putExtra("idRaidpourVolunteer",idRaidpourVolunteer);
                     context.startActivity(intent);
 
                 }
             });
-        }*/
+        }
 
     }
 }

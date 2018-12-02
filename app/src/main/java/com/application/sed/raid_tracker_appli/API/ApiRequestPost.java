@@ -676,7 +676,7 @@ public class ApiRequestPost {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response", error.toString());
+                        Log.d("Error prefposte", error.toString());
                     }
                 }
         ) {
@@ -716,7 +716,7 @@ public class ApiRequestPost {
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Rep crea postNewBenevol", response.toString());
+                        Log.d("rep postNewBenevol", response.toString());
                         VolunteerPreferenceActivity.recupId(response.toString());
                     }
                 },
