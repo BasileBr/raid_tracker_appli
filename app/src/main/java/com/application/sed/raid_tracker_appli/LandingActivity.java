@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
@@ -31,7 +32,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,17 +63,21 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private static ArrayList<String> listIdRaid = new ArrayList<>();
     private static ArrayList<String> listid;
     private static String nomRaid;
+    public static String idRaid = "0";
+    public static int cptid;
 
 
     private static int j;
     String Element;
     private ActionBarDrawerToggle drawerToggle;
-
-
     private static TextView b1;
     private ArrayList<Button> listButton;
     private ArrayList<List> raidlist;
+    private static String idRaidBenevole;
+    private static ArrayList<String> listidRaidBenevoles;
 
+    //private static HashMap<String, String> meMap;
+    private static LinkedHashMap<String, String> meMap;
 
     private static Context context;
 
@@ -106,6 +115,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
             iduser = Bdd.getUserid();
             token = Bdd.getValue();
+            //Utils.debug("Utilisateur",iduser);
+            Bdd.setUserid(iduser);
 
             Utils.debug(TAG, "Je rentre la");
 
@@ -117,6 +128,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         Utils.debug("Juste avant api request", "JE suis la");
 
         ApiRequestGet.getSpecificRaid(context, token, iduser, "LandingActivity");
+
+        ApiRequestGet.getAllRaidsofOneUser(context, token, iduser, "LandingActivity");
+
+
 
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -135,8 +150,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         b1.setText(getIntent().getStringExtra("switch_value"));
 
         layout = (LinearLayout) findViewById(R.id.ListeRaid);
-
-        ApiRequestGet.getAllRaids(context, "LandingActivity");
+        ApiRequestGet.getAllRaidswithoutRaidsBenevoles(context,token,iduser ,"LandingActivity");
     }
 
 
@@ -328,72 +342,70 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void recupRaid(String response) {
 
-        ArrayList<Button> listRaidstoJoin;
-        listRaidstoJoin = new ArrayList<>();
+        ArrayList<Button> listRaidstoJoin = new ArrayList<>();
 
-        //recupération de la requete
+        ArrayList<String> listIdRaidBenevoles = new ArrayList<>();
+
+        meMap = new LinkedHashMap<>();
+
+        //recupération des raids benevoles dispo
         JsonParser parser = new JsonParser();
-        JsonArray listRaids = (JsonArray) parser.parse(response);
+
+        //on parse les réponses
+        JsonArray listRaidsBenevoles = (JsonArray) parser.parse(response);
 
         //boucle pour parcourir la requête
-        for (int k = 0; k < listRaids.size(); k++) {
-
-            //création des boutons
-            Button btn = new Button(context);
+        for (int k = 0; k < listRaidsBenevoles.size(); k++) {
 
             //récupére chaque élément
-            JsonObject raidVisible = (JsonObject) listRaids.get(k);
+            JsonObject raidVisible = (JsonObject) listRaidsBenevoles.get(k);
 
-            //on recupere le nom et l'id
-            JsonElement nom = raidVisible.get("nom");
-            JsonElement id_raid = raidVisible.get("id");
+            // on récupère chaque élément important
+            String nom_raid = raidVisible.get("nom").toString().replace("\"", " ");
+            ;
+            String id_raid = raidVisible.get("id").toString();
 
-            //on les mets en String
-            nomRaid = nom.getAsString();
-            String idraid2 = id_raid.getAsString();
-
-
-           // btn.setText("Nom :");
-            btn.setId(k);
-            btn.setTag(idraid2);
-
-
-            listRaidstoJoin.add(btn);
+            meMap.put(id_raid, nom_raid);
 
         }
 
-        for (int i = 0; i < listRaidstoJoin.size(); i ++){
+        for (Map.Entry<String, String> entry : meMap.entrySet()) {
+            //création des éléments
+            Button button = new Button(context);
+            TextView textView = new TextView(context);
 
 
-            Button btn2 = listRaidstoJoin.get(i);
+            //affectation des valeurs
+            textView.setText(entry.getValue() + '\n' + "Rejoignez l\'aventure");
+            textView.setTextColor(context.getResources().getColor(R.color.black));
+            button.setText("Rejoins-nous !");
+            button.setTag(entry.getKey());
 
-            //création des boutons
-            Button btn = new Button(context);
-            //Button btn2 = new Button(context);
-
-            //ajout de l'id
-            btn2.setId(i);
-            btn.setText(nomRaid+ '\n' + "Rejoignez l'aventure");
-            btn2.setText("Rejoignez -NOUS ");
-            btn.setTextColor(context.getResources().getColor(R.color.black));
-            btn2.setTextColor(context.getResources().getColor(R.color.black));
-            btn2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            btn2.setGravity(Gravity.END);
-
-           // btn2.setTag(idraid2);
-           // listRaidstoJoin.add(btn2);
+            button.setLeft(200);
+            button.setBackgroundResource(R.color.black);
+            button.getBackground().setAlpha(125);
+            button.setTextColor(context.getResources().getColor(R.color.Blancnacre));
 
 
-            //btn.setHeight(150);
-            //btn.setBackgroundColor(80000000);
 
             // Create LinearLayout
             LinearLayout ll = new LinearLayout(context);
-            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 150);
+            layoutParams.setMargins(0, 0, 50, 0);
+
+            ll.addView(textView);
+            ll.addView(button,layoutParams);
+
+
             ll.setBackgroundResource(R.drawable.coureur2);
-            //ll.setBackgroundResource(R.color.VertPrimaire);
-            ll.addView(btn);
-            ll.addView(btn2);
+            ll.getBackground().setAlpha(200);
+
+
+            listRaidstoJoin.add(button);
+
             layout.addView(ll);
 
         }
@@ -402,15 +414,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void parcoursButton(ArrayList<Button> listButton){
 
-        for (int j = 0; j<listButton.size(); j++) {
+        int j;
+        for (j = 0; j<listButton.size(); j++) {
             final Button newButton = listButton.get(j);
-
+            Utils.debug("parcoursButtontest", "idParcours : "+newButton.getTag());
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, VolunteerPreferenceActivity.class);
-                    String idRaid = (String) newButton.getTag();
-                    Utils.debug("parcoursButton", "idParcours : "+idRaid);
-                    intent.putExtra("idRaidtest",idRaid);
+                    String idRaidpourVolunteer = newButton.getTag().toString();
+                    intent.putExtra("idRaidpourVolunteer",idRaidpourVolunteer);
                     context.startActivity(intent);
 
                 }
@@ -418,4 +430,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         }
 
     }
+
+
+
 }

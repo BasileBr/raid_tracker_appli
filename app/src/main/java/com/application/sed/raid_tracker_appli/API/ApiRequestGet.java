@@ -126,64 +126,44 @@ public class ApiRequestGet {
     //get benevoles of one raid
     public static void getBenevolesOfOneRaid(Context context, final String token, String id_raid){
 
+
+
         String UrlFinale = urlBenevoles+'/'+"raids"+'/'+id_raid ;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                UrlFinale,
-                null,
-                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
+                    public void onResponse(String response) {
+                        //VolunteerPreferenceActivity.AddBenevole(response);
 
-                        // Process the JSON
-                        try{
-                            // Loop through the array elements
-                            for(int i=0;i<response.length();i++){
-                                // Get current json object
-                                JSONObject account = response.getJSONObject(i);
-
-                                // Get the current account (json object) data
-                                String idRaid = account.getString("id");
-                                String idUser = account.getString("idUser");
-
-                                Log.d("GetBenevoles", idRaid);
-
-                                // Display the formatted json data in text view
-//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-//                                mTextView.append("\n\n");
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
                     }
+
                 },
-                new Response.ErrorListener()
-                {
+
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error.Response", error.toString());
+                        Log.e("Error.Response specific", error.toString());
                     }
                 }
-        ){
+        ) {
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
+                Utils.debug("Header", token);
                 //header.put("Content-Type", "application/json");
-                header.put("X-Auth-Token",token);
+                header.put("X-Auth-Token", token);
                 return header;
             }
 
         };
-
         // Add JsonArrayRequest to the RequestQueue
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(getRequest);
+
     }
 
     //get benevole if present in a specific RAID
@@ -1659,6 +1639,8 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+                        Utils.debug("repon get all postes",response);
                         VolunteerPreferenceActivity.posteListe(response);
 
                     }
@@ -2072,6 +2054,111 @@ public class ApiRequestGet {
                 /**
                  * Se tout se passe pas bien
                  */
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            /**
+             * Envoie le header -> en gros, le token
+             * @return
+             * @throws AuthFailureError
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+
+
+    //Get all raids visibles for a user without raids benevoles
+
+    public static void getAllRaidswithoutRaidsBenevoles(final Context context, final String token,final String iduser, final String classe){
+
+        String urlfinale = urlRaid+'/'+"visible"+'/'+"users"+'/'+iduser;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Utils.debug("rep raid dispo ben",response);
+                        if(classe.equals("LandingActivity")) {
+                            LandingActivity.recupRaid(response);
+                        }
+                        /*else if(classe.equals("InviteActivity")){
+                            InviteVolunteersActivity.raidlist(response);
+                        }*/
+                    }
+
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            /**
+             * Envoie le header -> en gros, le token
+             * @return
+             * @throws AuthFailureError
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+
+    //Get all raids benevoles of one user
+
+    public static void getAllRaidsofOneUser(final Context context, final String token,final String iduser, final String classe){
+
+        String urlfinale = urlRaid+'/'+"benevoles"+'/'+"users"+'/'+iduser;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Utils.debug("rep raid dispo ben",response);
+                        if(classe.equals("LandingActivity")) {
+                            //LandingActivity.raidlistBenevole(response);
+                        }
+                        /*else if(classe.equals("InviteActivity")){
+                            InviteVolunteersActivity.raidlist(response);
+                        }*/
+                    }
+
+                },
+
                 new Response.ErrorListener()
                 {
                     @Override

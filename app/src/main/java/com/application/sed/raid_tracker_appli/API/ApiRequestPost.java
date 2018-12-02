@@ -10,13 +10,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.CreateAccount;
+import com.application.sed.raid_tracker_appli.RegisterVolunteersActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
@@ -41,6 +44,9 @@ public class ApiRequestPost {
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
+    final static String urlPrefPostes = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
+
+
 
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
@@ -640,6 +646,102 @@ public class ApiRequestPost {
                 Utils.debug("Header", token);
                 //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token", token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postPrefPostes(final Context context, final String token, final Integer idPoste, final String idBenevole){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idPoste",idPoste);
+            jsonObject.put("idBenevole",idBenevole);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPrefPostes, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Respons crea prefpostes", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error prefposte", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public static void postNewBenevole(final Context context, final String token, final String idRaid, final String idUser){
+
+        String urlFinale= urlBenevoles+"/raids/"+idRaid+"/users/"+idUser;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idUser",idUser);
+            jsonObject.put("idRaid",idRaid);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlFinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("rep postNewBenevol", response.toString());
+                        VolunteerPreferenceActivity.recupId(response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
                 return header;
             }
         };

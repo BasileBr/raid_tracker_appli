@@ -11,22 +11,31 @@
     android:layout_height="match_parent"
     android:background="@color/Blancnacre">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="horizontal">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/VertPrimaire"
-            android:minHeight="?attr/actionBarSize"
-            app:title="Editer un raid"
+            android:minHeight="?attr/actionBarSize">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:text="Editer un raid"/>
 
-            />
-
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
@@ -39,6 +41,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class VolunteerPreferenceActivity extends AppCompatActivity implements OnItemSelectedListener{
@@ -51,17 +54,25 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     private static ArrayList<Integer> ListIdPoste= new ArrayList<>();
     private String getselectedposte;
 
+    private static HashMap<String, String>getidBenevole;
+
+
+    private static String iduser;
+
+
     private static String test2;
 
     private static HashMap<String, String>meMap;
 
-    private String idraid;
-    private String token;
+
+    private static String token;
     private static TextView dispMission;
 
     private static Button submit;
 
     private static String idRaid;
+
+    private static Integer stockerIdPoste;
 
 
 
@@ -74,6 +85,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         context = this;
 
         if (intent != null) {
+
+            idRaid= intent.getStringExtra("idRaidpourVolunteer");
+            Utils.debug("idRaidVolunteer",idRaid);
 
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -90,6 +104,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 }
             });
+
+
         }
 
         // Spinner element
@@ -139,14 +155,15 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         token = Bdd.getValue();
         //idraid= intent.getStringExtra("idRaid");
 
-        idraid= intent.getStringExtra("idRaidtest");
 
 
-
+        iduser = Bdd.getUserid();
 
 
         //récupération des postes à partir de l'id d'un Raid
-        ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
+        //ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
+
+        ApiRequestGet.getAllPostesfromOneRaid(context, token,idRaid);
 
 
     }
@@ -161,9 +178,12 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         //int select = Integer.valueOf(getselectedposte);
 
-        Utils.debug("poste",getselectedposte);
+        //Utils.debug("poste",getselectedposte);
 
 
+        stockerIdPoste=ListIdPoste.get(position);
+
+        Utils.debug("idposte",String.valueOf(stockerIdPoste));
 
 
 //        if (meMap.containsKey(getselectedposte)){
@@ -176,6 +196,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         //lors de la selection d'un poste, on affiche la mission associée
         ApiRequestGet.getMissionsofOnePoste(context,token, ListIdPoste.get(position));
+
+
 
     }
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
@@ -226,7 +248,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
             //String posteraid = raid.get("nom").toString().replace("\""," ");
 
 
-            String type = raid.get("type").toString();
+            String type = raid.get("type").toString().replace("\"", " ");;
 
             Integer ListIdPoste2= raid.get("id").getAsInt();
 
@@ -255,19 +277,35 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         JsonObject miss = (JsonObject) mission.get(0);
 
-        String missionDescription=miss.get("objectif").toString();
+        String missionDescription=miss.get("objectif").toString().replace("\"", " ");
         //récupération de l'id de point d'un poste
-
        Utils.debug("affichage_mission",missionDescription);
 
        dispMission.setText(missionDescription);
     }
 
-    public static void  validerPreference (){
+    //ajouter un bénévole à un raid
+    public static void  validerPreference(View view) {
+        ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
 
 
     }
 
+    //récupération de l'id bénévole d'un utilisateur
+    public static void recupId(String response) {
+
+        JsonParser parser = new JsonParser();
+        JsonObject RepAjoutUser = (JsonObject) parser.parse(response);
+
+        Utils.debug("recupId",RepAjoutUser.get("id").toString());
+
+
+        //ajouter la préférence de poste
+        ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,RepAjoutUser.get("id").toString());
+
+        Utils.debug("idPoste", response);
+
+    }
 
 
 }
