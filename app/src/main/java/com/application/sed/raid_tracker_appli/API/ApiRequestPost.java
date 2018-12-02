@@ -3,6 +3,7 @@ package com.application.sed.raid_tracker_appli.API;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.views.overlay.Marker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class ApiRequestPost {
     final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
     final static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
     final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
+    final static String urlPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/postes";
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
@@ -392,7 +395,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type, final int ordre){
+    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type, final int ordre, final View view){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -421,7 +424,9 @@ public class ApiRequestPost {
 
                         Log.d("Response creation poin", response.toString());
 
-
+                        if (view != null){
+                            CreateParcours.ShowPoste(view,response.toString());
+                        }
                        /* try {
                             String idRaid = response.getString("id");
                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
@@ -474,7 +479,7 @@ public class ApiRequestPost {
         }
 
         // Utils.debug("CreateRaid",jsonArray.toString());
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPoints, jsonObject,
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPostes, jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override

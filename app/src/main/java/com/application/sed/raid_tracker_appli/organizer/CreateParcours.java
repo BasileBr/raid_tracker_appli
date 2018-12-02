@@ -1,9 +1,11 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,11 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,14 +44,20 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import com.android.volley.toolbox.StringRequest;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.internal.Util;
@@ -54,23 +65,52 @@ import okhttp3.internal.Util;
 
 //piste garder les éléments lors d'un changement d'orientation setRetainInstance
 public class CreateParcours extends AppCompatActivity implements MapEventsReceiver {
-    MapView map = null;
+    static MapView map = null;
     private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
-    private ArrayList<GeoPoint> ListGeopoi = new ArrayList<>();
+    private static ArrayList<GeoPoint> ListGeopoi = new ArrayList<>();
 
 
     int ParcoursListGeoPoint = 0;
     MyLocationNewOverlay mLocationOverlay;
 
     private int emptyname=0;
+    private static int emptynom=0;
+    private static int emptynombre=0;
+    private static int emptydebut=0;
+    private static int emptyfin=0;
+
+    private String m_Text = "";
+    private static String m_Textnom ="";
+    private static String m_Textnombre ="";
+
+    private static String m_Textanneedebut ="";
+    private static String m_Textmoisdebut ="";
+    private static String m_Textjoursdebut ="";
+    private static String m_Textheuredebut ="";
+    private static String m_Textminutedebut ="";
+
+    private static String m_Textanneefin ="";
+    private static String m_Textmoisfin ="";
+    private static String m_Textjoursfin ="";
+    private static String m_Textheurefin ="";
+    private static String m_Textminutefin ="";
+
+
 
     private static Context context;
     private static String idTrace;
+    public static int cpt = 0;
+
+    private static int hours;
+    private static int min;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TextView selectdate;
+    private String getDate = "";
 
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
     Marker standardmarker2;
-    Marker standarmarker3;
+    static Marker standarmarker3;
 
     //private static ArrayList<String> listsport;
     private Spinner test;
@@ -80,11 +120,13 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     GeoPoint pointa = new GeoPoint(51.489878, 6.143294);
     GeoPoint pointb = new GeoPoint(51.488978, 6.746994);
     GeoPoint geotemporaire;
+    public static GeoPoint poste = new GeoPoint(51.1,6.1);
 
     int numbouton = 0;
     int compteur=0;
     String idRaid;
 
+    public static String nomParcours;
     public static ArrayList<List> Liste =new ArrayList<>();
     ArrayList<GeoPoint> parcours = new ArrayList<>();
 
@@ -370,6 +412,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                     Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
 
+                    map.getOverlays().add(standarmarker3);
                     //        //Liste de points
                     //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
                     //
@@ -395,10 +438,18 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
             case 4:
                 standarmarker3 = new Marker(map);
+                ListGeopoi.add(tmpgeo);
+                poste.setCoords(tmpgeo.getLatitude(),tmpgeo.getLongitude());
+
                 standarmarker3.setIcon(getResources().getDrawable(R.drawable.poi1));
                 standarmarker3.setPosition(tmpgeo);
                 standarmarker3.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
+                ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,tmpgeo.getLongitude(),tmpgeo.getLatitude(),3,cpt, map);
+                /*map.getOverlays().add(standarmarker3);
+                map.invalidate();*/
+
+
 
                 //        //Liste de points
                 //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
@@ -407,13 +458,11 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 //
                 //        //waypoints.add(endPoint);
 
-                standarmarker3.setTitle("point d'intérêt"+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
+                standarmarker3.setTitle("nom : "+nomParcours+"\n"+"latitude: "+latitude+'\n'+"longitude: "+longitude);
 
                 //ajouter un icone particuliere
                 //startMarker.setIcon(getResources().getDrawable(R.drawable.pointer));
-                map.getOverlays().add(standarmarker3);
-                ListGeopoi.add(tmpgeo);
-                map.invalidate();
+
                 //setRoad();
                 break;
 
@@ -449,21 +498,29 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     if (k == 0){
                         //Point départ type = 1
                         //Utils.debug("onclick", "k if : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, k, null);
                     }
 
                     else if ( ListGeoPoint.size() - k ==1){
                         //Point arrivée type = 2
                         //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, k, null);
                     }
                     else {
                         //Point passage type = 0
                         //Utils.debug("onclick", "k else : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k, null);
                     }
 
                 }
+
+
+                /*for (int i =0; i< ListGeopoi.size(); i++ ){
+                    Double lon = ListGeopoi.get(i).getLongitude();
+                    Double lat = ListGeopoi.get(i).getLatitude();
+
+                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,i);
+                }*/
 
 
                 //envoyer les points d'intérêts
@@ -472,7 +529,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     Double lon = ListGeopoi.get(y).getLongitude();
                     Double lat = ListGeopoi.get(y).getLatitude();
                     Utils.info("onclick",String.valueOf(y));
-                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k);
+                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k, null);
                     Utils.debug("NomPoint","Ordre : "+k+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
                     k = k+1;
                 }
@@ -681,7 +738,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     }
 
 
-    private String m_Text = "";
+
 
 
 
@@ -749,6 +806,222 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         alert.show();
     }
 
+    public static void ShowPoste(final View view, final String response){
+
+        //création de la popup
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Création d'un poste.");
+        //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
+        alert.setCancelable(false);
+
+
+        Utils.debug("ShowPoste",response);
+        JsonObject jsonObject = new JsonObject();
+        JsonParser jsonParser = new JsonParser();
+
+        jsonObject = (JsonObject) jsonParser.parse(response);
+
+        final String id = jsonObject.get("id").toString();
+
+        Utils.debug("ShowPoste",id);
+
+        final LinearLayout finale = new LinearLayout(context);
+        finale.setOrientation(LinearLayout.VERTICAL);
+
+        final TextView info = new TextView(context);
+        info.setText("Les informations seront modifiable ultérieurement");
+        finale.addView(info);
+        //alert.setMessage(listsport.toString());
+
+        final LinearLayout ll1 = new LinearLayout(context);
+
+        final TextView nomP = new TextView(context);
+        nomP.setText("Merci d'indiquer le nom du poste");
+        //ajouter l'edittext à la popup
+        //alert.setView(nomP);
+        // création d'un edittext pour récupérer le nom du parcours
+        final EditText nom = new EditText(context);
+        // indiquer que l'input est de type texte
+        nom.setInputType(InputType.TYPE_CLASS_TEXT);
+        //ajouter l'edittext à la popup
+        //alert.setView(nom);
+
+        ll1.addView(nomP);
+        ll1.addView(nom);
+        finale.addView(ll1);
+
+        final LinearLayout ll2 = new LinearLayout(context);
+        final TextView nombre = new TextView(context);
+        nombre.setText("Nombre de bénévole");
+
+        final EditText nombreEntry = new EditText(context);
+        nombreEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        ll2.addView(nombre);
+        ll2.addView(nombreEntry);
+
+        finale.addView(ll2);
+
+
+        final LinearLayout ll3 = new LinearLayout(context);
+        final TextView heuredebut = new TextView(context);
+        heuredebut.setText("Date/heure début");
+
+        final EditText anneedebutEntry = new EditText(context);
+        anneedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        anneedebutEntry.setHint("YYYY");
+
+        final EditText moisdebutEntry = new EditText(context);
+        moisdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        moisdebutEntry.setHint("MM");
+
+        final EditText joursdebutEntry = new EditText(context);
+        joursdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        joursdebutEntry.setHint("DD");
+
+        final EditText heuredebutEntry = new EditText(context);
+        heuredebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        heuredebutEntry.setHint("HH");
+
+        final EditText minutedebutEntry = new EditText(context);
+        minutedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        minutedebutEntry.setHint("MM");
+
+        ll3.addView(heuredebut);
+        ll3.addView(anneedebutEntry);
+        ll3.addView(moisdebutEntry);
+        ll3.addView(joursdebutEntry);
+        ll3.addView(heuredebutEntry);
+        ll3.addView(minutedebutEntry);
+
+
+        finale.addView(ll3);
+
+        final LinearLayout ll4 = new LinearLayout(context);
+        final TextView heurefin = new TextView(context);
+        heurefin.setText("Date/heure début");
+
+        final EditText anneefinEntry = new EditText(context);
+        anneefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        anneefinEntry.setHint("YYYY");
+
+        final EditText moisfinEntry = new EditText(context);
+        moisfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        moisfinEntry.setHint("MM");
+
+        final EditText joursfinEntry = new EditText(context);
+        joursfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        joursfinEntry.setHint("DD");
+
+        final EditText heurefinEntry = new EditText(context);
+        heurefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        heurefinEntry.setHint("HH");
+
+        final EditText minutefinEntry = new EditText(context);
+        minutefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        minutefinEntry.setHint("MM");
+
+        ll4.addView(heurefin);
+        ll4.addView(anneefinEntry);
+        ll4.addView(moisfinEntry);
+        ll4.addView(joursfinEntry);
+        ll4.addView(heurefinEntry);
+        ll4.addView(minutefinEntry);
+
+        finale.addView(ll4);
+
+
+        alert.setView(finale);
+
+
+
+        //si aucun nom de parcours n'est entré, on affiche une erreure
+        if(emptynom==1){
+            nomP.setError("le champ est vide");
+        }
+        if(emptynombre==1){
+            nombre.setError("le champ est vide");
+        }
+        if(emptydebut==1){
+            heuredebut.setError("le champ est vide");
+        }
+        if(emptyfin==1){
+            heurefin.setError("le champ est vide");
+        }
+
+        // Effectuer une action si on appuie le bouton valider la popup
+        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //on récupère le nom du parcours entré par l'utilisateur
+                m_Textnom = nom.getText().toString();
+                m_Textnombre = nombreEntry.getText().toString();
+
+                m_Textanneedebut = anneedebutEntry.getText().toString();
+                m_Textmoisdebut = moisdebutEntry.getText().toString();
+                m_Textjoursdebut = joursdebutEntry.getText().toString();
+                m_Textheuredebut = heuredebutEntry.getText().toString();
+                m_Textminutedebut = minutedebutEntry.getText().toString();
+
+                m_Textanneefin = anneefinEntry.getText().toString();
+                m_Textmoisfin = moisfinEntry.getText().toString();
+                m_Textjoursfin = joursfinEntry.getText().toString();
+                m_Textheurefin = heurefinEntry.getText().toString();
+                m_Textminutefin = minutefinEntry.getText().toString();
+
+
+                // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
+                if(m_Textnom.isEmpty()){
+                    emptynom=1;
+                    ShowPoste(view, response);
+                }
+                else if(m_Textnombre.isEmpty()){
+                    emptynombre=1;
+                    ShowPoste(view, response);
+                }
+                else if(m_Textanneedebut.isEmpty() || m_Textmoisdebut.isEmpty() || m_Textjoursdebut.isEmpty() || m_Textheuredebut.isEmpty() || m_Textminutedebut.isEmpty() ) {
+                    emptydebut=1;
+                    ShowPoste(view, response);
+                }
+
+                else if(m_Textanneefin.isEmpty() || m_Textmoisfin.isEmpty() || m_Textjoursfin.isEmpty() || m_Textheurefin.isEmpty() || m_Textminutefin.isEmpty() ) {
+                    emptyfin=1;
+                    ShowPoste(view, response);
+                }
+
+                else // sinon on ajoute le nom du parcours dans la textview
+                {
+                    Utils.debug("cpt",String.valueOf(cpt));
+                    emptynom=0;
+                    emptynombre=0;
+                    emptydebut=0;
+                    emptyfin=0;
+
+                    cpt = cpt + 1;
+
+                    int nbbene = Integer.valueOf(m_Textnombre);
+                    String heure = m_Textjoursdebut+"/"+m_Textmoisdebut+"/"+m_Textanneedebut+" "+m_Textheuredebut+":"+m_Textminutedebut;
+                    String fin = m_Textjoursfin+"/"+m_Textmoisfin+"/"+m_Textanneefin+" "+m_Textheurefin+":"+m_Textminutefin;
+
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), id, m_Textnom, nbbene, heure, fin);
+                    map.getOverlays().add(standarmarker3);
+                    map.invalidate();
+
+                }
+
+            }
+        });
+        // si on appuie sur annuler, on retourne à la page de landing
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+               dialog.dismiss();
+            }
+        });
+        alert.show();
+    }
+
 
 
     public static void createParcours(JSONObject jsonObject) throws JSONException {
@@ -762,6 +1035,22 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         Intent intent2= new Intent(context, LandingActivity.class);
         context.startActivity(intent2);
     }
+
+    public static void setNomParcours(String nom){
+        nomParcours = nom;
+    }
+    public static String getNomParcours(){
+        return nomParcours;
+    }
+
+    public void changeNom(){
+        standarmarker3.setTitle("Nom : "+getNomParcours());
+    }
+
+    public static void creationParcours(){
+
+    }
+
 
 }
 
