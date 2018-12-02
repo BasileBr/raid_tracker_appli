@@ -179,8 +179,7 @@ public class ApiRequestGet {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
+                    
 
                         // Process the JSON
                         try{
