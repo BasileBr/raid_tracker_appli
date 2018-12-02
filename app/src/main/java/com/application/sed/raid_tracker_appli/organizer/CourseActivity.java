@@ -208,7 +208,8 @@ public class CourseActivity extends AppCompatActivity {
         }
         else if (id==R.id.manage_points){
            Intent intent = new Intent(CourseActivity.this, ManageVolunteersPositionActivity.class);
-            startActivity(intent);
+           intent.putExtra("idRaid",idRaid);
+           startActivity(intent);
         }
 
 

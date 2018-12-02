@@ -16,6 +16,7 @@ import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
+import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
@@ -1577,6 +1578,47 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+                    }
+
+                },
+                /**
+                 *
+                 */
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+    //get all postes by id raid
+    public static void getAllPostesfromRaid(final Context context,final String token, final String id_raid){
+
+        String urlFinale=urlPostes+'/'+"raids"+'/'+id_raid;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, urlFinale,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ManageVolunteersPositionActivity.affichePostes(response);
 
                     }
 

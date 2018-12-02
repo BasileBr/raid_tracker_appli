@@ -821,7 +821,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         jsonObject = (JsonObject) jsonParser.parse(response);
 
-        String id = jsonObject.get("id").toString();
+        final String id = jsonObject.get("id").toString();
 
         Utils.debug("ShowPoste",id);
 
@@ -998,8 +998,15 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     emptyfin=0;
 
                     cpt = cpt + 1;
+
+                    int nbbene = Integer.valueOf(m_Textnombre);
+                    String heure = m_Textjoursdebut+"/"+m_Textmoisdebut+"/"+m_Textanneedebut+" "+m_Textheuredebut+":"+m_Textminutedebut;
+                    String fin = m_Textjoursfin+"/"+m_Textmoisfin+"/"+m_Textanneefin+" "+m_Textheurefin+":"+m_Textminutefin;
+
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), id, m_Textnom, nbbene, heure, fin);
                     map.getOverlays().add(standarmarker3);
                     map.invalidate();
+
                 }
 
             }

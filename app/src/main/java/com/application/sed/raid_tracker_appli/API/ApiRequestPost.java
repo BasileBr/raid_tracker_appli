@@ -37,6 +37,7 @@ public class ApiRequestPost {
     final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
     final static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
     final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
+    final static String urlPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/postes";
     final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
@@ -478,7 +479,7 @@ public class ApiRequestPost {
         }
 
         // Utils.debug("CreateRaid",jsonArray.toString());
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPoints, jsonObject,
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlPostes, jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
