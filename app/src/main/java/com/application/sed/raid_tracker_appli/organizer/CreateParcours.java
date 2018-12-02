@@ -50,6 +50,9 @@ import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 
@@ -62,15 +65,37 @@ import okhttp3.internal.Util;
 
 //piste garder les éléments lors d'un changement d'orientation setRetainInstance
 public class CreateParcours extends AppCompatActivity implements MapEventsReceiver {
-    MapView map = null;
+    static MapView map = null;
     private ArrayList<GeoPoint> ListGeoPoint = new ArrayList<>();
-    private ArrayList<GeoPoint> ListGeopoi = new ArrayList<>();
+    private static ArrayList<GeoPoint> ListGeopoi = new ArrayList<>();
 
 
     int ParcoursListGeoPoint = 0;
     MyLocationNewOverlay mLocationOverlay;
 
     private int emptyname=0;
+    private static int emptynom=0;
+    private static int emptynombre=0;
+    private static int emptydebut=0;
+    private static int emptyfin=0;
+
+    private String m_Text = "";
+    private static String m_Textnom ="";
+    private static String m_Textnombre ="";
+
+    private static String m_Textanneedebut ="";
+    private static String m_Textmoisdebut ="";
+    private static String m_Textjoursdebut ="";
+    private static String m_Textheuredebut ="";
+    private static String m_Textminutedebut ="";
+
+    private static String m_Textanneefin ="";
+    private static String m_Textmoisfin ="";
+    private static String m_Textjoursfin ="";
+    private static String m_Textheurefin ="";
+    private static String m_Textminutefin ="";
+
+
 
     private static Context context;
     private static String idTrace;
@@ -85,7 +110,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     Marker standardmarker; // = new Marker(map);
     Marker standardmarker1; // = new Marker(map);
     Marker standardmarker2;
-    Marker standarmarker3;
+    static Marker standarmarker3;
 
     //private static ArrayList<String> listsport;
     private Spinner test;
@@ -387,6 +412,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                     Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
 
+                    map.getOverlays().add(standarmarker3);
                     //        //Liste de points
                     //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
                     //
@@ -419,9 +445,11 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 standarmarker3.setPosition(tmpgeo);
                 standarmarker3.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                 Utils.debug("longPressHelper","Lat "+latitude + "long " + longitude);
-                map.getOverlays().add(standarmarker3);
-                map.invalidate();
-                ShowPoste(map);
+                ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,tmpgeo.getLongitude(),tmpgeo.getLatitude(),3,cpt, map);
+                /*map.getOverlays().add(standarmarker3);
+                map.invalidate();*/
+
+
 
                 //        //Liste de points
                 //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
@@ -470,18 +498,18 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     if (k == 0){
                         //Point départ type = 1
                         //Utils.debug("onclick", "k if : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, k, null);
                     }
 
                     else if ( ListGeoPoint.size() - k ==1){
                         //Point arrivée type = 2
                         //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, k, null);
                     }
                     else {
                         //Point passage type = 0
                         //Utils.debug("onclick", "k else : "+String.valueOf(k));
-                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k);
+                        ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, k, null);
                     }
 
                 }
@@ -501,7 +529,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     Double lon = ListGeopoi.get(y).getLongitude();
                     Double lat = ListGeopoi.get(y).getLatitude();
                     Utils.info("onclick",String.valueOf(y));
-                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k);
+                    ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k, null);
                     Utils.debug("NomPoint","Ordre : "+k+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
                     k = k+1;
                 }
@@ -710,7 +738,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     }
 
 
-    private String m_Text = "";
+
 
 
 
@@ -778,32 +806,41 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         alert.show();
     }
 
-    public void ShowPoste(final View view){
+    public static void ShowPoste(final View view, final String response){
 
         //création de la popup
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Création d'un poste.");
         //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
         alert.setCancelable(false);
 
 
+        Utils.debug("ShowPoste",response);
+        JsonObject jsonObject = new JsonObject();
+        JsonParser jsonParser = new JsonParser();
+
+        jsonObject = (JsonObject) jsonParser.parse(response);
+
+        String id = jsonObject.get("id").toString();
+
+        Utils.debug("ShowPoste",id);
 
         final LinearLayout finale = new LinearLayout(context);
         finale.setOrientation(LinearLayout.VERTICAL);
 
-        final TextView info = new TextView(this);
+        final TextView info = new TextView(context);
         info.setText("Les informations seront modifiable ultérieurement");
         finale.addView(info);
         //alert.setMessage(listsport.toString());
 
         final LinearLayout ll1 = new LinearLayout(context);
 
-        final TextView nomP = new TextView(this);
+        final TextView nomP = new TextView(context);
         nomP.setText("Merci d'indiquer le nom du poste");
         //ajouter l'edittext à la popup
         //alert.setView(nomP);
         // création d'un edittext pour récupérer le nom du parcours
-        final EditText nom = new EditText(this);
+        final EditText nom = new EditText(context);
         // indiquer que l'input est de type texte
         nom.setInputType(InputType.TYPE_CLASS_TEXT);
         //ajouter l'edittext à la popup
@@ -814,10 +851,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         finale.addView(ll1);
 
         final LinearLayout ll2 = new LinearLayout(context);
-        final TextView nombre = new TextView(this);
+        final TextView nombre = new TextView(context);
         nombre.setText("Nombre de bénévole");
 
-        final EditText nombreEntry = new EditText(this);
+        final EditText nombreEntry = new EditText(context);
         nombreEntry.setInputType(InputType.TYPE_CLASS_TEXT);
 
         ll2.addView(nombre);
@@ -827,78 +864,69 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
         final LinearLayout ll3 = new LinearLayout(context);
-        final TextView heuredebut = new TextView(this);
-        nombre.setText("heure début");
+        final TextView heuredebut = new TextView(context);
+        heuredebut.setText("Date/heure début");
 
-        final TextView mDisplayDate;
-        final String[] getdate = {""};
+        final EditText anneedebutEntry = new EditText(context);
+        anneedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        anneedebutEntry.setHint("YYYY");
 
-        mDisplayDate = new TextView(this);
+        final EditText moisdebutEntry = new EditText(context);
+        moisdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        moisdebutEntry.setHint("MM");
 
+        final EditText joursdebutEntry = new EditText(context);
+        joursdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        joursdebutEntry.setHint("DD");
 
-        /**
-         * Affichage pour sélectionner la date du RAID
-         */
-
-        Date today = Calendar.getInstance().getTime();
-
-
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                hours = cal.get(Calendar.HOUR_OF_DAY);
-                min = cal.get(Calendar.MINUTE);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
-
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        /**
-         * Récupérer la date, l'afficher et la stocker
-         */
-        final int tmp;
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                selectdate= (TextView) findViewById(R.id.selectdate);
-                Log.d("Date", "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hours +":"+min);
-
-                String date = year + "/" + (month+1) + "/" + dayOfMonth + " " + hours + ":"+min;
-                mDisplayDate.setText(date);
-                getDate = date;
-                selectdate.setError(null);
-            }
-        };
-
-        final EditText heuredebutEntry = new EditText(this);
+        final EditText heuredebutEntry = new EditText(context);
         heuredebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        heuredebutEntry.setHint("HH");
 
-        heuredebutEntry.setText(today.toString());
-        ll3.addView(mDisplayDate);
-        //ll3.addView(heuredebutEntry);
+        final EditText minutedebutEntry = new EditText(context);
+        minutedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        minutedebutEntry.setHint("MM");
+
+        ll3.addView(heuredebut);
+        ll3.addView(anneedebutEntry);
+        ll3.addView(moisdebutEntry);
+        ll3.addView(joursdebutEntry);
+        ll3.addView(heuredebutEntry);
+        ll3.addView(minutedebutEntry);
+
 
         finale.addView(ll3);
 
         final LinearLayout ll4 = new LinearLayout(context);
-        final TextView heurefin = new TextView(this);
-        heurefin.setText("heure début");
+        final TextView heurefin = new TextView(context);
+        heurefin.setText("Date/heure début");
 
-        final EditText heurefinEntry = new EditText(this);
+        final EditText anneefinEntry = new EditText(context);
+        anneefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        anneefinEntry.setHint("YYYY");
+
+        final EditText moisfinEntry = new EditText(context);
+        moisfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        moisfinEntry.setHint("MM");
+
+        final EditText joursfinEntry = new EditText(context);
+        joursfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        joursfinEntry.setHint("DD");
+
+        final EditText heurefinEntry = new EditText(context);
         heurefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        heurefinEntry.setHint("HH");
+
+        final EditText minutefinEntry = new EditText(context);
+        minutefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        minutefinEntry.setHint("MM");
 
         ll4.addView(heurefin);
+        ll4.addView(anneefinEntry);
+        ll4.addView(moisfinEntry);
+        ll4.addView(joursfinEntry);
         ll4.addView(heurefinEntry);
+        ll4.addView(minutefinEntry);
 
         finale.addView(ll4);
 
@@ -908,8 +936,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
         //si aucun nom de parcours n'est entré, on affiche une erreure
-        if(emptyname==1){
-            nom.setError("le champ est vide");
+        if(emptynom==1){
+            nomP.setError("le champ est vide");
+        }
+        if(emptynombre==1){
+            nombre.setError("le champ est vide");
+        }
+        if(emptydebut==1){
+            heuredebut.setError("le champ est vide");
+        }
+        if(emptyfin==1){
+            heurefin.setError("le champ est vide");
         }
 
         // Effectuer une action si on appuie le bouton valider la popup
@@ -917,25 +954,52 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //on récupère le nom du parcours entré par l'utilisateur
-                m_Text = nom.getText().toString();
+                m_Textnom = nom.getText().toString();
+                m_Textnombre = nombreEntry.getText().toString();
+
+                m_Textanneedebut = anneedebutEntry.getText().toString();
+                m_Textmoisdebut = moisdebutEntry.getText().toString();
+                m_Textjoursdebut = joursdebutEntry.getText().toString();
+                m_Textheuredebut = heuredebutEntry.getText().toString();
+                m_Textminutedebut = minutedebutEntry.getText().toString();
+
+                m_Textanneefin = anneefinEntry.getText().toString();
+                m_Textmoisfin = moisfinEntry.getText().toString();
+                m_Textjoursfin = joursfinEntry.getText().toString();
+                m_Textheurefin = heurefinEntry.getText().toString();
+                m_Textminutefin = minutefinEntry.getText().toString();
+
 
                 // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
-                if(m_Text.isEmpty()){
-                    emptyname=1;
-                    ShowAlertDialog(view);
-                }else // sinon on ajoute le nom du parcours dans la textview
+                if(m_Textnom.isEmpty()){
+                    emptynom=1;
+                    ShowPoste(view, response);
+                }
+                else if(m_Textnombre.isEmpty()){
+                    emptynombre=1;
+                    ShowPoste(view, response);
+                }
+                else if(m_Textanneedebut.isEmpty() || m_Textmoisdebut.isEmpty() || m_Textjoursdebut.isEmpty() || m_Textheuredebut.isEmpty() || m_Textminutedebut.isEmpty() ) {
+                    emptydebut=1;
+                    ShowPoste(view, response);
+                }
+
+                else if(m_Textanneefin.isEmpty() || m_Textmoisfin.isEmpty() || m_Textjoursfin.isEmpty() || m_Textheurefin.isEmpty() || m_Textminutefin.isEmpty() ) {
+                    emptyfin=1;
+                    ShowPoste(view, response);
+                }
+
+                else // sinon on ajoute le nom du parcours dans la textview
                 {
                     Utils.debug("cpt",String.valueOf(cpt));
-                    emptyname=0;
-                    setNomParcours(m_Text);
-                    changeNom();
+                    emptynom=0;
+                    emptynombre=0;
+                    emptydebut=0;
+                    emptyfin=0;
 
-                    Double lon = poste.getLongitude();
-                    Double lat = poste.getLatitude();
-
-                    // cpt : variable static pour avoir l'ordre des postes
-                    //ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,cpt);
                     cpt = cpt + 1;
+                    map.getOverlays().add(standarmarker3);
+                    map.invalidate();
                 }
 
             }
@@ -944,7 +1008,8 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onResume();
+
+               dialog.dismiss();
             }
         });
         alert.show();
@@ -978,5 +1043,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     public static void creationParcours(){
 
     }
+
+
 }
 

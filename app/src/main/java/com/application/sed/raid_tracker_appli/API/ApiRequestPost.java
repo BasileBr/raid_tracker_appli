@@ -3,6 +3,7 @@ package com.application.sed.raid_tracker_appli.API;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.views.overlay.Marker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -392,7 +394,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type, final int ordre){
+    public static void postPoint(final Context context, final String token, final String idTrace, final Double longitude, final Double latitude, final int type, final int ordre, final View view){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -421,8 +423,8 @@ public class ApiRequestPost {
 
                         Log.d("Response creation poin", response.toString());
 
-                        if (type == 3){
-
+                        if (view != null){
+                            CreateParcours.ShowPoste(view,response.toString());
                         }
                        /* try {
                             String idRaid = response.getString("id");
