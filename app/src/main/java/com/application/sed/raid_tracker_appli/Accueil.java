@@ -47,6 +47,7 @@ public class Accueil extends AppCompatActivity {
 
 
 
+        Utils.debug("Context",this.toString());
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

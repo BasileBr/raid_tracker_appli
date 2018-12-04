@@ -235,9 +235,11 @@ public class ApiRequestPost {
 
 
                         Log.d("Response update RAid", response.toString());
-                        Intent intent = new Intent(context, CourseActivity.class);
-                        context.startActivity(intent);
+                        if (context.toString().contains("com.application.sed.raid_tracker_appli.organizer.EditCourse")){
+                            Intent intent = new Intent(context, CourseActivity.class);
+                            context.startActivity(intent);
 
+                        }
                        /* try {
                             String idRaid = response.getString("id");
                            postUserToRaid(context, token, Bdd.getUserid(), idRaid, response);
