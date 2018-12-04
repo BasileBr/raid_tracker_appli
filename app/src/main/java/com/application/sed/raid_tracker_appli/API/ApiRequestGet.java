@@ -2463,15 +2463,7 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        JsonArray jsonArray;
-                        JsonParser jsonParser = new JsonParser();
-                        JsonObject jsonObject;
-                        jsonArray = (JsonArray) jsonParser.parse(response);
-                        jsonObject = (JsonObject) jsonArray.get(0);
-                        String idParcours = jsonObject.get("id").toString();
-                        //Utils.debug("getSpecificTraceFromParcours",jsonArray.get(0).toString());
-
-                        ApiRequestGet.getPointsfromSpecificTrace(context, token, Integer.valueOf(idParcours));
+                        ManageParcoursActivity.recupTrace(response);
                     }
 
                 },
