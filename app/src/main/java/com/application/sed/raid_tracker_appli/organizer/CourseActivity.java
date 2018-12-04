@@ -2,8 +2,6 @@ package com.application.sed.raid_tracker_appli.organizer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -32,16 +30,10 @@ import com.google.gson.JsonParser;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.api.IMapController;
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +56,18 @@ public class CourseActivity extends AppCompatActivity {
 
     private static LinearLayout ll;
     private static String idRaid;
+
+    //récupération des informations du raid
+    private static String id;
+    private static String nom;
+    private static String lieu;
+    private static String date;
+    private static String edition;
+    private static String equipe;
+    private static Boolean visibility;
+    private static Switch simpleSwitch;
+    private static TextView setTextVisibility;
+
 
     MapView map = null;
     @Override
@@ -138,38 +142,22 @@ public class CourseActivity extends AppCompatActivity {
 
 
             // bouton switch pour la visiblité du raid
-            final Switch simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
+            simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
 
             //texte associé à la visibilité du raid
-            final TextView setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
+           setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
 
             //final String switch_value="coucou";
 
             //message lorsque rien n'est sélectionné
-            setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+            //setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
 
-            //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
-            simpleSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //String statusSwitch1, statusSwitch2;
-                    if (simpleSwitch.isChecked()) {
-                        setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
-                        //LandingActivity.diffuserRaid();
-                        Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                        //intent.putExtra(switch_value,"coucou");
-                        startActivity(intent);
 
-                    } else {
-                        setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
-                    }
-                }
-            });
 
 
             // garder la position du switch
             //boolean value = false; // default value if no value was found
-            final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
+           /* final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
             //value = sharedPreferences.getBoolean("isChecked",value); // retrieve the value of your key
             //simpleSwitch.setChecked(value);
 
@@ -184,9 +172,12 @@ public class CourseActivity extends AppCompatActivity {
                         setTextVisibility.setText("Le raid n'est pas partagé aux bénévoles");
                     }
                 }
-            });
+            });*/
 
             ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid);
+
+            //récupération des informations du raid pour ensuite exploiter la visibilité
+            ApiRequestGet.getSpecificRaidforCourseActivity(context,Bdd.getValue(),idRaid,"CourseActivity");
         }
 
     }
@@ -304,5 +295,55 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
+    public static void getRaid(String response){
+
+        JsonParser parser = new JsonParser();
+        JsonObject infoRaid = (JsonObject) parser.parse(response);
+
+             id = infoRaid.get("id").toString();
+             nom = infoRaid.get("nom").toString();
+             lieu=infoRaid.get("lieu").toString();
+             date=infoRaid.get("date").toString();
+            edition=infoRaid.get("edition").toString();
+            equipe= infoRaid.get("equipe").toString();
+            visibility=infoRaid.get("visibility").getAsBoolean();
+
+            Utils.debug("yvantest",date);
+
+            if (visibility){
+                simpleSwitch.setChecked(true);
+                setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
+
+            }else {
+                simpleSwitch.setChecked(false);
+                setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+
+            }
+    }
+
+    public void checkSwitch(View view){
+        //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
+
+                //String statusSwitch1, statusSwitch2;
+                if (simpleSwitch.isChecked()) {
+                    setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
+
+                    ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
+
+                    //LandingActivity.diffuserRaid();
+                    // Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    //intent.putExtra(switch_value,"coucou");
+                    //startActivity(intent);
+
+                } else if (!simpleSwitch.isChecked()){
+                    setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
+                    ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
+                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    startActivity(intent);
+
+                }
+            }
 
 }
+
+

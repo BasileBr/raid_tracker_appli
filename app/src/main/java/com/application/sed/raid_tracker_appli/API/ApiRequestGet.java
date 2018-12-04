@@ -2030,7 +2030,7 @@ public class ApiRequestGet {
      */
     public static void getSpecificRaid(Context context, final String token, final String id, final String classe){
 
-        String UrlFinale = urlRaidUser+'/'+id ;
+        final String UrlFinale = urlRaidUser+'/'+id ;
         Utils.debug("getSpecificRaid", UrlFinale);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
@@ -2039,8 +2039,10 @@ public class ApiRequestGet {
                      * Si tout se passe bien
                      * @param response
                      */
+
                     @Override
                     public void onResponse(String response) {
+                        Log.d("courseactivity", response);
                         if(classe.equals("LandingActivity")) {
                             LandingActivity.raidlist(response);
                         }
@@ -2081,6 +2083,50 @@ public class ApiRequestGet {
         // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
+
+    public static void getSpecificRaidforCourseActivity(Context context, final String token, final String id, final String classe){
+
+        final String UrlFinale = urlRaid+'/'+id ;
+        Utils.debug("getSpecificRaid", UrlFinale);
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Utils.debug("sympa",response);
+                        if(classe.equals("CourseActivity")) {
+                            CourseActivity.getRaid(response);
+                        }
+                    }
+
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+
 
 
 
