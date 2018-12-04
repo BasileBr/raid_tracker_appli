@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli.organizer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.StyleableRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -299,14 +300,21 @@ public class CourseActivity extends AppCompatActivity {
 
         JsonParser parser = new JsonParser();
         JsonObject infoRaid = (JsonObject) parser.parse(response);
+        id = infoRaid.get("id").toString();
+        nom = infoRaid.get("nom").toString();
+        lieu=infoRaid.get("lieu").toString();
+        String inter = infoRaid.get("date").toString();
+        edition=infoRaid.get("edition").toString();
+        equipe= infoRaid.get("equipe").toString();
+        visibility=infoRaid.get("visibility").getAsBoolean();
 
-             id = infoRaid.get("id").toString();
-             nom = infoRaid.get("nom").toString();
-             lieu=infoRaid.get("lieu").toString();
-             date=infoRaid.get("date").toString();
-            edition=infoRaid.get("edition").toString();
-            equipe= infoRaid.get("equipe").toString();
-            visibility=infoRaid.get("visibility").getAsBoolean();
+        String annee = inter.substring(1,5);
+        String mois = inter.substring(6,8);
+        String jours = inter.substring(9,11);
+        String heure = inter.substring(12,14);
+        String min = inter.substring(15,17);
+
+        date = annee+"/"+mois+"/"+jours+" "+heure+":"+min;
 
             Utils.debug("yvantest",date);
 
@@ -338,8 +346,8 @@ public class CourseActivity extends AppCompatActivity {
                 } else if (!simpleSwitch.isChecked()){
                     setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
                     ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
-                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    //startActivity(intent);
 
                 }
             }
