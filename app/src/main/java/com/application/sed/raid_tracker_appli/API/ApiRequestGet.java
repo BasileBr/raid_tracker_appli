@@ -2138,7 +2138,7 @@ public class ApiRequestGet {
 
     //Get all raids benevoles of one user
 
-    public static void getAllRaidsofOneUser(final Context context, final String token,final String iduser, final String classe){
+    public static void getAllRaidsBenevolesofOneUser(final Context context, final String token,final String iduser, final String classe){
 
         String urlfinale = urlRaid+'/'+"benevoles"+'/'+"users"+'/'+iduser;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -2149,7 +2149,7 @@ public class ApiRequestGet {
                     public void onResponse(String response) {
                         Utils.debug("rep raid dispo ben",response);
                         if(classe.equals("LandingActivity")) {
-                            //LandingActivity.raidlistBenevole(response);
+                            LandingActivity.raidlistBenevole(response);
                         }
                         /*else if(classe.equals("InviteActivity")){
                             InviteVolunteersActivity.raidlist(response);
