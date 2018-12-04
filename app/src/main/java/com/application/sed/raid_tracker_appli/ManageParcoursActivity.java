@@ -470,7 +470,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        arreterLocalisation();
+        //arreterLocalisation();
     }
 
     private void initialiserLocalisation()
