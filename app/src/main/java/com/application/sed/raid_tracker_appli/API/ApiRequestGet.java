@@ -1217,7 +1217,7 @@ public class ApiRequestGet {
     public static void getPointsfromSpecificTrace(Context context, final String token, final int id) {
 
         String UrlFinale = urlPoints + '/' + "traces"+'/'+id;
-        Utils.debug("getPointsfromSpecificTrace", UrlFinale);
+        Utils.debug("getAllRaids", UrlFinale);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
                 new Response.Listener<String>() {
@@ -1941,7 +1941,7 @@ public class ApiRequestGet {
     //get all raids
     public static void getAllRaids(final Context context, final String classe){
 
-        String urlfinale = urlRaid+'/'+"visible"+'/'+"all";
+        String urlfinale = urlRaid+"/visible/all";
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
                 new Response.Listener<String>() {
