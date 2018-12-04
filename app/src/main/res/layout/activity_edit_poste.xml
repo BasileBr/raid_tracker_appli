@@ -182,7 +182,39 @@
                 android:layout_height="wrap_content"
                 android:hint="mission"
                 />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+
+                <Button
+                    android:id="@+id/annuler"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:onClick="cancel"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/cancel" />
+
+
+                <Button
+                    android:id="@+id/valider"
+                    android:layout_width="150dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/cancel"
+                    android:onClick="updateRaid"
+                    android:text="@string/valide" />
+
+
+            </RelativeLayout>
 
 
 
