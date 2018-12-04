@@ -301,18 +301,19 @@ public class CourseActivity extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonObject infoRaid = (JsonObject) parser.parse(response);
         id = infoRaid.get("id").toString();
-        nom = infoRaid.get("nom").toString();
-        lieu=infoRaid.get("lieu").toString();
+        nom = infoRaid.get("nom").toString().replace("\"", " ");
+        Utils.debug("nom",nom);
+        lieu=infoRaid.get("lieu").toString().replace("\"", " ");
         String inter = infoRaid.get("date").toString();
         edition=infoRaid.get("edition").toString();
-        equipe= infoRaid.get("equipe").toString();
+        equipe= infoRaid.get("equipe").toString().replace("\"", " ");
         visibility=infoRaid.get("visibility").getAsBoolean();
-
         String annee = inter.substring(1,5);
         String mois = inter.substring(6,8);
         String jours = inter.substring(9,11);
         String heure = inter.substring(12,14);
         String min = inter.substring(15,17);
+
 
         date = annee+"/"+mois+"/"+jours+" "+heure+":"+min;
 
@@ -336,18 +337,20 @@ public class CourseActivity extends AppCompatActivity {
                 if (simpleSwitch.isChecked()) {
                     setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
 
+                    nom = "ENSSAT RAID 100";
                     ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
 
                     //LandingActivity.diffuserRaid();
-                    // Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
                     //intent.putExtra(switch_value,"coucou");
-                    //startActivity(intent);
+                    startActivity(intent);
 
                 } else if (!simpleSwitch.isChecked()){
                     setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
+                    nom = "ENSSAT RAID 100";
                     ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
-                    //Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    startActivity(intent);
 
                 }
             }
