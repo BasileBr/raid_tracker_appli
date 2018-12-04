@@ -35,6 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                style="@android:style/Widget.EditText"
                 android:text="@string/nompostes"
                 android:layout_marginEnd="10dp"
                 android:textSize="18sp" />
@@ -52,6 +53,7 @@
                 android:layout_marginTop="20dp"
                 android:color="@color/black"
                 android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
                 android:layout_height="wrap_content"
                 android:text="@string/nombrebene"
                 android:textSize="18sp" />
@@ -70,6 +72,7 @@
                 android:layout_marginTop="20dp"
                 android:color="@color/black"
                 android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
                 android:layout_height="wrap_content"
                 android:text="@string/debut"
                 android:textSize="18sp" />
@@ -119,6 +122,7 @@
                 android:id="@+id/fin"
                 android:layout_marginTop="20dp"
                 android:color="@color/black"
+                style="@android:style/Widget.EditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fin"
@@ -171,6 +175,7 @@
                 android:layout_marginTop="20dp"
                 android:color="@color/black"
                 android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
                 android:layout_height="wrap_content"
                 android:text="@string/mission"
                 android:textSize="18sp" />
@@ -197,7 +202,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
-                    android:onClick="cancel"
                     android:layout_marginStart="10dp"
                     android:text="@string/cancel" />
 
@@ -207,10 +211,10 @@
                     android:layout_width="150dp"
                     android:layout_marginTop="20dp"
                     android:layout_height="100dp"
+                    android:onClick="updateinfo"
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@id/cancel"
-                    android:onClick="updateRaid"
+                    android:layout_toEndOf="@id/annuler"
                     android:text="@string/valide" />
 
 

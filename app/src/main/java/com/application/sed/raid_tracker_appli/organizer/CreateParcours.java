@@ -412,7 +412,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
                     Utils.debug("longPressHelper", "Lat " + latitude + "long " + longitude);
 
-                    map.getOverlays().add(standarmarker3);
+                    map.getOverlays().add(standardmarker2);
                     //        //Liste de points
                     //        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
                     //

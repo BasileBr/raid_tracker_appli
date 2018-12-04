@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.R;
@@ -26,6 +27,8 @@ public class EditPosteActivity extends AppCompatActivity {
     public static Context context;
     private Toolbar toolbar;
     public static String idRaid;
+    public static String dateDebut;
+    public static String dateFin;
 
     public static TextView nomposte;
     public static EditText nomposteentry;
@@ -52,12 +55,14 @@ public class EditPosteActivity extends AppCompatActivity {
     public static TextView mission;
     public static EditText missionEntry;
 
-    public static int boolnom;
-    public static int boolnombre;
-    public static int booldebut;
-    public static int boolfin;
-    public static int boolmission;
+    public static int boolnom = 0;
+    public static int boolnombre = 0;
+    public static int booldebut = 0;
+    public static int boolfin = 0;
+    public static int boolmission = 0;
 
+    public static String idPoint;
+    public static String idPoste;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,7 @@ public class EditPosteActivity extends AppCompatActivity {
 
             //récuperation du context
             context = this;
-            String idPoste = intent.getStringExtra("idPoste");
+            idPoste = intent.getStringExtra("idPoste");
             Utils.debug("EditPosteActicity",context.toString());
             Utils.debug("EditPosteActicity", String.valueOf(context.toString().contains("com.application.sed.raid_tracker_appli.helper.EditPosteActivity")));
 
@@ -142,6 +147,8 @@ public class EditPosteActivity extends AppCompatActivity {
 
         jsonObject = (JsonObject)parser.parse(response);
 
+        JsonObject Point = (JsonObject) jsonObject.get("idPoint");
+        idPoint = Point.get("id").toString().replace("\""," ");
         Utils.debug("AfficheInfoPoste",jsonObject.toString());
         nomposteentry.setText(jsonObject.get("type").toString().replace("\"",""));
         nombreentry.setText(jsonObject.get("nombre").toString());
@@ -162,36 +169,70 @@ public class EditPosteActivity extends AppCompatActivity {
         Utils.debug("heuredebut",jsonObject.get("heureDebut").toString());
         Utils.debug("heurefin",jsonObject.get("heureFin").toString());
 
+    }
+
+    public static void updateinfo(View view){
+
+
         if (isEmpty(nomposteentry)){
-            nomposte.setError("Le champ est vite");
+            nomposte.setError("Le champ est vide");
+            boolnom = 1;
         }
+        else {
+            nomposte.setError(null);
+            boolnom = 0;
+        }
+
         if (isEmpty(nombreentry)){
-            nombre.setError("Le champ est vite");
+            nombre.setError("Le champ est vide");
+            boolnombre = 1;
         }
+        else {
+            nombre.setError(null);
+            boolnombre = 0;
+        }
+
         if ( (isEmpty(anneedebut)) || (isEmpty(moisdebut)) || (isEmpty(joursdebut)) || (isEmpty(heuredebut)) || (isEmpty(minutedebut)) ){
-            debut.setError("Le champ est vite");
+            debut.setError("Le champ est vide");
+            booldebut = 1;
         }
+        else {
+            debut.setError(null);
+            booldebut = 0;
+        }
+
         if ( (isEmpty(anneefin)) || (isEmpty(moisfin)) || (isEmpty(joursfin)) || (isEmpty(heurefin)) || (isEmpty(minutefin)) ){
-            fin.setError("Le champ est vite");
+            fin.setError("Le champ est vide");
+            boolfin = 1;
+        }
+        else {
+            fin.setError(null);
+            boolfin = 0;
         }
 
         if (isEmpty(missionEntry)){
-            mission.setError("Le champ est vite");
+            mission.setError("Le champ est vide");
+            boolmission = 1;
         }
-
+        else {
+            mission.setError(null);
+            boolmission = 0;
+        }
+        if( booldebut==0 && boolfin==0 && boolmission==0 && boolnom==0 && boolnombre==0){
+            dateDebut = joursdebut.getText().toString()+'/'+moisdebut.getText().toString()+'/'+anneedebut.getText().toString()+" "+heuredebut.getText().toString()+":"+minutedebut.getText().toString();
+            dateFin = joursfin.getText().toString()+'/'+moisfin.getText().toString()+'/'+anneefin.getText().toString()+" "+heurefin.getText().toString()+":"+minutefin.getText().toString();
+            int nb = Integer.valueOf(nombreentry.getText().toString());
+            String  nm = nomposteentry.getText().toString();
+            Utils.debug("addPoste", "debut "+dateDebut+" fin "+dateFin+ "nm : " +nm + " nb "+ nb);
+            ApiRequestPost.postPosteUpdate(context,Bdd.getValue(),idPoint,nm,nb,dateDebut,dateFin,idPoste);
+        }
 
     }
 
-    public static void updateinfo(){
 
+    public static void AddMission(){
 
-
-        valider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        ApiRequestPost.postMission(context,Bdd.getValue(),idPoste, missionEntry.getText().toString());
     }
 
     public static boolean isEmpty (EditText text){

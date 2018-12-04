@@ -20,6 +20,7 @@ import com.application.sed.raid_tracker_appli.RegisterVolunteersActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
+import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
@@ -45,6 +46,7 @@ public class ApiRequestPost {
     final static String urlOrganisateursRaids = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs/raids";
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
     final static String urlPrefPostes = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
+    final static String urlMission = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/missions";
 
 
 
@@ -138,6 +140,68 @@ public class ApiRequestPost {
         requestQueue.add(postRequest);
 
     }
+
+
+    /**
+     *
+     * Partie sur les MISSIONS
+     */
+    public static void postMission(final Context context, final String token, final String idPoste, final String objectif){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        Utils.debug("postMission", "idPoste " + idPoste+" objectif " + objectif);
+        try {
+            jsonObject.put("idPoste",idPoste);
+            jsonObject.put("objectif",objectif);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        Utils.debug("postMission",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlMission, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+
+                        Log.d("postMission", response.toString());
+
+
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                //   Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+
+
+        };
+        requestQueue.add(postRequest);
+
+    }
+
 
     public static void postRaid(final Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe, final boolean visibility){
 
@@ -501,6 +565,63 @@ public class ApiRequestPost {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }*/
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+        };
+        requestQueue.add(postRequest);
+
+    }
+
+    public static void postPosteUpdate(final Context context, final String token, final String idPoint, final String type, final int nombre, final String heureDebut, final String heureFin, final String idPoste){
+
+        Utils.debug("TAG", heureDebut + heureFin);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String urlFinale = urlPostes +'/'+idPoste;
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idPoint",idPoint);
+            jsonObject.put("type",type);
+            jsonObject.put("nombre",nombre);
+            jsonObject.put("heureDebut",heureDebut);
+            jsonObject.put("heureFin",heureFin);
+            jsonArray.put(jsonObject);
+            Utils.debug("TAG",jsonObject.toString(2));
+        }catch (Exception e){
+
+        }
+
+        // Utils.debug("CreateRaid",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlFinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+                        EditPosteActivity.AddMission();
+                        Log.d("Response PosteUpdate", response.toString());
+
 
                     }
                 },
