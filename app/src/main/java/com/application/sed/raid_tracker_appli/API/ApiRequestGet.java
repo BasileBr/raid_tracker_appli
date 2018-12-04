@@ -179,8 +179,7 @@ public class ApiRequestGet {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
+                    
 
                         // Process the JSON
                         try{
@@ -2139,7 +2138,7 @@ public class ApiRequestGet {
 
     //Get all raids benevoles of one user
 
-    public static void getAllRaidsofOneUser(final Context context, final String token,final String iduser, final String classe){
+    public static void getAllRaidsBenevolesofOneUser(final Context context, final String token,final String iduser, final String classe){
 
         String urlfinale = urlRaid+'/'+"benevoles"+'/'+"users"+'/'+iduser;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -2150,7 +2149,7 @@ public class ApiRequestGet {
                     public void onResponse(String response) {
                         Utils.debug("rep raid dispo ben",response);
                         if(classe.equals("LandingActivity")) {
-                            //LandingActivity.raidlistBenevole(response);
+                            LandingActivity.raidlistBenevole(response);
                         }
                         /*else if(classe.equals("InviteActivity")){
                             InviteVolunteersActivity.raidlist(response);
@@ -2325,6 +2324,7 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
 
+
                     }
 
                 },
@@ -2365,6 +2365,47 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+                    }
+
+                },
+                /**
+                 *
+                 */
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error.Response specific", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(getRequest);
+    }
+
+    //get repartitions via id_user et id_raid
+    public static void getRepartitionfromIdUserIdRaid(final Context context,final String token, final String idRaid,final String idUser){
+
+        String UrlFinale=urlRepartitions+'/'+"raids"+'/'+idRaid+'/'+"users"+'/'+idUser;
+        final RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
 
                     }
 

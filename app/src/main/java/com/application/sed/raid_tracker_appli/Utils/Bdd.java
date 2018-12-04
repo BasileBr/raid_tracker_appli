@@ -14,6 +14,7 @@ public class Bdd {
     private static ArrayList<Button> ListButton = new ArrayList<>();
     private static ArrayList<String> listIdRaid = new ArrayList<>();
     private static ArrayList<String> listIdPoste = new ArrayList<>();
+    private static ArrayList<String> listIdRaidBene = new ArrayList<>();
     private static String TAG = "Bdd";
     private static String nomUtilisateur;
     private static String response;
@@ -95,6 +96,14 @@ public class Bdd {
     public static ArrayList<String> getlistIdRaid(){
         return listIdRaid;
     }
+
+    public static void setListIdRaidBene(ArrayList<String> listidraidBene){
+        listIdRaidBene =listidraidBene;
+    }
+    public static ArrayList<String> getlistIdRaidBene(){
+        return listIdRaidBene;
+    }
+
 
     public static void setListIdPoste(ArrayList<String> listidposte){
         listIdPoste =listIdPoste;

@@ -162,7 +162,7 @@
                         android:layout_gravity="center">
 
                         <LinearLayout
-                            android:id="@+id/Myfuckinglayout"
+                            android:id="@+id/RaidLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -192,15 +192,20 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:src="@drawable/raidvide" />-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="70dp"/>
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/BenevoleLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
                 </RelativeLayout>
 
                 <TextView
