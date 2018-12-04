@@ -31,6 +31,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -61,7 +62,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private String value;
     private String id;
     private static ArrayList<String> listIdRaid = new ArrayList<>();
-    private static ArrayList<String> listid;
+    //private static ArrayList<String> listid;
     private static String nomRaid;
     public static String idRaid = "0";
     public static int cptid;
@@ -256,18 +257,17 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     public static void raidlistBenevole(String response){
         Utils.debug("raidlist", "JE suis ici");
-        ArrayList<Button> listButtonBene;
-        listButtonBene = new ArrayList<>();
-        int k;
-        int taille = listidRaidBenevolesUser.size();
-        Utils.debug("raid", "raid : " + listidRaidBenevolesUser.toString() + " taille : " + taille);
-        for (k = taille - 1; k > -1; k--) {
+        ArrayList<Button> listButtonBene = new ArrayList<>();
+        int kbene;
+        int taillebene = listidRaidBenevolesUser.size();
+        Utils.debug("raid", "raid : " + listidRaidBenevolesUser.toString() + " taille : " + taillebene);
+        for (kbene = taillebene - 1; kbene > -1; kbene--) {
 
-            listidRaidBenevolesUser.remove(k);
-            Utils.debug("taille", "Je suis dans la boucle " + k);
+            listidRaidBenevolesUser.remove(kbene);
+            Utils.debug("taille", "Je suis dans la boucle " + kbene);
         }
 
-        Utils.debug("raid ", "taille : " + taille + " Raid list " + listidRaidBenevolesUser.toString());
+        Utils.debug("raid ", "taille : " + taillebene + " Raid list " + listidRaidBenevolesUser.toString());
         //String response = Bdd.getListFromApi();
         JsonParser parser = new JsonParser();
         JsonArray raidlistbene = (JsonArray) parser.parse(response);
@@ -298,7 +298,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         Utils.debug("raid", "idRaid " + listidRaidBenevolesUser.toString());
 
         Bdd.setListIdRaidBene(listidRaidBenevolesUser);
-        Utils.debug("raid", "idRaid " + Bdd.getlistIdRaid().toString());
+        Utils.debug("raid", "idRaid " + Bdd.getlistIdRaidBene().toString());
         for (int i = 0; i < listButtonBene.size(); i++) {
 
             Utils.debug("Rajout des boutons", "Valeurs de i" + i);
@@ -318,8 +318,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     public static void ButtonListBenevole(ArrayList<Button> listButton) {
 
 //        ArrayList<Button> listButton = new ArrayList<>();
-        listid = new ArrayList<>();
-        listid = Bdd.getlistIdRaidBene();
+        final ArrayList<String> listid = Bdd.getlistIdRaidBene();
         Utils.debug("raid list", listid.toString());
 
         for (int k = 0; k< listButton.size(); k++) {
@@ -402,15 +401,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         buttonlist(listButton);
     }
 
-    public static void buttonlist(ArrayList<Button> listButton) {
+    public static void buttonlist(ArrayList<Button> listButton2) {
 
 //        ArrayList<Button> listButton = new ArrayList<>();
-        listid = new ArrayList<>();
-        listid = Bdd.getlistIdRaid();
+
+        final ArrayList<String> listid = Bdd.getlistIdRaid();
         Utils.debug("raid list", listid.toString());
 
-        for (j = 0; j < listButton.size(); j++) {
-            final Button newButton = listButton.get(j);
+        for (int k  = 0; k < listButton2.size(); k++) {
+            final Button newButton = listButton2.get(k);
             //Bdd.setIdRaid(listIdRaid.get(j));
             newButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {

@@ -18,10 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
@@ -30,6 +32,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -52,6 +55,8 @@ import java.util.Date;
 public class ManageParcoursActivity extends AppCompatActivity {
 
     Toolbar toolbar1;
+
+    ImageButton fincalibration;
 
     MapView map = null;
     public static MapView map2 = null;
@@ -77,6 +82,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private static ArrayList<GeoPoint> listFinalePoste;
     private static String idParcours;
 
+    private static String idTrace;
 
     private String idRaid;
 
@@ -93,7 +99,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     CompassOverlay mCompassOverlay;
     MyLocationNewOverlay mLocationOverlay;
     RotationGestureOverlay mRotationGestureOverlay;
-    ArrayList<GeoPoint> trajet;
+    private static ArrayList<GeoPoint> trajet;
 
 
     @Override
@@ -108,6 +114,8 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
         //récupération de l'id de la toolbar
         toolbar1 = (Toolbar) findViewById(R.id.toolbar);
+
+        fincalibration= (ImageButton) findViewById(R.id.fincalibration);
 
         // on définit la toolbar dans notre activity
         setSupportActionBar(toolbar1);
@@ -157,16 +165,12 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
         Log.d("GPS", "onCreate");
 
-
-
-
-
-
         map2 = map;
 
         if( intent != null) {
 
             idParcours = intent.getStringExtra("idParcours");
+            Utils.debug("idParcous",idParcours);
             idRaid = intent.getStringExtra("idRaid");
             ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours);
 
@@ -193,6 +197,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
         //listInter = new ArrayListAnySize<>();
         listFinale = new ArrayList<>();
         listFinalePoste = new ArrayList<>();
+
         JsonParser parser = new JsonParser();
         JsonArray listPoints = (JsonArray) parser.parse(response);
 
@@ -208,10 +213,19 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
             GeoPoint newPoint;
             JsonObject myPoint = (JsonObject) listPoints.get(k);
+            Utils.debug("yvantest",myPoint.toString());
+
+            JsonObject jsonObject = myPoint.getAsJsonObject("idTrace");
+
+            idTrace = jsonObject.get("id").toString();
+
+            //Utils.debug("yvantest",idTrace);
             JsonElement lat = myPoint.get("lat");
             JsonElement lon = myPoint.get("lon");
             JsonElement ord = myPoint.get("ordre");
             JsonElement type = myPoint.get("type");
+
+
 
             Double longitude = lon.getAsDouble();
             Double latitude = lat.getAsDouble();
@@ -568,6 +582,24 @@ public class ManageParcoursActivity extends AppCompatActivity {
             line.setInfoWindow(new BasicInfoWindow(R.layout.bonuspack_bubble, map));
             map.getOverlayManager().add(line);
 
+            fincalibration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
+                   // locationManager.removeUpdates(ecouteurGPS);
+                   // ecouteurGPS = null;
+
+                    arreterLocalisation();
+
+                    ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
+
+
+                    }
+
+
+
+            });
+
             /*Marker tec = new Marker(myOpenMapView);
             tec.setPosition(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
             tec.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -668,6 +700,37 @@ public class ManageParcoursActivity extends AppCompatActivity {
         }
     };
 
+
+    public static void recupIdTrace(String idTrace){
+        for (int i=0;i<trajet.size();i++){
+
+            //Utils.debug("onClick",idTrace);
+            Double lon = trajet.get(i).getLongitude();
+            Double lat = trajet.get(i).getLatitude();
+            Utils.debug("NomPoint","Ordre : "+i+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
+
+                    /*Utils.debug("onClick"," long : "+ lon +" lat : "+lat);
+                    Utils.debug("onClick","k : "+String.valueOf(k) + " taille list point : " + String.valueOf(ListGeoPoint.size()));*/
+
+            if (i == 0){
+                //Point départ type = 1
+                //Utils.debug("onclick", "k if : "+String.valueOf(k));
+                ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,1, i, null);
+            }
+
+            else if ( trajet.size() - i ==1){
+                //Point arrivée type = 2
+                //Utils.debug("onclick", "k elseif : "+String.valueOf(k));
+                ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,2, i, null);
+            }
+            else {
+                //Point passage type = 0
+                //Utils.debug("onclick", "k else : "+String.valueOf(k));
+                ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,0, i, null);
+            }
+
+        }
+    }
     //fin partie calibration //
 
 

@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.CreateAccount;
+import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.RegisterVolunteersActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
@@ -408,7 +409,6 @@ public class ApiRequestPost {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idTrace",idTrace);
-
             jsonObject.put("lon",longitude);
             jsonObject.put("lat",latitude);
             jsonObject.put("type",type);
@@ -552,14 +552,26 @@ public class ApiRequestPost {
                     @Override
                     public void onResponse(JSONObject response) {
                         // response
+                        if (isCalibre.equals("-1")) {
 
+                            Log.d("Response creation trace", response.toString());
+                            try {
 
-                        Log.d("Response creation trace", response.toString());
-                        try {
-                            String idTrace = response.getString("id");
-                            CreateParcours.trace(idTrace);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                                String idTrace = response.getString("id");
+                                CreateParcours.trace(idTrace);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else if (isCalibre.equals("true")){
+                            String idTrace = null;
+                            try {
+                                idTrace = response.getString("id");
+                                ManageParcoursActivity.recupIdTrace(idTrace);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                        /* try {
                             String idRaid = response.getString("id");
