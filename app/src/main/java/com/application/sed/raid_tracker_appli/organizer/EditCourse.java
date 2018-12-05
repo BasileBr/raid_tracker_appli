@@ -84,6 +84,7 @@ public class EditCourse extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(EditCourse.this, CourseActivity.class);
+                    intent.putExtra("idRaid",idRaid);
                     startActivity(intent);
                 }
             });
