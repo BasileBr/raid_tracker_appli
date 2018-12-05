@@ -69,7 +69,7 @@
             android:name=".organizer.EditCourse"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".helper.EditPosteActivity"
+            android:name=".organizer.EditPosteActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".PosteDescription"></activity>
     </application>

@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli.helper;
+package com.application.sed.raid_tracker_appli.organizer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -62,6 +62,9 @@ public class EditPosteActivity extends AppCompatActivity {
     public static String idPoint;
     public static String idPoste;
 
+    public static int upMission = 0;
+    public static String  idMission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,8 @@ public class EditPosteActivity extends AppCompatActivity {
             context = this;
             idPoste = intent.getStringExtra("idPoste");
             Utils.debug("EditPosteActicity",context.toString());
-            Utils.debug("EditPosteActicity", String.valueOf(context.toString().contains("com.application.sed.raid_tracker_appli.helper.EditPosteActivity")));
+            Utils.debug("EditPosteActicity", String.valueOf(context.toString().contains("com.application.sed.raid_tracker_appli.organizer.EditPosteActivity")));
+
 
 
             nomposte = findViewById(R.id.nomposte);
@@ -133,6 +137,7 @@ public class EditPosteActivity extends AppCompatActivity {
             });
 
 
+            ApiRequestGet.getMissionsofOnePoste(context,Bdd.getValue(),Integer.valueOf(idPoste));
             ApiRequestGet.getOnePoste(context, Bdd.getValue(), idPoste);
         }
     }
@@ -230,11 +235,34 @@ public class EditPosteActivity extends AppCompatActivity {
 
     public static void AddMission(){
 
-        ApiRequestPost.postMission(context,Bdd.getValue(),idPoste, missionEntry.getText().toString());
+        if (upMission == 0) {
+            ApiRequestPost.postMission(context, Bdd.getValue(), idPoste, missionEntry.getText().toString());
+        }
+        else if (upMission == 1){
+            ApiRequestPost.postUpdateMission(context, Bdd.getValue(), idPoste, missionEntry.getText().toString(), idMission);
+        }
+        Intent intent =  new Intent(context, ManageVolunteersPositionActivity.class);
+
+
+        //Id du parcours qu'on veut récupérer
+        intent.putExtra("idPoste",idPoste);
+        intent.putExtra("idRaid",idRaid);
+        context.startActivity(intent);
     }
 
     public static boolean isEmpty (EditText text){
         CharSequence str= text.getText().toString();
         return TextUtils.isEmpty(str);
+    }
+
+    public static void UpdateMission(String response){
+
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = (JsonArray) parser.parse(response);
+
+        JsonObject jsonObject = (JsonObject) jsonArray.get(0);
+        upMission = 1;
+        idMission = jsonObject.get("id").toString();
+        missionEntry.setText(jsonObject.get("objectif").toString().replace("\"", " "));
     }
 }

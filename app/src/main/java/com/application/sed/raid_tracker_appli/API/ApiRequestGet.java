@@ -21,7 +21,7 @@ import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.helper.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.WelcomeActivity;
-import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
+import com.application.sed.raid_tracker_appli.organizer.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -566,6 +566,7 @@ public class ApiRequestGet {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Error.Response specific", error.toString());
+
                     }
                 }
         ){
@@ -588,7 +589,7 @@ public class ApiRequestGet {
 
 
     //Get missions of one poste
-    public static void getMissionsofOnePoste(Context context, final String token, final Integer id_poste ){
+    public static void getMissionsofOnePoste(final Context context, final String token, final Integer id_poste ){
 
         String urlFinale=urlMissions+'/'+"postes"+'/'+id_poste;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -597,7 +598,12 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        VolunteerPreferenceActivity.getMission(response);
+                        if (context.toString().contains("VolunteerPreferenceActivity")){
+                            VolunteerPreferenceActivity.getMission(response);
+                        }
+                        if (context.toString().contains("EditPosteActivity")){
+                            EditPosteActivity.UpdateMission(response);
+                        }
                     }
 
                 },
@@ -1719,7 +1725,7 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(context.toString().contains("com.application.sed.raid_tracker_appli.helper.EditPosteActivity")){
+                        if(context.toString().contains("com.application.sed.raid_tracker_appli.organizer.EditPosteActivity")){
                             EditPosteActivity.AfficheInfoPoste(response);
                         }
                     }

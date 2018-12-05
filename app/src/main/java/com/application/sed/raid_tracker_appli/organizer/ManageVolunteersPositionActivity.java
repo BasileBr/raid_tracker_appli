@@ -15,7 +15,6 @@ import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

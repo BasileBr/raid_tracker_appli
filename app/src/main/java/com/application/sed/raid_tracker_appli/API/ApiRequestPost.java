@@ -19,7 +19,7 @@ import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.helper.VolunteerPreferenceActivity;
-import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
+import com.application.sed.raid_tracker_appli.organizer.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.application.sed.raid_tracker_appli.organizer.CreateCourse;
 import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
@@ -199,6 +199,63 @@ public class ApiRequestPost {
 
     }
 
+    public static void postUpdateMission(final Context context, final String token, final String idPoste, final String objectif, final String idMission){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String urlFinale = urlMission+"/"+idMission;
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        Utils.debug("postMission", "idPoste " + idPoste+" objectif " + objectif);
+        try {
+            jsonObject.put("idPoste",idPoste);
+            jsonObject.put("objectif",objectif);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        Utils.debug("postMission",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlFinale, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+
+                        Log.d("postMission", response.toString());
+
+
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //super.getHeaders();
+
+                Map<String, String> header = new HashMap<>();
+                String auth;
+                //   Utils.debug("Header",token);
+                //header.put("Content-Type", "application/json");
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+
+
+        };
+        requestQueue.add(postRequest);
+
+    }
+
 
     public static void postRaid(final Context context, final String token, final String name, final String lieu, final String date, final String edition, final String equipe, final boolean visibility){
 
@@ -315,6 +372,7 @@ public class ApiRequestPost {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+
                     }
                 }
         ) {
