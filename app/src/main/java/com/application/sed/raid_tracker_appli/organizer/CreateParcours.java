@@ -322,6 +322,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
     public static void trace(String id){
         idTrace = id;
+        Utils.debug("TAG",idTrace);
 
     }
     //initialisation de compteur pour tester si on peut ajouter un nouveau drapeau
