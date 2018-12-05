@@ -102,8 +102,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
              btn.setX(200);
              btn.setBackgroundResource(R.color.black);
-             btn.getBackground().setAlpha(125);
+
              btn.setTextColor(context.getResources().getColor(R.color.Blancnacre));
+            btn.getBackground().setAlpha(100);
             //btn.setHeight(150);
             //btn.setBackgroundColor(80000000);
 
@@ -123,7 +124,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
             ll.setBackgroundResource(R.drawable.coureur2);
-            ll.getBackground().setAlpha(200);
+            ll.getBackground().setAlpha(150);
 
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)layout.getLayoutParams();
             params.setMargins(30, 0, 35, 0); //substitute parameters for left, top, right, bottom

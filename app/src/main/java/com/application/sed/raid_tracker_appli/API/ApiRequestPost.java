@@ -362,7 +362,7 @@ public class ApiRequestPost {
 
                         try {
                             String idParcours = response.getString("id");
-                            ApiRequestPost.postTrace(context,token,idParcours,"false");
+                            ApiRequestPost.postTrace(context,token,idParcours,"-1");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

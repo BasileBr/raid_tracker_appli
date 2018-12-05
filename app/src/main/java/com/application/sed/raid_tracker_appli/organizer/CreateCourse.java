@@ -428,7 +428,7 @@ public class CreateCourse extends AppCompatActivity {
         //nom de l'équipe organisatrice
         organizer_team = (EditText) findViewById(R.id.organizer_team);
 
-        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+      /*  getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
 
         //kayak selectionné ?
         getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
@@ -455,7 +455,7 @@ public class CreateCourse extends AppCompatActivity {
 
         //afficher l'erreur sur la ligne selectionner les sports
 
-        choosesports = (TextView) findViewById(R.id.choosesport);
+        choosesports = (TextView) findViewById(R.id.choosesport);*/
 
         //afficher l'erreur sur la ligne selectdate
 
@@ -524,7 +524,7 @@ public class CreateCourse extends AppCompatActivity {
 
 
         //vérifie si un sport est selectionné
-        if(!getitem.isChecked()&& !getitem2.isChecked()&& !getitem3.isChecked() && !getitem4.isChecked()){
+       /* if(!getitem.isChecked()&& !getitem2.isChecked()&& !getitem3.isChecked() && !getitem4.isChecked()){
             choosesports.setError("aucun sport selectionné");
 
         }
@@ -561,22 +561,22 @@ public class CreateCourse extends AppCompatActivity {
 
             Utils.info("coherent","oui");
             checkcoherence=1;
-        }
+        }*/
 
 
-        if(checknameraid==1 && checklieu ==1 && checkdate==1 && checkedition ==1 && checkteamname ==1 && checkcoherence==1){
+        if(checknameraid==1 && checklieu ==1 && checkdate==1 && checkedition ==1 && checkteamname ==1 ){
 
             myListe =  new ArrayList<>();
             recupere = name_raid.getText().toString();
             recupere1 = lieu.getText().toString();
             recupere2= edition.getText().toString();
             recupere3 = organizer_team.getText().toString();
-            recupere4= getitem.getText().toString();
+            /*recupere4= getitem.getText().toString();
             recupere5=getitem2.getText().toString();
             recupere6=getitem3.getText().toString();
             recupere7=getitem4.getText().toString();
             recupere8=getitem5.getText().toString();
-            recupere9=getitem6.getText().toString();
+            recupere9=getitem6.getText().toString();*/
 
 
             myListe.add(recupere);  // récupère le nom du raid
@@ -586,13 +586,13 @@ public class CreateCourse extends AppCompatActivity {
 
             myListe.add(recupere2); // L'édition
             myListe.add(recupere3); // le nom de l'équipe organisatrice
-            myListe.add(recupere4);
+            /*myListe.add(recupere4);
             myListe.add(recupere4);
             myListe.add(recupere5);
             myListe.add(recupere6);
             myListe.add(recupere7);
             myListe.add(recupere8);
-            myListe.add(recupere9);
+            myListe.add(recupere9);*/
 
 //trop long
 //            if(getitem.isChecked() && getitem5.isChecked()){
