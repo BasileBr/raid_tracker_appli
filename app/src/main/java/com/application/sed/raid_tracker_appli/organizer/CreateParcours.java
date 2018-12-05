@@ -901,7 +901,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         final LinearLayout ll4 = new LinearLayout(context);
         final TextView heurefin = new TextView(context);
-        heurefin.setText("Date/heure début");
+        heurefin.setText("Date/heure de fin");
 
         final EditText anneefinEntry = new EditText(context);
         anneefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
