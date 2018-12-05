@@ -21,6 +21,7 @@ import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.WelcomeActivity;
+import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -1215,7 +1216,7 @@ public class ApiRequestGet {
     public static void getPointsfromSpecificTrace(Context context, final String token, final int id) {
 
         String UrlFinale = urlPoints + '/' + "traces"+'/'+id;
-        Utils.debug("getPointsfromSpecificTrace", UrlFinale);
+        Utils.debug("getAllRaids", UrlFinale);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, UrlFinale,
                 new Response.Listener<String>() {
@@ -1721,7 +1722,9 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        if(context.toString().contains("com.application.sed.raid_tracker_appli.helper.EditPosteActivity")){
+                            EditPosteActivity.AfficheInfoPoste(response);
+                        }
                     }
 
                 },
@@ -1937,7 +1940,7 @@ public class ApiRequestGet {
     //get all raids
     public static void getAllRaids(final Context context, final String classe){
 
-        String urlfinale = urlRaid+'/'+"visible"+'/'+"all";
+        String urlfinale = urlRaid+"/visible/all";
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
                 new Response.Listener<String>() {
@@ -2547,15 +2550,7 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        JsonArray jsonArray;
-                        JsonParser jsonParser = new JsonParser();
-                        JsonObject jsonObject;
-                        jsonArray = (JsonArray) jsonParser.parse(response);
-                        jsonObject = (JsonObject) jsonArray.get(0);
-                        String idParcours = jsonObject.get("id").toString();
-                        //Utils.debug("getSpecificTraceFromParcours",jsonArray.get(0).toString());
-
-                        ApiRequestGet.getPointsfromSpecificTrace(context, token, Integer.valueOf(idParcours));
+                        ManageParcoursActivity.recupTrace(response);
                     }
 
                 },

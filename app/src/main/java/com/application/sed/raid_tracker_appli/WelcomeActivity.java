@@ -49,7 +49,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         // Here, thisActivity is the current activity
-        Utils.Permission(this);
+        Utils.Permissionlocation(this);
+        Utils.Permissioncoarselocation(this);
+        Utils.Permissionexternalstorage(this);
+        Utils.Permissionnetworkstate(this);
+        Utils.Permissionreadexternalstorage(this);
 
         layout = (LinearLayout)findViewById(R.id.ListeRaid);
         ApiRequestGet.getAllRaids(context,"WelcomeActivity");

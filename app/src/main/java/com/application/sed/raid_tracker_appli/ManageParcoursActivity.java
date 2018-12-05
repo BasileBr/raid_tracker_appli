@@ -186,11 +186,29 @@ public class ManageParcoursActivity extends AppCompatActivity {
             });
 
         }
-        else {
-            ApiRequestGet.getSpecificTraceFromParcours(ctx, Bdd.getValue(), "30");
-        }
     }
 
+    public static void recupTrace(String response){
+        JsonArray jsonArray;
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject;
+        jsonArray = (JsonArray) jsonParser.parse(response);
+
+        for (int i = 0; i < jsonArray.size(); i++){
+            jsonObject = (JsonObject) jsonArray.get(i);
+            String idTrace = jsonObject.get("id").toString();
+
+            ApiRequestGet.getPointsfromSpecificTrace(context, Bdd.getValue(), Integer.valueOf(idTrace));
+
+        }
+
+
+
+
+        //Utils.debug("getSpecificTraceFromParcours",jsonArray.get(0).toString());
+
+
+    }
     public static void recupParcours(String response){
 
         listGeoPoint = new ArrayList<>();

@@ -19,4 +19,210 @@
         app:title="Gestion d'un poste">
 
     </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/nomposte"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                style="@android:style/Widget.EditText"
+                android:text="@string/nompostes"
+                android:layout_marginEnd="10dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/nomposteentry"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="@string/nompostes"
+                />
+
+
+            <TextView
+                android:id="@+id/nombre"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
+                android:layout_height="wrap_content"
+                android:text="@string/nombrebene"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/nombreentry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="Nombre"
+                />
+
+            <TextView
+                android:id="@+id/debut"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
+                android:layout_height="wrap_content"
+                android:text="@string/debut"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/anneedebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="YYYY"
+                    />
+                <EditText
+                    android:id="@+id/moisdebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="MM"
+                    />
+                <EditText
+                    android:id="@+id/joursdebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="DD"
+                    />
+                <EditText
+                    android:id="@+id/heuredebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="HH"
+                    />
+                <EditText
+                    android:id="@+id/minutedebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="MM"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fin"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                style="@android:style/Widget.EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fin"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/anneefin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="YYYY"
+                    />
+                <EditText
+                    android:id="@+id/moisfin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="MM"
+                    />
+                <EditText
+                    android:id="@+id/joursfin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="DD"
+                    />
+                <EditText
+                    android:id="@+id/heurefin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="HH"
+                    />
+                <EditText
+                    android:id="@+id/minutefin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:hint="MM"
+                    />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/mission"
+                android:layout_marginTop="20dp"
+                android:color="@color/black"
+                android:layout_width="wrap_content"
+                style="@android:style/Widget.EditText"
+                android:layout_height="wrap_content"
+                android:text="@string/mission"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/missionentry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="mission"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/annuler"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/cancel" />
+
+
+                <Button
+                    android:id="@+id/valider"
+                    android:layout_width="150dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="100dp"
+                    android:onClick="updateinfo"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/annuler"
+                    android:text="@string/valide" />
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

@@ -67,4 +67,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Activity Edit Poste -->
+    <string name="nompostes">Nom du poste</string>
+    <string name="nombrebene">Nombre de bénévoles au poste :</string>
+    <string name="debut">Date et heure de debut du poste</string>
+    <string name="fin">Date et heure de fin du poste</string>
+    <string name="mission">Mission du poste :</string>
 </resources>
