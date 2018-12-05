@@ -461,17 +461,19 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             //affectation des valeurs
             textView.setText(entry.getValue() + '\n' + "Rejoignez l\'aventure");
             textView.setTextColor(context.getResources().getColor(R.color.black));
+            textView.setX(20);
+
             button.setText("Rejoins-nous !");
             button.setTag(entry.getKey());
 
-            button.setLeft(200);
+            button.setX(200);
             button.setBackgroundResource(R.color.black);
-            button.getBackground().setAlpha(125);
+            button.getBackground().setAlpha(100);
             button.setTextColor(context.getResources().getColor(R.color.Blancnacre));
 
 
 
-            // Create LinearLayout
+           /* // Create LinearLayout
             LinearLayout ll = new LinearLayout(context);
 
 
@@ -488,6 +490,29 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
             listRaidstoJoin.add(button);
+
+            layout.addView(ll);*/
+
+            // Create LinearLayout
+            LinearLayout ll = new LinearLayout(context);
+
+
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 150);
+
+            ll.addView(textView);
+            ll.addView(button,layoutParams);
+
+
+            ll.setBackgroundResource(R.drawable.coureur2);
+            ll.getBackground().setAlpha(150);
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)layout.getLayoutParams();
+            params.setMargins(30, 0, 35, 0); //substitute parameters for left, top, right, bottom
+            layout.setLayoutParams(params);
+
+            listRaidstoJoin.add(button);
+
 
             layout.addView(ll);
 

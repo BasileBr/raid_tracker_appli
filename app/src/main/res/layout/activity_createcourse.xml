@@ -135,107 +135,249 @@
                 />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                style="@android:style/Widget.EditText"
-                android:id="@+id/choosesport"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Choisissez les sports" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--style="@android:style/Widget.EditText"-->
+                <!--android:id="@+id/choosesport"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="20dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:text="Choisissez les sports" />-->
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:columnCount="2"
-                android:rowCount="5">
+            <!--<GridLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:columnCount="2"-->
+                <!--android:rowCount="5">-->
 
-                <TextView
-                    android:layout_column="0"
-                    android:id="@+id/sports"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:layout_rowWeight="1"
-                    android:textSize="15sp"
-                    android:text="Les sports" />
+                <!--<TextView-->
+                    <!--android:layout_column="0"-->
+                    <!--android:id="@+id/sports"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="0"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:text="Les sports" />-->
 
-                <TextView
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:layout_rowWeight="1"
-                    android:text="Les surfaces" />
+                <!--<TextView-->
+                    <!--android:layout_column="1"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="0"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:text="Les surfaces" />-->
 
-                <CheckBox
-                    android:id="@+id/checkbox_kayak"
-                    android:layout_column="0"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:layout_rowWeight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kayak"
-                    android:onClick="onCheckboxClicked"/>
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_kayak"-->
+                    <!--android:layout_column="0"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="1"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Kayak"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
 
-                    <CheckBox
-                    android:id="@+id/checkbox_water"
-                    android:layout_column="1"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:layout_rowWeight="1"
-                    android:text="Milieu aquatique"
-                    android:onClick="onCheckboxClicked"/>
 
-                <CheckBox
-                    android:id="@+id/checkbox_natation"
-                    android:layout_marginTop="5dp"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_row="2"
-                    android:layout_rowWeight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Natation"
-                    android:onClick="onCheckboxClicked"/>
 
-                <CheckBox
-                    android:id="@+id/checkbox_velo"
-                    android:layout_column="0"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:layout_row="3"
-                    android:layout_rowWeight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vélo"
-                    android:onClick="onCheckboxClicked"/>
+                    <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_water"-->
+                    <!--android:layout_column="1"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="1"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:text="Milieu aquatique"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
 
-                <CheckBox
-                    android:id="@+id/checkbox_terre"
-                    android:layout_column="1"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:layout_row="2"
-                    android:layout_rowWeight="1"
-                    android:text="Milieu terrestre"
-                    android:onClick="onCheckboxClicked"/>
 
-                <CheckBox
-                    android:id="@+id/checkbox_coursepied"
-                    android:layout_column="0"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:layout_row="4"
-                    android:layout_rowWeight="1"
-                    android:text="Course à pied"
-                    android:onClick="onCheckboxClicked"/>
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_natation"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_column="0"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="2"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Natation"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
 
-            </GridLayout>
 
-            <RelativeLayout
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_velo"-->
+                    <!--android:layout_column="0"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="3"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Vélo"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
+
+
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_terre"-->
+                    <!--android:layout_column="1"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="2"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:text="Milieu terrestre"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
+
+
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkbox_coursepied"-->
+                    <!--android:layout_column="0"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_columnWeight="1"-->
+                    <!--android:layout_row="4"-->
+                    <!--android:layout_rowWeight="1"-->
+                    <!--android:text="Course à pied"-->
+                    <!--android:onClick="onCheckboxClicked"/>-->
+
+
+
+
+
+
+
+
+
+            <!--</GridLayout>-->
+
+
+            <!--</android.support.v4.widget.NestedScrollView>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/text8"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:color="@color/black"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/choosesports"-->
+                <!--android:textSize="18sp" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/text9"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:color="@color/black"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Type de surface"-->
+                <!--android:textSize="18sp" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="180dp"-->
+            <!--android:orientation="horizontal">-->
+
+
+            <!--<android.support.v4.widget.NestedScrollView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="180dp">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal">-->
+
+
+                <!--<LinearLayout-->
+
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_meat"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Kayak"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_cheese"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Vélo"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_meat1"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Natation"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_cheese1"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Course à pied"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_meat2"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Kayak"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_cheese2"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="test2"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_meat3"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Kayak"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<CheckBox&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/checkbox_cheese3"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="test2"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:onClick="onCheckboxClicked"/>&ndash;&gt;-->
+                <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+        <!--</android.support.v4.widget.NestedScrollView>-->
+        <!--</LinearLayout>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text5"-->
+            <!--android:layout_marginTop="20dpp"-->
+            <!--android:color="@color/black"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Type de sport"-->
+            <!--android:textSize="18sp" />-->
+
+        <!--<Spinner-->
+            <!--android:id="@+id/spinner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
