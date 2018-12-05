@@ -263,6 +263,6 @@ public class EditPosteActivity extends AppCompatActivity {
         JsonObject jsonObject = (JsonObject) jsonArray.get(0);
         upMission = 1;
         idMission = jsonObject.get("id").toString();
-        missionEntry.setText(jsonObject.get("objectif").toString().replace("\"", " "));
+        missionEntry.setText(jsonObject.get("objectif").toString().replace("\"", ""));
     }
 }
