@@ -53,14 +53,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".ManageParcoursActivity"
+            android:name=".organizer.ManageParcoursActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".ManageVolunteersPositionActivity"
+            android:name=".organizer.ManageVolunteersPositionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".VolunteerPreferenceActivity"
+            android:name=".helper.VolunteerPreferenceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".InviteVolunteersActivity"

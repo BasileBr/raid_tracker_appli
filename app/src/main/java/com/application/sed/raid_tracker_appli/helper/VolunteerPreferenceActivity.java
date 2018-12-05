@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,24 +6,22 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
+import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -41,8 +39,6 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class VolunteerPreferenceActivity extends AppCompatActivity implements OnItemSelectedListener{
     MapView map = null;

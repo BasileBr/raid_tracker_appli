@@ -1,34 +1,21 @@
 package com.application.sed.raid_tracker_appli;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.mail.imap.Rights;
-
-import org.osmdroid.util.GeoPoint;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 
 public class WelcomeActivity extends AppCompatActivity {

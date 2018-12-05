@@ -15,16 +15,14 @@ import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
-import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
-import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
+import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
+import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.VolunteerPreferenceActivity;
+import com.application.sed.raid_tracker_appli.helper.VolunteerPreferenceActivity;
 import com.application.sed.raid_tracker_appli.WelcomeActivity;
 import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
 import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -32,7 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Struct;
 import java.util.HashMap;
 import java.util.Map;
 

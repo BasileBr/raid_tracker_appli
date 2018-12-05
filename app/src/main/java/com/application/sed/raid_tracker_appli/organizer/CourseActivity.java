@@ -2,7 +2,6 @@ package com.application.sed.raid_tracker_appli.organizer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.StyleableRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +17,6 @@ import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.ManageParcoursActivity;
-import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;

@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -7,16 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.helper.EditPosteActivity;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

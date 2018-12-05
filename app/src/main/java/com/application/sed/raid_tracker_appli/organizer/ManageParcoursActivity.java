@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.organizer;
 
 import android.Manifest;
 import android.content.Context;
@@ -24,15 +24,14 @@ import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
+import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;

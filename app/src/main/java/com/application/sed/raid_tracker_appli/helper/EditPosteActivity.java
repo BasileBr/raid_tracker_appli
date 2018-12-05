@@ -13,12 +13,10 @@ import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.LandingActivity;
-import com.application.sed.raid_tracker_appli.ManageVolunteersPositionActivity;
+import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
