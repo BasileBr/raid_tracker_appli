@@ -212,7 +212,8 @@ public class EditCourse extends AppCompatActivity {
      */
     public void cancel(View view) {
             Intent intent = new Intent(EditCourse.this, CourseActivity.class);
-        startActivity(intent);
+            intent.putExtra("idRaid",idRaid);
+            startActivity(intent);
     }
 
     //vérifie qu'un élement editext n'est pas vide
