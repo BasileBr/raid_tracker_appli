@@ -97,6 +97,7 @@ public class CourseActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+                    intent.putExtra("idRaid",idRaid);
                     startActivity(intent);
 
                 }
