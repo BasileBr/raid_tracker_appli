@@ -68,6 +68,7 @@ public class EditCourse extends AppCompatActivity {
             toolbar2 = findViewById(R.id.toolbar3);
 
 
+            idRaid= intent.getStringExtra("idRaid");
             //definir notre toolbar en tant qu'actionBar
             setSupportActionBar(toolbar2);
 
@@ -134,7 +135,7 @@ public class EditCourse extends AppCompatActivity {
             };
 
             Utils.debug("EditCourse","je rentre ici");
-            idRaid= intent.getStringExtra("idRaid");
+
 
 
         }
