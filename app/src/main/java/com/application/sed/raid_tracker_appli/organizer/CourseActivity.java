@@ -335,7 +335,7 @@ public class CourseActivity extends AppCompatActivity {
                 if (simpleSwitch.isChecked()) {
                     setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
 
-                    nom = "ENSSAT RAID 100";
+                    //nom = "ENSSAT RAID 100";
                     ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
 
                     //LandingActivity.diffuserRaid();
@@ -345,7 +345,7 @@ public class CourseActivity extends AppCompatActivity {
 
                 } else if (!simpleSwitch.isChecked()){
                     setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
-                    nom = "ENSSAT RAID 100";
+                    //nom = "ENSSAT RAID 100";
                     ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
                     Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
                     startActivity(intent);
