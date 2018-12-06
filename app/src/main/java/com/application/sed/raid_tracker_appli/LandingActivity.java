@@ -327,9 +327,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                     //Utils.debug("CourseActivity","idraid : "+listIdRaid.get(j)+" j:"+j);
                     String idraid = listid.get(id);
                     Utils.debug("CourseActivity", "idraid :" + idraid);
-                    Intent intent = new Intent(context, CourseActivity.class);
-                    intent.putExtra("idRaid", idraid);
-                    context.startActivity(intent);
+                    //Intent intent = new Intent(context, CourseActivity.class);
+                    //intent.putExtra("idRaid", idraid);
+                    //context.startActivity(intent);
 
                 }
             });
