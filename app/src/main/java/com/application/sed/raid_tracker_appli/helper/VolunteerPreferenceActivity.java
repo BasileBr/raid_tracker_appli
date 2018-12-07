@@ -21,6 +21,7 @@ import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -283,6 +284,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     //ajouter un bénévole à un raid
     public static void  validerPreference(View view) {
         ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
+        Intent intent = new Intent(context, LandingActivity.class);
+        //intent.putExtra("idRaid", idraid);
+        context.startActivity(intent);
 
 
     }
