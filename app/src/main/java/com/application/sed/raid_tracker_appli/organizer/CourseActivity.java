@@ -52,6 +52,7 @@ public class CourseActivity extends AppCompatActivity {
     private static Context context;
 
 
+
     private static LinearLayout ll;
     private static String idRaid;
 
