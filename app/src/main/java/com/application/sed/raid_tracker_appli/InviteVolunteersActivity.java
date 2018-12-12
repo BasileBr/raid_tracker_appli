@@ -133,7 +133,7 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
 
         final ArrayList<String> mailListe = new ArrayList<String>();
 
-        if (getmail1.isEmpty()){
+        if (!getmail1.isEmpty()){
             mailListe.add(getmail1);
         }
         if (!getmail2.isEmpty()){

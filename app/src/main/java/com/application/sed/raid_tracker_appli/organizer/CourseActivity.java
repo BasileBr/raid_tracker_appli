@@ -103,41 +103,6 @@ public class CourseActivity extends AppCompatActivity {
                 }
             });
 
-            /*Context ctx = getApplicationContext();
-            Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));*/
-
-            //création de la map
-           map = (MapView) findViewById(R.id.map);
-            map = (MapView) findViewById(R.id.map);
-            map.setTileSource(TileSourceFactory.MAPNIK);
-            map.setBuiltInZoomControls(true);
-            map.setMultiTouchControls(true);
-
-            map.setClickable(true);
-            map.setFocusable(true);
-            map.setDuplicateParentStateEnabled(false);
-
-            //positionnement lors de l'ouverture de la carte
-            IMapController mapController = map.getController();
-            mapController.setZoom(9.0);
-            GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
-            mapController.setCenter(centermap);
-
-            //géolocaliser l'appareil
-            //MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-            //mLocationOverlay.enableMyLocation();
-            //map.getOverlays().add(mLocationOverlay);
-
-            // ajouter l'echelle
-            ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
-            map.getOverlays().add(myScaleBarOverlay);
-
-            // ajouter boussolle
-            CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
-            mCompassOverlay.enableCompass();
-            map.getOverlays().add(mCompassOverlay);
-
-            map.getOverlays().add(mCompassOverlay);
 
 
             // bouton switch pour la visiblité du raid
@@ -146,32 +111,6 @@ public class CourseActivity extends AppCompatActivity {
             //texte associé à la visibilité du raid
            setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
 
-            //final String switch_value="coucou";
-
-            //message lorsque rien n'est sélectionné
-            //setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
-
-
-
-
-            // garder la position du switch
-            //boolean value = false; // default value if no value was found
-           /* final SharedPreferences sharedPreferences = getSharedPreferences("isChecked", 0);
-            //value = sharedPreferences.getBoolean("isChecked",value); // retrieve the value of your key
-            //simpleSwitch.setChecked(value);
-
-            simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        sharedPreferences.edit().putBoolean("isChecked", true).apply();
-                        setTextVisibility.setText("Le raid est partagé aux bénévoles");
-                    } else {
-                        sharedPreferences.edit().putBoolean("isChecked", false).apply();
-                        setTextVisibility.setText("Le raid n'est pas partagé aux bénévoles");
-                    }
-                }
-            });*/
 
             ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid);
 

@@ -2201,7 +2201,7 @@ public class ApiRequestGet {
                     public void onResponse(String response) {
                         Utils.debug("rep raid dispo ben",response);
                         if(classe.equals("LandingActivity")) {
-                            LandingActivity.raidlistBenevole(response);
+                           // LandingActivity.raidlistBenevole(response);
                         }
                         /*else if(classe.equals("InviteActivity")){
                             InviteVolunteersActivity.raidlist(response);
