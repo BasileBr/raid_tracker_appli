@@ -243,7 +243,7 @@ public class CourseActivity extends AppCompatActivity {
             Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
 
             JsonObject parcours = (JsonObject) parcourslist.get(i);
-            String nomParcours = parcours.get("nom").toString();
+            String nomParcours = parcours.get("nom").toString().replace("\"", " ");
             String idParcours = parcours.get("id").toString();
             myButton.setText("Nom :" + nomParcours);
 

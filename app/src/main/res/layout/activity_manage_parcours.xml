@@ -36,22 +36,77 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ScrollView
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@color/Blancnacre">
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:background="@color/Blancnacre"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content">
+
+                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:text="Outils :"/>
+
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/calibrationstart"
+                    android:onClick="startcalibration"
+                    android:background="@color/Blancnacre"
+                    android:src="@drawable/calibrationstart"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Démarrer calibration"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fincalibration"
+                    android:onClick="FinCalibration"
+                    android:background="@color/Blancnacre"
+                    android:src="@drawable/calibrationend"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="Fin de la calibration"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="40dp"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="Légende :"/>
+
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/greenflag"
                     android:background="@color/Blancnacre"
                     android:src="@drawable/green_flag2"
                     />
+
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:textAlignment="center"
@@ -109,36 +164,7 @@
                     android:textSize="15sp"
                     android:text="Point d'intérêt"/>
 
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/calibrationstart"
-                    android:onClick="startcalibration"
-                    android:background="@color/Blancnacre"
-                    android:src="@drawable/calibrationstart"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:text="Démarrer calibration"/>
 
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/fincalibration"
-                    android:background="@color/Blancnacre"
-                    android:src="@drawable/calibrationend"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:text="Fin de la calibration"/>
             </LinearLayout>
         </ScrollView>
 

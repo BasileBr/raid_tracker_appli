@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli.organizer;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -56,6 +58,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     Toolbar toolbar1;
 
     ImageButton fincalibration;
+    ImageButton startcalibration;
 
     MapView map = null;
     public static MapView map2 = null;
@@ -92,6 +95,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private TextView latitude;
     private TextView longitude;
     private TextView Adresse;
+    private Integer checkEndLocation=0;
+
+
 
     private MapView myOpenMapView;
     ScaleBarOverlay myScaleBarOverlay;
@@ -115,6 +121,11 @@ public class ManageParcoursActivity extends AppCompatActivity {
         toolbar1 = (Toolbar) findViewById(R.id.toolbar);
 
         fincalibration= (ImageButton) findViewById(R.id.fincalibration);
+        startcalibration=(ImageButton) findViewById(R.id.calibrationstart);
+
+
+        fincalibration.setEnabled(false);
+
 
         // on définit la toolbar dans notre activity
         setSupportActionBar(toolbar1);
@@ -166,6 +177,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
         map2 = map;
 
+
         if( intent != null) {
 
             idParcours = intent.getStringExtra("idParcours");
@@ -174,17 +186,106 @@ public class ManageParcoursActivity extends AppCompatActivity {
             ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours);
 
             Utils.debug("idRaidParcours",idRaid);
+
+
+            final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
             //si on appuie sur le bouton retour, on arrive sur la page X
             toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
-                    intent.putExtra("idRaid",idRaid);
-                    startActivity(intent);
+
+
+                    if (checkEndLocation==0){
+
+                        alert.setTitle("Quitter la page actuelle ?");
+                        //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
+                        alert.setCancelable(false);
+
+                        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utils.debug("cas normal","on stop la loca");
+                                arreterLocalisation();
+                                Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                                intent.putExtra("idRaid",idRaid);
+                                startActivity(intent);
+                            }
+                        });
+
+                        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        alert.show();
+                    } else {
+
+                        alert.setTitle("Quitter la page actuelle ?");
+                        //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
+                        alert.setCancelable(false);
+
+                        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utils.debug("cas critique","c'est maitrise");
+                                Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                                intent.putExtra("idRaid",idRaid);
+                                startActivity(intent);
+                            }
+                        });
+
+                        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        alert.show();
+                    }
+
                 }
+
+
             });
 
         }
+
+
+
+
+      /*  fincalibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
+                // locationManager.removeUpdates(ecouteurGPS);
+                // ecouteurGPS = null;
+                checkEndLocation=1;
+                arreterLocalisation();
+
+
+                ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
+
+
+            }
+
+
+
+        });*/
+    }
+    public void FinCalibration(View view){
+        Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
+        // locationManager.removeUpdates(ecouteurGPS);
+        // ecouteurGPS = null;
+        checkEndLocation=1;
+        arreterLocalisation();
+        ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
+        fincalibration.setEnabled(false);
+        startcalibration.setEnabled(false);
+        startcalibration.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
     }
 
     public static void recupTrace(String response){
@@ -235,8 +336,6 @@ public class ManageParcoursActivity extends AppCompatActivity {
             JsonObject jsonObject = myPoint.getAsJsonObject("idTrace");
 
             idTrace = jsonObject.get("id").toString();
-
-            //Utils.debug("yvantest",idTrace);
             JsonElement lat = myPoint.get("lat");
             JsonElement lon = myPoint.get("lon");
             JsonElement ord = myPoint.get("ordre");
@@ -487,7 +586,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        //arreterLocalisation();
+        arreterLocalisation();
     }
 
     private void initialiserLocalisation()
@@ -557,6 +656,8 @@ public class ManageParcoursActivity extends AppCompatActivity {
         mLocationOverlay.enableMyLocation();
         map.setMultiTouchControls(true);
         map.getOverlays().add(mLocationOverlay);
+        fincalibration.setEnabled(true);
+        startcalibration.setBackgroundColor(Color.rgb(209, 196, 190));
     }
 
     //partie calibration //
@@ -599,23 +700,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             line.setInfoWindow(new BasicInfoWindow(R.layout.bonuspack_bubble, map));
             map.getOverlayManager().add(line);
 
-            fincalibration.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
-                   // locationManager.removeUpdates(ecouteurGPS);
-                   // ecouteurGPS = null;
 
-                    arreterLocalisation();
-
-                    ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
-
-
-                    }
-
-
-
-            });
 
             /*Marker tec = new Marker(myOpenMapView);
             tec.setPosition(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));

@@ -107,7 +107,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
             Utils.debug(TAG, "je rentre ici");
 
-            nomutilisateur = Bdd.getNomUtilisateur();
+            nomutilisateur = Bdd.getNomUtilisateur().replace("\"", " ");
             this.nameofuser = findViewById(R.id.nameofuser);
             nameofuser.setText(nomutilisateur);
 
