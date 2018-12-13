@@ -92,6 +92,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private TextView latitude;
     private TextView longitude;
     private TextView Adresse;
+    private Integer checkEndLocation=0;
 
     private MapView myOpenMapView;
     ScaleBarOverlay myScaleBarOverlay;
@@ -178,13 +179,45 @@ public class ManageParcoursActivity extends AppCompatActivity {
             toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
-                    intent.putExtra("idRaid",idRaid);
-                    startActivity(intent);
+
+
+                    if (checkEndLocation==0){
+
+                        Utils.debug("cas normal","on stop la loca");
+                        arreterLocalisation();
+                        Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                        intent.putExtra("idRaid",idRaid);
+                        startActivity(intent);
+                    } else {
+                        Utils.debug("cas critique","c'est maitrise");
+                        Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                        intent.putExtra("idRaid",idRaid);
+                        startActivity(intent);
+                    }
+
                 }
             });
 
         }
+
+        fincalibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
+                // locationManager.removeUpdates(ecouteurGPS);
+                // ecouteurGPS = null;
+                checkEndLocation=1;
+                arreterLocalisation();
+
+
+                ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
+
+
+            }
+
+
+
+        });
     }
 
     public static void recupTrace(String response){
@@ -487,7 +520,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        //arreterLocalisation();
+        arreterLocalisation();
     }
 
     private void initialiserLocalisation()
@@ -599,23 +632,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             line.setInfoWindow(new BasicInfoWindow(R.layout.bonuspack_bubble, map));
             map.getOverlayManager().add(line);
 
-            fincalibration.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
-                   // locationManager.removeUpdates(ecouteurGPS);
-                   // ecouteurGPS = null;
 
-                    arreterLocalisation();
-
-                    ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
-
-
-                    }
-
-
-
-            });
 
             /*Marker tec = new Marker(myOpenMapView);
             tec.setPosition(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));

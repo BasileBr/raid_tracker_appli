@@ -7,7 +7,7 @@
     android:background="@color/Blancnacre"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start">
+   >
 
     <include
         layout="@layout/app_bar_main"
@@ -88,6 +88,7 @@
                     </HorizontalScrollView>
                 </RelativeLayout>
 
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,25 +101,25 @@
                     android:layout_height="wrap_content"
                     />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginTop="10dp">-->
 
-                    <HorizontalScrollView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center">
+                    <!--<HorizontalScrollView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center">-->
 
-                        <LinearLayout
-                            android:id="@+id/BenevoleLayout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                        <!--<LinearLayout-->
+                            <!--android:id="@+id/BenevoleLayout"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="horizontal">-->
 
-                        </LinearLayout>
-                    </HorizontalScrollView>
-                </RelativeLayout>
+                        <!--</LinearLayout>-->
+                    <!--</HorizontalScrollView>-->
+                <!--</RelativeLayout>-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -126,240 +127,6 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/listeraid" />
 
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/myImageView"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:alpha=".75"-->
-                        <!--android:cropToPadding="true"-->
-                        <!--android:src="@drawable/coureur2" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/myImageViewText"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignStart="@+id/myImageView"-->
-                        <!--android:layout_alignTop="@+id/myImageView"-->
-                        <!--android:layout_marginStart="20dp"-->
-                        <!--android:layout_marginTop="25dp"-->
-                        <!--android:text="@string/description"-->
-                        <!--android:textColor="#000000" />-->
-
-
-                    <!--<Button-->
-                        <!--android:id="@+id/join"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/myImageView"-->
-                        <!--android:layout_alignEnd="@+id/myImageView"-->
-                        <!--android:layout_alignBottom="@+id/myImageView"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:background="#4D000000"-->
-                        <!--android:onClick="join"-->
-                        <!--android:text="@string/join"-->
-                        <!--android:textColor="@color/white" />-->
-                <!--</RelativeLayout>-->
-
-
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/myImageView2"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:alpha=".75"-->
-                        <!--android:cropToPadding="true"-->
-                        <!--android:src="@drawable/coureur2" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/myImageViewText2"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignStart="@+id/myImageView2"-->
-                        <!--android:layout_alignTop="@+id/myImageView2"-->
-                        <!--android:layout_marginStart="20dp"-->
-                        <!--android:layout_marginTop="25dp"-->
-                        <!--android:text="@string/description"-->
-                        <!--android:textColor="#000000" />-->
-
-
-                    <!--<Button-->
-                        <!--android:id="@+id/join2"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/myImageView2"-->
-                        <!--android:layout_alignEnd="@+id/myImageView2"-->
-                        <!--android:layout_alignBottom="@+id/myImageView2"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:background="#4D000000"-->
-                        <!--android:onClick="join"-->
-                        <!--android:text="@string/join"-->
-                        <!--android:textColor="@color/white" />-->
-                <!--</RelativeLayout>-->
-
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/myImageView3"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:alpha=".75"-->
-                        <!--android:cropToPadding="true"-->
-                        <!--android:src="@drawable/coureur2" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/myImageViewText3"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignStart="@+id/myImageView3"-->
-                        <!--android:layout_alignTop="@+id/myImageView3"-->
-                        <!--android:layout_marginStart="20dp"-->
-                        <!--android:layout_marginTop="25dp"-->
-                        <!--android:text="@string/description"-->
-                        <!--android:textColor="#000000" />-->
-
-
-                    <!--<Button-->
-                        <!--android:id="@+id/join3"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/myImageView3"-->
-                        <!--android:layout_alignEnd="@+id/myImageView3"-->
-                        <!--android:layout_alignBottom="@+id/myImageView3"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:background="#4D000000"-->
-                        <!--android:onClick="join"-->
-                        <!--android:text="@string/join"-->
-                        <!--android:textColor="@color/white" />-->
-
-
-                <!--</RelativeLayout>-->
-
-                <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="150dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="150dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:text="clique "&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:onClick="createparcours"/>&ndash;&gt;-->
-
-
-                <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:adjustViewBounds="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:alpha=".75"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:cropToPadding="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:src="@drawable/coureur" />&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/myImageViewText2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignStart="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignTop="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginStart="52dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="82dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="@string/description"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="#000000" />&ndash;&gt;-->
-
-
-                    <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/join2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignTop="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignEnd="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignBottom="@+id/myImageView2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:background="#4D000000"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:onClick="join"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="@string/join"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="@color/white" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:adjustViewBounds="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:alpha=".75"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:cropToPadding="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:src="@drawable/coureur" />&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/myImageViewText3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignStart="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignTop="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginStart="52dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="82dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="@string/description"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="#000000" />&ndash;&gt;-->
-
-
-                    <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/join3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignTop="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignEnd="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_alignBottom="@+id/myImageView3"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:background="#4D000000"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:onClick="join"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="@string/join"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="@color/white" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:id="@+id/test2"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="coucou"-->
-                        <!--android:onClick="asupprimer"/>-->
-
-                    <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="clicque"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:onClick="createparcours"/>&ndash;&gt;-->
-                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
