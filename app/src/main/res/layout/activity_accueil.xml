@@ -103,7 +103,6 @@
                     android:onClick="login"
                     android:textColor="@color/Blancnacre"
                     android:background="@color/MarronPrimaire"
-
                     android:text="@string/connexion" />
 
 

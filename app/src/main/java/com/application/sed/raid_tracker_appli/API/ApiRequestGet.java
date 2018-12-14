@@ -1216,7 +1216,7 @@ public class ApiRequestGet {
     }
 
     // get all points of one trace
-    public static void getPointsfromSpecificTrace(Context context, final String token, final int id) {
+    public static void getPointsfromSpecificTrace(Context context, final String token, final String id, final String classe) {
 
         String UrlFinale = urlPoints + '/' + "traces"+'/'+id;
         Utils.debug("getAllRaids", UrlFinale);
@@ -1226,12 +1226,17 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response creation point", response);
-                        ManageParcoursActivity.recupParcours(response);
+
+                        if (classe.equals("ManageParcoursActivity")) {
+                            Log.d("Response creation point", response);
+                            ManageParcoursActivity.recupParcours(response);
+                        } else if (classe.equals("CourseActivity")) {
+                           // CourseActivity.recupParcours(response);
+                        }
+
                     }
 
                 },
-
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -2543,7 +2548,7 @@ public class ApiRequestGet {
     }
 
     //get one trace by parcours id
-    public static void getSpecificTraceFromParcours(final Context context, final String token, final String idParcours) {
+    public static void getSpecificTraceFromParcours(final Context context, final String token, final String idParcours, final String classe) {
 
         String UrlFinale = urlTraces + "/parcours/" + idParcours;
         //Utils.debug("getSpecificRaid", UrlFinale);
@@ -2553,7 +2558,12 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        ManageParcoursActivity.recupTrace(response);
+
+                        if (classe.equals("ManageParcoursActivity")) {
+                            ManageParcoursActivity.recupTrace(response);
+                        }else if(classe.equals("CourseActivity")){
+                            CourseActivity.recupTrace(response);
+                        }
                     }
 
                 },

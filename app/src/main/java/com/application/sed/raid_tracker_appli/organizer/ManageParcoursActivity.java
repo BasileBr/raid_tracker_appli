@@ -183,7 +183,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             idParcours = intent.getStringExtra("idParcours");
             Utils.debug("idParcous",idParcours);
             idRaid = intent.getStringExtra("idRaid");
-            ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours);
+            ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours,"ManageParcoursActivity");
 
             Utils.debug("idRaidParcours",idRaid);
 
@@ -298,7 +298,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             jsonObject = (JsonObject) jsonArray.get(i);
             String idTrace = jsonObject.get("id").toString();
 
-            ApiRequestGet.getPointsfromSpecificTrace(context, Bdd.getValue(), Integer.valueOf(idTrace));
+            ApiRequestGet.getPointsfromSpecificTrace(context, Bdd.getValue(), idTrace,"ManageParcoursActivity");
 
         }
 

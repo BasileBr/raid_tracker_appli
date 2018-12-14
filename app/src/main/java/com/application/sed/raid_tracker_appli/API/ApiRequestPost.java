@@ -117,7 +117,7 @@ public class ApiRequestPost {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
+                        Accueil.erreurConnexion();
                         Log.d("Error.Response", error.toString());
                     }
                 }
