@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
@@ -35,7 +36,9 @@ public class Accueil extends AppCompatActivity {
 
     private String userid;
     Toolbar toolbar;
-    //private ArrayList<Button> listButton;
+    String classname;
+
+
 
 
 
@@ -45,6 +48,20 @@ public class Accueil extends AppCompatActivity {
         setContentView(R.layout.activity_accueil);
     // Récupération des informations de la liste
 
+        context = this;
+
+        Intent intent=getIntent();
+
+        if (intent != null) {
+
+            classname = intent.getStringExtra("Classname");
+        }
+
+        if (classname.equals("CreateAccount")){
+            Toast.makeText(context, "Votre compte a bien été créé ", Toast.LENGTH_LONG).show();
+        }else if (classname.equals("Welcome")){
+            //nothing to do
+        }
 
 
         Utils.debug("Context",this.toString());
@@ -64,7 +81,6 @@ public class Accueil extends AppCompatActivity {
             }
         });
 
-        context = this;
 
     }
 
@@ -97,6 +113,10 @@ public class Accueil extends AppCompatActivity {
 
         Utils.info(TAG,"Login Button action");
 
+    }
+
+    public static void erreurConnexion(){
+        Toast.makeText(context, "Vos identifiants sont incorrects ", Toast.LENGTH_LONG).show();
     }
 
     public void createAccount(View view){

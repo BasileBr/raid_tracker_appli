@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
@@ -30,14 +32,18 @@ import java.util.List;
 public class EditCourse extends AppCompatActivity {
 
     private TextView mDisplayDate;
+    private TextView mDisplayHour;
     private static Context context;
     private Toolbar toolbar2;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener myTimeListener;
     public static List myListe;
     private int hours;
     private int min;
     TextView selectdate;
-    private String getdate = "";
+    private String getDate = "";
+
+    private String getHour ="";
     private String idRaid;
 
     Button mButton;
@@ -117,6 +123,26 @@ public class EditCourse extends AppCompatActivity {
                 }
             });
 
+            mDisplayHour=(TextView) findViewById(R.id.selecthour);
+            mDisplayHour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Calendar myCalender = Calendar.getInstance();
+                    int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+                    int minute = myCalender.get(Calendar.MINUTE);
+
+
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener, hour, minute, true);
+                    timePickerDialog.setTitle("Selectionnez une heure");
+                    timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                    final Integer storeHour=hour;
+                    timePickerDialog.show();
+                }
+            });
+
+
             /**
              * Récupérer la date, l'afficher et la stocker
              */
@@ -127,14 +153,26 @@ public class EditCourse extends AppCompatActivity {
                     selectdate = (TextView) findViewById(R.id.selectdate);
                     //Log.d(TAG, "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hours +":"+min);
 
-                    String date = year + "/" + (month + 1) + "/" + dayOfMonth + " " + hours + ":" + min;
+                   // String date = year + "/" + (month + 1) + "/" + dayOfMonth + " " + hours + ":" + min;
+                    String date = year + "/" + (month + 1) + "/" + dayOfMonth;
+
                     mDisplayDate.setText(date);
-                    getdate = date;
+                    getDate = date;
                     selectdate.setError(null);
                 }
             };
 
-            Utils.debug("EditCourse","je rentre ici");
+
+
+            myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String hour =hourOfDay+":"+minute;
+                mDisplayHour.setText(hour);
+                getHour=hour;
+                }
+            };
+
 
 
 
@@ -200,7 +238,7 @@ public class EditCourse extends AppCompatActivity {
 
              recuperenom=name_raid.getText().toString();
              recuperelieu=lieu.getText().toString();
-             recuperedate=getdate;
+            recuperedate=getDate+" "+getHour;
              recupereedition=edition.getText().toString();
              recupereequipe=organizer_team.getText().toString();
 
