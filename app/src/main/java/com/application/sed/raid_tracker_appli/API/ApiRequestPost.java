@@ -354,6 +354,7 @@ public class ApiRequestPost {
                         Log.d("Response update RAid", response.toString());
                         if (context.toString().contains("com.application.sed.raid_tracker_appli.organizer.EditCourse")){
                             Intent intent = new Intent(context, CourseActivity.class);
+                            intent.putExtra("idRaid",idRaid);
                             context.startActivity(intent);
 
                         }
