@@ -38,99 +38,119 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/Blancnacre"
         android:layout_marginTop="?attr/actionBarSize">
         <!--<ScrollView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Blancnacre"
+            android:orientation="vertical">
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                >
+                <Switch
+                    android:id="@+id/switchVisibility"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="checkSwitch"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                   >
-                    <Switch
-                        android:id="@+id/switchVisibility"
-                        android:layout_marginStart="5dp"
-                        android:layout_width="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:layout_height="wrap_content"
-                        android:onClick="checkSwitch"/>
+                    android:id="@+id/setTextVisibility"
+                    />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/setTextVisibility"
-                        />
-
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="activer la visibililité du raid pour les bénévoles "/>-->
-                </LinearLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/raidsorganisateur"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/Listeparcours" />
-
-                    <Button
-                        android:id="@+id/MyNewRaid"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="end"
-                        android:onClick="Course"
-                        android:background="@drawable/ic_add_circle_outline_black_24dp">
-
-                    </Button>
-                    <TextView
-                        android:id="@+id/ajoutraid"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Ajoutparcours"
-                        android:gravity="center"
-                        android:layout_toStartOf="@+id/MyNewRaid">
-
-                    </TextView>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center">
-
-                        <LinearLayout
-                            android:id="@+id/ParcoursLayout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                    </ScrollView>
-                </RelativeLayout>
-
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="activer la visibililité du raid pour les bénévoles "/>-->
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/raidsorganisateur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/Listeparcours" />
+
+                <Button
+                    android:id="@+id/MyNewRaid"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="end"
+                    android:onClick="Course"
+                    android:background="@drawable/ic_add_circle_outline_black_24dp">
+
+                </Button>
+                <TextView
+                    android:id="@+id/ajoutraid"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Ajoutparcours"
+                    android:gravity="center"
+                    android:layout_toStartOf="@+id/MyNewRaid">
+
+                </TextView>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:id="@+id/ParcoursLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                </ScrollView>
+            </RelativeLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mapparcours"/>
+                <org.osmdroid.views.MapView
+                    android:id="@+id/map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <!--</ScrollView>-->
     </LinearLayout>
 
 

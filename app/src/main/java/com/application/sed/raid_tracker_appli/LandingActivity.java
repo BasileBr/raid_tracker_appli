@@ -99,7 +99,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         nomutilisateur = "toto";
         setContentView(R.layout.activity_landing);
         Intent intent = getIntent();
-        nomutilisateur = Bdd.getNomUtilisateur().replace("\"", " ");
+        nomutilisateur = Bdd.getNomUtilisateur();
         this.nameofuser = findViewById(R.id.nameofuser);
         nameofuser.setText(nomutilisateur);
 
@@ -119,7 +119,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             Utils.debug(TAG, "Je rentre la");
 
             ll = (LinearLayout) findViewById(R.id.RaidLayout);
-           // ll2 = (LinearLayout) findViewById(R.id.BenevoleLayout);
+            ll2 = (LinearLayout) findViewById(R.id.BenevoleLayout);
 
         }
 
@@ -251,7 +251,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     }
 
 
-   /* public static void raidlistBenevole(String response){
+    public static void raidlistBenevole(String response){
         Utils.debug("raidlist", "JE suis ici");
         ArrayList<Button> listButtonBene = new ArrayList<>();
         int kbene;
@@ -334,8 +334,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 }
             });
         }
-    }*/
-
+    }
     public static void raidlist(String response) {
 
         Utils.debug("raidlist", "JE suis ici");
