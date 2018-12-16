@@ -200,7 +200,7 @@ public class EditCourse extends AppCompatActivity {
 
              recuperenom=name_raid.getText().toString();
              recuperelieu=lieu.getText().toString();
-            recuperedate=getdate;
+             recuperedate=getdate;
              recupereedition=edition.getText().toString();
              recupereequipe=organizer_team.getText().toString();
 
