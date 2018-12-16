@@ -142,7 +142,7 @@ public class CourseActivity extends AppCompatActivity {
 
 
 
-            Handler myHandler = new Handler();
+            /*Handler myHandler = new Handler();
             myHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -152,6 +152,7 @@ public class CourseActivity extends AppCompatActivity {
                     }
                 }
             },1000);
+            */
         }
 
     }
@@ -189,6 +190,8 @@ public class CourseActivity extends AppCompatActivity {
         JsonArray listPoints = (JsonArray) parser.parse(response);
 
 
+        listFinalePoste = new ArrayList<>();
+        listFinale = new ArrayList<>();
         Utils.debug("recupParcours","Taille du Json : "+listPoints.size());
         Utils.debug("Nom", "listePoits "+listPoints.toString());
         GeoPoint listInter[] = new GeoPoint[listPoints.size()+3];
@@ -500,10 +503,11 @@ public class CourseActivity extends AppCompatActivity {
 
             listButton.add(myButton);
 
-            listeIdParcours.add(idParcours);
+            //listeIdParcours.add(idParcours);
+            ApiRequestGet.getSpecificTraceFromParcours(context,Bdd.getValue(),idParcours,"CourseActivity");
 
             //Utils.debug("listbutton", listButton.get(i).toString());
-            Utils.debug("listeIdParcours", listeIdParcours.get(i));
+            //Utils.debug("listeIdParcours", listeIdParcours.get(i));
         }
 
         for (int i = 0; i < listButton.size(); i ++){

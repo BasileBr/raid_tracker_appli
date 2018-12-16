@@ -1231,7 +1231,7 @@ public class ApiRequestGet {
                             Log.d("Response creation point", response);
                             ManageParcoursActivity.recupParcours(response);
                         } else if (classe.equals("CourseActivity")) {
-                           // CourseActivity.recupParcours(response);
+                            CourseActivity.recupParcours(response);
                         }
 
                     }
