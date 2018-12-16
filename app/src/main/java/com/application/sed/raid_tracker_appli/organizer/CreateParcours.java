@@ -44,6 +44,7 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import com.android.volley.toolbox.StringRequest;
+import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
@@ -527,14 +528,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
                 //envoyer les points d'intérêts
                //if (!ListGeopoi.isEmpty()){
-                for (int y=0; y<ListGeopoi.size(); y++){
+                /*for (int y=0; y<ListGeopoi.size(); y++){
                     Double lon = ListGeopoi.get(y).getLongitude();
                     Double lat = ListGeopoi.get(y).getLatitude();
                     Utils.info("onclick",String.valueOf(y));
                     ApiRequestPost.postPoint(context,Bdd.getValue(),idTrace,lon,lat,3,k, null);
                     Utils.debug("NomPoint","Ordre : "+k+" Lat : "+lat.toString() + " Lon : "+ lon.toString());
                     k = k+1;
-                }
+                }*/
                 //}
 
                 Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
@@ -823,9 +824,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         jsonObject = (JsonObject) jsonParser.parse(response);
 
-        final String id = jsonObject.get("id").toString();
+        final String idPoint = jsonObject.get("id").toString();
 
-        Utils.debug("ShowPoste",id);
+        Utils.debug("ShowPoste",idPoint);
 
         final LinearLayout finale = new LinearLayout(context);
         finale.setOrientation(LinearLayout.VERTICAL);
@@ -1005,7 +1006,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     String heure = m_Textjoursdebut+"/"+m_Textmoisdebut+"/"+m_Textanneedebut+" "+m_Textheuredebut+":"+m_Textminutedebut;
                     String fin = m_Textjoursfin+"/"+m_Textmoisfin+"/"+m_Textanneefin+" "+m_Textheurefin+":"+m_Textminutefin;
 
-                    ApiRequestPost.postPoste(context, Bdd.getValue(), id, m_Textnom, nbbene, heure, fin);
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, heure, fin);
                     map.getOverlays().add(standarmarker3);
                     map.invalidate();
 
@@ -1017,8 +1018,9 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-               dialog.dismiss();
+                ApiRequestDelete.deleteSpecificPoint(context,Bdd.getValue(), idPoint);
+                Utils.debug("DeletePoint","Je suis ici");
+                dialog.dismiss();
             }
         });
         alert.show();
