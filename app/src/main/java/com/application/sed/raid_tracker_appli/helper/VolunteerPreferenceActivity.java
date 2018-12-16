@@ -112,7 +112,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         spinner.setOnItemSelectedListener(this);
 
         //load/initialize the osmdroid configuration, this can be done
-      /*  Context ctx = getApplicationContext();
+        Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
         //création de la map
@@ -140,7 +140,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         CompassOverlay mCompassOverlay = new CompassOverlay(getApplicationContext(), new InternalCompassOrientationProvider(getApplicationContext()), map);
         mCompassOverlay.enableCompass();
         map.getOverlays().add(mCompassOverlay);
-*/
+
         //récupérer le TextView pour afficher la mission
         dispMission= (TextView) findViewById(R.id.displayMissions);
 

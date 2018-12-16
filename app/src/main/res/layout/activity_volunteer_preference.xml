@@ -50,11 +50,11 @@ android:orientation="horizontal">
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="Sélectionnez votre poste préféré"/>
-        <!--<org.osmdroid.views.MapView-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:id="@+id/map"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="300dp" />-->
+        <org.osmdroid.views.MapView
+            android:layout_marginTop="10dp"
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
