@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -2060,6 +2062,7 @@ public class ApiRequestGet {
                         else if(classe.equals("InviteActivity")){
                             InviteVolunteersActivity.raidlist(response);
                         }
+
                   }
 
                 },
@@ -2108,6 +2111,8 @@ public class ApiRequestGet {
                         Utils.debug("sympa",response);
                         if(classe.equals("CourseActivity")) {
                             CourseActivity.getRaid(response);
+                        }else if (classe.equals("EditCourse")){
+                            EditCourse.Autcomplete(response);
                         }
                     }
 

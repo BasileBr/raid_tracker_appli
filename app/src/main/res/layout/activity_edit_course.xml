@@ -63,7 +63,6 @@
                 android:id="@+id/name_raid"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:hint="Raid Aventure"
                 />
 
 
@@ -98,10 +97,10 @@
                 android:layout_width="match_parent"
                 style="@android:style/Widget.EditText"
                 android:layout_height="wrap_content"
-                android:hint="@string/date"
                 android:layout_marginTop="10sp"
                 android:layout_marginBottom="10sp"
                 android:textSize="18sp"
+                android:onClick="UpdateDate"
                 android:id="@+id/selectdate"
                 />
 
@@ -119,10 +118,10 @@
                 android:layout_width="match_parent"
                 style="@android:style/Widget.EditText"
                 android:layout_height="wrap_content"
-                android:hint="Selectionnez une heure "
                 android:layout_marginTop="10sp"
                 android:layout_marginBottom="10sp"
                 android:textSize="18sp"
+                android:onClick="UpdateHour"
                 android:id="@+id/selecthour"
                 />
 
