@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.Accueil;
 import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.PosteDescription;
 import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
@@ -1489,6 +1490,8 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
 
+
+
                     }
 
                 },
@@ -2467,8 +2470,8 @@ public class ApiRequestGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-
+                        Utils.debug("recup info poste",response);
+                        PosteDescription.recupInfosPoste(response);
                     }
 
                 },

@@ -62,6 +62,7 @@ public class EditCourse extends AppCompatActivity {
     public static TextView selecthour;
     public Integer checkonclickDate=0;
     public Integer checkonclickHour=0;
+    private DatePickerDialog dialog;
 
 
     String recuperenom;
@@ -134,6 +135,8 @@ public class EditCourse extends AppCompatActivity {
             mDateSetListener = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+
                     checkonclickDate =1;
                     String date = year + "/" + (month + 1) + "/" + dayOfMonth;
                     selectdate.setText(date);
@@ -164,7 +167,7 @@ public class EditCourse extends AppCompatActivity {
     public void UpdateDate(View view){
         //affichage du calendrier
 
-
+        final long today = System.currentTimeMillis() - 1000;
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -172,10 +175,11 @@ public class EditCourse extends AppCompatActivity {
 //        hours = cal.get(Calendar.HOUR_OF_DAY);
 //        min = cal.get(Calendar.MINUTE);
 
-        DatePickerDialog dialog = new DatePickerDialog(
-                EditCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
+         dialog = new DatePickerDialog(
+                EditCourse.this, android.R.style.Theme, mDateSetListener, year, month, day);
 
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        //dialog.getDatePicker().setMaxDate(1577833200000L);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
@@ -269,8 +273,8 @@ public class EditCourse extends AppCompatActivity {
             recupereedition=edition.getText().toString();
             recupereequipe=organizer_team.getText().toString();
 
-            Utils.debug("nom",recuperenom);
-            Utils.debug("lieu",recuperelieu);
+            Utils.debug("date",recuperenom);
+            Utils.debug("date",recuperelieu);
             Utils.debug("date",recuperedate);
             Utils.debug("date",recupereedition);
             Utils.debug("date",recupereequipe);

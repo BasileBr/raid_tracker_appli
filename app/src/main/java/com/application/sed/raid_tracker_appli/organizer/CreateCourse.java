@@ -293,95 +293,95 @@ public class CreateCourse extends AppCompatActivity {
 
     }
 
-    public void onCheckboxClicked(View view) {
-
-        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
-
-        //kayak selectionné ?
-        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
-
-        //natation selectionné ? ?
-        getitem2 = (CheckBox) findViewById(R.id.checkbox_natation);
-
-        //courseapied selectionné ?
-        getitem3 = (CheckBox) findViewById(R.id.checkbox_coursepied);
-
-        //velo selectionné ?
-        getitem4 = (CheckBox) findViewById(R.id.checkbox_velo);
-
-        //surface eau selectionné ?
-        getitem5=(CheckBox) findViewById(R.id.checkbox_water);
-
-        //surface terre selectionné ?
-
-        getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        choosesports = (TextView) findViewById(R.id.choosesport);
-
-        // Check which checkbox was clicked
-        switch (view.getId()) {
-            case R.id.checkbox_kayak:
-                if (checked)
-                    charKayak = getitem.getText().toString();
-                choosesports.setError(null);
-                Utils.info("charkayal", charKayak);
-//                    int toto = getLinear.getId();
-//                    Utils.info(TAG,String.valueOf(toto));
-
-                break;
-            case R.id.checkbox_natation:
-                if (checked)
-                    choosesports.setError(null);
-                charNatation = getitem2.getText().toString();
-
-
-                break;
-            case R.id.checkbox_velo:
-                if (checked)
-                    choosesports.setError(null);
-                charVelo = getitem3.getText().toString();
-
-
-                break;
-            case R.id.checkbox_coursepied:
-                if (checked)
-                    choosesports.setError(null);
-                charCourse = getitem4.getText().toString();
-
-
-                break;
-
-            case R.id.checkbox_water:
-                if (checked)
-                    charWater = getitem5.getText().toString();
-
-
-                break;
-            case R.id.checkbox_terre:
-                if (checked)
-                    charTerre = getitem6.getText().toString();
-
-
-                break;
-
-            //vérifie si la surface correspond au sport
-        }
-
-
-
-        if ((getitem.isChecked() || getitem2.isChecked()) && (getitem5.isChecked() && !getitem6.isChecked())) {
-            choosesports.setError(null);
-        }
-
-        if ((getitem3.isChecked() || getitem4.isChecked()) && (getitem6.isChecked() && !getitem5.isChecked())) {
-            choosesports.setError(null);
-        }
-        if ((getitem.isChecked() || getitem2.isChecked() || getitem3.isChecked() || getitem4.isChecked()) && (getitem5.isChecked() && getitem6.isChecked()) ) {
-            choosesports.setError(null);
-        }
-
- }
+//    public void onCheckboxClicked(View view) {
+//
+////        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+////
+////        //kayak selectionné ?
+////        getitem = (CheckBox) findViewById(R.id.checkbox_kayak);
+////
+////        //natation selectionné ? ?
+////        getitem2 = (CheckBox) findViewById(R.id.checkbox_natation);
+////
+////        //courseapied selectionné ?
+////        getitem3 = (CheckBox) findViewById(R.id.checkbox_coursepied);
+////
+////        //velo selectionné ?
+////        getitem4 = (CheckBox) findViewById(R.id.checkbox_velo);
+////
+////        //surface eau selectionné ?
+////        getitem5=(CheckBox) findViewById(R.id.checkbox_water);
+////
+////        //surface terre selectionné ?
+////
+////        getitem6 = (CheckBox) findViewById(R.id.checkbox_terre);
+////        // Is the view now checked?
+////        boolean checked = ((CheckBox) view).isChecked();
+////        choosesports = (TextView) findViewById(R.id.choosesport);
+////
+////        // Check which checkbox was clicked
+////        switch (view.getId()) {
+////            case R.id.checkbox_kayak:
+////                if (checked)
+////                    charKayak = getitem.getText().toString();
+////                choosesports.setError(null);
+////                Utils.info("charkayal", charKayak);
+//////                    int toto = getLinear.getId();
+//////                    Utils.info(TAG,String.valueOf(toto));
+////
+////                break;
+////            case R.id.checkbox_natation:
+////                if (checked)
+////                    choosesports.setError(null);
+////                charNatation = getitem2.getText().toString();
+////
+////
+////                break;
+////            case R.id.checkbox_velo:
+////                if (checked)
+////                    choosesports.setError(null);
+////                charVelo = getitem3.getText().toString();
+////
+////
+////                break;
+////            case R.id.checkbox_coursepied:
+////                if (checked)
+////                    choosesports.setError(null);
+////                charCourse = getitem4.getText().toString();
+////
+////
+////                break;
+////
+////            case R.id.checkbox_water:
+////                if (checked)
+////                    charWater = getitem5.getText().toString();
+////
+////
+////                break;
+////            case R.id.checkbox_terre:
+////                if (checked)
+////                    charTerre = getitem6.getText().toString();
+////
+////
+////                break;
+//
+//            //vérifie si la surface correspond au sport
+//        }
+//
+//
+//
+//        if ((getitem.isChecked() || getitem2.isChecked()) && (getitem5.isChecked() && !getitem6.isChecked())) {
+//            choosesports.setError(null);
+//        }
+//
+//        if ((getitem3.isChecked() || getitem4.isChecked()) && (getitem6.isChecked() && !getitem5.isChecked())) {
+//            choosesports.setError(null);
+//        }
+//        if ((getitem.isChecked() || getitem2.isChecked() || getitem3.isChecked() || getitem4.isChecked()) && (getitem5.isChecked() && getitem6.isChecked()) ) {
+//            choosesports.setError(null);
+//        }
+//
+// }
 
 
     //vérifie qu'un élement editext n'est pas vide
