@@ -38,23 +38,33 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:background="@color/Blancnacre">
-
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:background="@color/Blancnacre"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:text="Outils :"/>
+
+
+
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/greenflag"
+                    android:id="@+id/startnavigation"
                     android:background="@color/Blancnacre"
-                    android:src="@drawable/green_flag2"
+                    android:src="@drawable/route"
+                    android:onClick="startNavigation"
                     />
 
                 <TextView
@@ -62,40 +72,16 @@
                     android:textAlignment="center"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
-                    android:text="Point de départ"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/Blancnacre"
-                    android:id="@+id/passagepoint"
-                    android:src="@drawable/passage"
-                    />
+                    android:text="Me guider vers mon poste "/>
 
                 <TextView
                     android:layout_width="match_parent"
+                    android:layout_marginTop="40dp"
                     android:textAlignment="center"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:text="Point de passage"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/redflag"
-                    android:layout_height="match_parent"
-                    android:background="@color/Blancnacre"
-                    android:src="@drawable/red_flag"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:text="Point d'arrivée"/>
-
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="Légende :"/>
 
 
                 <ImageButton
@@ -112,15 +98,23 @@
                     android:textAlignment="center"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
-                    android:text="Point d'intérêt"/>
+                    android:text="Mon poste"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Blancnacre"
+                    android:id="@+id/passagepoint"
+                    android:src="@drawable/passage"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:textAlignment="center"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
-                    android:text="Selection"/>
-
+                    android:text="Point de passage"/>
 
             </LinearLayout>
 

@@ -278,7 +278,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             JsonObject raid = (JsonObject) raidlistbene.get(i);
             String nomraid = raid.get("nom").toString().replace("\"", " ");
             String idraid = raid.get("id").toString();
-            String date = raid.get("date").toString().replace("\"", " ").substring(0, 11);
+
+            String dateY=raid.get("date").toString().replace("\"", " ").substring(1,5);
+            String dateM=raid.get("date").toString().replace("\"", " ").substring(6,8);
+            String dateD=raid.get("date").toString().replace("\"", " ").substring(9,11);
+            String date=dateD+'/'+dateM+'/'+dateY;
+
+            //String date = raid.get("date").toString().replace("\"", " ").substring(0, 11);
 
             listidRaidBenevolesUser.add(idraid);
             Utils.debug("raid ", "Nomraid : " + nomraid + " date : " + date + " idraid" + idraid);
@@ -364,7 +370,12 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             JsonObject raid = (JsonObject) raidlist.get(i);
             String nomraid = raid.get("nom").toString().replace("\"", " ");
             String idraid = raid.get("id").toString();
-            String date = raid.get("date").toString().replace("\"", " ").substring(0, 11);
+            //String date = raid.get("date").toString().replace("\"", " ").substring(0, 11);
+
+            String dateY=raid.get("date").toString().replace("\"", " ").substring(1,5);
+            String dateM=raid.get("date").toString().replace("\"", " ").substring(6,8);
+            String dateD=raid.get("date").toString().replace("\"", " ").substring(9,11);
+            String date=dateD+'/'+dateM+'/'+dateY;
 
             listIdRaid.add(idraid);
             Utils.debug("raid ", "Nomraid : " + nomraid + " date : " + date + " idraid" + idraid);

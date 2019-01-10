@@ -40,8 +40,12 @@
             android:orientation="vertical"
             android:layout_height="wrap_content"
             android:id="@+id/descposte">
-
-
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GuideMe"
+                android:onClick="onClickGuideMe"
+                android:id="@+id/guide"/>
         </LinearLayout>
 
     </ScrollView>

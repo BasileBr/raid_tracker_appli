@@ -66,7 +66,12 @@ public class WelcomeActivity extends AppCompatActivity {
             JsonElement nom = raidVisible.get("nom");
 
             //on convertit en String
-            String date = raidVisible.get("date").toString().replace("\"", " ").substring(0, 11);
+            //String date = raidVisible.get("date").toString().replace("\"", " ").substring(0, 11);
+
+            String dateY=raidVisible.get("date").toString().replace("\"", " ").substring(1,5);
+            String dateM=raidVisible.get("date").toString().replace("\"", " ").substring(6,8);
+            String dateD=raidVisible.get("date").toString().replace("\"", " ").substring(9,11);
+            String date=dateD+'/'+dateM+'/'+dateY;
 
             String nomRaid = nom.getAsString();
 

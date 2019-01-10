@@ -23,8 +23,6 @@ private static String token;
 private static String iduser;
 private Toolbar toolbar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,24 +62,16 @@ private Toolbar toolbar;
             }
         });
 
+
         //récupérer la répartition d'un utilisateur sur un raid
         ApiRequestGet.getRepartitionfromIdUserIdRaid(context,token,idRaidReceive,iduser);
 
-        Button buttontest=new Button(this);
 
-        buttontest.setText("Click on me");
+    }
 
-        buttontest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(PosteDescription.this, LandingActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
+    public void onClickGuideMe(View view){
+        Intent intent = new Intent(PosteDescription.this, GuideMeActivity.class);
+        startActivity(intent);
     }
 
     /*
