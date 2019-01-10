@@ -597,8 +597,8 @@ public class ApiRequestPost {
             jsonObject.put("idPoint",idPoint);
             jsonObject.put("type",type);
             jsonObject.put("nombre",nombre);
-            jsonObject.put("heureDebut",heureDebut);
-            jsonObject.put("heureFin",heureFin);
+            jsonObject.put("heureDebut",heureDebut.replace("\\",""));
+            jsonObject.put("heureFin",heureFin.replace("\\",""));
             jsonArray.put(jsonObject);
             Utils.debug("TAG",jsonObject.toString(2));
         }catch (Exception e){
