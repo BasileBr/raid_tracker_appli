@@ -64,7 +64,7 @@
                     android:id="@+id/startnavigation"
                     android:background="@color/Blancnacre"
                     android:src="@drawable/route"
-                    android:onClick="startNavigation"
+                    android:onClick="initialiserLocalisation"
                     />
 
                 <TextView
