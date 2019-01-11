@@ -915,7 +915,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Log.d("CreateParcours", "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hoursdebut +":"+mindebut);
 
-                String datedebut = year + "/" + (month+1) + "/" + dayOfMonth + " " + hoursdebut + ":"+mindebut;
+                String datedebut = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursdebut + ":"+mindebut;
                 anneedebutEntry.setText(datedebut);
                 getdatedebut = " "+datedebut;
                 anneedebutEntry.setError(null);
@@ -961,7 +961,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Log.d("CreateParcours", "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hoursfin +":"+minfin);
 
-                String datefin = year + "/" + (month+1) + "/" + dayOfMonth + " " + hoursfin + ":"+minfin;
+                String datefin = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursfin + ":"+minfin;
                 anneefinEntry.setText(datefin);
                 getdatefin = " "+datefin;
                 anneefinEntry.setError(null);
@@ -1053,12 +1053,12 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     cpt = cpt + 1;
 
                     int nbbene = Integer.valueOf(m_Textnombre);
-                    String heure = getdatedebut;
+                    String debut = getdatedebut;
                     String fin = getdatefin;
-                    Utils.debug("Date","Début "+heure);
+                    Utils.debug("Date","Début "+debut);
                     Utils.debug("Date","Fin "+fin);
 
-                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, heure, fin);
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
                     map.getOverlays().add(standarmarker3);
                     map.invalidate();
 
