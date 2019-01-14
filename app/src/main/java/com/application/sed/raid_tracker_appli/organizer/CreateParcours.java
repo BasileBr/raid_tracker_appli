@@ -1003,19 +1003,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 m_Textnom = nom.getText().toString();
                 m_Textnombre = nombreEntry.getText().toString();
 
-//                m_Textanneedebut = Integer.toString(yeardebut);
-//                m_Textmoisdebut = Integer.toString(monthdebut);
-//                m_Textjoursdebut = Integer.toString(daydebut);
-//                m_Textheuredebut = Integer.toString(hoursdebut);
-//                m_Textminutedebut = Integer.toString(mindebut);
-//
-//                m_Textanneefin = Integer.toString(yearfin);
-//                m_Textmoisfin = Integer.toString(monthfin);
-//                m_Textjoursfin = Integer.toString(dayfin);
-//                m_Textheurefin = Integer.toString(hoursfin);
-//                m_Textminutefin = Integer.toString(minfin);
-
-
                 // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
                 if(m_Textnom.isEmpty()){
                     emptynom=1;
