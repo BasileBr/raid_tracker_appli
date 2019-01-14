@@ -96,15 +96,31 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     private static String m_Textheurefin ="";
     private static String m_Textminutefin ="";
 
+    /**
+     *
+     * Calendrier
+     */
+    public static int yeardebut;
+    public static int monthdebut;
+    public static int daydebut;
+    private static int hoursdebut;
+    private static int mindebut;
 
+    public static int yearfin;
+    public static int monthfin;
+    public static int dayfin;
+    private static int hoursfin;
+    private static int minfin;
+    private static String getdatedebut= "";
+    private static String getdatefin = "";
 
     private static Context context;
     private static String idTrace;
     public static int cpt = 0;
 
-    private static int hours;
-    private static int min;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private static DatePickerDialog.OnDateSetListener mDateSetListenerdebut;
+    private static DatePickerDialog.OnDateSetListener mDateSetListenerfin;
     private TextView selectdate;
     private String getDate = "";
 
@@ -870,32 +886,44 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         final TextView heuredebut = new TextView(context);
         heuredebut.setText("Date/heure début");
 
-        final EditText anneedebutEntry = new EditText(context);
+        final TextView anneedebutEntry = new TextView(context);
         anneedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        anneedebutEntry.setHint("YYYY");
+        anneedebutEntry.setHint(" Choisir une date de début");
 
-        final EditText moisdebutEntry = new EditText(context);
-        moisdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        moisdebutEntry.setHint("MM");
+        anneedebutEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        final EditText joursdebutEntry = new EditText(context);
-        joursdebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        joursdebutEntry.setHint("DD");
+                Calendar cal = Calendar.getInstance();
+                yeardebut = cal.get(Calendar.YEAR);
+                monthdebut = cal.get(Calendar.MONTH);
+                daydebut = cal.get(Calendar.DAY_OF_MONTH);
+                hoursdebut = cal.get(Calendar.HOUR_OF_DAY);
+                mindebut = cal.get(Calendar.MINUTE);
 
-        final EditText heuredebutEntry = new EditText(context);
-        heuredebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        heuredebutEntry.setHint("HH");
+                DatePickerDialog dialog = new DatePickerDialog(
+                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerdebut, yeardebut, monthdebut, daydebut);
 
-        final EditText minutedebutEntry = new EditText(context);
-        minutedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        minutedebutEntry.setHint("MM");
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListenerdebut = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Log.d("CreateParcours", "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hoursdebut +":"+mindebut);
+
+                String datedebut = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursdebut + ":"+mindebut;
+                anneedebutEntry.setText(datedebut);
+                getdatedebut = " "+datedebut;
+                anneedebutEntry.setError(null);
+            }
+        };
 
         ll3.addView(heuredebut);
         ll3.addView(anneedebutEntry);
-        ll3.addView(moisdebutEntry);
-        ll3.addView(joursdebutEntry);
-        ll3.addView(heuredebutEntry);
-        ll3.addView(minutedebutEntry);
 
 
         finale.addView(ll3);
@@ -904,32 +932,47 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         final TextView heurefin = new TextView(context);
         heurefin.setText("Date/heure de fin");
 
-        final EditText anneefinEntry = new EditText(context);
+        final TextView anneefinEntry = new TextView(context);
         anneefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        anneefinEntry.setHint("YYYY");
+        anneefinEntry.setHint(" Choisir une date de fin");
 
-        final EditText moisfinEntry = new EditText(context);
-        moisfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        moisfinEntry.setHint("MM");
+        anneefinEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        final EditText joursfinEntry = new EditText(context);
-        joursfinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        joursfinEntry.setHint("DD");
+                Calendar cal = Calendar.getInstance();
+                yearfin= cal.get(Calendar.YEAR);
+                monthfin = cal.get(Calendar.MONTH);
+                dayfin = cal.get(Calendar.DAY_OF_MONTH);
+                hoursfin = cal.get(Calendar.HOUR_OF_DAY);
+                minfin = cal.get(Calendar.MINUTE);
 
-        final EditText heurefinEntry = new EditText(context);
-        heurefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        heurefinEntry.setHint("HH");
+                DatePickerDialog dialog = new DatePickerDialog(
+                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerfin, yearfin, monthfin, dayfin);
 
-        final EditText minutefinEntry = new EditText(context);
-        minutefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        minutefinEntry.setHint("MM");
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListenerfin = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Log.d("CreateParcours", "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hoursfin +":"+minfin);
+
+                String datefin = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursfin + ":"+minfin;
+                anneefinEntry.setText(datefin);
+                getdatefin = " "+datefin;
+                anneefinEntry.setError(null);
+            }
+        };
+
+
 
         ll4.addView(heurefin);
         ll4.addView(anneefinEntry);
-        ll4.addView(moisfinEntry);
-        ll4.addView(joursfinEntry);
-        ll4.addView(heurefinEntry);
-        ll4.addView(minutefinEntry);
+
 
         finale.addView(ll4);
 
@@ -960,17 +1003,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 m_Textnom = nom.getText().toString();
                 m_Textnombre = nombreEntry.getText().toString();
 
-                m_Textanneedebut = anneedebutEntry.getText().toString();
-                m_Textmoisdebut = moisdebutEntry.getText().toString();
-                m_Textjoursdebut = joursdebutEntry.getText().toString();
-                m_Textheuredebut = heuredebutEntry.getText().toString();
-                m_Textminutedebut = minutedebutEntry.getText().toString();
-
-                m_Textanneefin = anneefinEntry.getText().toString();
-                m_Textmoisfin = moisfinEntry.getText().toString();
-                m_Textjoursfin = joursfinEntry.getText().toString();
-                m_Textheurefin = heurefinEntry.getText().toString();
-                m_Textminutefin = minutefinEntry.getText().toString();
+//                m_Textanneedebut = Integer.toString(yeardebut);
+//                m_Textmoisdebut = Integer.toString(monthdebut);
+//                m_Textjoursdebut = Integer.toString(daydebut);
+//                m_Textheuredebut = Integer.toString(hoursdebut);
+//                m_Textminutedebut = Integer.toString(mindebut);
+//
+//                m_Textanneefin = Integer.toString(yearfin);
+//                m_Textmoisfin = Integer.toString(monthfin);
+//                m_Textjoursfin = Integer.toString(dayfin);
+//                m_Textheurefin = Integer.toString(hoursfin);
+//                m_Textminutefin = Integer.toString(minfin);
 
 
                 // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
@@ -982,16 +1025,23 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     emptynombre=1;
                     ShowPoste(view, response);
                 }
-                else if(m_Textanneedebut.isEmpty() || m_Textmoisdebut.isEmpty() || m_Textjoursdebut.isEmpty() || m_Textheuredebut.isEmpty() || m_Textminutedebut.isEmpty() ) {
+//                else if(m_Textanneedebut.isEmpty() || m_Textmoisdebut.isEmpty() || m_Textjoursdebut.isEmpty() || m_Textheuredebut.isEmpty() || m_Textminutedebut.isEmpty() ) {
+//                    emptydebut=1;
+//                    ShowPoste(view, response);
+//                }
+//
+//                else if(m_Textanneefin.isEmpty() || m_Textmoisfin.isEmpty() || m_Textjoursfin.isEmpty() || m_Textheurefin.isEmpty() || m_Textminutefin.isEmpty() ) {
+//                    emptyfin=1;
+//                    ShowPoste(view, response);
+//                }
+                else if (getdatedebut.isEmpty()){
                     emptydebut=1;
                     ShowPoste(view, response);
                 }
-
-                else if(m_Textanneefin.isEmpty() || m_Textmoisfin.isEmpty() || m_Textjoursfin.isEmpty() || m_Textheurefin.isEmpty() || m_Textminutefin.isEmpty() ) {
+                else if (getdatefin.isEmpty()){
                     emptyfin=1;
                     ShowPoste(view, response);
                 }
-
                 else // sinon on ajoute le nom du parcours dans la textview
                 {
                     Utils.debug("cpt",String.valueOf(cpt));
@@ -1003,10 +1053,12 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     cpt = cpt + 1;
 
                     int nbbene = Integer.valueOf(m_Textnombre);
-                    String heure = m_Textjoursdebut+"/"+m_Textmoisdebut+"/"+m_Textanneedebut+" "+m_Textheuredebut+":"+m_Textminutedebut;
-                    String fin = m_Textjoursfin+"/"+m_Textmoisfin+"/"+m_Textanneefin+" "+m_Textheurefin+":"+m_Textminutefin;
+                    String debut = getdatedebut;
+                    String fin = getdatefin;
+                    Utils.debug("Date","Début "+debut);
+                    Utils.debug("Date","Fin "+fin);
 
-                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, heure, fin);
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
                     map.getOverlays().add(standarmarker3);
                     map.invalidate();
 

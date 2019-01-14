@@ -31,6 +31,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.internal.Util;
+
 public class ApiRequestPost {
 
     final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
@@ -271,6 +273,7 @@ public class ApiRequestPost {
             jsonObject.put("equipe", equipe);
             jsonObject.put("visibility", visibility);
             jsonArray.put(jsonObject);
+            Utils.debug("TAG",jsonObject.toString(2));
             }catch (Exception e){
 
         }
