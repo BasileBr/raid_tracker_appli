@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -71,6 +72,13 @@ private Toolbar toolbar;
 
     public void onClickGuideMe(View view){
         Intent intent = new Intent(PosteDescription.this, GuideMeActivity.class);
+        startActivity(intent);
+    }
+
+    public void launcher(View view){
+        Uri gmmIntentUri  = Uri.parse("google.streetview:cbll=46.414382, 10.013988");
+        Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
     }
 
