@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -36,8 +37,8 @@ public class PosteDescription extends AppCompatActivity {
     private static String token;
     private static String iduser;
     private Toolbar toolbar;
-    Double latitude;
-    Double longitude;
+    Double positionLatitude;
+    Double positionLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,15 +107,30 @@ public class PosteDescription extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                GeoPoint tmpgeo = new GeoPoint(48.731038, -3.450802);
+                GeoPoint positionPoste = new GeoPoint(48.729709,  -3.465943);
 
-                Double tmpgeolatitude = tmpgeo.getLatitude();
-                Utils.debug("doublelatitude",tmpgeolatitude.toString());
-                tmpgeolatitude= (double)Math.round(tmpgeolatitude * 1000d) / 1000d;
-                Utils.debug("after",tmpgeolatitude.toString());
-                Double tmpgeolongitude =tmpgeo.getLongitude();
+                // récupération de la position en double
+                Double positionPosteLatitude = positionPoste.getLatitude();
+                Double positionPosteLongitude =positionPoste.getLongitude();
 
-                /**TODO
+                // calcul de ratio
+                Double ratiolatitude  = Math.abs(positionPosteLatitude)-Math.abs(positionLatitude);
+                Double ratiolongitude = Math.abs(positionPosteLongitude)-Math.abs(positionLongitude);
+
+                if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
+                    // requête API /api/checkin
+                    Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
+                }
+                else if (ratiolatitude < 0.001 && ratiolongitude <0.001){
+                    // requête API /api/checkin
+                    Toast.makeText(context, "Vous n'êtes pas loin, encore un petit effort ", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(context, "Vous n'y êtes pas du tout ", Toast.LENGTH_LONG).show();
+                }
+
+
+                /**
                  * Calcul ratio :   - ratiolong = valeur absolue de la longitude du point - la longitude de la position
                  *                  - ratiolat = valeur absolue de la latitude du point - la latitude de la position
                  *
@@ -162,10 +178,10 @@ public class PosteDescription extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        latitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-        longitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
-        Utils.debug("latitudeposition",latitude.toString());
-        Utils.debug("longitudeposition",longitude.toString());
+        positionLatitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+        positionLongitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+        Utils.debug("latitudeposition",positionLatitude.toString());
+        Utils.debug("longitudeposition",positionLongitude.toString());
 
 
 
