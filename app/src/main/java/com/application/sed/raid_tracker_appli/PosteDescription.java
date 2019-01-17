@@ -41,9 +41,11 @@ private Toolbar toolbar;
         //récupération de l'identifiant de l'utilisateur
         iduser = Bdd.getUserid();
 
-        //récupération de l'id du Raid depuis Landing Activity
-        idRaidReceive= intent.getStringExtra("idRaid");
-
+        //test pour savoir si les intents sont null
+        if (intent != null) {
+            //récupération de l'id du Raid depuis Landing Activity
+            idRaidReceive = intent.getStringExtra("idRaid");
+        }
         //récupération de la toolbar depuis le XML
         toolbar = (Toolbar) findViewById(R.id.toolbarDescr);
 
@@ -76,7 +78,7 @@ private Toolbar toolbar;
     }
 
     public void launcher(View view){
-        Uri gmmIntentUri  = Uri.parse("google.streetview:cbll=46.414382, 10.013988");
+        Uri gmmIntentUri  = Uri.parse("geo:37.7749,-122.4192?q=37.7749,-122.4800");
         Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
@@ -89,7 +91,6 @@ private Toolbar toolbar;
 
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
-
 
 
 
@@ -112,5 +113,6 @@ private Toolbar toolbar;
 //            ;
 
 //        }
+
     }
 }
