@@ -40,6 +40,7 @@ public class PosteDescription extends AppCompatActivity {
     Double positionLatitude;
     Double positionLongitude;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +58,16 @@ public class PosteDescription extends AppCompatActivity {
         //récupération de l'identifiant de l'utilisateur
         iduser = Bdd.getUserid();
 
+        Utils.debug("iduser",iduser);
+
         //récupération de l'id du Raid depuis Landing Activity
-        idRaidReceive = intent.getStringExtra("idRaid");
+
+        if (intent != null) {
+            idRaidReceive = intent.getStringExtra("idRaid");
+
+            Utils.debug("idRaidReceive",idRaidReceive);
+
+        }
 
         //récupération de la toolbar depuis le XML
         toolbar = (Toolbar) findViewById(R.id.toolbarDescr);
@@ -183,10 +192,6 @@ public class PosteDescription extends AppCompatActivity {
         Utils.debug("latitudeposition",positionLatitude.toString());
         Utils.debug("longitudeposition",positionLongitude.toString());
 
-
-
-
-
     }
 
     /*
@@ -197,27 +202,32 @@ public class PosteDescription extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
 
+        for (int i = 0; i < posteinfos.size(); i++) {
+            JsonObject repartition = (JsonObject) posteinfos.get(i);
+            JsonObject poste = repartition.getAsJsonObject("idPoste");
 
+            //récupération du type du poste
+            String typePoste = poste.get("type").toString().replace("\"", " ");
 
+            //récupération de l'heure de début
+            String hourdebut=poste.get("heureDebut").toString().substring(12,14);
+            String minutedebut=poste.get("heureDebut").toString().substring(14,17);
+            String heureDebut = hourdebut +minutedebut;
 
+            //récupération de l'heure de fin
+            String hourfin=poste.get("heureFin").toString().substring(12,14);
+            String minutefin=poste.get("heureFin").toString().substring(14,17);
+            String heureFin = hourfin +minutefin;
 
+            //récupération de la date
+            String dateY=poste.get("heureFin").toString().substring(1,5);
+            String dateM=poste.get("heureFin").toString().substring(6,8);
+            String dateD=poste.get("heureFin").toString().substring(9,11);
+            String date=dateD+'/'+dateM+'/'+dateY;
 
-//        //parcours la liste avec le Json
-//        for (int i = 0; i < posteinfos.size(); i++) {
-//
-//            //JsonParser parser1 = new JsonParser();
-//            JsonObject raid = (JsonObject) posteinfos.get(i);
-//
-//            //récupération de l'id de point d'un poste
-//            JsonObject deuxiem = raid.getAsJsonObject("idPoint");
-//
-//            String test = deuxiem.get("id").toString();
-//            //String posteraid = raid.get("nom").toString().replace("\""," ");
-//
-//
-//            String type = raid.get("type").toString().replace("\"", " ");
-//            ;
-
-//        }
+            Utils.debug("heureDebut",heureDebut);
+            Utils.debug("heureFin",heureFin);
+            Utils.debug("date",date);
+        }
     }
 }

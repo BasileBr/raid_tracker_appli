@@ -2473,7 +2473,6 @@ public class ApiRequestGet {
                         Utils.debug("recup info poste",response);
                         PosteDescription.recupInfosPoste(response);
                     }
-
                 },
                 /**
                  *
