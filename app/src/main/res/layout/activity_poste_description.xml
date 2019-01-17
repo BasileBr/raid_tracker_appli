@@ -46,6 +46,13 @@
                 android:text="GuideMe"
                 android:onClick="onClickGuideMe"
                 android:id="@+id/guide"/>
+
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-In"
+            android:onClick="checkIn"
+            android:id="@+id/check"/>
         </LinearLayout>
 
     </ScrollView>

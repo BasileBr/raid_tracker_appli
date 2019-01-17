@@ -72,7 +72,8 @@ public class GuideMeActivity extends AppCompatActivity {
     Location localisation;
     Integer checkthing=0;
     Polyline roadOverlay;
-
+    Marker nodeMarker;
+    ArrayList<Marker> listMarker = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,7 @@ public class GuideMeActivity extends AppCompatActivity {
                             Intent intent = new Intent(GuideMeActivity.this, PosteDescription.class);
                             startActivity(intent);
                             mLocationOverlay.disableMyLocation();
+                            arreterLocalisation();
                         }
                     });
                     //retour à la navigation
@@ -136,7 +138,7 @@ public class GuideMeActivity extends AppCompatActivity {
         //
 
 
-        if (checkstartlocalisation ==1){
+        /*if (checkstartlocalisation ==1){
             Handler myHandler = new Handler();
             myHandler.postDelayed(new Runnable() {
                 @Override
@@ -144,7 +146,7 @@ public class GuideMeActivity extends AppCompatActivity {
 
                 }
             },1000);
-        }
+        }*/
 
 
     }
@@ -316,23 +318,29 @@ public class GuideMeActivity extends AppCompatActivity {
             //Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
 
             Drawable nodeIcon = getResources().getDrawable(R.drawable.passage);
+
+            //map.getOverlays().remove(nodeMarker);
+            map.getOverlays().remove(listMarker);
+
+
+
+
             for (int i=0; i<road.mNodes.size(); i++){
                 RoadNode node = road.mNodes.get(i);
               //  node.mManeuverType=maneuver
-                Marker nodeMarker = new Marker(map);
+                nodeMarker = new Marker(map);
                 nodeMarker.setPosition(node.mLocation);
                 nodeMarker.setSnippet(node.mInstructions);
 
                 Utils.debug("instruct",node.mInstructions);
                 Utils.debug("instruct2",node.mLocation.toString());
 
-              //  Utils.debug("instruct3");
-
                 nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
                 nodeMarker.setIcon(nodeIcon);
                 nodeMarker.setTitle("Step "+i);
                 Drawable icon = getResources().getDrawable(R.drawable.ic_continue);
                 nodeMarker.setImage(icon);
+                listMarker.add(nodeMarker);
                 map.getOverlays().add(nodeMarker);
             }
 
@@ -399,8 +407,14 @@ public class GuideMeActivity extends AppCompatActivity {
             locationManager.requestLocationUpdates(fournisseur, 15000, 10, ecouteurGPS);
         }
     }
-
-
+    private void arreterLocalisation()
+    {
+        if(locationManager != null)
+        {
+            locationManager.removeUpdates(ecouteurGPS);
+            ecouteurGPS = null;
+        }
+    }
 
 
     //partie calibration //
