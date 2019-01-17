@@ -114,6 +114,23 @@ public class PosteDescription extends AppCompatActivity {
                 Utils.debug("after",tmpgeolatitude.toString());
                 Double tmpgeolongitude =tmpgeo.getLongitude();
 
+                /**TODO
+                 * Calcul ratio :   - ratiolong = valeur absolue de la longitude du point - la longitude de la position
+                 *                  - ratiolat = valeur absolue de la latitude du point - la latitude de la position
+                 *
+                 *                  si ratiolong < 0.0004 && ratiolat < 0.0004
+                 *                     {
+                 *                          ok
+                 *                      }
+                 *                  sinon si ratiolong < 0.001 && ratiolat < 0.001
+                 *                      {
+                 *                          presque ok
+                 *                      }
+                 *                  sinon
+                 *                      {
+                 *                          pas cool
+                 *                      }
+                 */
                 //ne pas faire un double checkin
 
 
