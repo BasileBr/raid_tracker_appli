@@ -8,12 +8,18 @@ import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
@@ -39,6 +45,7 @@ public class PosteDescription extends AppCompatActivity {
     private Toolbar toolbar;
     Double positionLatitude;
     Double positionLongitude;
+    private static ScrollView parent;
 
 
     @Override
@@ -76,6 +83,39 @@ public class PosteDescription extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        parent = findViewById(R.id.fullscroll);
+
+       // parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+       // parent.setO(LinearLayout.VERTICAL);
+
+        //children of parent linearlayout
+
+       // ImageView iv = new ImageView(context);
+
+//        LinearLayout layout2 = new LinearLayout(context);
+//
+//        layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//        layout2.setOrientation(LinearLayout.HORIZONTAL);
+//        layout2.setBackgroundColor(getResources().getColor(R.color.BleuPrimaire));
+//
+//       // parent.addView(iv);
+//        parent.addView(layout2);
+//
+//        //children of layout2 LinearLayout
+//
+//        TextView tv1 = new TextView(context);
+//        Button bt1 = new Button(context);
+//        Button bt2 = new Button(context);
+//        //TextView tv4 = new TextView(context);
+//
+//        tv1.setText("coucou");
+//
+//        layout2.addView(tv1);
+//        layout2.addView(bt1);
+//        layout2.addView(bt2);
+
 
         // page de retour
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -228,6 +268,50 @@ public class PosteDescription extends AppCompatActivity {
             Utils.debug("heureDebut",heureDebut);
             Utils.debug("heureFin",heureFin);
             Utils.debug("date",date);
+
+            //récupération des coordonnées du poste
+            JsonObject coordposte = poste.getAsJsonObject("idPoint");
+            String latitude = coordposte.get("lat").toString();
+            String longitude = coordposte.get("lon").toString();
+
+
+            LinearLayout layout2 = new LinearLayout(context);
+            layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            layout2.setOrientation(LinearLayout.HORIZONTAL);
+            layout2.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+
+            // parent.addView(iv);
+            parent.addView(layout2);
+
+
+//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+//
+//            layoutParams.setMarginEnd(20);
+//
+//            Button bt1 = new Button(context);
+//            bt1.setText("some text");
+//            bt1.setLayoutParams(layoutParams);
+//            layout2.addView(bt1);
+
+
+
+            //children of layout2 LinearLayout
+
+            TextView tv1 = new TextView(context);
+            Button bt1 = new Button(context);
+            Button bt2 = new Button(context);
+            //TextView tv4 = new TextView(context);
+
+            tv1.setText(typePoste+"\n"+"de : "+heureDebut+"à : "+heureFin+"\n"+"date : "+date);
+            bt1.setText("Me Guider");
+            bt2.setText("CheckIn");
+
+            layout2.addView(tv1);
+            layout2.addView(bt1);
+            layout2.addView(bt2);
+
+
         }
     }
 }
