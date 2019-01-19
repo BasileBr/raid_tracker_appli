@@ -11,6 +11,7 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -144,6 +145,13 @@ public class PosteDescription extends AppCompatActivity {
 
     public void onClickGuideMe(View view) {
         Intent intent = new Intent(PosteDescription.this, GuideMeActivity.class);
+        startActivity(intent);
+    }
+
+    public void launcher(View view){
+        Uri gmmIntentUri  = Uri.parse("geo:37.7749,-122.4192?q=37.7749,-122.4800");
+        Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
     }
 
