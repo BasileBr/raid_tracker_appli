@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class VolunteerPreferenceActivity extends AppCompatActivity implements OnItemSelectedListener{
-    MapView map = null;
+    private static MapView map = null;
     private static Context context;
     private Toolbar toolbar;
     private static Spinner spinner;
@@ -115,6 +115,11 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
+        //récupération des postes à partir de l'id d'un Raid
+        ApiRequestGet.getAllPostesfromOneRaid(context, token,idRaid);
+
+
+
         //création de la map
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -127,10 +132,6 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
         mapController.setCenter(centermap);
 
-        //géolocaliser l'appareil
-        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.getOverlays().add(mLocationOverlay);
 
         // ajouter l'echelle
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
@@ -147,23 +148,18 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //récupération du bouton pour inscrire un bénévole à un poste
         submit=(Button) findViewById(R.id.submit);
 
-
-
+        //récupération du token
         token = Bdd.getValue();
         //idraid= intent.getStringExtra("idRaid");
 
 
-
+        //récupération de l'id de l'utilisateur
         iduser = Bdd.getUserid();
 
 
-        //récupération des postes à partir de l'id d'un Raid
-        //ApiRequestGet.getAllPostesfromOneRaid(context, token, String.valueOf(43));
-
-        ApiRequestGet.getAllPostesfromOneRaid(context, token,idRaid);
-
-
     }
+
+
 
     //méthode pour récupérer l'élement selectionné dans la liste des postes
     @Override
@@ -223,8 +219,6 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         JsonArray posteliste = (JsonArray) parser.parse(response);
         //Utils.debug(" + size", "size : " + posteliste.size() + " raidlist : "+posteliste.toString());
         posteRaid = new ArrayList<>();
-
-
 
 
 

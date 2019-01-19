@@ -109,7 +109,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
                 if (dateD.contains("0")) {
-                    dateD = dateD.replace("0", " ");
+                    dateD = dateD.replace("0", "");
                 }
 
                 HashMap<String,String> map = new HashMap<>();
