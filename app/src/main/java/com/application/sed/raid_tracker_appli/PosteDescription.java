@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -302,11 +303,23 @@ public class PosteDescription extends AppCompatActivity {
             //children of layout2 LinearLayout
 
             TextView tv1 = new TextView(context);
+            LinearLayout layout3 = new LinearLayout(context);
 
             //Ajoute une hauteur de 180
-            tv1.setHeight(180);
+            if (getAndroidVersion() == 21) {
+                tv1.setHeight(120);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 120));
 
+            }
+            else if (getAndroidVersion() == 26) {
+                tv1.setHeight(180);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
 
+            }
+            else {
+                tv1.setHeight(180);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
+            }
             Button bt1 = new Button(context);
             Button bt2 = new Button(context);
 
@@ -315,8 +328,7 @@ public class PosteDescription extends AppCompatActivity {
             bt2.setText("CheckIn");
 
             //Création d'un linearlayout de hauteur 180 et d'une orientation verticale
-            LinearLayout layout3 = new LinearLayout(context);
-            layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
+
             layout3.setOrientation(LinearLayout.HORIZONTAL);
 
             //Ajout des boutons dans le linear layout
@@ -338,6 +350,12 @@ public class PosteDescription extends AppCompatActivity {
             parentbouton.addView(layout3);
 
 
+
         }
+    }
+
+    public static int getAndroidVersion() {
+        int sdkVersion = Build.VERSION.SDK_INT;
+        return  sdkVersion ;
     }
 }
