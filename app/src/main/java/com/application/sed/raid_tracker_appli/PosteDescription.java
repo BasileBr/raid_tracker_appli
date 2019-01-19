@@ -29,6 +29,7 @@ import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.helper.VolunteerPreferenceActivity;
+import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -49,8 +50,8 @@ public class PosteDescription extends AppCompatActivity {
     private static String token;
     private static String iduser;
     private Toolbar toolbar;
-    Double positionLatitude;
-    Double positionLongitude;
+    public static Double  positionLatitude;
+    public static Double positionLongitude;
     private static LinearLayout parentdescription;
     private static LinearLayout parentbouton;
     private static String mois;
@@ -136,6 +137,7 @@ public class PosteDescription extends AppCompatActivity {
             }
         });
 
+        geolocateMe();
 
         //récupérer la répartition d'un utilisateur sur un raid
         ApiRequestGet.getRepartitionfromIdUserIdRaid(context, token, idRaidReceive, iduser);
@@ -148,11 +150,16 @@ public class PosteDescription extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launcher(View view){
-        Uri gmmIntentUri  = Uri.parse("geo:37.7749,-122.4192?q=37.7749,-122.4800");
+    public static void launcher( GeoPoint depart, GeoPoint arrivee){
+        Double latdepart = depart.getLatitude();
+        Double latarrivee = arrivee.getLatitude();
+        Double longdepart = depart.getLongitude();
+        Double longarrivee = depart.getLongitude();
+
+        Uri gmmIntentUri  = Uri.parse("geo:"+latdepart.toString()+","+longdepart+"?q="+latarrivee+","+longarrivee);
         Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         intent.setPackage("com.google.android.apps.maps");
-        startActivity(intent);
+        context.startActivity(intent);
     }
 
     public void checkIn(View view) {
@@ -257,6 +264,7 @@ public class PosteDescription extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
 
+
         int compteurposte;
 
         for (int i = 0; i < posteinfos.size(); i++) {
@@ -317,8 +325,8 @@ public class PosteDescription extends AppCompatActivity {
 
             //récupération des coordonnées du poste
             JsonObject coordposte = poste.getAsJsonObject("idPoint");
-            String latitude = coordposte.get("lat").toString();
-            String longitude = coordposte.get("lon").toString();
+            final Double latitude = Double.valueOf(coordposte.get("lat").toString());
+            final Double longitude = Double.valueOf(coordposte.get("lon").toString());
 
 
 //            LinearLayout layout2 = new LinearLayout(context);
@@ -376,6 +384,13 @@ public class PosteDescription extends AppCompatActivity {
             tv1.setTextSize(15);
             bt1.setText("Me Guider");
             bt2.setText("CheckIn");
+            bt1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    GeoPoint depart = new GeoPoint(positionLatitude, positionLongitude);
+                    GeoPoint arrivee = new GeoPoint(latitude, longitude);
+                    launcher(depart,arrivee);
+                }
+            });
 
             //Création d'un linearlayout de hauteur 180 et d'une orientation verticale
 
