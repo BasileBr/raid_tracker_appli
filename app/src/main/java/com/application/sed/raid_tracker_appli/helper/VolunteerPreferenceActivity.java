@@ -71,6 +71,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
     private static Integer stockerIdPoste;
 
+    private static String latitudePoste1;
+
 
 
     @Override
@@ -254,6 +256,39 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         }
         createSpinner(posteRaid);
 
+    }
+
+    public static void gestionCarte(String response){
+//        JsonParser parser = new JsonParser();
+//        JsonArray posteliste = (JsonArray) parser.parse(response);
+//
+////        //parcours la liste avec le Json
+////        for (int i = 0; i < posteliste.size(); i ++) {
+//
+//            JsonObject raid = (JsonObject) posteliste.get(0);
+//
+//            //récupération de l'id de point d'un poste
+//            JsonObject deuxiem=raid.getAsJsonObject("idPoint");
+//
+//            String longitudePoste1 = deuxiem.get("lon").toString();
+//             latitudePoste1= deuxiem.get("lat").toString();
+//            String test=deuxiem.get("id").toString();
+//            //String posteraid = raid.get("nom").toString().replace("\""," ");
+//
+//            //  String longitude
+//
+//            String type = raid.get("type").toString().replace("\"", " ");;
+//
+//            Integer ListIdPoste2= raid.get("id").getAsInt();
+//
+//            // meMap.put(id_poste,test);
+//
+//
+//            posteRaid.add(type);
+//
+//            ListIdPoste.add(ListIdPoste2);
+
+        //}
     }
 
 

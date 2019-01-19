@@ -1655,7 +1655,7 @@ public class ApiRequestGet {
 
                         Utils.debug("repon get all postes",response);
                         VolunteerPreferenceActivity.posteListe(response);
-                        //VolunteerPreferenceActivity.cre
+                        VolunteerPreferenceActivity.gestionCarte(response);
 
                     }
 
