@@ -238,6 +238,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
              String test=deuxiem.get("id").toString();
             //String posteraid = raid.get("nom").toString().replace("\""," ");
 
+          //  String longitude
 
             String type = raid.get("type").toString().replace("\"", " ");;
 

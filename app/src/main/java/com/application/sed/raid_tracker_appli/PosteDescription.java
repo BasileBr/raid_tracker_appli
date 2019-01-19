@@ -178,8 +178,8 @@ public class PosteDescription extends AppCompatActivity {
                 Double positionPosteLongitude =positionPoste.getLongitude();
 
                 // calcul de ratio
-                Double ratiolatitude  = Math.abs(positionPosteLatitude)-Math.abs(positionLatitude);
-                Double ratiolongitude = Math.abs(positionPosteLongitude)-Math.abs(positionLongitude);
+                Double ratiolatitude  = Math.abs(positionPosteLatitude-positionLatitude);
+                Double ratiolongitude = Math.abs(positionPosteLongitude-positionLongitude);
 
                 if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
                     // requête API /api/checkin
