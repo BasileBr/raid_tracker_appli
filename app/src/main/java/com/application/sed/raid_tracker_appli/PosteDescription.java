@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -45,7 +46,7 @@ public class PosteDescription extends AppCompatActivity {
     private Toolbar toolbar;
     Double positionLatitude;
     Double positionLongitude;
-    private static ScrollView parent;
+    private static LinearLayout parent;
 
 
     @Override
@@ -85,7 +86,7 @@ public class PosteDescription extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        parent = findViewById(R.id.fullscroll);
+        parent = findViewById(R.id.PostesLayout);
 
        // parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
        // parent.setO(LinearLayout.VERTICAL);
@@ -276,12 +277,12 @@ public class PosteDescription extends AppCompatActivity {
 
 
             LinearLayout layout2 = new LinearLayout(context);
-            layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            layout2.setOrientation(LinearLayout.HORIZONTAL);
+            layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            layout2.setGravity(LinearLayout.HORIZONTAL);
             layout2.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
 
             // parent.addView(iv);
-            parent.addView(layout2);
+
 
 
 //            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
@@ -299,17 +300,34 @@ public class PosteDescription extends AppCompatActivity {
             //children of layout2 LinearLayout
 
             TextView tv1 = new TextView(context);
+            tv1.setHeight(180);
+
+
             Button bt1 = new Button(context);
             Button bt2 = new Button(context);
             //TextView tv4 = new TextView(context);
 
             tv1.setText(typePoste+"\n"+"de : "+heureDebut+"à : "+heureFin+"\n"+"date : "+date);
+            //tv1.setGravity(800003);
             bt1.setText("Me Guider");
+           //bt1.setGravity(800005);
             bt2.setText("CheckIn");
+            //bt2.setGravity(800005);
+
+            LinearLayout layout3 = new LinearLayout(context);
+            layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            layout3.setOrientation(LinearLayout.HORIZONTAL);
+            layout3.addView(bt1);
+            layout3.addView(bt2);
 
             layout2.addView(tv1);
-            layout2.addView(bt1);
-            layout2.addView(bt2);
+
+            layout2.addView(layout3);
+            layout3.setGravity(800005);
+            layout2.setPaddingRelative(20,0,0,0);
+
+
+            parent.addView(layout2);
 
 
         }
