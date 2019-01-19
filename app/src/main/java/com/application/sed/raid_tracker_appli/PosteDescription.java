@@ -46,7 +46,8 @@ public class PosteDescription extends AppCompatActivity {
     private Toolbar toolbar;
     Double positionLatitude;
     Double positionLongitude;
-    private static LinearLayout parent;
+    private static LinearLayout parentdescription;
+    private static LinearLayout parentbouton;
 
 
     @Override
@@ -86,7 +87,8 @@ public class PosteDescription extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        parent = findViewById(R.id.PostesLayout);
+        parentdescription = findViewById(R.id.postesDescription);
+        parentbouton = findViewById(R.id.postesboutons);
 
        // parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
        // parent.setO(LinearLayout.VERTICAL);
@@ -276,10 +278,10 @@ public class PosteDescription extends AppCompatActivity {
             String longitude = coordposte.get("lon").toString();
 
 
-            LinearLayout layout2 = new LinearLayout(context);
-            layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            layout2.setGravity(LinearLayout.HORIZONTAL);
-            layout2.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+//            LinearLayout layout2 = new LinearLayout(context);
+//            layout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//            layout2.setGravity(LinearLayout.HORIZONTAL);
+//            layout2.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
 
             // parent.addView(iv);
 
@@ -300,34 +302,40 @@ public class PosteDescription extends AppCompatActivity {
             //children of layout2 LinearLayout
 
             TextView tv1 = new TextView(context);
+
+            //Ajoute une hauteur de 180
             tv1.setHeight(180);
 
 
             Button bt1 = new Button(context);
             Button bt2 = new Button(context);
-            //TextView tv4 = new TextView(context);
 
             tv1.setText(typePoste+"\n"+"de : "+heureDebut+"à : "+heureFin+"\n"+"date : "+date);
-            //tv1.setGravity(800003);
             bt1.setText("Me Guider");
-           //bt1.setGravity(800005);
             bt2.setText("CheckIn");
-            //bt2.setGravity(800005);
 
+            //Création d'un linearlayout de hauteur 180 et d'une orientation verticale
             LinearLayout layout3 = new LinearLayout(context);
-            layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
             layout3.setOrientation(LinearLayout.HORIZONTAL);
+
+            //Ajout des boutons dans le linear layout
             layout3.addView(bt1);
             layout3.addView(bt2);
 
-            layout2.addView(tv1);
+            //Ajout d'une marge en hauteur de 20 sur le linear qui contient les boutons
+            layout3.setPaddingRelative(0,20,0,0);
+            layout3.setBackgroundColor(context.getResources().getColor(R.color.MarronPrimaire));
 
-            layout2.addView(layout3);
-            layout3.setGravity(800005);
-            layout2.setPaddingRelative(20,0,0,0);
+            // Ajout d'une marge de 10 vers la gauche et de 10 vers le haut
+            tv1.setPaddingRelative(10,10,0,0);
 
+            // Ajout d'une couleur et de la description du poste au linear de " droite "
+            parentdescription.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+            parentdescription.addView(tv1);
 
-            parent.addView(layout2);
+            //Ajout du linear qui contient les boutons au linear de " gauche "
+            parentbouton.addView(layout3);
 
 
         }
