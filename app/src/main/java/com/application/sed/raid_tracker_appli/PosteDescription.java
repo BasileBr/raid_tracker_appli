@@ -349,16 +349,16 @@ public class PosteDescription extends AppCompatActivity {
 
             }
             else if (getAndroidVersion() == 26) {
-                tv1.setHeight(180);
-                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
-                layout3.setPaddingRelative(0,20,0,0);
+                tv1.setHeight(220);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 220));
+                layout3.setPaddingRelative(0,30,0,0);
                 tv1.setPaddingRelative(10,10,0,0);
 
             }
             else {
-                tv1.setHeight(180);
-                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
-                layout3.setPaddingRelative(0,20,0,0);
+                tv1.setHeight(220);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 220));
+                layout3.setPaddingRelative(0,30,0,0);
                 tv1.setPaddingRelative(10,10,0,0);
             }
             Button bt1 = new Button(context);
