@@ -307,23 +307,30 @@ public class PosteDescription extends AppCompatActivity {
 
             //Ajoute une hauteur de 180
             if (getAndroidVersion() == 21) {
-                tv1.setHeight(120);
-                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 120));
+                tv1.setHeight(110);
+                layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 110));
+                layout3.setPaddingRelative(0,20,20,0);
+                tv1.setPaddingRelative(20,15,0,0);
 
             }
             else if (getAndroidVersion() == 26) {
                 tv1.setHeight(180);
                 layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
+                layout3.setPaddingRelative(0,20,0,0);
+                tv1.setPaddingRelative(10,10,0,0);
 
             }
             else {
                 tv1.setHeight(180);
                 layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 180));
+                layout3.setPaddingRelative(0,20,0,0);
+                tv1.setPaddingRelative(10,10,0,0);
             }
             Button bt1 = new Button(context);
             Button bt2 = new Button(context);
 
             tv1.setText(typePoste+"\n"+"de : "+heureDebut+"à : "+heureFin+"\n"+"date : "+date);
+            tv1.setTextSize(15);
             bt1.setText("Me Guider");
             bt2.setText("CheckIn");
 
@@ -336,14 +343,14 @@ public class PosteDescription extends AppCompatActivity {
             layout3.addView(bt2);
 
             //Ajout d'une marge en hauteur de 20 sur le linear qui contient les boutons
-            layout3.setPaddingRelative(0,20,0,0);
-            layout3.setBackgroundColor(context.getResources().getColor(R.color.MarronPrimaire));
+            //layout3.setPaddingRelative(0,20,0,0);
+            //layout3.setBackgroundColor(context.getResources().getColor(R.color.MarronPrimaire));
 
             // Ajout d'une marge de 10 vers la gauche et de 10 vers le haut
-            tv1.setPaddingRelative(10,10,0,0);
+            //tv1.setPaddingRelative(10,10,0,0);
 
             // Ajout d'une couleur et de la description du poste au linear de " droite "
-            parentdescription.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+            //parentdescription.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
             parentdescription.addView(tv1);
 
             //Ajout du linear qui contient les boutons au linear de " gauche "
