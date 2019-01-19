@@ -36,6 +36,9 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import okhttp3.internal.Util;
 
 public class PosteDescription extends AppCompatActivity {
@@ -49,7 +52,7 @@ public class PosteDescription extends AppCompatActivity {
     Double positionLongitude;
     private static LinearLayout parentdescription;
     private static LinearLayout parentbouton;
-
+    private static String mois;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,7 +249,12 @@ public class PosteDescription extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
 
+        int compteurposte;
+
         for (int i = 0; i < posteinfos.size(); i++) {
+
+           compteurposte=i+1;
+
             JsonObject repartition = (JsonObject) posteinfos.get(i);
             JsonObject poste = repartition.getAsJsonObject("idPoste");
 
@@ -255,22 +263,48 @@ public class PosteDescription extends AppCompatActivity {
 
             //récupération de l'heure de début
             String hourdebut=poste.get("heureDebut").toString().substring(12,14);
-            String minutedebut=poste.get("heureDebut").toString().substring(14,17);
-            String heureDebut = hourdebut +minutedebut;
+            String minutedebut=poste.get("heureDebut").toString().substring(15,17);
+            String heureDebut = hourdebut+"h"+minutedebut;
 
             //récupération de l'heure de fin
             String hourfin=poste.get("heureFin").toString().substring(12,14);
-            String minutefin=poste.get("heureFin").toString().substring(14,17);
-            String heureFin = hourfin +minutefin;
+            String minutefin=poste.get("heureFin").toString().substring(15,17);
+            String heureFin = hourfin+"h"+minutefin ;
+
 
             //récupération de la date
             String dateY=poste.get("heureFin").toString().substring(1,5);
             String dateM=poste.get("heureFin").toString().substring(6,8);
             String dateD=poste.get("heureFin").toString().substring(9,11);
-            String date=dateD+'/'+dateM+'/'+dateY;
 
-            Utils.debug("heureDebut",heureDebut);
-            Utils.debug("heureFin",heureFin);
+            if (dateD.contains("0")) {
+                dateD = dateD.replace("0", " ");
+            }
+
+            HashMap<String,String> map = new HashMap<>();
+            map.put("01","Janvier");
+            map.put("02","Février");
+            map.put("03","Mars");
+            map.put("04","Avril");
+            map.put("05","Mai");
+            map.put("06","Juin");
+            map.put("07","Juillet");
+            map.put("08","Aout");
+            map.put("09","Septembre");
+            map.put("10","Octobre");
+            map.put("11","Novembre");
+            map.put("12","Décembre");
+
+            for (Map.Entry months : map.entrySet()){
+                if (months.getKey().equals(dateM)){
+                     mois = months.getValue().toString();
+                }
+            }
+
+            String date=dateD+' '+mois+' '+dateY;
+
+            Utils.debug("dateM",dateM);
+            Utils.debug("dateY",dateY);
             Utils.debug("date",date);
 
             //récupération des coordonnées du poste
@@ -308,9 +342,10 @@ public class PosteDescription extends AppCompatActivity {
             //Ajoute une hauteur de 180
             if (getAndroidVersion() == 21) {
                 tv1.setHeight(110);
+                tv1.setWidth(35);
                 layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 110));
-                layout3.setPaddingRelative(0,20,20,0);
-                tv1.setPaddingRelative(20,15,0,0);
+                layout3.setPaddingRelative(0,20,30,0);
+                tv1.setPaddingRelative(30,15,0,0);
 
             }
             else if (getAndroidVersion() == 26) {
@@ -329,7 +364,7 @@ public class PosteDescription extends AppCompatActivity {
             Button bt1 = new Button(context);
             Button bt2 = new Button(context);
 
-            tv1.setText(typePoste+"\n"+"de : "+heureDebut+"à : "+heureFin+"\n"+"date : "+date);
+            tv1.setText("Poste " +compteurposte+" : "+typePoste+"\n"+"Heure de début :  "+heureDebut+"\n"+"Heure de fin : "+heureFin+"\n"+"le "+date);
             tv1.setTextSize(15);
             bt1.setText("Me Guider");
             bt2.setText("CheckIn");

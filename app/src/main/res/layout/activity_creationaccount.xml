@@ -72,6 +72,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:hint="@string/input_mail"
+                    android:inputType="textEmailAddress"
                     android:drawableStart="@drawable/client"
                     android:background="@drawable/border"
                     android:drawablePadding="5dp"
@@ -98,7 +99,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
                     android:inputType="textPassword"
-                    android:hint="@string/input_password2"
+                    android:hint="Confirmation du mot de pase"
                     android:drawableStart="@drawable/cadena"
                     android:drawablePadding="5dp"
                     />

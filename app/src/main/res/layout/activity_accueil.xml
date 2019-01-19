@@ -63,6 +63,7 @@
                     android:layout_width="300dp"
                     android:drawablePadding="5dp"
                     android:layout_height="50dp"
+                    android:inputType="textEmailAddress"
                     android:hint="@string/input_mail"
                     android:layout_gravity="center"
                     android:drawableStart="@drawable/client"
