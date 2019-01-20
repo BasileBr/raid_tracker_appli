@@ -2,7 +2,6 @@ package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,10 +12,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.application.sed.raid_tracker_appli.Accueil;
-import com.application.sed.raid_tracker_appli.InviteVolunteersActivity;
+import com.application.sed.raid_tracker_appli.ConnexionActivity;
+import com.application.sed.raid_tracker_appli.organizer.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
-import com.application.sed.raid_tracker_appli.PosteDescription;
+import com.application.sed.raid_tracker_appli.helper.PosteDescription;
 import com.application.sed.raid_tracker_appli.organizer.EditCourse;
 import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
@@ -2738,7 +2737,7 @@ public class ApiRequestGet {
                                 String name = res.get("username").toString();
                                 Log.d("GetSpecificUsers", name);
                                 Bdd.setApiNomUtilisateur(name);
-                                Accueil.change(name);
+                                ConnexionActivity.change(name);
 
                                 // Display the formatted json data in text view
 //                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);

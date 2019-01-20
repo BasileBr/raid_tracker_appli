@@ -40,7 +40,7 @@
             android:name=".WelcomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Accueil"
+            android:name=".ConnexionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".organizer.CreateParcours"
@@ -63,7 +63,7 @@
             android:name=".helper.VolunteerPreferenceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".InviteVolunteersActivity"
+            android:name=".organizer.InviteVolunteersActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".organizer.EditCourse"
@@ -71,9 +71,9 @@
         <activity
             android:name=".organizer.EditPosteActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PosteDescription"
+        <activity android:name=".helper.PosteDescription"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".GuideMeActivity"
+        <activity android:name=".helper.GuideMeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

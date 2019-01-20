@@ -13,7 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.application.sed.raid_tracker_appli.Accueil;
+import com.application.sed.raid_tracker_appli.ConnexionActivity;
 import com.application.sed.raid_tracker_appli.CreateAccount;
 import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -30,8 +30,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.internal.Util;
 
 public class ApiRequestPost {
 
@@ -112,14 +110,14 @@ public class ApiRequestPost {
 
                         Log.d("Response", response);
 
-                        Accueil.redirection(response);
+                        ConnexionActivity.redirection(response);
                     }
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Accueil.erreurConnexion();
+                        ConnexionActivity.erreurConnexion();
                         Log.d("Error.Response", error.toString());
                     }
                 }

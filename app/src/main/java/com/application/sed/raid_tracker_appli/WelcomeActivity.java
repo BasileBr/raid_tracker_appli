@@ -195,7 +195,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, Accueil.class);
+                        Intent intent = new Intent(context, ConnexionActivity.class);
                         intent.putExtra("Classname","Welcome");
                         context.startActivity(intent);
                     }
@@ -211,14 +211,14 @@ public class WelcomeActivity extends AppCompatActivity {
      *
      */
     public void join(View view) {
-        Intent intent = new Intent(WelcomeActivity.this, Accueil.class);
+        Intent intent = new Intent(WelcomeActivity.this, ConnexionActivity.class);
         intent.putExtra("Classname","Welcome");
         startActivity(intent);
     }
 
 
     public void Connexion(View view){
-        Intent intent =  new Intent(WelcomeActivity.this, Accueil.class);
+        Intent intent =  new Intent(WelcomeActivity.this, ConnexionActivity.class);
         intent.putExtra("Classname", "Welcome");
 
         startActivity(intent);

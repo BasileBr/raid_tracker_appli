@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
+import com.application.sed.raid_tracker_appli.organizer.GMailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +91,8 @@ public class CreateAccount extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (classname.equals("Accueil")) {
-                    Intent intent = new Intent(CreateAccount.this, Accueil.class);
+                if (classname.equals("ConnexionActivity")) {
+                    Intent intent = new Intent(CreateAccount.this, ConnexionActivity.class);
                     startActivity(intent);
                 }
                 else if (classname.equals("Welcome")) {
@@ -198,7 +199,7 @@ public class CreateAccount extends AppCompatActivity{
 
         }).start();
 
-        Intent intent =  new Intent(context, Accueil.class);
+        Intent intent =  new Intent(context, ConnexionActivity.class);
         intent.putExtra("Classname", "CreateAccount");
         context.startActivity(intent);
     }
@@ -224,8 +225,8 @@ public class CreateAccount extends AppCompatActivity{
 
 
     public void cancel(View view){
-        if (classname.equals("Accueil")) {
-            Intent intent = new Intent(CreateAccount.this, Accueil.class);
+        if (classname.equals("ConnexionActivity")) {
+            Intent intent = new Intent(CreateAccount.this, ConnexionActivity.class);
             startActivity(intent);
         }
         else if (classname.equals("Welcome")) {

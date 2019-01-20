@@ -19,9 +19,9 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Accueil extends AppCompatActivity {
+public class ConnexionActivity extends AppCompatActivity {
     private static Context context;
-    private String TAG="Accueil";
+    private String TAG="ConnexionActivity";
 
 
     // Liste pour récupérer tous les comptes
@@ -45,7 +45,7 @@ public class Accueil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accueil);
+        setContentView(R.layout.activity_connexion);
     // Récupération des informations de la liste
 
         context = this;
@@ -75,7 +75,7 @@ public class Accueil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Accueil.this, WelcomeActivity.class);
+                Intent intent = new Intent(ConnexionActivity.this, WelcomeActivity.class);
                 startActivity(intent);
 
             }
@@ -120,8 +120,8 @@ public class Accueil extends AppCompatActivity {
     }
 
     public void createAccount(View view){
-        Intent intent =  new Intent(Accueil.this, CreateAccount.class);
-        intent.putExtra("Classname","Accueil");
+        Intent intent =  new Intent(ConnexionActivity.this, CreateAccount.class);
+        intent.putExtra("Classname","ConnexionActivity");
         startActivity(intent);
     }
 
@@ -132,7 +132,7 @@ public class Accueil extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonObject token = (JsonObject) parser.parse(toto);
 
-        Utils.debug("Accueil", token.toString());
+        Utils.debug("ConnexionActivity", token.toString());
 
         String id = token.get("id").toString();
         String test = token.get("value").toString();
@@ -141,14 +141,14 @@ public class Accueil extends AppCompatActivity {
         JsonObject user = token.get("user").getAsJsonObject();
         String userid = user.get("id").toString();
         Bdd.setUserid(userid);
-        Utils.debug("Accueil", "id : " + id + " Value " +value);
+        Utils.debug("ConnexionActivity", "id : " + id + " Value " +value);
 
         Bdd.setValue(value,id);
 
 
         String utilisateur = user.get("username").toString();
         String iduser = user.get("id").toString();
-        Utils.debug("Accueil",utilisateur);
+        Utils.debug("ConnexionActivity",utilisateur);
         Intent intent = new Intent(context, LandingActivity.class);
         intent.putExtra("name",utilisateur);
 
@@ -171,7 +171,7 @@ public class Accueil extends AppCompatActivity {
         intent.putExtra("name",utilisateur);
         Bdd.setNomUtilisateur(utilisateur);
         context.startActivity(intent);
-        Utils.info("Accueil","Login Button action");
+        Utils.info("ConnexionActivity","Login Button action");
     }
 
 }

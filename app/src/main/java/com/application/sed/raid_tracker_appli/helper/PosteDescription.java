@@ -1,48 +1,38 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.helper;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.LandingActivity;
+import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.helper.VolunteerPreferenceActivity;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.internal.Util;
 
 public class PosteDescription extends AppCompatActivity {
 

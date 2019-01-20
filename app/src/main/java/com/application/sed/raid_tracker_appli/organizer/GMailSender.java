@@ -1,4 +1,6 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.organizer;
+
+import com.application.sed.raid_tracker_appli.JSSEProvider;
 
 import javax.activation.DataHandler;
 

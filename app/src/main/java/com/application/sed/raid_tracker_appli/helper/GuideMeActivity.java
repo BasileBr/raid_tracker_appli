@@ -1,4 +1,4 @@
-package com.application.sed.raid_tracker_appli;
+package com.application.sed.raid_tracker_appli.helper;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,16 +23,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
-import com.application.sed.raid_tracker_appli.Utils.Bdd;
+import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
-import com.application.sed.raid_tracker_appli.organizer.CourseActivity;
-import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
-import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.bonuspack.routing.RoadNode;
@@ -45,11 +39,9 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
-import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.io.UTFDataFormatException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
