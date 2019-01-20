@@ -134,7 +134,7 @@ public class CourseActivity extends AppCompatActivity {
            setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
 
             //
-            ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid);
+            ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid,"CourseActivity");
 
             //récupération des informations du raid pour ensuite exploiter la visibilité
             ApiRequestGet.getSpecificRaidforCourseActivity(context,Bdd.getValue(),idRaid,"CourseActivity");

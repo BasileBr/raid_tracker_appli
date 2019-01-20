@@ -99,10 +99,5 @@ android:orientation="horizontal">
     </LinearLayout>
 </ScrollView>
 
-<!--</LinearLayout>-->
-<!--</ScrollView>-->
-
-<!--</LinearLayout>-->
-
 
 </android.support.v4.widget.DrawerLayout>

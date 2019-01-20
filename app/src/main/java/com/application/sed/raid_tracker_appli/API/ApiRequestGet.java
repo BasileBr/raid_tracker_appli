@@ -1014,7 +1014,7 @@ public class ApiRequestGet {
     }
 
     // get all parours of a specific raid
-    public static void getSpecificParcours(Context context, final String token, final String idRaid){
+    public static void getSpecificParcours(Context context, final String token, final String idRaid,final String classe){
 
         String UrlFinale = urlParcours+"/raids/"+idRaid ;
         Utils.debug("getSpecificParcours", UrlFinale);
@@ -1027,9 +1027,14 @@ public class ApiRequestGet {
                      */
                     @Override
                     public void onResponse(String response) {
-                        CourseActivity.afficheParcours(response);
-                    }
+                        if (classe.equals("CourseActivity")) {
+                            CourseActivity.afficheParcours(response);
+                        } else if (classe.equals("VolunteerPreferenceActivity")) {
+                            VolunteerPreferenceActivity.afficheParcours(response);
 
+                        }
+
+                    }
                 },
                 /**
                  * Se tout se passe pas bien
@@ -1235,6 +1240,8 @@ public class ApiRequestGet {
                             ManageParcoursActivity.recupParcours(response);
                         } else if (classe.equals("CourseActivity")) {
                             CourseActivity.recupParcours(response);
+                        } else if (classe.equals("VolunteerPreferenceActivity")){
+                            VolunteerPreferenceActivity.recupParcours(response);
                         }
 
                     }
@@ -1655,8 +1662,6 @@ public class ApiRequestGet {
 
                         Utils.debug("repon get all postes",response);
                         VolunteerPreferenceActivity.posteListe(response);
-                        VolunteerPreferenceActivity.gestionCarte(response);
-
                     }
 
                 },
@@ -2571,6 +2576,9 @@ public class ApiRequestGet {
                             ManageParcoursActivity.recupTrace(response);
                         }else if(classe.equals("CourseActivity")){
                             CourseActivity.recupTrace(response);
+                        }else if (classe.equals("VolunteerPreferenceActivity")){
+                            VolunteerPreferenceActivity.recupTrace(response);
+
                         }
                     }
 
