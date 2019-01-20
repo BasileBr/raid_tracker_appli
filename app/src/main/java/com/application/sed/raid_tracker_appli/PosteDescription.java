@@ -38,6 +38,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +56,8 @@ public class PosteDescription extends AppCompatActivity {
     private static LinearLayout parentdescription;
     private static LinearLayout parentbouton;
     private static String mois;
+    private static ArrayList<GeoPoint> listPoste;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +140,7 @@ public class PosteDescription extends AppCompatActivity {
             }
         });
 
-        geolocateMe();
+       // geolocateMe();
 
         //récupérer la répartition d'un utilisateur sur un raid
         ApiRequestGet.getRepartitionfromIdUserIdRaid(context, token, idRaidReceive, iduser);
@@ -162,7 +165,7 @@ public class PosteDescription extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    public void checkIn(View view) {
+    private static void checkIn(final GeoPoint positionpostetest) {
 
         //géolocaliser l'utilisateur
         geolocateMe();
@@ -178,19 +181,28 @@ public class PosteDescription extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                GeoPoint positionPoste = new GeoPoint(48.729709,  -3.465943);
+                //GeoPoint positionPoste = new GeoPoint(48.729709,  -3.465943);
 
                 // récupération de la position en double
-                Double positionPosteLatitude = positionPoste.getLatitude();
-                Double positionPosteLongitude =positionPoste.getLongitude();
+                Double positionPosteLatitude = positionpostetest.getLatitude();
+                Double positionPosteLongitude =positionpostetest.getLongitude();
+
+                Utils.debug("positionPosteLatitude",positionPosteLatitude.toString());
+                Utils.debug("positionPosteLongitude",positionPosteLongitude.toString());
+
 
                 // calcul de ratio
                 Double ratiolatitude  = Math.abs(positionPosteLatitude-positionLatitude);
                 Double ratiolongitude = Math.abs(positionPosteLongitude-positionLongitude);
 
+
+                Utils.debug("ratiolatitude",ratiolatitude.toString());
+                Utils.debug("ratiolongitude",ratiolongitude.toString());
+
                 if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
+
                 }
                 else if (ratiolatitude < 0.001 && ratiolongitude <0.001){
                     // requête API /api/checkin
@@ -237,9 +249,9 @@ public class PosteDescription extends AppCompatActivity {
     /**
      ** Géolocalisation de l'utilsateur
      */
-    public void geolocateMe() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    public static void geolocateMe() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -392,6 +404,13 @@ public class PosteDescription extends AppCompatActivity {
                 }
             });
 
+            bt2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    GeoPoint positionpostetest = new GeoPoint(latitude, longitude);
+                    checkIn(positionpostetest);
+
+                }
+            });
             //Création d'un linearlayout de hauteur 180 et d'une orientation verticale
 
             layout3.setOrientation(LinearLayout.HORIZONTAL);
