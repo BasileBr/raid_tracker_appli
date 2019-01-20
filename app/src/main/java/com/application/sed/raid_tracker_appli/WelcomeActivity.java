@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private String TAG = "WelcomeActivity";
+    private static String TAG = "WelcomeActivity";
     private static Context context;
     private static LinearLayout layout;
     private static String mois;
@@ -44,7 +44,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         context = this;
 
-
         // Here, thisActivity is the current activity
         Utils.Permissionlocation(this);
         Utils.Permissioncoarselocation(this);
@@ -52,7 +51,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Utils.Permissionnetworkstate(this);
         Utils.Permissionreadexternalstorage(this);
 
-        layout = (LinearLayout)findViewById(R.id.ListeRaid);
+        layout = findViewById(R.id.ListeRaid);
         ApiRequestGet.getAllRaids(context,"WelcomeActivity");
 
     }
@@ -102,7 +101,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
             //comparaison de la date du jour avec celle de l'évènement (cas où tout est bon)
             else if (today.compareTo(dateEventsfinal)<0){
-                Utils.debug("dateEventsup",today.toString()+"<"+dateEventsfinal.toString());
                 String dateY=raidVisible.get("date").toString().replace("\"", " ").substring(1,5);
                 String dateM=raidVisible.get("date").toString().replace("\"", " ").substring(6,8);
                 String dateD=raidVisible.get("date").toString().replace("\"", " ").substring(9,11);
@@ -133,8 +131,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
 
                 String date=dateD+' '+mois+' '+dateY;
-                //String date=dateD+'/'+dateM+'/'+dateY;
-
                 String nomRaid = nom.getAsString();
 
                 //création du visuel
@@ -144,8 +140,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 //ajout d'un id au bouton
                 btn.setId(k);
 
-
-
                 //ajout du texte
                 text.setText(nomRaid + '\n'+"Rejoignez l'aventure"+'\n'+"le "+date);
                 text.setX(20);
@@ -154,32 +148,18 @@ public class WelcomeActivity extends AppCompatActivity {
                 //choix de la couleur du texte
                 text.setTextColor(context.getResources().getColor(R.color.black));
 
-                //btn.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-                //btn.setGravity(Gravity.END);
-
                 btn.setX(200);
                 btn.setBackgroundResource(R.color.black);
 
                 btn.setTextColor(context.getResources().getColor(R.color.Blancnacre));
                 btn.getBackground().setAlpha(100);
-                //btn.setHeight(150);
-                //btn.setBackgroundColor(80000000);
-
-                // lp.setMargins(left, top, right, bottom);
-
-
 
                 // Create LinearLayout
                 LinearLayout ll = new LinearLayout(context);
-
-
-
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 150);
 
                 ll.addView(text);
                 ll.addView(btn,layoutParams);
-
 
                 ll.setBackgroundResource(R.drawable.coureur2);
                 ll.getBackground().setAlpha(150);
@@ -189,7 +169,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 layout.setLayoutParams(params);
 
                 layout.addView(ll);
-                //layout.getLayoutParams();
 
                 //on affiche la page de connexion si on appuie sur le rejoins -nous
                 btn.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +195,10 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    /**
+     *
+     * @param view
+     */
     public void Connexion(View view){
         Intent intent =  new Intent(WelcomeActivity.this, ConnexionActivity.class);
         intent.putExtra("Classname", "Welcome");
@@ -224,6 +206,10 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void createAccount(View view){
         Intent intent =  new Intent(WelcomeActivity.this, CreateAccount.class);
         intent.putExtra("Classname","Welcome");
@@ -236,6 +222,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         Utils.debug("WelcomeActivity","J'ai presse le back");

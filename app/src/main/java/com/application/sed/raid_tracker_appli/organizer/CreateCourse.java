@@ -653,7 +653,7 @@ public class CreateCourse extends AppCompatActivity {
             //Utils.info(TAG,recupere[1]);
             Bdd.addString(myListe);
 
-            LandingActivity.recupereraid();
+            //LandingActivity.recupereraid();
             Utils.info("EditText", Bdd.getElement(1).toString());
 
             //déclencher la création d'un parcours sur la page de landing
