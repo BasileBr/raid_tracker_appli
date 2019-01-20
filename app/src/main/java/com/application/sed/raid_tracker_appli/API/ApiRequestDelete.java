@@ -143,7 +143,6 @@ public class ApiRequestDelete {
                 //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                String auth;
                 Utils.debug("Header",token);
                 header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);

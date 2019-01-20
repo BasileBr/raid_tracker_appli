@@ -22,8 +22,9 @@ import com.google.gson.JsonParser;
 
 public class EditPosteActivity extends AppCompatActivity {
 
+    private String TAG = "EditPosteActivity";
+
     public static Context context;
-    private Toolbar toolbar;
     public static String idRaid;
     public static String dateDebut;
     public static String dateFin;
@@ -67,14 +68,14 @@ public class EditPosteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.info(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_poste);
 
         Intent intent = getIntent();
-
         if (intent != null){
 
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
 
             idRaid = intent.getStringExtra("idRaid");
             // on définit la toolbar
@@ -97,10 +98,6 @@ public class EditPosteActivity extends AppCompatActivity {
             //récuperation du context
             context = this;
             idPoste = intent.getStringExtra("idPoste");
-            Utils.debug("EditPosteActicity",context.toString());
-            Utils.debug("EditPosteActicity", String.valueOf(context.toString().contains("com.application.sed.raid_tracker_appli.organizer.EditPosteActivity")));
-
-
 
             nomposte = findViewById(R.id.nomposte);
             nomposteentry = findViewById(R.id.nomposteentry);
@@ -136,23 +133,24 @@ public class EditPosteActivity extends AppCompatActivity {
                 }
             });
 
-
             ApiRequestGet.getMissionsofOnePoste(context,Bdd.getValue(),Integer.valueOf(idPoste));
             ApiRequestGet.getOnePoste(context, Bdd.getValue(), idPoste);
         }
     }
 
-
+    /**
+     *
+     * @param response
+     */
     public static void AfficheInfoPoste(String response){
 
         JsonParser parser = new JsonParser();
-        JsonObject jsonObject = new JsonObject();
+        JsonObject jsonObject;
 
         jsonObject = (JsonObject)parser.parse(response);
 
         JsonObject Point = (JsonObject) jsonObject.get("idPoint");
         idPoint = Point.get("id").toString().replace("\""," ");
-        Utils.debug("AfficheInfoPoste",jsonObject.toString());
         nomposteentry.setText(jsonObject.get("type").toString().replace("\"",""));
         nombreentry.setText(jsonObject.get("nombre").toString());
 
@@ -167,15 +165,13 @@ public class EditPosteActivity extends AppCompatActivity {
         joursfin.setText(jsonObject.get("heureFin").toString().substring(9,11));
         heurefin.setText(jsonObject.get("heureFin").toString().substring(12,14));
         minutefin.setText(jsonObject.get("heureFin").toString().substring(15,17));
-
-
-        Utils.debug("heuredebut",jsonObject.get("heureDebut").toString());
-        Utils.debug("heurefin",jsonObject.get("heureFin").toString());
-
     }
 
+    /**
+     *
+     * @param view
+     */
     public static void updateinfo(View view){
-
 
         if (isEmpty(nomposteentry)){
             nomposte.setError("Le champ est vide");
@@ -226,13 +222,14 @@ public class EditPosteActivity extends AppCompatActivity {
             dateFin = joursfin.getText().toString()+'/'+moisfin.getText().toString()+'/'+anneefin.getText().toString()+" "+heurefin.getText().toString()+":"+minutefin.getText().toString();
             int nb = Integer.valueOf(nombreentry.getText().toString());
             String  nm = nomposteentry.getText().toString();
-            Utils.debug("addPoste", "debut "+dateDebut+" fin "+dateFin+ "nm : " +nm + " nb "+ nb);
+
             ApiRequestPost.postPosteUpdate(context,Bdd.getValue(),idPoint,nm,nb,dateDebut,dateFin,idPoste);
         }
-
     }
 
-
+    /**
+     *
+     */
     public static void AddMission(){
 
         if (upMission == 0) {
@@ -242,7 +239,6 @@ public class EditPosteActivity extends AppCompatActivity {
             ApiRequestPost.postUpdateMission(context, Bdd.getValue(), idPoste, missionEntry.getText().toString(), idMission);
         }
         Intent intent =  new Intent(context, ManageVolunteersPositionActivity.class);
-
 
         //Id du parcours qu'on veut récupérer
         intent.putExtra("idPoste",idPoste);
@@ -255,12 +251,16 @@ public class EditPosteActivity extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
 
+    /**
+     *
+     * @param response
+     */
     public static void UpdateMission(String response){
 
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = (JsonArray) parser.parse(response);
-
         JsonObject jsonObject = (JsonObject) jsonArray.get(0);
+
         upMission = 1;
         idMission = jsonObject.get("id").toString();
         missionEntry.setText(jsonObject.get("objectif").toString().replace("\"", ""));

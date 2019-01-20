@@ -3,11 +3,8 @@ package com.application.sed.raid_tracker_appli.organizer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +16,9 @@ import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
-import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
+import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -39,24 +36,13 @@ import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import static android.media.CamcorderProfile.get;
 
 public class CourseActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle drawerToggle;
-    private static final String switch_value = "switch_value";
+    private static String TAG="CourseActivity";
 
-    private ArrayList<Button> listebouton;
-    private ArrayList<List> raidlist;
-    private static ArrayList<String> listeIdParcours;
-    //private static ArrayList<String> listsport;
 
     private static Context context;
-
 
     private static LinearLayout ll;
     private static String idRaid;
@@ -68,16 +54,11 @@ public class CourseActivity extends AppCompatActivity {
     private static String date;
     private static String edition;
     private static String equipe;
-    private static Boolean visibility;
     private static Switch simpleSwitch;
     private static TextView setTextVisibility;
 
     public static MapView map = null;
 
-    private static String idTrace;
-    private static ArrayList<GeoPoint> listFinale;
-    private static ArrayList<GeoPoint> listFinalePoste;
-    private static ArrayList<GeoPoint> finaleListGeoPoint;
     public static int ParcoursListGeoPoint;
     public static ArrayList<GeoPoint> parcours;
     public static int compteur = 0;
@@ -93,21 +74,17 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        Utils.info("test", "Creation of the new activity");
+        Utils.info(TAG, "Creation of the new activity");
 
         Intent intent=getIntent();
         context = this;
 
         if (intent != null) {
 
-            Utils.debug("CourseActivity", "je rentre ici");
             idRaid = intent.getStringExtra("idRaid");
-            Utils.debug("CourseActivity","idRaid = "+idRaid);
-            ll = (LinearLayout) findViewById(R.id.ParcoursLayout);
+            ll = findViewById(R.id.ParcoursLayout);
 
-            /*listsport = intent.getStringArrayListExtra("Sports");
-            Utils.debug("Sports",listsport.toString());*/
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -128,39 +105,27 @@ public class CourseActivity extends AppCompatActivity {
             onCreateMap();
 
             // bouton switch pour la visiblité du raid
-            simpleSwitch = (Switch) findViewById(R.id.switchVisibility);
+            simpleSwitch =findViewById(R.id.switchVisibility);
 
             //texte associé à la visibilité du raid
-           setTextVisibility = (TextView) findViewById(R.id.setTextVisibility);
+           setTextVisibility = findViewById(R.id.setTextVisibility);
 
-            //
             ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid,"CourseActivity");
 
             //récupération des informations du raid pour ensuite exploiter la visibilité
             ApiRequestGet.getSpecificRaidforCourseActivity(context,Bdd.getValue(),idRaid,"CourseActivity");
 
-
-
-
-            /*Handler myHandler = new Handler();
-            myHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // api request
-                    for (int i=0;i<listeIdParcours.size();i++) {
-                        ApiRequestGet.getSpecificTraceFromParcours(context,Bdd.getValue(),listeIdParcours.get(i),"CourseActivity");
-                    }
-                }
-            },1000);
-            */
         }
 
     }
 
+    /**
+     *
+     */
     public void onCreateMap(){
 
         //création de la map
-        map = (MapView) findViewById(R.id.map);
+        map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -184,30 +149,26 @@ public class CourseActivity extends AppCompatActivity {
         map.getOverlays().add(mCompassOverlay);
     }
 
+    /**
+     *
+     * @param response
+     */
     public static void recupParcours(String response){
 
         JsonParser parser = new JsonParser();
         JsonArray listPoints = (JsonArray) parser.parse(response);
 
-
-        listFinalePoste = new ArrayList<>();
-        listFinale = new ArrayList<>();
-        Utils.debug("recupParcours","Taille du Json : "+listPoints.size());
-        Utils.debug("Nom", "listePoits "+listPoints.toString());
+        ArrayList<GeoPoint> listFinalePoste = new ArrayList<>();
+        ArrayList<GeoPoint> listFinale = new ArrayList<>();
         GeoPoint listInter[] = new GeoPoint[listPoints.size()+3];
         GeoPoint listPoste[] = new GeoPoint[listPoints.size()+3];
 
-
-
         for (int k = 0; k < listPoints.size() ; k++) {
-
             GeoPoint newPoint;
             JsonObject myPoint = (JsonObject) listPoints.get(k);
-            Utils.debug("que",myPoint.toString());
-
             JsonObject jsonObject = myPoint.getAsJsonObject("idTrace");
 
-            idTrace = jsonObject.get("id").toString();
+            String idTrace = jsonObject.get("id").toString();
             JsonElement lat = myPoint.get("lat");
             JsonElement lon = myPoint.get("lon");
             JsonElement ord = myPoint.get("ordre");
@@ -219,28 +180,18 @@ public class CourseActivity extends AppCompatActivity {
             int typePoint = type.getAsInt();
             if ( typePoint == 3){
                 newPoint = new GeoPoint(latitude, longitude);
-
-                Utils.debug("NomPointPoste", "Ordre : " + ordre + " lat : " + latitude.toString() + " lon : " + longitude.toString());
-                Utils.debug("recupParcoursPoste", "Longitude : " + longitude + " Latitude : " + latitude);
                 listPoste[ordre]= newPoint;
-
-                Utils.debug("Trace",listPoste.toString());
             }
+
             else {
-                Utils.debug("NomPoint", "Ordre : " + ordre + " lat : " + latitude.toString() + " lon : " + longitude.toString());
-                Utils.debug("recupParcours", "Longitude : " + longitude + " Latitude : " + latitude);
-
                 newPoint = new GeoPoint(latitude, longitude);
-
                 listInter[ordre] = newPoint;
-
-                Utils.debug("Trace", listInter.toString());
             }
         }
 
         for (int k = 0;  k< listInter.length; k++){
             if (listInter[k] == null){
-                Utils.debug("recupParcours","Point null");
+                //Nothing to do
             }
             else {
                 listFinale.add(listInter[k]);
@@ -248,73 +199,61 @@ public class CourseActivity extends AppCompatActivity {
         }
         for (int k = 0; k< listPoste.length; k++){
             if (listPoste[k] == null){
-                Utils.debug("recupParcours","Point null");
+                //Nothing to do
             }
             else {
                 listFinalePoste.add(listPoste[k]);
             }
         }
 
-        Utils.debug("NomPoint", "list : " + listFinale.toString());
-
         trace(listFinale);
         tracePoste(listFinalePoste);
     }
 
+    /**
+     *
+     * @param myListe
+     */
     public static void trace(ArrayList<GeoPoint> myListe){
 
-        finaleListGeoPoint = new ArrayList<>();
+        ArrayList<GeoPoint> finaleListGeoPoint = new ArrayList<>();
         ParcoursListGeoPoint = 0;
         parcours = new ArrayList<>();
         compteur = 0;
         for (int i = 0; i < myListe.size(); i ++) {
-
             GeoPoint myPoint = myListe.get(i);
-
             if (i == 0) {
                 // Point de départ
-                Utils.debug("recupParcours", "Point de départ");
                 standardmarker = new Marker(map);
                 standardmarker.setIcon(context.getResources().getDrawable(R.drawable.green_flag2));
                 standardmarker.setPosition(myPoint);
                 standardmarker.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
-
                 standardmarker.setTitle("Point de départ" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
                 map.getOverlays().add(standardmarker);
                 finaleListGeoPoint.add(myPoint);
                 map.invalidate();
                 setRoad(finaleListGeoPoint);
-
             }
             else if (i == myListe.size() -1){
                 // Point d'arrivée
-                Utils.debug("recupParcours", "Point de d'arrivée");
                 standardmarker1 = new Marker(map);
                 standardmarker1.setIcon(context.getResources().getDrawable(R.drawable.red_flag2));
                 standardmarker1.setPosition(myPoint);
                 standardmarker1.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
-
                 standardmarker1.setTitle("Point d'arrivée" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
                 map.getOverlays().add(standardmarker1);
                 finaleListGeoPoint.add(myPoint);
                 map.invalidate();
                 setRoad(finaleListGeoPoint);
-
             }
 
             else {
                 // Point de Passage
-                Utils.debug("recupParcours", "Point de passage");
                 standardmarker2 = new Marker(map);
                 standardmarker2.setIcon(context.getResources().getDrawable(R.drawable.passage23));
                 standardmarker2.setPosition(myPoint);
                 standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                Utils.debug("longPressHelper", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
-
                 standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
-
                 map.getOverlays().add(standardmarker2);
                 finaleListGeoPoint.add(myPoint);
                 map.invalidate();
@@ -324,30 +263,28 @@ public class CourseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * @param listGeoPoint
+     */
     public static void setRoad(ArrayList<GeoPoint> listGeoPoint) {
         //parcours l'arraylist contenant tous les geopoints lors d'un appui long
         for (int i = ParcoursListGeoPoint; i < listGeoPoint.size(); i++) {
             // on ajoute le premier point dans l'arraylist (parcours) de deux pts max
             if (compteur == 0) {
-                Utils.debug("setRoad", "If cpt = 0 ");
                 parcours.add(listGeoPoint.get(i));
                 pointa = parcours.get(0);
-                Utils.debug("setRoad", "PointA" + pointa.toString());
                 compteur += 1;
                 ParcoursListGeoPoint += 1;
             }
 
             //on ajoute le deuxième arraylist (parcours) puis on envoi la tache de fond à perfomCalculations
             else if (compteur == 1) {
-                Utils.debug("setRoad", "If cpt = 1 ");
                 parcours.add(listGeoPoint.get(i));
-                Utils.debug("setRoad", "Parcours ");
                 compteur += 1;
                 pointb = parcours.get(1);
-                Utils.debug("setRoad", "pointB " + pointb.toString());
 
                 //tache de fond
-                //new PerfomCalculations(getApplicationContext(),this).execute(new GeoPoint(){parcours.get(0),parcours.get(1)});
                 GeoPoint[] toto = new GeoPoint[2];
                 toto[0] = pointa;
                 toto[1] = pointb;
@@ -358,7 +295,6 @@ public class CourseActivity extends AppCompatActivity {
             // on écrase la prremiere valeur de l'arraylist et on postionne le nouveau point
             else if (compteur == 2) {
 
-                Utils.debug("setRoad", "If cpt = 2 ");
                 //recupere le deuxieme point dans parcours
                 geotemporaire = parcours.get(1);
                 //on l'ajoute en écrasant l'indice 0
@@ -368,66 +304,49 @@ public class CourseActivity extends AppCompatActivity {
                 //balance la tache de fond
                 ParcoursListGeoPoint += 1;
                 new PerfomCalculations().execute(geotemporaire, parcours.get(1));
-
             }
-
         }
     }
 
+    /**
+     *
+     * @param myListe
+     */
     public static void tracePoste(ArrayList<GeoPoint> myListe){
 
-
         for (int i = 0; i < myListe.size(); i ++) {
-
             GeoPoint myPoint = myListe.get(i);
             //Poste
-            Utils.debug("recupPoste", "poste numéro"+i);
             standarmarker3 = new Marker(map);
             standarmarker3.setIcon(context.getResources().getDrawable(R.drawable.poi1));
             standarmarker3.setPosition(myPoint);
             standarmarker3.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-            Utils.debug("recupPoste", "Lat " + myPoint.getLatitude() + "long " + myPoint.getLongitude());
-
             standarmarker3.setTitle("Poste" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
-
             map.getOverlays().add(standarmarker3);
-
             map.invalidate();
-
-
-
-
         }
     }
 
+    /**
+     *
+     */
     private static class PerfomCalculations extends AsyncTask<GeoPoint,Void,Polyline> {
+
         @Override
         protected Polyline doInBackground(GeoPoint[] params) {
             ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-            //waypoints.add(params[0]); //POINT A
-            //waypoints.add(params[1]); // point b
-
-//            try {
-//            RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
-//            roadManager.addRequestOption("routeType=pedestrian");
-//            Road road = roadManager.getRoad(waypoints);
-
             Polyline line = new Polyline(map);
             line .addPoint(params[0]);
             line .addPoint(params[1]);
             line.setWidth(3);
-
-            //RoadManager roadManager = new OSRMRoadManager(getApplicationContext()); // your context
-            //Road road = roadManager.getRoad(waypoints);
-
             return line;
 
         }
+
         /*
-        affiche la ligne entre deux points
+         affiche la ligne entre deux points
         */
         protected void onPostExecute(Polyline line) {
-
             map.getOverlays().add(line);
             map.invalidate();
         }
@@ -467,31 +386,28 @@ public class CourseActivity extends AppCompatActivity {
     public void Course(View view){
         Intent intent = new Intent(CourseActivity.this, CreateParcours.class);
         intent.putExtra("idRaid",idRaid);
-        //intent.putExtra("listsport",listsport);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
-
         Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
         startActivity(intent);
     }
 
-
-
+    /**
+     *
+     * @param response
+     */
     public static void afficheParcours(String response){
 
-        listeIdParcours= new ArrayList<>();
 
         ArrayList<Button> listButton = new ArrayList<>();
         JsonParser parser = new JsonParser();
         JsonArray parcourslist = (JsonArray) parser.parse(response);
 
         for (int i =0; i<parcourslist.size();i++){
-
             Button myButton = new Button(context);
-            Utils.debug("Ajout du bouton", "Je rentre dans le for "+i);
 
             JsonObject parcours = (JsonObject) parcourslist.get(i);
             String nomParcours = parcours.get("nom").toString().replace("\"", " ");
@@ -503,84 +419,79 @@ public class CourseActivity extends AppCompatActivity {
 
             listButton.add(myButton);
 
-            //listeIdParcours.add(idParcours);
             ApiRequestGet.getSpecificTraceFromParcours(context,Bdd.getValue(),idParcours,"CourseActivity");
-
-            //Utils.debug("listbutton", listButton.get(i).toString());
-            //Utils.debug("listeIdParcours", listeIdParcours.get(i));
         }
 
         for (int i = 0; i < listButton.size(); i ++){
-
-            Utils.debug("Rajout des boutons", "Valeurs de i" +i);
             Button myButton2 = listButton.get(i);
-
-//                myButton2.setBackgroundColor(getColor(5));    // Ajout de la couleur en fond du bouton
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             ll.addView(myButton2, lp);
-
         }
-
         parcoursButton(listButton);
     }
 
+    /**
+     *
+     * @param listButton
+     */
     public static void parcoursButton(ArrayList<Button> listButton){
 
         for (int j = 0; j<listButton.size(); j++) {
             final Button newButton = listButton.get(j);
-
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, ManageParcoursActivity.class);
                     String idParcours= (String) newButton.getTag();
-                    Utils.debug("parcoursButton", "idRaid : "+idRaid);
                     //Id du parcours qu'on veut récupérer
                     intent.putExtra("idParcours",idParcours);
                     intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
-
                 }
             });
         }
-
     }
 
+    /**
+     *
+     * @param response
+     */
     public static void getRaid(String response){
 
         JsonParser parser = new JsonParser();
         JsonObject infoRaid = (JsonObject) parser.parse(response);
+
         id = infoRaid.get("id").toString();
         nom = infoRaid.get("nom").toString().replace("\"", " ");
-        Utils.debug("nom",nom);
         lieu=infoRaid.get("lieu").toString().replace("\"", " ");
         String inter = infoRaid.get("date").toString();
         edition=infoRaid.get("edition").toString();
         equipe= infoRaid.get("equipe").toString().replace("\"", " ");
-        visibility=infoRaid.get("visibility").getAsBoolean();
+        Boolean visibility = infoRaid.get("visibility").getAsBoolean();
         String annee = inter.substring(1,5);
         String mois = inter.substring(6,8);
         String jours = inter.substring(9,11);
         String heure = inter.substring(12,14);
         String min = inter.substring(15,17);
 
-
         date = annee+"/"+mois+"/"+jours+" "+heure+":"+min;
 
-            Utils.debug("yvantest",date);
+        Utils.debug("yvantest",date);
 
-            if (visibility){
-                simpleSwitch.setChecked(true);
-                setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
-
-            }else {
-                simpleSwitch.setChecked(false);
-                setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
-
-            }
+        if (visibility){
+            simpleSwitch.setChecked(true);
+            setTextVisibility.setText(" Le raid est partagé aux bénévoles ");
+        }
+        else {
+            simpleSwitch.setChecked(false);
+            setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles");
+        }
     }
 
-
+    /**
+     *
+     * @param response
+     */
     public static void recupTrace(String response) {
         JsonArray jsonArray;
         JsonParser jsonParser = new JsonParser();
@@ -590,41 +501,32 @@ public class CourseActivity extends AppCompatActivity {
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonObject = (JsonObject) jsonArray.get(i);
             String idTrace2 = jsonObject.get("id").toString();
-
             ApiRequestGet.getPointsfromSpecificTrace(context,Bdd.getValue(),idTrace2,"CourseActivity");
-
-            //ApiRequestGet.getPointsfromSpecificTrace(context, Bdd.getValue(), idTrace, "ManageParcoursActivity");
-
         }
     }
 
+    /**
+     *
+     * @param view
+     */
     public void checkSwitch(View view){
         //modifier le texte le texte en fonction de l'action de l'état actuel du bouton
 
-                //String statusSwitch1, statusSwitch2;
-                if (simpleSwitch.isChecked()) {
-                    setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
+        if (simpleSwitch.isChecked()) {
+            setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
+            ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
 
-                    //nom = "ENSSAT RAID 100";
-                    ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
+            Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+            startActivity(intent);
+        }
+        else if (!simpleSwitch.isChecked()){
+            setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
 
-                    //LandingActivity.diffuserRaid();
-                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                    //intent.putExtra(switch_value,"coucou");
-                    startActivity(intent);
-
-                } else if (!simpleSwitch.isChecked()){
-                    setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
-                    //nom = "ENSSAT RAID 100";
-                    ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
-                    Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
-                    startActivity(intent);
-
-                }
-            }
-
-
-
+            ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
+            Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
+            startActivity(intent);
+        }
+    }
 
 }
 

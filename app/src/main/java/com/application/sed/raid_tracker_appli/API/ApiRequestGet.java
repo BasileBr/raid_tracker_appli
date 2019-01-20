@@ -38,19 +38,19 @@ import java.util.Map;
 
 public class ApiRequestGet {
 
-    final static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
-    final static String urlOrganisateur = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs";
-    final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
-    final static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
-    final static String urlRaidUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids/organisateurs/users";
-    final static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
-    final static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
-    final static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
-    final static String urlCheckin="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/checkin";
-    final static String urlMissions="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/missions";
-    final static String urlPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/postes";
-    final static String urlPrefPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
-    final static String urlRepartitions="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/repartitions";
+    final private static String urlUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/users";
+    final private static String urlOrganisateur = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/organisateurs";
+    final private static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
+    final private static String urlRaid = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids";
+    final private static String urlRaidUser = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/raids/organisateurs/users";
+    final private static String urlParcours="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/parcours";
+    final private static String urlTraces="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/traces";
+    final private static String urlPoints="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/points";
+    final private static String urlCheckin="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/checkin";
+    final private static String urlMissions="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/missions";
+    final private static String urlPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/postes";
+    final private static String urlPrefPostes="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
+    final private static String urlRepartitions="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/repartitions";
 
 
 
@@ -64,17 +64,17 @@ public class ApiRequestGet {
      *
      * http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/doc
      *
-     * q@q.fr : q
-     * madox@contact.fr : test
      */
 
 
     /**
-    * PARTIE BENEVOLE
-     **/
+    * PARTIE BENEVOLE**/
 
 
-    //get all benevoles
+    /**
+     * get all benevoles
+     * @param context
+     */
     public static void getBenevoles(final Context context){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -85,10 +85,7 @@ public class ApiRequestGet {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
 
-                        // Process the JSON
                         try{
                             // Loop through the array elements
                             for(int i=0;i<response.length();i++){
@@ -98,12 +95,6 @@ public class ApiRequestGet {
                                 // Get the current account (json object) data
                                 String idRaid = account.getString("id");
                                 String idUser = account.getString("idUser");
-
-                                Log.d("GetBenevoles", idRaid);
-
-                                // Display the formatted json data in text view
-//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-//                                mTextView.append("\n\n");
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -119,11 +110,16 @@ public class ApiRequestGet {
                 }
         );
 
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(jsonArrayRequest);
     }
 
-    //get benevoles of one raid
+
+    /**
+     * get benevoles of one raid
+     * @param context
+     * @param token
+     * @param id_raid
+     */
     public static void getBenevolesOfOneRaid(Context context, final String token, String id_raid){
 
 
@@ -136,7 +132,6 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
                         //VolunteerPreferenceActivity.AddBenevole(response);
-
                     }
 
                 },
@@ -151,26 +146,26 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header", token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token", token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
-
     }
 
-    //get benevole if present in a specific RAID
+    /**
+     * get benevole if present in a specific RAID
+     * @param context
+     * @param token
+     * @param id_raid
+     * @param id_user
+     */
     public static void getBenevolefromSpecificRaid(Context context, final String token, String id_raid, String id_user){
 
         String UrlFinale = urlBenevoles+'/'+id_raid+'/'+"users"+id_user ;
-
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -179,9 +174,7 @@ public class ApiRequestGet {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                    
 
-                        // Process the JSON
                         try{
                             // Loop through the array elements
                             for(int i=0;i<response.length();i++){
@@ -192,11 +185,6 @@ public class ApiRequestGet {
                                 String idRaid = account.getString("id");
                                 String idUser = account.getString("idUser");
 
-                                Log.d("GetBenevoles", idRaid);
-
-                                // Display the formatted json data in text view
-//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-//                                mTextView.append("\n\n");
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -213,27 +201,25 @@ public class ApiRequestGet {
         ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
 
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(jsonArrayRequest);
     }
 
 
-    //get one benevole
+    /**
+     * get one benevole
+     * @param context
+     * @param id
+     */
     public static void getSpecificBenevole(Context context, String id){
 
         String UrlFianle = urlBenevoles + "/"+id;
-        Utils.debug("GetSpecificBenevole", UrlFianle);
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -250,14 +236,9 @@ public class ApiRequestGet {
                             // Loop through the array elements
                             for(int i=1;i<response.length();i++){
 
-                                // Get the current account (json object) data
                                 String idUser = response.getString("idUser");
                                 String idRaid = response.getString("idRaid");
-                                Log.d("GetSpecificBenevole", idRaid);
 
-                                // Display the formatted json data in text view
-//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-//                                mTextView.append("\n\n");
                             }
                         }catch (Exception e){
                             Log.e("Json","error");
@@ -273,16 +254,19 @@ public class ApiRequestGet {
                 }
         );
 
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
 
 
-    //get One benevole
+    /**
+     * get One benevole
+     * @param context
+     * @param token
+     * @param id_benevole
+     */
     public static void getOneBenevole(Context context, final String token, String id_benevole){
 
         String UrlFinale = urlBenevoles+'/'+id_benevole;
-
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -291,25 +275,15 @@ public class ApiRequestGet {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        // Do something with response
-                        //mTextView.setText(response.toString());
 
-                        // Process the JSON
                         try{
-                            // Loop through the array elements
-                            for(int i=0;i<response.length();i++){
-                                // Get current json object
-                                JSONObject account = response.getJSONObject(i);
 
-                                // Get the current account (json object) data
+                            for(int i=0;i<response.length();i++){
+
+                                JSONObject account = response.getJSONObject(i);
                                 String idRaid = account.getString("id");
                                 String idUser = account.getString("idUser");
 
-                                Log.d("GetBenevoles", idRaid);
-
-                                // Display the formatted json data in text view
-//                                mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-//                                mTextView.append("\n\n");
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -326,18 +300,12 @@ public class ApiRequestGet {
         ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -346,7 +314,11 @@ public class ApiRequestGet {
      *PARTIE CHECKIN
      **/
 
-    //Get all parcours
+    /**
+     * Get all parcours
+     * @param context
+     * @param token
+     */
     public static void getCheckin(Context context, final String token){
 
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -370,21 +342,21 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
-    //Get checkin of one RAid
+    /**
+     * Get checkin of one RAid
+     * @param context
+     * @param token
+     * @param id_raid
+     */
     public static void getCheckinOneRaid(Context context, final String token, final String id_raid ){
 
         String urlFinale=urlCheckin+'/'+"raids"+id_raid;
@@ -410,22 +382,23 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
 
-    //Get checkin of one User
+    /**
+     * Get checkin of one User
+     * @param context
+     * @param token
+     * @param id_user
+     */
     public static void getCheckinOneUser(Context context, final String token, final String id_user ){
 
         String urlFinale=urlCheckin+'/'+"users"+id_user;
@@ -451,21 +424,21 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
-    //Get checkin of one User
+    /**
+     * Get checkin of one User
+     * @param context
+     * @param token
+     * @param id_checkin
+     */
     public static void getOneCheckin(Context context, final String token, final String id_checkin ){
 
         String urlFinale=urlCheckin+'/'+id_checkin;
@@ -491,17 +464,12 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
@@ -509,7 +477,11 @@ public class ApiRequestGet {
      *PARTIE MISSION
      **/
 
-    //Get all mission
+    /**
+     * Get all mission
+     * @param context
+     * @param token
+     */
     public static void getAllMissions(Context context, final String token){
 
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -520,9 +492,7 @@ public class ApiRequestGet {
                     public void onResponse(String response) {
 
                     }
-
                 },
-
                 new Response.ErrorListener()
                 {
                     @Override
@@ -534,21 +504,22 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
-    //Get missions of one parcours
+    /**
+     * Get missions of one parcours
+     * @param context
+     * @param token
+     * @param id_parcours
+     */
     public static void getMissionsofOneParcours(Context context, final String token, final String id_parcours ){
 
         String urlFinale=urlMissions+'/'+"parcours"+'/'+id_parcours;
@@ -558,7 +529,6 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-
                     }
 
                 },
@@ -575,22 +545,21 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
-                header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
 
-    //Get missions of one poste
+    /**
+     * Get missions of one poste
+     * @param context
+     * @param token
+     * @param id_poste
+     */
     public static void getMissionsofOnePoste(final Context context, final String token, final Integer id_poste ){
 
         String urlFinale=urlMissions+'/'+"postes"+'/'+id_poste;
@@ -621,11 +590,8 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
@@ -636,7 +602,13 @@ public class ApiRequestGet {
     }
 
 
-    //Get missions of one raid
+    /**
+     *
+     * Get missions of one raid
+     * @param context
+     * @param token
+     * @param id_raid
+     */
     public static void getMissionsOfOneRaid(Context context, final String token, final String id_raid ){
 
         String urlFinale=urlMissions+'/'+"raids"+'/'+id_raid;
@@ -646,7 +618,6 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-
                     }
 
                 },
@@ -662,22 +633,22 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
-
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
 
-    //Get one mission
+    /**
+     * Get one mission
+     * @param context
+     * @param token
+     * @param id_mission
+     */
     public static void getOneMission(Context context, final String token, final String id_mission ){
 
         String urlFinale=urlMissions+id_mission;
@@ -687,9 +658,7 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-
                     }
-
                 },
 
                 new Response.ErrorListener()
@@ -703,23 +672,21 @@ public class ApiRequestGet {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //super.getHeaders();
 
                 Map<String, String> header = new HashMap<>();
-                Utils.debug("Header",token);
-                //header.put("Content-Type", "application/json");
                 header.put("X-Auth-Token",token);
                 return header;
             }
 
         };
-        // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(getRequest);
     }
 
-
-
-
+    /**
+     *
+     * Pas encore aspirée
+     *
+     */
 
     /**
     *PARTIE ORGANISATEUR

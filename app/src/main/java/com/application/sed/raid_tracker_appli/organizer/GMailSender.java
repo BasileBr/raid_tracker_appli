@@ -42,7 +42,6 @@ import java.util.Properties;
 
 
 public class GMailSender extends javax.mail.Authenticator {
-    private String mailhost = "smtp.gmail.com";
     private String user;
     private String password;
     private Session session;
@@ -51,12 +50,18 @@ public class GMailSender extends javax.mail.Authenticator {
         Security.addProvider(new JSSEProvider());
     }
 
+    /**
+     *
+     * @param user
+     * @param password
+     */
     public GMailSender(String user, String password) {
         this.user = user;
         this.password = password;
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
+        String mailhost = "smtp.gmail.com";
         props.setProperty("mail.host", mailhost);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
@@ -68,10 +73,22 @@ public class GMailSender extends javax.mail.Authenticator {
         session = Session.getDefaultInstance(props, this);
     }
 
+    /**
+     *
+     * @return
+     */
     protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication(user, password);
     }
 
+    /**
+     *
+     * @param subject
+     * @param body
+     * @param sender
+     * @param recipients
+     * @throws Exception
+     */
     public synchronized void sendMail(String subject, String body,
                                       String sender, String recipients) throws Exception {
         MimeMessage message = new MimeMessage(session);
@@ -88,7 +105,9 @@ public class GMailSender extends javax.mail.Authenticator {
         Transport.send(message);
     }
 
-
+    /**
+     *
+     */
     public class ByteArrayDataSource implements DataSource {
         private byte[] data;
         private String type;

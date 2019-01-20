@@ -174,3 +174,29 @@ public class Utils {
  *
  * http://www.tutos-android.com/changement-vues-passage-donnees-android
  **/
+
+
+
+/**
+ * à utiliser si besoin de tracer un parcours en passant par la route
+ */
+//créer un road manager (Appel vers l'api pour guider d'un point à un autre
+//        RoadManager roadManager = new MapQuestRoadManager("o7gFRAppOrsTtcBhEVYrY6L7AGRtXldE");
+
+// fixer le point de départ et le point d'arrivée
+// ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+//waypoints.add(startPoint);
+//GeoPoint endPoint = new GeoPoint(48.4, -1.9);
+//waypoints.add(endPoint);
+
+
+//choisir le type de route
+//roadManager.addRequestOption("routeType=pedestrian");
+// Road road = roadManager.getRoad(waypoints);
+
+//créer les lignes
+// Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+//map.getOverlays().add(roadOverlay);
+
+// permet de mettre à jour la carte
+//map.invalidate();

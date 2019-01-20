@@ -31,22 +31,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InviteVolunteersActivity extends AppCompatActivity implements OnItemSelectedListener {
+    private String TAG = "InviteVolunteersActivity";
     private static Context context;
-    private Toolbar toolbar;
     Button send;
     EditText inputmail1;
     EditText inputmail2;
     EditText inputmail3;
     TextView text;
     private int i;
-    private String iduser;
-    private String token;
     private String getselectedraid;
     private static Spinner spinner;
-    private static List<String> nomRaid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.info(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_volunteers);
 
@@ -54,34 +52,28 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         context = this;
 
         if (intent != null) {
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
                     startActivity(intent);
-
                 }
             });
         }
 
-
         // Spinner element
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinner);
 
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
-
-        iduser = Bdd.getUserid();
-        token = Bdd.getValue();
-
+        String iduser = Bdd.getUserid();
+        String token = Bdd.getValue();
 
         ApiRequestGet.getSpecificRaid(context, token, iduser, "InviteActivity");
     }
@@ -89,36 +81,36 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
     //méthode pour récupérer l'élement selectionné dans la liste des raids
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         Object item = parent.getItemAtPosition(position);
         getselectedraid=item.toString();
     }
-    //si aucun élément n'est selectionné, là par defaut premier raid de la liste
+
+    /**
+     * si aucun élément n'est selectionné, là par defaut premier raid de la liste
+     * @param arg0
+     */
     public void onNothingSelected(AdapterView<?> arg0) {
     }
 
-
     public void sendMail(View view) {
-        send = (Button) findViewById(R.id.sendEmail);
+        send = findViewById(R.id.sendEmail);
 
-        inputmail1 = (EditText) findViewById(R.id.input_mail1);
+        inputmail1 = findViewById(R.id.input_mail1);
         final String getmail1 = inputmail1.getText().toString();
 
-        inputmail2 = (EditText) findViewById(R.id.input_mail2);
+        inputmail2 = findViewById(R.id.input_mail2);
         final String getmail2 = inputmail2.getText().toString();
 
-        inputmail3 = (EditText) findViewById(R.id.input_mail3);
+        inputmail3 = findViewById(R.id.input_mail3);
         final String getmail3 = inputmail3.getText().toString();
 
-        text = (TextView) findViewById(R.id.text);
+        text = findViewById(R.id.text);
 
         if ((isEmpty(inputmail1) && isEmpty(inputmail2)) && isEmpty(inputmail3)) {
             text.setError("Aucune adresse mail entrée ");
         }
 
-
         final ArrayList<String> mailListe = new ArrayList<String>();
-
         if (!getmail1.isEmpty()){
             mailListe.add(getmail1);
         }
@@ -128,9 +120,6 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         if (!getmail3.isEmpty()){
             mailListe.add(getmail3);
         }
-
-
-
         new Thread(new Runnable() {
 
             @Override
@@ -138,16 +127,12 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
 
                 for (i = 0; i < mailListe.size(); i++) {
                     try {
-//                            inputmail1=(EditText) findViewById(R.id.input_mail1);
-//                            String getmail1= inputmail1.getText().toString();
-                        Utils.info("mail1", getmail1);
                         GMailSender sender = new GMailSender("sporteventdevelopment@gmail.com",
                                 "Sp6!b&hsv89%");
                         sender.sendMail("Rejoins le raid"+getselectedraid, "Bonjour,nous recherchons des bénévoles pour le raid"+getselectedraid +"si toi aussi tu aimes aider et assurer la sécurité, rejoins nous !! ",
                                 "sporteventdevelopment@gmail.com", mailListe.get(i));
-
-                        Utils.info("envoi", "mail");
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
                     }
                 }
@@ -158,14 +143,11 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         startActivity(intent);
     }
 
-
-
-        //});
-   // }
-
+    /**
+     *
+     * @param raidliste
+     */
     public static void createSpinner(List<String> raidliste){
-        // Spinner Drop down elements
-        //List<String> raidliste = new ArrayList<String>();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, raidliste);
@@ -177,44 +159,51 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         spinner.setAdapter(dataAdapter);
     }
 
-    //récupérer la liste des raids
+    /**
+     * récupérer la liste des raids
+     * @param response
+     */
     public static void raidlist(String response){
 
         JsonParser parser = new JsonParser();
         JsonArray raidlist = (JsonArray) parser.parse(response);
-        Utils.debug("raidlist + size", "size : " + raidlist.size() + " raidlist : "+raidlist.toString());
-        nomRaid = new ArrayList<>();
+        List<String> nomRaid = new ArrayList<>();
 
         for (int i = 0; i < raidlist.size(); i ++) {
-
-            JsonParser parser1 = new JsonParser();
             JsonObject raid = (JsonObject) raidlist.get(i);
             String nomraid = raid.get("nom").toString().replace("\""," ");
             nomRaid.add(nomraid);
-
         }
-
         createSpinner(nomRaid);
-
     }
 
-    // vérifier si l'adresse mail entrée correspond à une adresse correcte
+    /**
+     * vérifier si l'adresse mail entrée correspond à une adresse correcte
+     * @param text
+     * @return
+     */
     boolean isEmail(EditText text){
         CharSequence email=text.getText().toString();
         return (!TextUtils.isEmpty(email)&& Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
-    //vérifier qu'un edit text n'est pas vide
+    /**
+     * vérifier qu'un edit text n'est pas vide
+     * @param text
+     * @return
+     */
     boolean isEmpty (EditText text){
         CharSequence str= text.getText().toString();
         return TextUtils.isEmpty(str);
     }
 
-
+    /**
+     *
+     * @param view
+     */
     public void cancelSend (View view){
         Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
         startActivity(intent);
     }
-
 }
 

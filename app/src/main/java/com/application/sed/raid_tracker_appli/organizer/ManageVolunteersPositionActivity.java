@@ -24,30 +24,22 @@ import java.util.ArrayList;
 
 public class ManageVolunteersPositionActivity extends AppCompatActivity {
 
-
-    private TextView mDisplayDate;
+    private String TAG = "ManageVolunteersPositionActivity";
     private static Context context;
-    private Toolbar toolbar2;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private int hours;
-    private int min;
-    TextView selectdate;
-    private String getdate = "";
     private static LinearLayout ll;
     private static String idRaid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.info(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_volunteers);
         Intent intent = getIntent();
-
         //récupération du contexte
         context = this;
-//        this.toolbar2 = findViewById(R.id.toolbar3);
         //récupération de l'id de la toolbar
-        toolbar2 = findViewById(R.id.toolbar3);
+        Toolbar toolbar2 = findViewById(R.id.toolbar3);
         ll = findViewById(R.id.layoutposte);
-
         if(intent != null){
             idRaid = intent.getStringExtra("idRaid");
         }
@@ -59,10 +51,6 @@ public class ManageVolunteersPositionActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         //si on appuie sur le bouton de retour
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,19 +60,19 @@ public class ManageVolunteersPositionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         ApiRequestGet.getAllPostesfromRaid(context, Bdd.getValue(),idRaid);
     }
 
-
+    /**
+     *
+     * @param response
+     */
     public static void affichePostes(String response){
-        Utils.debug("affichePostes",response);
         JsonArray jsonArray;
         JsonParser parser = new JsonParser();
         ArrayList<Button> listButton = new ArrayList<>();
         final ArrayList<String> listIdPoste = new ArrayList<>();
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         jsonArray = (JsonArray) parser.parse(response);
 
         for (int i = 0; i < jsonArray.size(); i++){
@@ -94,7 +82,6 @@ public class ManageVolunteersPositionActivity extends AppCompatActivity {
             jsonObject = (JsonObject) jsonArray.get(i);
             JsonElement nom = jsonObject.get("type");
             JsonElement id = jsonObject.get("id");
-            Utils.debug("affichePostes", nom.toString());
 
             button.setId(i);
             listIdPoste.add(id.toString());
@@ -102,24 +89,19 @@ public class ManageVolunteersPositionActivity extends AppCompatActivity {
 
             listButton.add(button);
             ll.addView(button);
-
         }
 
-        //Bdd.setListIdRaid(listIdPoste);
         for (int j = 0; j<listButton.size(); j++) {
             final Button newButton = listButton.get(j);
-            //final ArrayList<String> listid =Bdd.getListIdPoste();
 
             newButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent =  new Intent(context, EditPosteActivity.class);
                     int id = newButton.getId();
-
                     //Id du parcours qu'on veut récupérer
                     intent.putExtra("idPoste",listIdPoste.get(id));
                     intent.putExtra("idRaid",idRaid);
                     context.startActivity(intent);
-
                 }
             });
         }
