@@ -227,7 +227,7 @@ public class CreateAccount extends AppCompatActivity{
         CharSequence str= text.getText().toString();
         return TextUtils.isEmpty(str);
     }
-e
+
     /**
      *
      * @param view
