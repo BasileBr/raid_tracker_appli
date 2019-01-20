@@ -22,10 +22,6 @@
                 android:gravity="center"
                 android:layout_marginEnd="16dp">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="@string/Home"/>-->
                 <ImageView
                     android:layout_width="208dp"
                     android:layout_height="49dp"
@@ -84,16 +80,6 @@
                     android:drawableLeft="@drawable/cadena"
                     android:drawablePadding="5dp"
                     />
-
-                <!--<TextView-->
-                    <!--android:id="@+id/forget_password"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="5dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:textSize="20dp"-->
-                    <!--android:text="@string/motdepasseoublie"/>-->
-
 
                 <Button
                     android:id="@+id/connexion"
