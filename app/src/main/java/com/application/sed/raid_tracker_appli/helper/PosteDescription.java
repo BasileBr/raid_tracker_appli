@@ -115,7 +115,7 @@ public class PosteDescription extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private static void checkIn(final GeoPoint positionpostetest) {
+    private static void checkIn(final GeoPoint positionpostetest, final String idposte, final String idrepartition) {
 
         //géolocaliser l'utilisateur
         geolocateMe();
@@ -146,6 +146,8 @@ public class PosteDescription extends AppCompatActivity {
                 if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
+                    Button button = listButton.get(idposte);
+                    button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
 
                 }
                 else if (ratiolatitude < 0.001 && ratiolongitude <0.001){
@@ -199,12 +201,12 @@ public class PosteDescription extends AppCompatActivity {
         for (int i = 0; i < posteinfos.size(); i++) {
             compteurposte=i+1;
             JsonObject repartition = (JsonObject) posteinfos.get(i);
-            String idrepartition = repartition.get("id").toString();
+            final String idrepartition = repartition.get("id").toString();
 
             listidrepartition.add(idrepartition);
             JsonObject poste = repartition.getAsJsonObject("idPoste");
 
-            String idposte = poste.get("id").toString().replace("\""," ");
+            final String idposte = poste.get("id").toString().replace("\""," ");
             //récupération du type du poste
             String typePoste = poste.get("type").toString().replace("\"", " ");
 
@@ -296,7 +298,7 @@ public class PosteDescription extends AppCompatActivity {
             bt2.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     GeoPoint positionpostetest = new GeoPoint(latitude, longitude);
-                    checkIn(positionpostetest);
+                    checkIn(positionpostetest,idposte, idrepartition);
 
                 }
             });
@@ -340,8 +342,8 @@ public class PosteDescription extends AppCompatActivity {
             JsonObject poste = idRepartition.getAsJsonObject("idPoste");
             String idposte  = poste.get("id").toString().replace("\""," ");
 
-            Button test = listButton.get(idposte);
-            test.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+            Button button = listButton.get(idposte);
+            button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
             for (int j = 0; j < listidrepartition.size(); j++) {
 
                 if (verification.equals(listidrepartition.get(j))) {
