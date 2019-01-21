@@ -48,6 +48,7 @@ public class PosteDescription extends AppCompatActivity {
     private static String iduser;
     private static ArrayList<String> listidrepartition = new ArrayList<>();
 
+    private static HashMap<String,Button> listButton;
 
 
     @Override
@@ -99,9 +100,6 @@ public class PosteDescription extends AppCompatActivity {
         //récupérer la répartition d'un utilisateur sur un raid
         ApiRequestGet.getRepartitionfromIdUserIdRaid(context, token, idRaidReceive, iduser);
 
-
-        //récupération des id de répartation à partir de checkin
-        ApiRequestGet.getCheckinOneUser(context,token,iduser);
     }
 
 
@@ -197,6 +195,7 @@ public class PosteDescription extends AppCompatActivity {
 
         int compteurposte;
 
+        listButton = new HashMap<>();
         for (int i = 0; i < posteinfos.size(); i++) {
             compteurposte=i+1;
             JsonObject repartition = (JsonObject) posteinfos.get(i);
@@ -205,6 +204,7 @@ public class PosteDescription extends AppCompatActivity {
             listidrepartition.add(idrepartition);
             JsonObject poste = repartition.getAsJsonObject("idPoste");
 
+            String idposte = poste.get("id").toString().replace("\""," ");
             //récupération du type du poste
             String typePoste = poste.get("type").toString().replace("\"", " ");
 
@@ -284,7 +284,7 @@ public class PosteDescription extends AppCompatActivity {
             tv1.setText("Poste " +compteurposte+" : "+typePoste+"\n"+"Heure de début :  "+heureDebut+"\n"+"Heure de fin : "+heureFin+"\n"+"le "+date);
             tv1.setTextSize(15);
             bt1.setText("Me Guider");
-            //bt2.setText("CheckIn");
+            bt2.setText("CheckIn");
             bt1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     GeoPoint depart = new GeoPoint(positionLatitude, positionLongitude);
@@ -300,6 +300,8 @@ public class PosteDescription extends AppCompatActivity {
 
                 }
             });
+
+            listButton.put(idposte,bt2);
             //Création d'un linearlayout de hauteur 180 et d'une orientation verticale
 
             layout3.setOrientation(LinearLayout.HORIZONTAL);
@@ -313,7 +315,10 @@ public class PosteDescription extends AppCompatActivity {
             //Ajout du linear qui contient les boutons au linear de " gauche "
             parentbouton.addView(layout3);
 
+            //récupération des id de répartation à partir de checkin
+
         }
+        ApiRequestGet.getCheckinOneUser(context,token,iduser);
     }
 
     /**
@@ -322,14 +327,21 @@ public class PosteDescription extends AppCompatActivity {
      */
     public static void checkCkeckin(String response) {
 
+
         JsonParser parser = new JsonParser();
         JsonArray checkid = (JsonArray) parser.parse(response);
 
+        Utils.debug(TAG, "Je passe ici");
         for (int i = 0; i < checkid.size(); i++) {
             JsonObject checkin = (JsonObject) checkid.get(i);
             JsonObject idRepartition = checkin.getAsJsonObject("idRepartition");
             String verification = idRepartition.get("id").toString();
 
+            JsonObject poste = idRepartition.getAsJsonObject("idPoste");
+            String idposte  = poste.get("id").toString().replace("\""," ");
+
+            Button test = listButton.get(idposte);
+            test.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
             for (int j = 0; j < listidrepartition.size(); j++) {
 
                 if (verification.equals(listidrepartition.get(j))) {
