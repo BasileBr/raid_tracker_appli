@@ -49,14 +49,14 @@ public class ApiRequestPost {
 
 
 
-    public static void postCheckin(final Context context, final String token, final String idRepartition, final String Confirmation){
+    public static void postCheckin(final Context context, final String token, final String idRepartition, final String confirmation){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idRepartition",idRepartition);
-            jsonObject.put("Confirmation",Confirmation);
+            jsonObject.put("confirmation",confirmation);
             jsonArray.put(jsonObject);
         }catch (Exception e){
 
