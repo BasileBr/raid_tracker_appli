@@ -44,6 +44,10 @@ public class PosteDescription extends AppCompatActivity {
     private static LinearLayout parentdescription;
     private static LinearLayout parentbouton;
     private static String mois;
+    private static String token;
+    private static String iduser;
+    private static ArrayList<String> listidrepartition = new ArrayList<>();
+
 
 
     @Override
@@ -59,10 +63,10 @@ public class PosteDescription extends AppCompatActivity {
         context = this;
 
         //récupération du token
-        String token = Bdd.getValue();
+        token = Bdd.getValue();
 
         //récupération de l'identifiant de l'utilisateur
-        String iduser = Bdd.getUserid();
+        iduser = Bdd.getUserid();
 
         //récupération de l'id du Raid depuis Landing Activity
 
@@ -94,6 +98,10 @@ public class PosteDescription extends AppCompatActivity {
 
         //récupérer la répartition d'un utilisateur sur un raid
         ApiRequestGet.getRepartitionfromIdUserIdRaid(context, token, idRaidReceive, iduser);
+
+
+        //récupération des id de répartation à partir de checkin
+        ApiRequestGet.getCheckinOneUser(context,token,iduser);
     }
 
 
@@ -128,6 +136,10 @@ public class PosteDescription extends AppCompatActivity {
                 // récupération de la position en double
                 Double positionPosteLatitude = positionpostetest.getLatitude();
                 Double positionPosteLongitude =positionpostetest.getLongitude();
+
+                Utils.debug("positionPosteLatitude",positionPosteLatitude.toString());
+                Utils.debug("positionPosteLongitude",positionPosteLongitude.toString());
+
 
                 // calcul de ratio
                 Double ratiolatitude  = Math.abs(positionPosteLatitude-positionLatitude);
@@ -169,6 +181,11 @@ public class PosteDescription extends AppCompatActivity {
         positionLatitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
         positionLongitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
 
+        Utils.debug("positionLatitude",positionLatitude.toString());
+        Utils.debug("positionLongitude",positionLongitude.toString());
+
+
+
     }
     /**
      * Traiter les informations de la répartition d'un bénévole en fonction du raid
@@ -185,6 +202,7 @@ public class PosteDescription extends AppCompatActivity {
             JsonObject repartition = (JsonObject) posteinfos.get(i);
             String idrepartition = repartition.get("id").toString();
 
+            listidrepartition.add(idrepartition);
             JsonObject poste = repartition.getAsJsonObject("idPoste");
 
             //récupération du type du poste
@@ -266,7 +284,7 @@ public class PosteDescription extends AppCompatActivity {
             tv1.setText("Poste " +compteurposte+" : "+typePoste+"\n"+"Heure de début :  "+heureDebut+"\n"+"Heure de fin : "+heureFin+"\n"+"le "+date);
             tv1.setTextSize(15);
             bt1.setText("Me Guider");
-            bt2.setText("CheckIn");
+            //bt2.setText("CheckIn");
             bt1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     GeoPoint depart = new GeoPoint(positionLatitude, positionLongitude);
@@ -299,9 +317,37 @@ public class PosteDescription extends AppCompatActivity {
     }
 
     /**
-     * Retourne la version de l'api d'Android du device
-     * @return
+     * Vérifier si le checkin a déjà été réalisé
+     *
      */
+    public static void checkCkeckin(String response) {
+
+        JsonParser parser = new JsonParser();
+        JsonArray checkid = (JsonArray) parser.parse(response);
+
+        for (int i = 0; i < checkid.size(); i++) {
+            JsonObject checkin = (JsonObject) checkid.get(i);
+            JsonObject idRepartition = checkin.getAsJsonObject("idRepartition");
+            String verification = idRepartition.get("id").toString();
+
+            for (int j = 0; j < listidrepartition.size(); j++) {
+
+                if (verification.equals(listidrepartition.get(j))) {
+
+                }
+
+
+            }
+
+
+        }
+    }
+
+
+        /**
+         * Retourne la version de l'api d'Android du device
+         * @return
+         */
     public static int getAndroidVersion() {
         int sdkVersion = Build.VERSION.SDK_INT;
         return  sdkVersion ;

@@ -401,14 +401,14 @@ public class ApiRequestGet {
      */
     public static void getCheckinOneUser(Context context, final String token, final String id_user ){
 
-        String urlFinale=urlCheckin+'/'+"users"+id_user;
+        String urlFinale=urlCheckin+'/'+"users"+"/"+id_user;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlFinale,
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-
+                        PosteDescription.checkCkeckin(response);
                     }
 
                 },
