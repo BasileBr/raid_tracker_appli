@@ -147,13 +147,16 @@ public class PosteDescription extends AppCompatActivity {
                 Double ratiolatitude  = Math.abs(positionPosteLatitude-positionLatitude);
                 Double ratiolongitude = Math.abs(positionPosteLongitude-positionLongitude);
 
+                Utils.debug("ratiolatitude",ratiolatitude.toString());
+                Utils.debug("ratiolongitude",ratiolongitude.toString());
+
                 if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
                     Button button = listButton.get(idposte);
                     button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
                     Date actuelle = new Date();
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String dat = dateFormat.format(actuelle);
                     ApiRequestPost.postCheckin(context,token,idrepartition,dat);
                 }

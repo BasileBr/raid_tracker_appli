@@ -63,7 +63,7 @@ public class ApiRequestPost {
         }
 
         Utils.debug("postCheckin",jsonArray.toString());
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlMission, jsonObject,
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlCheckin, jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
