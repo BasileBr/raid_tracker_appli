@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
+import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -30,7 +31,10 @@ import com.google.gson.JsonParser;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -148,7 +152,10 @@ public class PosteDescription extends AppCompatActivity {
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
                     Button button = listButton.get(idposte);
                     button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
-
+                    Date actuelle = new Date();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String dat = dateFormat.format(actuelle);
+                    ApiRequestPost.postCheckin(context,token,idrepartition,dat);
                 }
                 else if (ratiolatitude < 0.001 && ratiolongitude <0.001){
                     // requête API /api/checkin

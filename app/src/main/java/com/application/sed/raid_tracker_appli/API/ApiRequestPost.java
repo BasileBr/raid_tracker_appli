@@ -44,9 +44,54 @@ public class ApiRequestPost {
     final static String urlBenevoles = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/benevoles";
     final static String urlPrefPostes = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/prefpostes";
     final static String urlMission = "http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/missions";
+    final static String urlCheckin ="http://raidtracker.ddns.net/raid_tracker_api/web/app.php/api/checkin";
 
 
 
+
+    public static void postCheckin(final Context context, final String token, final String idRepartition, final String Confirmation){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idRepartition",idRepartition);
+            jsonObject.put("Confirmation",Confirmation);
+            jsonArray.put(jsonObject);
+        }catch (Exception e){
+
+        }
+
+        Utils.debug("postCheckin",jsonArray.toString());
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, urlMission, jsonObject,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String, String> header = new HashMap<>();
+                header.put("X-Auth-Token",token);
+                return header;
+            }
+
+        };
+        requestQueue.add(postRequest);
+
+    }
 
     public static void postUser(Context context, final String name, final String mail, final String pwd){
 
