@@ -121,8 +121,7 @@ public class PosteDescription extends AppCompatActivity {
 
     private static void checkIn(final GeoPoint positionpostetest, final String idposte, final String idrepartition) {
 
-        //géolocaliser l'utilisateur
-        geolocateMe();
+
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
         alert.setTitle("Confirmer sa localisation ?");
@@ -339,6 +338,9 @@ public class PosteDescription extends AppCompatActivity {
      */
     public static void checkCkeckin(String response) {
 
+
+        //géolocaliser l'utilisateur
+        geolocateMe();
 
         JsonParser parser = new JsonParser();
         JsonArray checkid = (JsonArray) parser.parse(response);
