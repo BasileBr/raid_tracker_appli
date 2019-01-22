@@ -201,6 +201,10 @@ public class PosteDescription extends AppCompatActivity {
      */
     public static void recupInfosPoste(String response) {
 
+
+        //géolocaliser l'utilisateur
+        geolocateMe();
+
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
 
@@ -337,10 +341,6 @@ public class PosteDescription extends AppCompatActivity {
      *
      */
     public static void checkCkeckin(String response) {
-
-
-        //géolocaliser l'utilisateur
-        geolocateMe();
 
         JsonParser parser = new JsonParser();
         JsonArray checkid = (JsonArray) parser.parse(response);
