@@ -2049,6 +2049,7 @@ public class ApiRequestGet {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Error.Response specific", error.toString());
+                        LandingActivity.raidOrgaEmpty();
                     }
                 }
         ){
@@ -2200,6 +2201,7 @@ public class ApiRequestGet {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Error.Response specific", error.toString());
+                        LandingActivity.raidBeneEmpty();
                     }
                 }
         ){

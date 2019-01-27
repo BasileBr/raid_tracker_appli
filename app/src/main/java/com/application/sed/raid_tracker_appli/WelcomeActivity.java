@@ -1,7 +1,12 @@
 package com.application.sed.raid_tracker_appli;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,10 +51,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // Here, thisActivity is the current activity
         Utils.Permissionlocation(this);
-        Utils.Permissioncoarselocation(this);
-        Utils.Permissionexternalstorage(this);
-        Utils.Permissionnetworkstate(this);
-        Utils.Permissionreadexternalstorage(this);
+        //Utils.Permissioncoarselocation(this);
+        //Utils.Permissionexternalstorage(this);
+        //Utils.Permissionnetworkstate(this);
+        //Utils.Permissionreadexternalstorage(this);
+
 
         layout = findViewById(R.id.ListeRaid);
         ApiRequestGet.getAllRaids(context,"WelcomeActivity");
@@ -229,4 +235,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         Utils.debug("WelcomeActivity","J'ai presse le back");
     }
+
+
 }

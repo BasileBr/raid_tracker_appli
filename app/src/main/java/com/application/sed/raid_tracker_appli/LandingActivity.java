@@ -379,4 +379,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
     }
 
+    public static void raidOrgaEmpty(){
+        TextView textView = new TextView(context);
+        textView.setText(R.string.raid_orga_vide);
+        ll.addView(textView);
+    }
+
+    public static void raidBeneEmpty(){
+        TextView textView = new TextView(context);
+        textView.setText(R.string.raid_bene_vide);
+        ll2.addView(textView);
+    }
 }

@@ -26,7 +26,8 @@
     <string name="input_team">Equipe</string>
     <string name="connect">Se connecter</string>
     <string name="input_insc_conne">S\'inscrire \/ \n Se connecter</string>
-
+    <string name="raid_orga_vide">\n Aucun raid organisateur n\'est disponible</string>
+    <string name="raid_bene_vide">\n Aucun raid bénévole n\'est disponible</string>
     <string name="input_inscription">S\'inscrire</string>
     <string name="input_connexion">Se connecter</string>
     <string name="ou">ou</string>
