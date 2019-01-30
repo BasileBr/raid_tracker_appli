@@ -13,11 +13,13 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
 import com.application.sed.raid_tracker_appli.organizer.GMailSender;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -205,7 +207,7 @@ public class CreateAccount extends AppCompatActivity{
      *
      */
     public static void creationFailure (){
-        Toast.makeText(context, "La création du compte a échoué ", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "La création du compte a échoué, veuillez vérifier votre connexion internet ", Toast.LENGTH_LONG).show();
     }
 
     /**

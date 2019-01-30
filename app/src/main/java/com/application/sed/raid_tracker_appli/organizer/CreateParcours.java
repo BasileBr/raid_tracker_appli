@@ -163,10 +163,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
             mapController.setCenter(centermap);
 
-            //géolocaliser l'appareil
-            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-            mLocationOverlay.enableMyLocation();
-            map.getOverlays().add(mLocationOverlay);
+//            //géolocaliser l'appareil
+//            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+//            mLocationOverlay.enableMyLocation();
+//            map.getOverlays().add(mLocationOverlay);
 
             // ajouter l'echelle
             ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);

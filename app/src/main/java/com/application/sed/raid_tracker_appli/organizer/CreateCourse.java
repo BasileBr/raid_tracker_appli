@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
@@ -35,6 +37,7 @@ public class CreateCourse extends AppCompatActivity {
     private TextView mDisplayDate;
     private String getdate = "";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener myTimeListener;
     public static List myListe;
     public String recupere;
     public String recupere1;
@@ -48,6 +51,15 @@ public class CreateCourse extends AppCompatActivity {
     public TextView selectdate;
     private int hours;
     private int min;
+    public Integer checkonclickDate=0;
+    public Integer checkonclickHour=0;
+    String recuperedate;
+    public static TextView selecthour;
+    private String getDate = "";
+    private String getHour ="";
+
+
+
 
     private static Context context;
 
@@ -79,44 +91,32 @@ public class CreateCourse extends AppCompatActivity {
         });
 
         mDisplayDate = findViewById(R.id.selectdate);
+        selectdate= findViewById(R.id.selectdate);
 
-        /**
-         * Affichage pour sélectionner la date du RAID
-         */
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                hours = cal.get(Calendar.HOUR_OF_DAY);
-                min = cal.get(Calendar.MINUTE);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        CreateCourse.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
-
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
+        selecthour= findViewById(R.id.selecthour);
 
         /**
          * Récupérer la date, l'afficher et la stocker
          */
-
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                selectdate= (TextView) findViewById(R.id.selectdate);
-                Log.d(TAG, "onDateSet: yyyy/MM/dd HH:mm: " + year + "/" + month + "/" + dayOfMonth + " " +hours +":"+min);
-
-                String date = year + "/" + (month+1) + "/" + dayOfMonth + " " + hours + ":"+min;
-                mDisplayDate.setText(date);
-                getdate = date;
+                checkonclickDate =1;
+                String date = year + "/" + (month + 1) + "/" + dayOfMonth;
+                selectdate.setText(date);
+                getDate = date;
                 selectdate.setError(null);
+            }
+        };
+
+        myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                checkonclickHour =1;
+                String hour =hourOfDay+":"+minute;
+                selecthour.setText(hour);
+                getHour=hour;
+                selecthour.setError(null);
             }
         };
     }
@@ -229,6 +229,17 @@ public class CreateCourse extends AppCompatActivity {
             recupere2= edition.getText().toString();
             recupere3 = organizer_team.getText().toString();
 
+
+            if (checkonclickDate==0 && checkonclickHour==0 ){
+                recuperedate=selectdate.getText().toString()+" "+selecthour.getText().toString();
+            }else if(checkonclickDate==1 && checkonclickHour==0){
+                recuperedate=getDate+" "+selecthour.getText().toString();
+            }else if(checkonclickDate==0 && checkonclickHour==1){
+                recuperedate=selectdate.getText().toString()+" "+getHour;
+            }else if(checkonclickDate==1 && checkonclickHour==1){
+                recuperedate=getDate+" "+getHour;
+            }
+
             //myListe.add(recupere);  // récupère le nom du raid
             //myListe.add(recupere1); // le lieu de l'évènement
             //myListe.add(getdate); // sélectionne la date de l'évènement
@@ -238,10 +249,43 @@ public class CreateCourse extends AppCompatActivity {
             //myListe.add(recupere3); // le nom de l'équipe organisatrice
 
             Bdd.addString(myListe);
-            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,getdate,recupere2,recupere3, false);
+            ApiRequestPost.postRaid(this,Bdd.getValue(),recupere,recupere1,recuperedate,recupere2,recupere3, false);
         }
 
 
+    }
+    /**
+     *
+     * @param view
+     */
+    public void UpdateDate(View view){
+
+        //affichage du calendrier
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(
+                CreateCourse.this, android.R.style.Theme, mDateSetListener, year, month, day);
+
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+    /**
+     *
+     * @param view
+     */
+    public void UpdateHour(View view){
+        checkonclickHour=1;
+        Calendar myCalender = Calendar.getInstance();
+        int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+        int minute = myCalender.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener, hour, minute, true);
+        timePickerDialog.setTitle("Selectionnez une heure");
+        timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        timePickerDialog.show();
     }
 
     /**
