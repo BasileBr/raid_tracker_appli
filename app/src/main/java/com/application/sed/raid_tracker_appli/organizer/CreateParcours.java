@@ -572,7 +572,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         final EditText nombreEntry = new EditText(context);
         nombreEntry.setHint("              ");
-        nombreEntry.setInputType(InputType.TYPE_CLASS_TEXT);
+        nombreEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         ll2.addView(nombre);
         ll2.addView(nombreEntry);
