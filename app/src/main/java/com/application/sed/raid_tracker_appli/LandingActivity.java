@@ -393,7 +393,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         textView.setText(R.string.raid_bene_vide);
         textView.setTextColor(context.getResources().getColor(R.color.black));
         textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        textView.setPadding(0,0,0,100);
+        textView.setPadding(0,0,0,70);
         ll2.addView(textView);
     }
 }
