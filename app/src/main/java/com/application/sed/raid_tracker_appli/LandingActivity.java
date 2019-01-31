@@ -382,12 +382,18 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     public static void raidOrgaEmpty(){
         TextView textView = new TextView(context);
         textView.setText(R.string.raid_orga_vide);
+        textView.setTextColor(context.getResources().getColor(R.color.black));
+        textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        textView.setPadding(0,20,0,0);
         ll.addView(textView);
     }
 
     public static void raidBeneEmpty(){
         TextView textView = new TextView(context);
         textView.setText(R.string.raid_bene_vide);
+        textView.setTextColor(context.getResources().getColor(R.color.black));
+        textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        textView.setPadding(0,0,0,100);
         ll2.addView(textView);
     }
 }
