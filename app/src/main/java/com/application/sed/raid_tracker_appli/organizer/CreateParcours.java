@@ -557,7 +557,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         // création d'un edittext pour récupérer le nom du parcours
         final EditText nom = new EditText(context);
-        nom.setHint("Indiquer le nom ici");
+        nom.setHint("              ");
 
         // indiquer que l'input est de type texte
         nom.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -571,7 +571,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         nombre.setText("Nombre de bénévole");
 
         final EditText nombreEntry = new EditText(context);
-        nombreEntry.setHint("Nombre de bénévoles");
+        nombreEntry.setHint("              ");
         nombreEntry.setInputType(InputType.TYPE_CLASS_TEXT);
 
         ll2.addView(nombre);
