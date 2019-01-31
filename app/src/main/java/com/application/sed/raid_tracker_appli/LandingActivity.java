@@ -4,6 +4,7 @@ package com.application.sed.raid_tracker_appli;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -393,7 +394,20 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         textView.setText(R.string.raid_bene_vide);
         textView.setTextColor(context.getResources().getColor(R.color.black));
         textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        textView.setPadding(0,0,0,70);
+        if (getAndroidVersion() == 21) {
+            textView.setPaddingRelative(0,0,0,20);
+        }
+        else if (getAndroidVersion() == 26) {
+            textView.setPaddingRelative(0,0,0,100);
+        }
+        else {
+            textView.setPaddingRelative(0,0,0,50);
+        }
         ll2.addView(textView);
+    }
+
+    public static int getAndroidVersion() {
+        int sdkVersion = Build.VERSION.SDK_INT;
+        return  sdkVersion ;
     }
 }
