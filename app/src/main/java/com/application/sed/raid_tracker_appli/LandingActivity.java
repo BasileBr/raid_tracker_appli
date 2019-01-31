@@ -395,7 +395,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         textView.setTextColor(context.getResources().getColor(R.color.black));
         textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
         if (getAndroidVersion() == 21) {
-            textView.setPaddingRelative(0,0,0,20);
+            textView.setPaddingRelative(0,0,0,40);
         }
         else if (getAndroidVersion() == 26) {
             textView.setPaddingRelative(0,0,0,100);
