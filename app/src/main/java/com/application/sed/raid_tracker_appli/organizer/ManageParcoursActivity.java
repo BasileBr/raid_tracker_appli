@@ -516,7 +516,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
         @Override
         public void onLocationChanged(Location localisation)
         {
-            Toast.makeText(getApplicationContext(), fournisseur + " localisation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), " localisation "+fournisseur  , Toast.LENGTH_SHORT).show();
             map.getController().setCenter(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
             trajet.add(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
 
