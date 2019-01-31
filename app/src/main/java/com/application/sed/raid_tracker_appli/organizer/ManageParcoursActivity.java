@@ -128,7 +128,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
         mapController.setCenter(centermap);
 
         //géolocaliser l'appareil
-        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+        final MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
         mLocationOverlay.enableMyLocation();
         map.getOverlays().add(mLocationOverlay);
 
@@ -165,7 +165,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
                         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                arreterLocalisation();
+
+                                mLocationOverlay.disableMyLocation();
+                               // arreterLocalisation();
                                 Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
                                 intent.putExtra("idRaid",idRaid);
                                 startActivity(intent);
@@ -187,6 +189,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
                         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                mLocationOverlay.disableMyLocation();
+
+                                //arreterLocalisation();
                                 Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
                                 intent.putExtra("idRaid",idRaid);
                                 startActivity(intent);
