@@ -1,6 +1,7 @@
 package com.application.sed.raid_tracker_appli.organizer;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,14 +21,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestDelete;
+import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.R;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
 import com.application.sed.raid_tracker_appli.Utils.Utils;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -46,8 +50,13 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -64,10 +73,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     private static int emptynombre=0;
     private static int emptydebut=0;
     private static int emptyfin=0;
+    private static Integer checkonclickHour=0;
 
     private String m_Text = "";
     private static String m_Textnom ="";
     private static String m_Textnombre ="";
+
+    private static TextView heuredebuttxt;
+    private static TextView heurefintxt;
+
+    public String token;
+
 
     /**
      *
@@ -96,6 +112,11 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     private static DatePickerDialog.OnDateSetListener mDateSetListenerdebut;
     private static DatePickerDialog.OnDateSetListener mDateSetListenerfin;
 
+    private static TimePickerDialog.OnTimeSetListener myTimeListener;
+    private static TimePickerDialog.OnTimeSetListener myTimeListener2;
+
+
+
     public Marker standardmarker; // = new Marker(map);
     public Marker standardmarker1; // = new Marker(map);
     public Marker standardmarker2;
@@ -110,6 +131,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
     int numbouton = 0;
     int compteur=0;
     String idRaid;
+
+    private static String Externaldate;
+    private static  DatePickerDialog.OnDateSetListener mDateSetListener;
+
 
     public static String nomParcours;
     public static ArrayList<List> Liste =new ArrayList<>();
@@ -126,7 +151,15 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         if (intent != null){
 
             idRaid = intent.getStringExtra("idRaid");
+
+            Utils.debug("idRaid",idRaid);
+
             toolbar1 = findViewById(R.id.toolbar);
+
+            //Externaldate = intent.getStringExtra("Externaldate");
+
+            //Utils.debug("recupExterna",Externaldate);
+
 
             // on définit la toolbar
             setSupportActionBar(toolbar1);
@@ -147,6 +180,12 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             //récuperation du context
             context = this;
 
+            token = Bdd.getValue();
+
+
+            ApiRequestGet.getSpecificRaidforCourseActivity(context,token,idRaid,"CreateParcours");
+
+
             //load/initialize the osmdroid configuration, this can be done
             Context ctx = getApplicationContext();
             Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -163,10 +202,6 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             GeoPoint centermap = new GeoPoint(48.732084, -3.4591440000000375);
             mapController.setCenter(centermap);
 
-//            //géolocaliser l'appareil
-//            MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-//            mLocationOverlay.enableMyLocation();
-//            map.getOverlays().add(mLocationOverlay);
 
             // ajouter l'echelle
             ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
@@ -236,11 +271,28 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 }
             });
 
+
+
             //afficher une popup pour sélectionner le type de sport
             ShowAlertDialog(map);
         }
 
 
+
+    }
+
+
+
+    public static void getraidinfos (String response){
+        //recupération des raids benevoles dispo
+        JsonParser parser = new JsonParser();
+
+        //on parse les réponses
+        JsonObject infosraid = (JsonObject) parser.parse(response);
+        String date = infosraid.get("date").toString().substring(1,11);
+        Externaldate = date.replace("-","/");
+
+        Utils.debug("Externaldate",Externaldate);
 
     }
 
@@ -548,7 +600,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         finale.setOrientation(LinearLayout.VERTICAL);
 
         final TextView info = new TextView(context);
-        info.setText("Les informations seront modifiable ultérieurement");
+        info.setText("Les informations seront modifiables ultérieurement");
         finale.addView(info);
 
         final LinearLayout ll1 = new LinearLayout(context);
@@ -580,83 +632,117 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         finale.addView(ll2);
 
         final LinearLayout ll3 = new LinearLayout(context);
-        final TextView heuredebut = new TextView(context);
-        heuredebut.setText("Date/heure début");
 
-        final TextView anneedebutEntry = new TextView(context);
-        anneedebutEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        anneedebutEntry.setHint(" Choisir une date de début");
-        anneedebutEntry.setOnClickListener(new View.OnClickListener() {
+
+        final TextView heuredebut = new TextView(context);
+        heuredebut.setText("\n"+"Heure de début  ");
+
+        heuredebuttxt = new TextView(context);
+        heuredebuttxt.setInputType(InputType.TYPE_CLASS_TEXT);
+        heuredebuttxt.setHint("\n"+"Choisir l'heure");
+        heuredebuttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                yeardebut = cal.get(Calendar.YEAR);
-                monthdebut = cal.get(Calendar.MONTH);
-                daydebut = cal.get(Calendar.DAY_OF_MONTH);
-                hoursdebut = cal.get(Calendar.HOUR_OF_DAY);
-                mindebut = cal.get(Calendar.MINUTE);
-                DatePickerDialog dialog = new DatePickerDialog(
-                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerdebut, yeardebut, monthdebut, daydebut);
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+//                Calendar cal = Calendar.getInstance();
+//                yeardebut = cal.get(Calendar.YEAR);
+//                monthdebut = cal.get(Calendar.MONTH);
+//                daydebut = cal.get(Calendar.DAY_OF_MONTH);
+//                hoursdebut = cal.get(Calendar.HOUR_OF_DAY);
+//                mindebut = cal.get(Calendar.MINUTE);
+//                DatePickerDialog dialog = new DatePickerDialog(
+//                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerdebut, yeardebut, monthdebut, daydebut);
+//                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.show();
+
+                //checkonclickHour=1;
+                Calendar myCalender = Calendar.getInstance();
+                int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+                int minute = myCalender.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener, hour, minute, true);
+               // timePickerDialog.setTitle("Selectionnez une heure");
+                timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                timePickerDialog.show();
             }
         });
 
-        mDateSetListenerdebut = new DatePickerDialog.OnDateSetListener() {
+//        mDateSetListenerdebut = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                String datedebut = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursdebut + ":"+mindebut;
+//                anneedebutEntry.setText(datedebut);
+//                getdatedebut = " "+datedebut;
+//                anneedebutEntry.setError(null);
+//            }
+//        };
+
+        myTimeListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String datedebut = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursdebut + ":"+mindebut;
-                anneedebutEntry.setText(datedebut);
-                getdatedebut = " "+datedebut;
-                anneedebutEntry.setError(null);
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                checkonclickHour =1;
+                String hour =hourOfDay+":"+minute;
+                heuredebuttxt.setText("\n"+hour);
+                getdatedebut=hour;
+                heuredebuttxt.setError(null);
             }
         };
 
         ll3.addView(heuredebut);
-        ll3.addView(anneedebutEntry);
+        ll3.addView(heuredebuttxt);
 
         finale.addView(ll3);
 
         final LinearLayout ll4 = new LinearLayout(context);
         final TextView heurefin = new TextView(context);
-        heurefin.setText("Date/heure de fin");
+        heurefin.setText("\n"+"Heure de fin  ");
 
-        final TextView anneefinEntry = new TextView(context);
-        anneefinEntry.setInputType(InputType.TYPE_CLASS_TEXT);
-        anneefinEntry.setHint(" Choisir une date de fin");
+        heurefintxt = new TextView(context);
+        heurefintxt.setInputType(InputType.TYPE_CLASS_TEXT);
+        heurefintxt.setHint("\n"+"Choisir l'heure");
 
-        anneefinEntry.setOnClickListener(new View.OnClickListener() {
+        heurefintxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                yearfin= cal.get(Calendar.YEAR);
-                monthfin = cal.get(Calendar.MONTH);
-                dayfin = cal.get(Calendar.DAY_OF_MONTH);
-                hoursfin = cal.get(Calendar.HOUR_OF_DAY);
-                minfin = cal.get(Calendar.MINUTE);
+//                Calendar cal = Calendar.getInstance();
+//                yearfin= cal.get(Calendar.YEAR);
+//                monthfin = cal.get(Calendar.MONTH);
+//                dayfin = cal.get(Calendar.DAY_OF_MONTH);
+//                hoursfin = cal.get(Calendar.HOUR_OF_DAY);
+//                minfin = cal.get(Calendar.MINUTE);
+//
+//                DatePickerDialog dialog = new DatePickerDialog(
+//                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerfin, yearfin, monthfin, dayfin);
+//
+//                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.show();
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerfin, yearfin, monthfin, dayfin);
+                checkonclickHour=1;
+                Calendar myCalender = Calendar.getInstance();
+                int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+                int minute = myCalender.get(Calendar.MINUTE);
 
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener2, hour, minute, true);
+                //timePickerDialog.setTitle("Selectionnez une heure");
+                timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                timePickerDialog.show();
             }
         });
 
-        mDateSetListenerfin = new DatePickerDialog.OnDateSetListener() {
+        myTimeListener2 = new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String datefin = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursfin + ":"+minfin;
-                anneefinEntry.setText(datefin);
-                getdatefin = " "+datefin;
-                anneefinEntry.setError(null);
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                checkonclickHour =1;
+                String hour =hourOfDay+":"+minute;
+                heurefintxt.setText(" \n"+hour);
+                getdatefin=hour;
+                heurefintxt.setError(null);
             }
         };
 
         ll4.addView(heurefin);
-        ll4.addView(anneefinEntry);
+        ll4.addView(heurefintxt);
         finale.addView(ll4);
         alert.setView(finale);
 
@@ -682,6 +768,29 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 m_Textnom = nom.getText().toString();
                 m_Textnombre = nombreEntry.getText().toString();
 
+                Date date1= null;
+                Date date2= null;
+
+
+                //format de la date pour comparer les évenements
+                DateFormat df = new SimpleDateFormat("HH:mm");
+
+                //parser la date string au format date
+                try {
+                   date1 =df.parse(getdatedebut);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                //parser la date string au format date
+                try {
+                    date2 =df.parse(getdatefin);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
                 // si aucun nom de parcours n'est entrée, on incrémente le compteur et on affiche de nouveau la popup
                 if(m_Textnom.isEmpty()){
                     emptynom=1;
@@ -699,6 +808,12 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     emptyfin=1;
                     ShowPoste(view, response);
                 }
+
+                else if (date2.before(date1)){
+                    Utils.debug("cool","ca marche");
+                    ShowPoste(view, response);
+                    heuredebut.setError("l'heure de fin est inférieure à la date de fin");
+                }
                 else // sinon on ajoute le nom du parcours dans la textview
                 {
                     emptynom=0;
@@ -707,16 +822,17 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     emptyfin=0;
                     cpt = cpt + 1;
 
-                    int nbbene = Integer.valueOf(m_Textnombre);
-                    String debut = getdatedebut;
-                    String fin = getdatefin;
+                        int nbbene = Integer.valueOf(m_Textnombre);
+                        String debut = Externaldate + " " + getdatedebut;
+                        String fin = Externaldate + " " + getdatefin;
 
-                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
+                        Utils.debug("fin",fin);
+                        ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
 
-                    map.getOverlays().add(standarmarker3);
-                    map.invalidate();
+                        map.getOverlays().add(standarmarker3);
+                        map.invalidate();
+                    }
                 }
-            }
         });
 
         // si on appuie sur annuler, on retourne à la page de landing
@@ -729,5 +845,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         });
         alert.show();
     }
+
+
 }
 

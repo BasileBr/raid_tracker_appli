@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.sed.raid_tracker_appli.ConnexionActivity;
+import com.application.sed.raid_tracker_appli.organizer.CreateParcours;
 import com.application.sed.raid_tracker_appli.organizer.InviteVolunteersActivity;
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.helper.PosteDescription;
@@ -994,6 +995,7 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
                         if (classe.equals("CourseActivity")) {
+                            Utils.debug("getdateyvan",response);
                             CourseActivity.afficheParcours(response);
                         } else if (classe.equals("VolunteerPreferenceActivity")) {
                             VolunteerPreferenceActivity.afficheParcours(response);
@@ -2089,6 +2091,10 @@ public class ApiRequestGet {
                             CourseActivity.getRaid(response);
                         }else if (classe.equals("EditCourse")){
                             EditCourse.Autcomplete(response);
+                        }
+                        else if (classe.equals("CreateParcours")){
+                            Utils.debug("apipassela",response);
+                            CreateParcours.getraidinfos(response);
                         }
                     }
 

@@ -46,6 +46,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private static LinearLayout ll;
     private static String idRaid;
+    private static String Externaldate;
 
     //récupération des informations du raid
     private static String id;
@@ -249,12 +250,12 @@ public class CourseActivity extends AppCompatActivity {
 
             else {
                 // Point de Passage
-                standardmarker2 = new Marker(map);
-                standardmarker2.setIcon(context.getResources().getDrawable(R.drawable.passage23));
-                standardmarker2.setPosition(myPoint);
-                standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
-                standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
-                map.getOverlays().add(standardmarker2);
+//                standardmarker2 = new Marker(map);
+//                //standardmarker2.setIcon(context.getResources().getDrawable(R.drawable.passage23));
+//                standardmarker2.setPosition(myPoint);
+//                standardmarker2.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+//                //standardmarker2.setTitle("Point de passage" + "\n" + "latitude: " + myPoint.getLatitude() + '\n' + "longitude: " + myPoint.getLongitude());
+//                map.getOverlays().add(standardmarker2);
                 finaleListGeoPoint.add(myPoint);
                 map.invalidate();
                 setRoad(finaleListGeoPoint);
@@ -413,6 +414,13 @@ public class CourseActivity extends AppCompatActivity {
             String nomParcours = parcours.get("nom").toString().replace("\"", " ");
             String idParcours = parcours.get("id").toString();
 
+            JsonObject raid = (JsonObject) parcours.get("idRaid");
+            Utils.debug(TAG,raid.toString());
+
+
+            Externaldate=raid.get("date").toString().substring(1,11);
+
+
             myButton.setText("Nom :" + nomParcours);
             myButton.setId(i);
             myButton.setTag(idParcours);
@@ -446,6 +454,7 @@ public class CourseActivity extends AppCompatActivity {
                     //Id du parcours qu'on veut récupérer
                     intent.putExtra("idParcours",idParcours);
                     intent.putExtra("idRaid",idRaid);
+                    //intent.putExtra("Externaldate",Externaldate);
                     context.startActivity(intent);
                 }
             });
