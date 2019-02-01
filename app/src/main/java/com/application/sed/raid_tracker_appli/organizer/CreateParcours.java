@@ -289,8 +289,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         //on parse les réponses
         JsonObject infosraid = (JsonObject) parser.parse(response);
-        String date = infosraid.get("date").toString().substring(1,11);
-        Externaldate = date.replace("-","/");
+        //String date = infosraid.get("date").toString().substring(1,11);
+        //Externaldate = date.replace("-","/");
+
+        String dateY = infosraid.get("date").toString().substring(1,5);
+        String dateM = infosraid.get("date").toString().substring(6,8);
+        String dateD = infosraid.get("date").toString().substring(9,11);
+        Externaldate = dateY+'/'+dateM+'/'+dateD;
+
 
         Utils.debug("Externaldate",Externaldate);
 
