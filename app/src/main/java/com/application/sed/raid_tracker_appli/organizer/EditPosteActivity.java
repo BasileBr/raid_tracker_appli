@@ -99,6 +99,7 @@ public class EditPosteActivity extends AppCompatActivity {
             context = this;
             idPoste = intent.getStringExtra("idPoste");
 
+
             nomposte = findViewById(R.id.nomposte);
             nomposteentry = findViewById(R.id.nomposteentry);
             nombre = findViewById(R.id.nombre);
@@ -233,9 +234,11 @@ public class EditPosteActivity extends AppCompatActivity {
     public static void AddMission(){
 
         if (upMission == 0) {
+            Utils.debug("AddMission pas update",idPoste);
             ApiRequestPost.postMission(context, Bdd.getValue(), idPoste, missionEntry.getText().toString());
         }
         else if (upMission == 1){
+            Utils.debug("AddMission update",idPoste + "idmission" +idMission);
             ApiRequestPost.postUpdateMission(context, Bdd.getValue(), idPoste, missionEntry.getText().toString(), idMission);
         }
         Intent intent =  new Intent(context, ManageVolunteersPositionActivity.class);
