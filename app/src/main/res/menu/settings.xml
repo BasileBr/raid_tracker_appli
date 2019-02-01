@@ -11,4 +11,9 @@
         android:orderInCategory="100"
         android:title="Gérer les postes"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/listebenevole"
+        android:orderInCategory="100"
+        android:title="Gérer les bénévoles"
+        app:showAsAction="never" />
 </menu>

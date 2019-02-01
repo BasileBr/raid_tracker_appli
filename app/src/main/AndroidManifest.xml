@@ -71,8 +71,10 @@
         <activity
             android:name=".organizer.EditPosteActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".helper.PosteDescription"
+        <activity
+            android:name=".helper.PosteDescription"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".organizer.ListeBenevoles"></activity>
     </application>
 
 </manifest>

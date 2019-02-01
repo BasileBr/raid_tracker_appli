@@ -375,6 +375,11 @@ public class CourseActivity extends AppCompatActivity {
            intent.putExtra("idRaid",idRaid);
            startActivity(intent);
         }
+        else if (id==R.id.listebenevole){
+            Intent intent = new Intent(CourseActivity.this, ManageVolunteersPositionActivity.class);
+            intent.putExtra("idRaid",idRaid);
+            startActivity(intent);
+        }
 
 
         return super.onOptionsItemSelected(item);
