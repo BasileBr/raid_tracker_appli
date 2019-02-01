@@ -74,7 +74,9 @@
         <activity
             android:name=".helper.PosteDescription"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".organizer.ListeBenevoles"></activity>
+        <activity
+            android:name=".organizer.ListeBenevoles"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.application.sed.raid_tracker_appli.organizer.InviteVolunteersActivity
 import com.application.sed.raid_tracker_appli.LandingActivity;
 import com.application.sed.raid_tracker_appli.helper.PosteDescription;
 import com.application.sed.raid_tracker_appli.organizer.EditCourse;
+import com.application.sed.raid_tracker_appli.organizer.ListeBenevoles;
 import com.application.sed.raid_tracker_appli.organizer.ManageParcoursActivity;
 import com.application.sed.raid_tracker_appli.organizer.ManageVolunteersPositionActivity;
 import com.application.sed.raid_tracker_appli.Utils.Bdd;
@@ -132,7 +133,7 @@ public class ApiRequestGet {
 
                     @Override
                     public void onResponse(String response) {
-                        //VolunteerPreferenceActivity.AddBenevole(response);
+                        ListeBenevoles.AfficheListe(response);
                     }
 
                 },

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/VertPrimaire"
         android:minHeight="?attr/actionBarSize"
-        app:title="Gestion d'un poste">
+        app:title="Liste des bénévoles inscrits">
 
     </android.support.v7.widget.Toolbar>
 

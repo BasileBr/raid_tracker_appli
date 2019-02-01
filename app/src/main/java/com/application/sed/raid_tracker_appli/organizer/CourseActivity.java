@@ -376,7 +376,7 @@ public class CourseActivity extends AppCompatActivity {
            startActivity(intent);
         }
         else if (id==R.id.listebenevole){
-            Intent intent = new Intent(CourseActivity.this, ManageVolunteersPositionActivity.class);
+            Intent intent = new Intent(CourseActivity.this, ListeBenevoles.class);
             intent.putExtra("idRaid",idRaid);
             startActivity(intent);
         }
