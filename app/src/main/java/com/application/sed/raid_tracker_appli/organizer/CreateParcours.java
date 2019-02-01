@@ -295,7 +295,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         String dateY = infosraid.get("date").toString().substring(1,5);
         String dateM = infosraid.get("date").toString().substring(6,8);
         String dateD = infosraid.get("date").toString().substring(9,11);
-        Externaldate = dateY+'/'+dateM+'/'+dateD;
+        Externaldate = dateD+'/'+dateM+'/'+dateY;
 
 
         Utils.debug("Externaldate",Externaldate);
@@ -641,11 +641,11 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
 
         final TextView heuredebut = new TextView(context);
-        heuredebut.setText("\n"+"Heure de début  ");
+        heuredebut.setText("Heure de début  ");
 
         heuredebuttxt = new TextView(context);
         heuredebuttxt.setInputType(InputType.TYPE_CLASS_TEXT);
-        heuredebuttxt.setHint("\n"+"Choisir l'heure");
+        heuredebuttxt.setHint("Choisir l'heure");
         heuredebuttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -696,16 +696,16 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         ll3.addView(heuredebut);
         ll3.addView(heuredebuttxt);
-
+        ll3.setPadding(0,10,0,0);
         finale.addView(ll3);
 
         final LinearLayout ll4 = new LinearLayout(context);
         final TextView heurefin = new TextView(context);
-        heurefin.setText("\n"+"Heure de fin  ");
+        heurefin.setText("Heure de fin  ");
 
         heurefintxt = new TextView(context);
         heurefintxt.setInputType(InputType.TYPE_CLASS_TEXT);
-        heurefintxt.setHint("\n"+"Choisir l'heure");
+        heurefintxt.setHint("Choisir l'heure");
 
         heurefintxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -741,7 +741,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 checkonclickHour =1;
                 String hour =hourOfDay+":"+minute;
-                heurefintxt.setText(" \n"+hour);
+                heurefintxt.setText(hour);
                 getdatefin=hour;
                 heurefintxt.setError(null);
             }
@@ -749,6 +749,7 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
         ll4.addView(heurefin);
         ll4.addView(heurefintxt);
+        ll4.setPadding(0,10,0,0);
         finale.addView(ll4);
         alert.setView(finale);
 
@@ -816,9 +817,8 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                 }
 
                 else if (date2.before(date1)){
-                    Utils.debug("cool","ca marche");
+                    Toast.makeText(context, "L'heure de fin et avant l'heure de début ", Toast.LENGTH_LONG).show();
                     ShowPoste(view, response);
-                    heuredebut.setError("l'heure de fin est inférieure à la date de fin");
                 }
                 else // sinon on ajoute le nom du parcours dans la textview
                 {
@@ -828,12 +828,10 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
                     emptyfin=0;
                     cpt = cpt + 1;
 
-                        int nbbene = Integer.valueOf(m_Textnombre);
-                        String debut = Externaldate + " " + getdatedebut;
-                        String fin = Externaldate + " " + getdatefin;
-
-                        Utils.debug("fin",fin);
-                        ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
+                    int nbbene = Integer.valueOf(m_Textnombre);
+                    String debut = Externaldate + " " + getdatedebut;
+                    String fin = Externaldate + " " + getdatefin;
+                    ApiRequestPost.postPoste(context, Bdd.getValue(), idPoint, m_Textnom, nbbene, debut, fin);
 
                         map.getOverlays().add(standarmarker3);
                         map.invalidate();
