@@ -46,6 +46,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private static LinearLayout ll;
     private static String idRaid;
+    private static String token;
     private static String Externaldate;
 
     //récupération des informations du raid
@@ -85,6 +86,8 @@ public class CourseActivity extends AppCompatActivity {
             idRaid = intent.getStringExtra("idRaid");
             ll = findViewById(R.id.ParcoursLayout);
 
+            token = Bdd.getValue();
+
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -111,10 +114,10 @@ public class CourseActivity extends AppCompatActivity {
             //texte associé à la visibilité du raid
            setTextVisibility = findViewById(R.id.setTextVisibility);
 
-            ApiRequestGet.getSpecificParcours(context, Bdd.getValue(), idRaid,"CourseActivity");
+            ApiRequestGet.getSpecificParcours(context, token, idRaid,"CourseActivity");
 
             //récupération des informations du raid pour ensuite exploiter la visibilité
-            ApiRequestGet.getSpecificRaidforCourseActivity(context,Bdd.getValue(),idRaid,"CourseActivity");
+            ApiRequestGet.getSpecificRaidforCourseActivity(context,token,idRaid,"CourseActivity");
 
         }
 
@@ -427,7 +430,7 @@ public class CourseActivity extends AppCompatActivity {
 
             listButton.add(myButton);
 
-            ApiRequestGet.getSpecificTraceFromParcours(context,Bdd.getValue(),idParcours,"CourseActivity");
+            ApiRequestGet.getSpecificTraceFromParcours(context,token,idParcours,"CourseActivity");
         }
 
         for (int i = 0; i < listButton.size(); i ++){
@@ -510,7 +513,7 @@ public class CourseActivity extends AppCompatActivity {
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonObject = (JsonObject) jsonArray.get(i);
             String idTrace2 = jsonObject.get("id").toString();
-            ApiRequestGet.getPointsfromSpecificTrace(context,Bdd.getValue(),idTrace2,"CourseActivity");
+            ApiRequestGet.getPointsfromSpecificTrace(context,token,idTrace2,"CourseActivity");
         }
     }
 
@@ -523,7 +526,7 @@ public class CourseActivity extends AppCompatActivity {
 
         if (simpleSwitch.isChecked()) {
             setTextVisibility.setText(" Le raid est partagé aux bénévoles avec switch");
-            ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,true);
+            ApiRequestPost.postUpdateRaid(context,token,id,nom,lieu,date,edition,equipe,true);
 
             Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
             startActivity(intent);
@@ -531,7 +534,7 @@ public class CourseActivity extends AppCompatActivity {
         else if (!simpleSwitch.isChecked()){
             setTextVisibility.setText(" Le raid n'est pas partagé aux bénévoles avec switch");
 
-            ApiRequestPost.postUpdateRaid(context,Bdd.getValue(),id,nom,lieu,date,edition,equipe,false);
+            ApiRequestPost.postUpdateRaid(context,token,id,nom,lieu,date,edition,equipe,false);
             Intent intent = new Intent(CourseActivity.this, LandingActivity.class);
             startActivity(intent);
         }

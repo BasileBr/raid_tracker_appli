@@ -431,7 +431,8 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
 
                 }
 
-                Intent intent = new Intent(CreateParcours.this, LandingActivity.class);
+                Intent intent = new Intent(CreateParcours.this, CourseActivity.class);
+                intent.putExtra("idRaid",idRaid);
                 startActivity(intent);
 
             }
@@ -649,46 +650,21 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         heuredebuttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Calendar cal = Calendar.getInstance();
-//                yeardebut = cal.get(Calendar.YEAR);
-//                monthdebut = cal.get(Calendar.MONTH);
-//                daydebut = cal.get(Calendar.DAY_OF_MONTH);
-//                hoursdebut = cal.get(Calendar.HOUR_OF_DAY);
-//                mindebut = cal.get(Calendar.MINUTE);
-//                DatePickerDialog dialog = new DatePickerDialog(
-//                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerdebut, yeardebut, monthdebut, daydebut);
-//                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-
-                //checkonclickHour=1;
-                Calendar myCalender = Calendar.getInstance();
-                int hour = myCalender.get(Calendar.HOUR_OF_DAY);
-                int minute = myCalender.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener, hour, minute, true);
-               // timePickerDialog.setTitle("Selectionnez une heure");
-                timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                timePickerDialog.show();
+        Calendar myCalender = Calendar.getInstance();
+        int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+        int minute = myCalender.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener, hour, minute, true);
+        timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        timePickerDialog.show();
             }
         });
-
-//        mDateSetListenerdebut = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                String datedebut = dayOfMonth + "/" + (month+1) + "/" + year + " " + hoursdebut + ":"+mindebut;
-//                anneedebutEntry.setText(datedebut);
-//                getdatedebut = " "+datedebut;
-//                anneedebutEntry.setError(null);
-//            }
-//        };
 
         myTimeListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 checkonclickHour =1;
                 String hour =hourOfDay+":"+minute;
-                heuredebuttxt.setText("\n"+hour);
+                heuredebuttxt.setText(hour);
                 getdatedebut=hour;
                 heuredebuttxt.setError(null);
             }
@@ -710,29 +686,14 @@ public class CreateParcours extends AppCompatActivity implements MapEventsReceiv
         heurefintxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Calendar cal = Calendar.getInstance();
-//                yearfin= cal.get(Calendar.YEAR);
-//                monthfin = cal.get(Calendar.MONTH);
-//                dayfin = cal.get(Calendar.DAY_OF_MONTH);
-//                hoursfin = cal.get(Calendar.HOUR_OF_DAY);
-//                minfin = cal.get(Calendar.MINUTE);
-//
-//                DatePickerDialog dialog = new DatePickerDialog(
-//                        context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListenerfin, yearfin, monthfin, dayfin);
-//
-//                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
+        checkonclickHour=1;
+        Calendar myCalender = Calendar.getInstance();
+        int hour = myCalender.get(Calendar.HOUR_OF_DAY);
+        int minute = myCalender.get(Calendar.MINUTE);
 
-                checkonclickHour=1;
-                Calendar myCalender = Calendar.getInstance();
-                int hour = myCalender.get(Calendar.HOUR_OF_DAY);
-                int minute = myCalender.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener2, hour, minute, true);
-                //timePickerDialog.setTitle("Selectionnez une heure");
-                timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                timePickerDialog.show();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, myTimeListener2, hour, minute, true);
+        timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        timePickerDialog.show();
             }
         });
 
