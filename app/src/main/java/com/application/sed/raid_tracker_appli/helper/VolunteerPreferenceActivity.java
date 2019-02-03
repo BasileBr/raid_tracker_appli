@@ -66,6 +66,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
     public static GeoPoint geotemporaire;
     private static LinearLayout parent;
     public static Spinner choix1;
+    public static Spinner choix2;
+    public static Spinner choix3;
+    public static Spinner choix4;
+    public static Spinner choix5;
 
     private static TextView missionschoix1;
     private static TextView missionschoix2;
@@ -475,7 +479,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -513,18 +517,24 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
         //choix 2
         LinearLayout ll3 = new LinearLayout(context);
         ll3.setOrientation(LinearLayout.HORIZONTAL);
-        Spinner choix2 = new Spinner(context);
+        choix2 = new Spinner(context);
         choix2.setId(R.id.spinner2);
         //choix2.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
 
         // Drop down layout style - list view with radio button
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix2.setAdapter(dataAdapter2);
 
+
+        missionschoix2 = new TextView(context);
+        missionschoix2.setText("faire crepe");
+        ll3.addView(choix2);
+        ll3.addView(missionschoix2);
+        parent.addView(ll3);
 
         choix2.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -542,28 +552,31 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
 
         });
 
-        missionschoix2 = new TextView(context);
-        missionschoix2.setText("faire crepe");
-        ll3.addView(choix2);
-        ll3.addView(missionschoix2);
-        parent.addView(ll3);
+
 
 
 
         //choix 3
         LinearLayout ll4 = new LinearLayout(context);
         ll4.setOrientation(LinearLayout.HORIZONTAL);
-        Spinner choix3 = new Spinner(context);
+        choix3 = new Spinner(context);
         choix3.setId(R.id.spinner3);
         //choix3.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
 
         // Drop down layout style - list view with radio button
         dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix3.setAdapter(dataAdapter3);
+
+
+        missionschoix3 = new TextView(context);
+        missionschoix3.setText("faire crepe");
+        ll4.addView(choix3);
+        ll4.addView(missionschoix3);
+        parent.addView(ll4);
 
         choix3.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -581,18 +594,13 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
 
         });
 
-        missionschoix3 = new TextView(context);
-        missionschoix3.setText("faire crepe");
-        ll4.addView(choix3);
-        ll4.addView(missionschoix3);
-        parent.addView(ll4);
 
 
 
         //choix 4
         LinearLayout ll5 = new LinearLayout(context);
         ll5.setOrientation(LinearLayout.HORIZONTAL);
-        Spinner choix4 = new Spinner(context);
+        choix4 = new Spinner(context);
         choix4.setId(R.id.spinner4);
        // choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
 
@@ -603,6 +611,12 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
         // Drop down layout style - list view with radio button
         dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix4.setAdapter(dataAdapter4);
+
+        missionschoix4 = new TextView(context);
+        missionschoix4.setText("faire crepe");
+        ll5.addView(choix4);
+        ll5.addView(missionschoix4);
+        parent.addView(ll5);
 
         choix4.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -620,27 +634,30 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
 
         });
 
-        missionschoix4 = new TextView(context);
-        missionschoix4.setText("faire crepe");
-        ll5.addView(choix4);
-        ll5.addView(missionschoix4);
-        parent.addView(ll5);
+
 
 
         //choix 5
         LinearLayout ll6 = new LinearLayout(context);
         ll6.setOrientation(LinearLayout.HORIZONTAL);
-        Spinner choix5 = new Spinner(context);
+        choix5 = new Spinner(context);
         choix5.setId(R.id.spinner5);
         //choix5.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
 
         // Drop down layout style - list view with radio button
         dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix5.setAdapter(dataAdapter5);
+
+
+        missionschoix5 = new TextView(context);
+        missionschoix5.setText("faire crepe");
+        ll6.addView(choix5);
+        ll6.addView(missionschoix5);
+        parent.addView(ll6);
 
         choix5.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -658,11 +675,6 @@ public class VolunteerPreferenceActivity extends AppCompatActivity {
 
         });
 
-        missionschoix5 = new TextView(context);
-        missionschoix5.setText("faire crepe");
-        ll6.addView(choix5);
-        ll6.addView(missionschoix5);
-        parent.addView(ll6);
 
 
         // attaching data adapter to spinner
