@@ -41,7 +41,8 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VolunteerPreferenceActivity extends AppCompatActivity implements OnItemSelectedListener{
+public class VolunteerPreferenceActivity extends AppCompatActivity {
+    //implements OnItemSelectedListener
     private static String TAG = "VolunteerPreferenceActivity";
     private static MapView map = null;
     private static Context context;
@@ -65,7 +66,14 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     public static GeoPoint geotemporaire;
     private static LinearLayout parent;
     public static Spinner choix1;
+
+    private static TextView missionschoix1;
     private static TextView missionschoix2;
+    private static TextView missionschoix3;
+    private static TextView missionschoix4;
+    private static TextView missionschoix5;
+
+
 
 
     @Override
@@ -353,104 +361,104 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         }
     }
 
-    /**
-     * méthode pour récupérer l'élement selectionné dans la liste des postes
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//    /**
+//     * méthode pour récupérer l'élement selectionné dans la liste des postes
+//     * @param parent
+//     * @param view
+//     * @param position
+//     * @param id
+//     */
+////    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//        switch (parent.getId()) {
+//            case R.id.spinner1:
+//            Object item = parent.getItemAtPosition(position);
+//            String getselectedposte = item.toString();
+//
+//            Utils.debug("spinner1",getselectedposte);
+//
+//            stockerIdPoste = ListIdPoste.get(position);
+//
+//            //centrer la map en fonction du poste selectionné dans le menu déroulant
+//            mapController.setCenter(ListGeopointPoste.get(position));
+//
+//            //lors de la selection d'un poste, on affiche la mission associée
+//            ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),R.id.spinner1);
+//
+//
+//
+//            case R.id.spinner2:
+//                Object item2 = parent.getItemAtPosition(position);
+//                String getselectedposte2 = item2.toString();
+//                Utils.debug("spinner2",getselectedposte2);
+//
+//                stockerIdPoste = ListIdPoste.get(position);
+//
+//                //centrer la map en fonction du poste selectionné dans le menu déroulant
+//                mapController.setCenter(ListGeopointPoste.get(position));
+//
+//                //lors de la selection d'un poste, on affiche la mission associée
+//                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),R.id.spinner2);
+//
+//
+//            case R.id.spinner3:
+//                Object item3 = parent.getItemAtPosition(position);
+//                String getselectedposte3 = item3.toString();
+//                Utils.debug("spinner3",getselectedposte3);
+//
+//                stockerIdPoste = ListIdPoste.get(position);
+//
+//                //centrer la map en fonction du poste selectionné dans le menu déroulant
+//                mapController.setCenter(ListGeopointPoste.get(position));
+//
+//                //lors de la selection d'un poste, on affiche la mission associée
+//                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),R.id.spinner3);
+//
+//
+//
+//            case R.id.spinner4:
+//                Object item4 = parent.getItemAtPosition(position);
+//                String getselectedposte4 = item4.toString();
+//                Utils.debug("spinner4",getselectedposte4);
+//
+//                stockerIdPoste = ListIdPoste.get(position);
+//
+//                //centrer la map en fonction du poste selectionné dans le menu déroulant
+//                mapController.setCenter(ListGeopointPoste.get(position));
+//
+//                //lors de la selection d'un poste, on affiche la mission associée
+//                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),R.id.spinner4);
+//
+//
+//
+//            case R.id.spinner5:
+//                Object item5 = parent.getItemAtPosition(position);
+//                String getselectedposte5 = item5.toString();
+//                Utils.debug("spinner3=5",getselectedposte5);
+//
+//                stockerIdPoste = ListIdPoste.get(position);
+//
+//                //centrer la map en fonction du poste selectionné dans le menu déroulant
+//                mapController.setCenter(ListGeopointPoste.get(position));
+//
+//                //lors de la selection d'un poste, on affiche la mission associée
+//                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),R.id.spinner5);
+//
+//        }
+//    }
+//
+//
+//    //si aucun élément n'est selectionné, là par defaut premier raid de la liste
+//    public void onNothingSelected(AdapterView<?> arg0) {
+//        switch (parent.getId()) {
+//            case R.id.spinner1:
+//
+//                missionschoix2.setText("Selectionner un element");
+//
+//        }
 
-        switch (parent.getId()) {
-            case R.id.spinner1:
-            Object item = parent.getItemAtPosition(position);
-            String getselectedposte = item.toString();
-
-            Utils.debug("spinner1",getselectedposte);
-
-            stockerIdPoste = ListIdPoste.get(position);
-
-            //centrer la map en fonction du poste selectionné dans le menu déroulant
-            mapController.setCenter(ListGeopointPoste.get(position));
-
-            //lors de la selection d'un poste, on affiche la mission associée
-            ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
-
-
-
-            case R.id.spinner2:
-                Object item2 = parent.getItemAtPosition(position);
-                String getselectedposte2 = item2.toString();
-                Utils.debug("spinner2",getselectedposte2);
-
-                stockerIdPoste = ListIdPoste.get(position);
-
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
-
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
-
-
-            case R.id.spinner3:
-                Object item3 = parent.getItemAtPosition(position);
-                String getselectedposte3 = item3.toString();
-                Utils.debug("spinner3",getselectedposte3);
-
-                stockerIdPoste = ListIdPoste.get(position);
-
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
-
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
-
-
-
-            case R.id.spinner4:
-                Object item4 = parent.getItemAtPosition(position);
-                String getselectedposte4 = item4.toString();
-                Utils.debug("spinner4",getselectedposte4);
-
-                stockerIdPoste = ListIdPoste.get(position);
-
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
-
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
-
-
-
-            case R.id.spinner5:
-                Object item5 = parent.getItemAtPosition(position);
-                String getselectedposte5 = item5.toString();
-                Utils.debug("spinner3=5",getselectedposte5);
-
-                stockerIdPoste = ListIdPoste.get(position);
-
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
-
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
-
-        }
-    }
-
-
-    //si aucun élément n'est selectionné, là par defaut premier raid de la liste
-    public void onNothingSelected(AdapterView<?> arg0) {
-        switch (parent.getId()) {
-            case R.id.spinner1:
-
-                missionschoix2.setText("Selectionner un element");
-
-        }
-
-    }
+  //  }
 
 
 
@@ -463,7 +471,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ll2.setOrientation(LinearLayout.HORIZONTAL);
         choix1 = new Spinner(context);
         choix1.setId(R.id.spinner1);
-        choix1.setOnItemSelectedListener((OnItemSelectedListener) context);
+        //choix1.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
@@ -473,11 +481,32 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix1.setAdapter(dataAdapter);
 
-        TextView missionschoix1 = new TextView(context);
+        missionschoix1 = new TextView(context);
         missionschoix1.setText("faire crepe");
         ll2.addView(choix1);
         ll2.addView(missionschoix1);
         parent.addView(ll2);
+
+
+
+
+
+        choix1.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"1");            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
+
 
 
 
@@ -486,7 +515,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ll3.setOrientation(LinearLayout.HORIZONTAL);
         Spinner choix2 = new Spinner(context);
         choix2.setId(R.id.spinner2);
-        choix2.setOnItemSelectedListener((OnItemSelectedListener) context);
+        //choix2.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
@@ -495,6 +524,23 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         // Drop down layout style - list view with radio button
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix2.setAdapter(dataAdapter2);
+
+
+        choix2.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"2");            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
         missionschoix2 = new TextView(context);
         missionschoix2.setText("faire crepe");
@@ -509,7 +555,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ll4.setOrientation(LinearLayout.HORIZONTAL);
         Spinner choix3 = new Spinner(context);
         choix3.setId(R.id.spinner3);
-        choix3.setOnItemSelectedListener((OnItemSelectedListener) context);
+        //choix3.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
@@ -519,7 +565,23 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix3.setAdapter(dataAdapter3);
 
-        TextView missionschoix3 = new TextView(context);
+        choix3.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"3");            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        missionschoix3 = new TextView(context);
         missionschoix3.setText("faire crepe");
         ll4.addView(choix3);
         ll4.addView(missionschoix3);
@@ -532,7 +594,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ll5.setOrientation(LinearLayout.HORIZONTAL);
         Spinner choix4 = new Spinner(context);
         choix4.setId(R.id.spinner4);
-        choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
+       // choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
@@ -542,19 +604,35 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix4.setAdapter(dataAdapter4);
 
-        TextView missionschoix4 = new TextView(context);
+        choix4.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"4");            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        missionschoix4 = new TextView(context);
         missionschoix4.setText("faire crepe");
         ll5.addView(choix4);
         ll5.addView(missionschoix4);
         parent.addView(ll5);
 
 
-        //choix 4
+        //choix 5
         LinearLayout ll6 = new LinearLayout(context);
         ll6.setOrientation(LinearLayout.HORIZONTAL);
         Spinner choix5 = new Spinner(context);
         choix5.setId(R.id.spinner5);
-        choix5.setOnItemSelectedListener((OnItemSelectedListener) context);
+        //choix5.setOnItemSelectedListener((OnItemSelectedListener) context);
 
 
         // Creating adapter for spinner
@@ -564,7 +642,23 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choix5.setAdapter(dataAdapter5);
 
-        TextView missionschoix5 = new TextView(context);
+        choix5.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"5");            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        missionschoix5 = new TextView(context);
         missionschoix5.setText("faire crepe");
         ll6.addView(choix5);
         ll6.addView(missionschoix5);
@@ -616,15 +710,36 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
      * afficher la mission associée au poste selectionné
      * @param response
      */
-    public static void getMission(String response){
-        Utils.debug("je passe bien","ici");
+    public static void getMission(String response, String spinner){
+        Utils.debug("getmission",spinner);
         JsonParser parser = new JsonParser();
         JsonArray mission = (JsonArray) parser.parse(response);
-
         JsonObject miss = (JsonObject) mission.get(0);
-
         String missionDescription=miss.get("objectif").toString().replace("\"", " ");
-        dispMission.setText(missionDescription);
+
+        switch (spinner) {
+            case "1":
+                Utils.debug("cas1",spinner);
+                missionschoix1.setText(missionDescription);
+                break;
+            case "2":
+                Utils.debug("cas2",spinner);
+                missionschoix2.setText(missionDescription);
+            case "3" :
+                Utils.debug("cas3",spinner);
+                missionschoix3.setText(missionDescription);
+            case "4" :
+                Utils.debug("cas4",spinner);
+                missionschoix4.setText(missionDescription);
+            case "5" :
+                Utils.debug("cas5",spinner);
+                missionschoix5.setText(missionDescription);
+        }
+
+
+
+//        String missionDescription=miss.get("objectif").toString().replace("\"", " ");
+//        missionschoix2.setText(missionDescription);
     }
 
     /**

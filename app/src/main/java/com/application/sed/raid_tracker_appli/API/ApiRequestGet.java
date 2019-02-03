@@ -561,7 +561,7 @@ public class ApiRequestGet {
      * @param token
      * @param id_poste
      */
-    public static void getMissionsofOnePoste(final Context context, final String token, final Integer id_poste ){
+    public static void getMissionsofOnePoste(final Context context, final String token, final Integer id_poste, final String spinner ){
 
         String urlFinale=urlMissions+'/'+"postes"+'/'+id_poste;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -571,7 +571,8 @@ public class ApiRequestGet {
                     @Override
                     public void onResponse(String response) {
                         if (context.toString().contains("VolunteerPreferenceActivity")){
-                            VolunteerPreferenceActivity.getMission(response);
+                            Utils.debug("test",spinner.toString());
+                            VolunteerPreferenceActivity.getMission(response,spinner);
                         }
                         if (context.toString().contains("EditPosteActivity")){
                             EditPosteActivity.UpdateMission(response);

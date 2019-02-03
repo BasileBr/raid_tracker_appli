@@ -134,7 +134,7 @@ public class EditPosteActivity extends AppCompatActivity {
                 }
             });
 
-            ApiRequestGet.getMissionsofOnePoste(context,Bdd.getValue(),Integer.valueOf(idPoste));
+            ApiRequestGet.getMissionsofOnePoste(context,Bdd.getValue(),Integer.valueOf(idPoste),null);
             ApiRequestGet.getOnePoste(context, Bdd.getValue(), idPoste);
         }
     }
