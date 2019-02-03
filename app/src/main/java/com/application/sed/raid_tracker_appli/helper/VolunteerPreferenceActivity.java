@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,7 +45,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     private static String TAG = "VolunteerPreferenceActivity";
     private static MapView map = null;
     private static Context context;
-    private static Spinner spinner;
+   // private static Spinner spinner;
     private static ArrayList<Integer> ListIdPoste= new ArrayList<>();
     private static ArrayList<GeoPoint> ListGeopointPoste= new ArrayList<>();
     public static int ParcoursListGeoPoint;
@@ -62,6 +63,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     public static GeoPoint pointa = new GeoPoint(51.489878, 6.143294);
     public static GeoPoint pointb = new GeoPoint(51.488978, 6.746994);
     public static GeoPoint geotemporaire;
+    private static LinearLayout parent;
+    public static Spinner choix1;
+    private static TextView missionschoix2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +96,65 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         }
 
         // Spinner element
-        spinner = findViewById(R.id.spinner);
+       // spinner = findViewById(R.id.spinner);
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
+//        choix1.setOnItemSelectedListener(this);
+
+        parent = findViewById(R.id.parent);
+
+
+        LinearLayout ll = new LinearLayout(context);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        TextView choixposte = new TextView(context);
+        choixposte.setText("Choix poste");
+
+        TextView missions = new TextView(context);
+        missions.setText("Missions");
+        ll.addView(choixposte);
+        ll.addView(missions);
+        parent.addView(ll);
+
+        //choix 1
+//        LinearLayout ll2 = new LinearLayout(context);
+//        ll2.setOrientation(LinearLayout.HORIZONTAL);
+//        Spinner choix1 = new Spinner(context);
+//        List<String> listchoix1 = new ArrayList<String>();
+//        listchoix1.add("list 1");
+//        listchoix1.add("list 2");
+//        listchoix1.add("list 3");
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, listchoix1);
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        choix1.setAdapter(dataAdapter);
+//        TextView missionschoix1 = new TextView(context);
+//        missionschoix1.setText("faire crepe");
+//        ll2.addView(choix1);
+//        ll2.addView(missionschoix1);
+//        parent.addView(ll2);
+
+        //choix 2
+//        LinearLayout ll3 = new LinearLayout(context);
+//        ll3.setOrientation(LinearLayout.HORIZONTAL);
+//        Spinner choix2 = new Spinner(context);
+//        List<String> listchoix2 = new ArrayList<String>();
+//        listchoix2.add("list 1");
+//        listchoix2.add("list 2");
+//        listchoix2.add("list 3");
+//        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, listchoix2);
+//        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        choix2.setAdapter(dataAdapter2);
+//        TextView missionschoix2 = new TextView(context);
+//        missionschoix2.setText("faire crepe");
+//        ll3.addView(choix2);
+//        ll3.addView(missionschoix2);
+//        ll3.setPadding(0,20,0,0);
+//        parent.addView(ll3);
+
+
+
 
         //load/initialize the osmdroid configuration, this can be done
         Context ctx = getApplicationContext();
@@ -132,7 +192,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         map.getOverlays().add(mCompassOverlay);
 
         //récupérer le TextView pour afficher la mission
-        dispMission= (TextView) findViewById(R.id.displayMissions);
+        //dispMission= (TextView) findViewById(R.id.displayMissions);
 
         //récupération du bouton pour inscrire un bénévole à un poste
         submit = (Button) findViewById(R.id.submit);
@@ -303,33 +363,217 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        Object item = parent.getItemAtPosition(position);
-        String getselectedposte = item.toString();
+        switch (parent.getId()) {
+            case R.id.spinner1:
+            Object item = parent.getItemAtPosition(position);
+            String getselectedposte = item.toString();
 
-        stockerIdPoste=ListIdPoste.get(position);
+            Utils.debug("spinner1",getselectedposte);
 
-        //centrer la map en fonction du poste selectionné dans le menu déroulant
-        mapController.setCenter(ListGeopointPoste.get(position));
+            stockerIdPoste = ListIdPoste.get(position);
 
-        //lors de la selection d'un poste, on affiche la mission associée
-        ApiRequestGet.getMissionsofOnePoste(context,token, ListIdPoste.get(position));
+            //centrer la map en fonction du poste selectionné dans le menu déroulant
+            mapController.setCenter(ListGeopointPoste.get(position));
+
+            //lors de la selection d'un poste, on affiche la mission associée
+            ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
+
+
+
+            case R.id.spinner2:
+                Object item2 = parent.getItemAtPosition(position);
+                String getselectedposte2 = item2.toString();
+                Utils.debug("spinner2",getselectedposte2);
+
+                stockerIdPoste = ListIdPoste.get(position);
+
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
+
+
+            case R.id.spinner3:
+                Object item3 = parent.getItemAtPosition(position);
+                String getselectedposte3 = item3.toString();
+                Utils.debug("spinner3",getselectedposte3);
+
+                stockerIdPoste = ListIdPoste.get(position);
+
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
+
+
+
+            case R.id.spinner4:
+                Object item4 = parent.getItemAtPosition(position);
+                String getselectedposte4 = item4.toString();
+                Utils.debug("spinner4",getselectedposte4);
+
+                stockerIdPoste = ListIdPoste.get(position);
+
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
+
+
+
+            case R.id.spinner5:
+                Object item5 = parent.getItemAtPosition(position);
+                String getselectedposte5 = item5.toString();
+                Utils.debug("spinner3=5",getselectedposte5);
+
+                stockerIdPoste = ListIdPoste.get(position);
+
+                //centrer la map en fonction du poste selectionné dans le menu déroulant
+                mapController.setCenter(ListGeopointPoste.get(position));
+
+                //lors de la selection d'un poste, on affiche la mission associée
+                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position));
+
+        }
     }
+
 
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
     public void onNothingSelected(AdapterView<?> arg0) {
+        switch (parent.getId()) {
+            case R.id.spinner1:
+
+                missionschoix2.setText("Selectionner un element");
+
+        }
+
     }
+
+
 
     //afficher la liste des postes
     public static void createSpinner(List<String> posteListe){
+
+
+        //choix 1
+        LinearLayout ll2 = new LinearLayout(context);
+        ll2.setOrientation(LinearLayout.HORIZONTAL);
+        choix1 = new Spinner(context);
+        choix1.setId(R.id.spinner1);
+        choix1.setOnItemSelectedListener((OnItemSelectedListener) context);
+
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choix1.setAdapter(dataAdapter);
+
+        TextView missionschoix1 = new TextView(context);
+        missionschoix1.setText("faire crepe");
+        ll2.addView(choix1);
+        ll2.addView(missionschoix1);
+        parent.addView(ll2);
+
+
+
+        //choix 2
+        LinearLayout ll3 = new LinearLayout(context);
+        ll3.setOrientation(LinearLayout.HORIZONTAL);
+        Spinner choix2 = new Spinner(context);
+        choix2.setId(R.id.spinner2);
+        choix2.setOnItemSelectedListener((OnItemSelectedListener) context);
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choix2.setAdapter(dataAdapter2);
+
+        missionschoix2 = new TextView(context);
+        missionschoix2.setText("faire crepe");
+        ll3.addView(choix2);
+        ll3.addView(missionschoix2);
+        parent.addView(ll3);
+
+
+
+        //choix 3
+        LinearLayout ll4 = new LinearLayout(context);
+        ll4.setOrientation(LinearLayout.HORIZONTAL);
+        Spinner choix3 = new Spinner(context);
+        choix3.setId(R.id.spinner3);
+        choix3.setOnItemSelectedListener((OnItemSelectedListener) context);
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choix3.setAdapter(dataAdapter3);
+
+        TextView missionschoix3 = new TextView(context);
+        missionschoix3.setText("faire crepe");
+        ll4.addView(choix3);
+        ll4.addView(missionschoix3);
+        parent.addView(ll4);
+
+
+
+        //choix 4
+        LinearLayout ll5 = new LinearLayout(context);
+        ll5.setOrientation(LinearLayout.HORIZONTAL);
+        Spinner choix4 = new Spinner(context);
+        choix4.setId(R.id.spinner4);
+        choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choix4.setAdapter(dataAdapter4);
+
+        TextView missionschoix4 = new TextView(context);
+        missionschoix4.setText("faire crepe");
+        ll5.addView(choix4);
+        ll5.addView(missionschoix4);
+        parent.addView(ll5);
+
+
+        //choix 4
+        LinearLayout ll6 = new LinearLayout(context);
+        ll6.setOrientation(LinearLayout.HORIZONTAL);
+        Spinner choix5 = new Spinner(context);
+        choix5.setId(R.id.spinner5);
+        choix5.setOnItemSelectedListener((OnItemSelectedListener) context);
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choix5.setAdapter(dataAdapter5);
+
+        TextView missionschoix5 = new TextView(context);
+        missionschoix5.setText("faire crepe");
+        ll6.addView(choix5);
+        ll6.addView(missionschoix5);
+        parent.addView(ll6);
+
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+            //spinner.setAdapter(dataAdapter);
+
     }
 
     //récupérer la liste des postes d'un raid
@@ -373,7 +617,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
      * @param response
      */
     public static void getMission(String response){
-
+        Utils.debug("je passe bien","ici");
         JsonParser parser = new JsonParser();
         JsonArray mission = (JsonArray) parser.parse(response);
 

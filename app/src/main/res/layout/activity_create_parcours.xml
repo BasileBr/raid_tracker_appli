@@ -111,7 +111,7 @@
                     android:textAlignment="center"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
-                    android:text="Point d'intérêt"/>
+                    android:text="Poste"/>
 
 
             </LinearLayout>
