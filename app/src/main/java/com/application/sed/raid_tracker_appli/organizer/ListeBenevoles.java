@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.LandingActivity;
@@ -66,6 +68,11 @@ public class ListeBenevoles extends AppCompatActivity {
     public static void AfficheListe(String response){
 
 
+
+        TextView entete = new TextView(context);
+        entete.setText("Liste des bénévoles inscrits sur le raid");
+        entete.setTextSize(25);
+        ll.addView(entete);
         JsonParser parser = new JsonParser();
         JsonArray parcourslist = (JsonArray) parser.parse(response);
 
@@ -74,8 +81,16 @@ public class ListeBenevoles extends AppCompatActivity {
             JsonObject benevole = (JsonObject) parcourslist.get(i);
             JsonObject utilisateur = (JsonObject) benevole.get("idUser");
             //Utils.debug(TAG, parcourslist.get(i).toString());
-            //Utils.debug(TAG, benevole.get("id").toString());
-            Utils.debug(TAG,utilisateur.get("usernamex").toString());
+            Utils.debug(TAG, benevole.get("id").toString());
+            Utils.debug(TAG,utilisateur.get( "username").toString());
+
+            String nom = utilisateur.get( "username").toString().replace("\"", "");
+            TextView textView = new TextView(context);
+            textView.setTextSize(20);
+            textView.setPadding(20,20,10,0);
+            textView.setText(nom);
+            //textView.setGravity(Gravity.END);
+            ll.addView(textView);
         }
 
 
