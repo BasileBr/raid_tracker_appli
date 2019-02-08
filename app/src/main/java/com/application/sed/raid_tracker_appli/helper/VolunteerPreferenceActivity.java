@@ -49,6 +49,14 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
    // private static Spinner spinner;
     private static ArrayList<Integer> ListIdPoste= new ArrayList<>();
     private static ArrayList<GeoPoint> ListGeopointPoste= new ArrayList<>();
+
+    private static ArrayList<Integer> Posteselectionnechoix1= new ArrayList<>();
+    private static ArrayList<Integer> Posteselectionnechoix2= new ArrayList<>();
+    private static ArrayList<Integer> Posteselectionnechoix3= new ArrayList<>();
+    private static ArrayList<Integer> Posteselectionnechoix4= new ArrayList<>();
+    private static ArrayList<Integer> Posteselectionnechoix5= new ArrayList<>();
+
+
     public static int ParcoursListGeoPoint;
     private static String iduser;
     private static String token;
@@ -208,6 +216,20 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         //récupération du bouton pour inscrire un bénévole à un poste
         submit = (Button) findViewById(R.id.submit);
+        Posteselectionnechoix1.add(0);
+        Posteselectionnechoix1.add(0);
+
+        Posteselectionnechoix2.add(0);
+        Posteselectionnechoix2.add(0);
+
+        Posteselectionnechoix3.add(0);
+        Posteselectionnechoix3.add(0);
+
+        Posteselectionnechoix4.add(0);
+        Posteselectionnechoix4.add(0);
+
+        Posteselectionnechoix5.add(0);
+        Posteselectionnechoix5.add(0);
 
 
     }
@@ -377,81 +399,170 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         switch (parent.getId()) {
             case R.id.spinner1:
-            Object item = parent.getItemAtPosition(position);
-            String getselectedposte = item.toString();
 
-            Utils.debug("spinner1",getselectedposte);
+                if (choix1.getSelectedItem() == "select an item" || Posteselectionnechoix1.size() == 0){
+                    missionschoix1.setText("choix poste 1");
+                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
+                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
+                        ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
+                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)) {
 
-            stockerIdPoste = ListIdPoste.get(position);
+                    missionschoix1.setError("poste déjà selectionné dans une autre liste");
 
-            //centrer la map en fonction du poste selectionné dans le menu déroulant
-            mapController.setCenter(ListGeopointPoste.get(position));
+                }
+                else
+                {
 
-            //lors de la selection d'un poste, on affiche la mission associée
-            ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"1");
-            break;
+                    Object item = parent.getItemAtPosition(position);
+                    String getselectedposte = item.toString();
+
+                    Utils.debug("spinner1", getselectedposte);
+
+                    missionschoix1.setError(null);
+                    stockerIdPoste = ListIdPoste.get(position-1);
 
 
+                    Posteselectionnechoix1.add(ListIdPoste.get(position-1));
 
-            case R.id.spinner2:
-                Object item2 = parent.getItemAtPosition(position);
-                String getselectedposte2 = item2.toString();
-                Utils.debug("spinner2",getselectedposte2);
+                    Utils.debug(TAG, Posteselectionnechoix1.toString());
 
-                stockerIdPoste = ListIdPoste.get(position);
 
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
+                    //centrer la map en fonction du poste selectionné dans le menu déroulant
+                    mapController.setCenter(ListGeopointPoste.get(position-1));
 
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"2");
+                    //lors de la selection d'un poste, on affiche la mission associée
+                    ApiRequestGet.getMissionsofOnePoste(context, token, (ListIdPoste.get(position-1)), "1");
+
+                }
                 break;
 
-            case R.id.spinner3:
-                Object item3 = parent.getItemAtPosition(position);
-                String getselectedposte3 = item3.toString();
-                Utils.debug("spinner3",getselectedposte3);
+                case R.id.spinner2:
 
-                stockerIdPoste = ListIdPoste.get(position);
+                    if (choix2.getSelectedItem() == "select an item" ||Posteselectionnechoix2.size() == 0 ){
+                        missionschoix2.setText("choix poste 2");
+                    }
+                    else if(Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
+                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
+                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)) {
 
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
+                        missionschoix2.setError("poste déjà selectionné dans une autre liste");
 
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"3");
-                break;
+                         }
+                    else {
+                        Object item2 = parent.getItemAtPosition(position);
+                        String getselectedposte2 = item2.toString();
+                        Utils.debug("spinner2", getselectedposte2);
+
+                        missionschoix2.setError(null);
+                        stockerIdPoste = ListIdPoste.get(position);
+
+                        Posteselectionnechoix2.add(ListIdPoste.get(position - 1));
+                        Utils.debug(TAG, Posteselectionnechoix2.toString());
+
+                        //centrer la map en fonction du poste selectionné dans le menu déroulant
+                        mapController.setCenter(ListGeopointPoste.get(position-1));
 
 
+                        //lors de la selection d'un poste, on affiche la mission associée
+                        ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position-1), "2");
+
+                    }
+                    break;
+                case R.id.spinner3:
+
+                    if (choix3.getSelectedItem() == "select an item" ||Posteselectionnechoix3.size() == 0){
+                        missionschoix3.setText("choix poste 1");
+                    }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
+                            || Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
+                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)) {
+
+                        missionschoix3.setError("poste déjà selectionné dans une autre liste");
+
+                    }else {
+                    Object item3 = parent.getItemAtPosition(position);
+                    String getselectedposte3 = item3.toString();
+                    Utils.debug("spinner3", getselectedposte3);
+                    missionschoix3.setError(null);
+
+                    stockerIdPoste = ListIdPoste.get(position);
+
+                    Posteselectionnechoix3.add(ListIdPoste.get(position-1));
+                    Utils.debug(TAG, Posteselectionnechoix3.toString());
+
+
+                    //centrer la map en fonction du poste selectionné dans le menu déroulant
+                    mapController.setCenter(ListGeopointPoste.get(position-1));
+
+                    //lors de la selection d'un poste, on affiche la mission associée
+                    ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position-1), "3");
+                    }
+                    break;
             case R.id.spinner4:
-                Object item4 = parent.getItemAtPosition(position);
-                String getselectedposte4 = item4.toString();
-                Utils.debug("spinner4",getselectedposte4);
 
-                stockerIdPoste = ListIdPoste.get(position);
+                if (choix4.getSelectedItem() == "select an item" ||Posteselectionnechoix4.size() == 0 ){
+                    missionschoix4.setText("choix poste 1");
+                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
+                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
+                        ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
+                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)) {
 
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
+                    missionschoix4.setError("poste déjà selectionné dans une autre liste");
 
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"4");
-                break;
+                }else {
+                    Object item4 = parent.getItemAtPosition(position);
+                    String getselectedposte4 = item4.toString();
+                    Utils.debug("spinner4", getselectedposte4);
+
+                    missionschoix4.setError(null);
+                    stockerIdPoste = ListIdPoste.get(position);
+
+                    Posteselectionnechoix4.add(ListIdPoste.get(position - 1));
+                    Utils.debug(TAG, Posteselectionnechoix4.toString());
 
 
-            case R.id.spinner5:
-                Object item5 = parent.getItemAtPosition(position);
-                String getselectedposte5 = item5.toString();
-                Utils.debug("spinner3=5",getselectedposte5);
+                    //centrer la map en fonction du poste selectionné dans le menu déroulant
+                    mapController.setCenter(ListGeopointPoste.get(position - 1));
 
-                stockerIdPoste = ListIdPoste.get(position);
+                    //lors de la selection d'un poste, on affiche la mission associée
+                    ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position - 1), "4");
+                }
+                    break;
 
-                //centrer la map en fonction du poste selectionné dans le menu déroulant
-                mapController.setCenter(ListGeopointPoste.get(position));
 
-                //lors de la selection d'un poste, on affiche la mission associée
-                ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position),"5");
-                break;
+                case R.id.spinner5:
+                    if (choix5.getSelectedItem() == "select an item" ||Posteselectionnechoix5.size() == 0){
+                        missionschoix5.setText("choix poste 1");
+                    }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
+                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
+                            ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)) {
+
+                        missionschoix5.setError("poste déjà selectionné dans une autre liste");
+                    }
+                    else {
+
+                        Object item5 = parent.getItemAtPosition(position);
+                        String getselectedposte5 = item5.toString();
+                        Utils.debug("spinner3=5", getselectedposte5);
+
+                        missionschoix5.setError(null);
+                        stockerIdPoste = ListIdPoste.get(position);
+
+                        Posteselectionnechoix5.add(ListIdPoste.get(position - 1));
+                        Utils.debug(TAG, Posteselectionnechoix5.toString());
+
+                        //centrer la map en fonction du poste selectionné dans le menu déroulant
+                        mapController.setCenter(ListGeopointPoste.get(position - 1));
+
+                        //lors de la selection d'un poste, on affiche la mission associée
+                        ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position - 1), "5");
+                    }
+                    break;
+            }
         }
-    }
+
 
 
     //si aucun élément n'est selectionné, là par defaut premier raid de la liste
@@ -459,16 +570,18 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         switch (parent.getId()) {
             case R.id.spinner1:
 
-                missionschoix2.setText("Selectionner un element");
 
         }
 
     }
 
-
-
     //afficher la liste des postes
     public static void createSpinner(List<String> posteListe){
+
+        List<String>TestposteListemodified = new ArrayList<String>();
+        TestposteListemodified.add("select an item");
+        TestposteListemodified.addAll(posteListe);
+
 
 
         //choix 1
@@ -480,7 +593,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, TestposteListemodified);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -524,7 +637,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, TestposteListemodified);
 
         // Drop down layout style - list view with radio button
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -566,7 +679,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, TestposteListemodified);
 
         // Drop down layout style - list view with radio button
         dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -605,9 +718,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         choix4.setId(R.id.spinner4);
         choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
 
-
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, TestposteListemodified);
 
         // Drop down layout style - list view with radio button
         dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -647,7 +759,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, posteListe);
+        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, TestposteListemodified);
 
         // Drop down layout style - list view with radio button
         dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
