@@ -925,18 +925,19 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         // Tester si les erreurs ne sont pas null
 
-        if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
-                (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
-                (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
-                (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
-                (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0)) {
-
-            if (missionschoix1.getError() == null &&
-                    missionschoix2.getError() == null &&
-                    missionschoix3.getError() == null &&
-                    missionschoix4.getError() == null &&
-                    missionschoix5.getError() == null
-                    ) {
+        if (missionschoix1.getError() == null &&
+                missionschoix2.getError() == null &&
+                missionschoix3.getError() == null &&
+                missionschoix4.getError() == null &&
+                missionschoix5.getError() == null
+                )
+         {
+             if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
+                     (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
+                     (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
+                     (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
+                     (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0))
+             {
                 submit.setError(null);
                 ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
 
@@ -946,11 +947,13 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
     //            Intent intent = new Intent(context, LandingActivity.class);
     //            context.startActivity(intent);
-        }
+            }
+
         }
         else{
             submit.setError("Il reste des erreurs sur vos choix de postes");
         }
+
     }
 
     /**
