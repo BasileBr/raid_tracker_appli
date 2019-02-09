@@ -382,6 +382,9 @@ public class ApiRequestGet {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Error.Response specific", error.toString());
+                        if (context.toString().contains("ListeBenevoles")){
+                            ListeBenevoles.afficheCheck("");
+                        }
                     }
                 }
         ){

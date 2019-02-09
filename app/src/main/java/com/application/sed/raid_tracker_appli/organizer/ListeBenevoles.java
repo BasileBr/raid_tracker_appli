@@ -110,50 +110,64 @@ public class ListeBenevoles extends AppCompatActivity {
 
 
     public static void afficheCheck(String response){
-        Utils.debug(TAG, response);
-        JsonParser parser = new JsonParser();
-        JsonArray parcourslist = (JsonArray) parser.parse(response);
-        JsonObject inter = (JsonObject) parcourslist.get(0);
-        JsonObject repartition = (JsonObject) inter.get("idRepartition");
-        JsonObject benevole = (JsonObject) repartition.get("idBenevole");
-        JsonObject iduser = (JsonObject) benevole.get("idUser");
-        String user = iduser.get("username").toString().replace("\"","");
+
+        if (response.isEmpty()){
+            for (int i = 0; i < listeNom.size(); i++) {
 
 
-        for (int i = 0; i < listeNom.size(); i++){
+                TextView textView = new TextView(context);
+                textView.setTextSize(20);
+                textView.setPadding(20, 20, 10, 0);
+                textView.setText(listeNom.get(i));
 
-            LinearLayout linearLayout = new LinearLayout(context);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            linearLayout.setLayoutParams(layoutParams);
-
-            TextView textView = new TextView(context);
-            textView.setTextSize(20);
-            textView.setPadding(20,20,10,0);
-            textView.setText(listeNom.get(i));
-
-            linearLayout.addView(textView);
-            TextView check = new TextView(context);
-
-
-            check.setTextSize(20);
-            check.setPadding(300,20,20,0);
-            check.setGravity(Gravity.END);
-
-            if (user.equals(listeNom.get(i))){
-
-                check.setText("Est a son poste");
-                check.setTextColor(context.getResources().getColor(R.color.VertPrimaire));
+                ll.addView(textView);
             }
-            else{
-                check.setText("N'est pas a son poste");
-                check.setTextColor(context.getResources().getColor(R.color.MarronPrimaire));
-            }
-            linearLayout.addView(check);
-            //textView.setGravity(Gravity.END);
-            ll.addView(linearLayout);
+
         }
-        Utils.debug(TAG, user);
+        else {
+            Utils.debug(TAG, response);
+            JsonParser parser = new JsonParser();
+            JsonArray parcourslist = (JsonArray) parser.parse(response);
+            JsonObject inter = (JsonObject) parcourslist.get(0);
+            JsonObject repartition = (JsonObject) inter.get("idRepartition");
+            JsonObject benevole = (JsonObject) repartition.get("idBenevole");
+            JsonObject iduser = (JsonObject) benevole.get("idUser");
+            String user = iduser.get("username").toString().replace("\"", "");
 
+
+            for (int i = 0; i < listeNom.size(); i++) {
+
+                LinearLayout linearLayout = new LinearLayout(context);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                linearLayout.setLayoutParams(layoutParams);
+
+                TextView textView = new TextView(context);
+                textView.setTextSize(20);
+                textView.setPadding(20, 20, 10, 0);
+                textView.setText(listeNom.get(i));
+
+                linearLayout.addView(textView);
+                TextView check = new TextView(context);
+
+
+                check.setTextSize(20);
+                check.setPadding(300, 20, 20, 0);
+                check.setGravity(Gravity.END);
+
+                if (user.equals(listeNom.get(i))) {
+
+                    check.setText("Est a son poste");
+                    check.setTextColor(context.getResources().getColor(R.color.VertPrimaire));
+                } else {
+                    check.setText("N'est pas a son poste");
+                    check.setTextColor(context.getResources().getColor(R.color.MarronPrimaire));
+                }
+                linearLayout.addView(check);
+                //textView.setGravity(Gravity.END);
+                ll.addView(linearLayout);
+            }
+            Utils.debug(TAG, user);
+        }
 
     }
     /**
