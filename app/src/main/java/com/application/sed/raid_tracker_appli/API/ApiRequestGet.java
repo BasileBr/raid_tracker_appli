@@ -2,6 +2,7 @@ package com.application.sed.raid_tracker_appli.API;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -359,16 +361,18 @@ public class ApiRequestGet {
      * @param token
      * @param id_raid
      */
-    public static void getCheckinOneRaid(Context context, final String token, final String id_raid ){
+    public static void getCheckinOneRaid(final Context context, final String token, final String id_raid ){
 
-        String urlFinale=urlCheckin+'/'+"raids"+id_raid;
+        String urlFinale=urlCheckin+'/'+"raids"+'/'+id_raid;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlFinale,
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-
+                        if (context.toString().contains("ListeBenevoles")){
+                            ListeBenevoles.afficheCheck(response);
+                        }
                     }
 
                 },
