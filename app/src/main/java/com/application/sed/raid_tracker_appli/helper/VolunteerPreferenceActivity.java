@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -63,6 +64,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     private static String token;
     private static TextView dispMission;
     private static Button submit;
+    private static TextView issue;
+
     private static String idRaid;
     private static Integer stockerIdPoste;
     private static IMapController mapController;
@@ -122,16 +125,22 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         // Spinner click listener
 //        choix1.setOnItemSelectedListener(this);
 
+
+
         parent = findViewById(R.id.parent);
 
 
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.HORIZONTAL);
+        ll.setGravity(Gravity.CENTER);
         TextView choixposte = new TextView(context);
         choixposte.setText("Choix poste");
+        choixposte.setTextSize(20);
 
         TextView missions = new TextView(context);
         missions.setText("Missions");
+        missions.setPadding(40,0,0,0);
+        missions.setTextSize(20);
         ll.addView(choixposte);
         ll.addView(missions);
         parent.addView(ll);
@@ -216,6 +225,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //dispMission= (TextView) findViewById(R.id.displayMissions);
 
         //récupération du bouton pour inscrire un bénévole à un poste
+        issue = findViewById(R.id.issue);
+
         submit = (Button) findViewById(R.id.submit);
         Posteselectionnechoix1.add(0);
         Posteselectionnechoix1.add(0);
@@ -401,7 +412,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         switch (parent.getId()) {
             case R.id.spinner1:
 
-                if (choix1.getSelectedItem() == "select an item" ){
+                if (choix1.getSelectedItem() == "Choisir un poste" ){
+                    Posteselectionnechoix1.add(0);
                     missionschoix1.setText("choix poste 1");
                     missionschoix1.setFocusable(true);
                     missionschoix1.setClickable(true);
@@ -449,7 +461,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 case R.id.spinner2:
 
-                    if (choix2.getSelectedItem() == "select an item" ){
+                    if (choix2.getSelectedItem() == "Choisir un poste" ){
+                        Posteselectionnechoix2.add(0);
                         missionschoix2.setText("choix poste 2");
                         missionschoix2.setFocusable(true);
                         missionschoix2.setClickable(true);
@@ -492,7 +505,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                     break;
                 case R.id.spinner3:
 
-                    if (choix3.getSelectedItem() == "select an item"){
+                    if (choix3.getSelectedItem() == "Choisir un poste"){
+                        Posteselectionnechoix2.add(0);
                         missionschoix3.setText("choix poste 3");
                         missionschoix3.setFocusable(true);
                         missionschoix3.setClickable(true);
@@ -534,7 +548,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                     break;
             case R.id.spinner4:
 
-                if (choix4.getSelectedItem() == "select an item"){
+                if (choix4.getSelectedItem() == "Choisir un poste"){
+                    Posteselectionnechoix4.add(0);
                     missionschoix4.setText("choix poste 4");
                     missionschoix4.setFocusable(true);
                     missionschoix4.setClickable(true);
@@ -576,7 +591,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
                 case R.id.spinner5:
-                    if (choix5.getSelectedItem() == "select an item" ){
+                    if (choix5.getSelectedItem() == "Choisir un poste" ){
+                        Posteselectionnechoix5.add(0);
                         missionschoix5.setText("choix poste 5");
                         missionschoix5.setFocusable(true);
                         missionschoix5.setClickable(true);
@@ -634,7 +650,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     public static void createSpinner(List<String> posteListe){
 
         List<String>TestposteListemodified = new ArrayList<String>();
-        TestposteListemodified.add("select an item");
+        TestposteListemodified.add("Choisir un poste");
         TestposteListemodified.addAll(posteListe);
 
 
@@ -642,6 +658,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //choix 1
         LinearLayout ll2 = new LinearLayout(context);
         ll2.setOrientation(LinearLayout.HORIZONTAL);
+        ll2.setGravity(Gravity.CENTER);
         choix1 = new Spinner(context);
         choix1.setId(R.id.spinner1);
         choix1.setOnItemSelectedListener((OnItemSelectedListener) context);
@@ -655,7 +672,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         choix1.setAdapter(dataAdapter);
 
         missionschoix1 = new TextView(context);
-        missionschoix1.setText("faire crepe");
+        missionschoix1.setPadding(40,0,0,0);
         ll2.addView(choix1);
         ll2.addView(missionschoix1);
         parent.addView(ll2);
@@ -686,6 +703,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //choix 2
         LinearLayout ll3 = new LinearLayout(context);
         ll3.setOrientation(LinearLayout.HORIZONTAL);
+        ll3.setGravity(Gravity.CENTER);
         choix2 = new Spinner(context);
         choix2.setId(R.id.spinner2);
         choix2.setOnItemSelectedListener((OnItemSelectedListener) context);
@@ -700,7 +718,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         missionschoix2 = new TextView(context);
-        missionschoix2.setText("faire crepe");
+        missionschoix2.setPadding(40,0,0,0);
         ll3.addView(choix2);
         ll3.addView(missionschoix2);
         parent.addView(ll3);
@@ -728,6 +746,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //choix 3
         LinearLayout ll4 = new LinearLayout(context);
         ll4.setOrientation(LinearLayout.HORIZONTAL);
+        ll4.setGravity(Gravity.CENTER);
         choix3 = new Spinner(context);
         choix3.setId(R.id.spinner3);
         choix3.setOnItemSelectedListener((OnItemSelectedListener) context);
@@ -742,7 +761,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         missionschoix3 = new TextView(context);
-        missionschoix3.setText("faire crepe");
+        missionschoix3.setPadding(40,0,0,0);
         ll4.addView(choix3);
         ll4.addView(missionschoix3);
         parent.addView(ll4);
@@ -769,6 +788,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //choix 4
         LinearLayout ll5 = new LinearLayout(context);
         ll5.setOrientation(LinearLayout.HORIZONTAL);
+        ll5.setGravity(Gravity.CENTER);
         choix4 = new Spinner(context);
         choix4.setId(R.id.spinner4);
         choix4.setOnItemSelectedListener((OnItemSelectedListener) context);
@@ -781,7 +801,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         choix4.setAdapter(dataAdapter4);
 
         missionschoix4 = new TextView(context);
-        missionschoix4.setText("faire crepe");
+        missionschoix4.setPadding(40,0,0,0);
         ll5.addView(choix4);
         ll5.addView(missionschoix4);
         parent.addView(ll5);
@@ -808,6 +828,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         //choix 5
         LinearLayout ll6 = new LinearLayout(context);
         ll6.setOrientation(LinearLayout.HORIZONTAL);
+        ll6.setGravity(Gravity.CENTER);
         choix5 = new Spinner(context);
         choix5.setId(R.id.spinner5);
         choix5.setOnItemSelectedListener((OnItemSelectedListener) context);
@@ -822,7 +843,7 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
         missionschoix5 = new TextView(context);
-        missionschoix5.setText("faire crepe");
+        missionschoix5.setPadding(40,0,0,0);
         ll6.addView(choix5);
         ll6.addView(missionschoix5);
         parent.addView(ll6);
@@ -953,8 +974,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                      (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)||
                      (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0))
              {
-                submit.setError(null);
-                ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
+                 issue.setError(null);
+                 issue.setVisibility(View.VISIBLE);
+                 ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
 
                 Utils.debug(TAG+"idRaid:",idRaid);
 
@@ -968,13 +990,17 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                      (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)==0)&&
                      (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)==0)&&
                      (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)==0)){
-                 submit.setError("Aucun poste selectionné ");
+                 issue.setError("Aucun poste selectionné ");
+                 issue.setVisibility(View.VISIBLE);
+
 
              }
 
         }
         else{
-            submit.setError("Il reste des erreurs sur vos choix de postes");
+            issue.setError("Il reste des erreurs sur vos choix de postes");
+            issue.setVisibility(View.VISIBLE);
+
         }
 
     }
@@ -1047,8 +1073,8 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
             }
             //préférence (choix 4)
             if (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0) {
-            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix4.get((Posteselectionnechoix4.size()) - 1), RepAjoutUser.get("id").toString(), 4);
-
+                ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix4.get((Posteselectionnechoix4.size()) - 1), RepAjoutUser.get("id").toString(), 4);
+            }
             //préférence (choix 5)
             if (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0) {
                 ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix5.get((Posteselectionnechoix5.size()) - 1), RepAjoutUser.get("id").toString(), 5);
@@ -1061,5 +1087,6 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 //            submit.setError("Il reste des erreurs sur vos choix de postes");
 //
 //        }
-    }
 }
+
+

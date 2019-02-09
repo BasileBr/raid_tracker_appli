@@ -38,11 +38,13 @@ android:orientation="horizontal">
 <ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="?attr/actionBarSize">
+    android:layout_marginTop="?attr/actionBarSize"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +52,7 @@ android:orientation="horizontal">
             android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Sélectionnez votre poste préféré"/>
+            android:text="Sélectionnez votre/vos poste(s) préféré(s)"/>
         <org.osmdroid.views.MapView
             android:layout_marginTop="10dp"
             android:id="@+id/map"
@@ -64,48 +66,35 @@ android:orientation="horizontal">
         android:id="@+id/parent"
         android:layout_marginTop="20dp"
         android:gravity="center">
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Choix du poste de préférence"-->
-            <!--android:layout_gravity="center"/>-->
-
-        <!--<Spinner-->
-            <!--android:id="@+id/spinner"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="10dp">-->
-        <!--</Spinner>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:text="Les missions associées"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/displayMissions"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--/>-->
 
     </LinearLayout>
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/VertPrimaire"
-            android:textColor="@color/Blancnacre"
-            android:text="Valider"
-            android:onClick="validerPreference"
-            android:layout_gravity="center"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/submit"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/VertPrimaire"
+                android:textColor="@color/Blancnacre"
+                android:text="Valider"
+                android:onClick="validerPreference"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/issue"
+                android:layout_marginStart="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:focusableInTouchMode="true"/>
+        </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
 
 
