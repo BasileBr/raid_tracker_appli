@@ -403,6 +403,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 if (choix1.getSelectedItem() == "select an item" ){
                     missionschoix1.setText("choix poste 1");
+                    missionschoix1.setFocusable(true);
+                    missionschoix1.setClickable(true);
+                    missionschoix1.setFocusableInTouchMode(true);
                     missionschoix1.setError(null);
                 }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
                         || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
@@ -448,6 +451,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                     if (choix2.getSelectedItem() == "select an item" ){
                         missionschoix2.setText("choix poste 2");
+                        missionschoix2.setFocusable(true);
+                        missionschoix2.setClickable(true);
+                        missionschoix2.setFocusableInTouchMode(true);
                         missionschoix2.setError(null);
                     }
                     else if(Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) == ListIdPoste.get(position-1)
@@ -488,6 +494,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                     if (choix3.getSelectedItem() == "select an item"){
                         missionschoix3.setText("choix poste 3");
+                        missionschoix3.setFocusable(true);
+                        missionschoix3.setClickable(true);
+                        missionschoix3.setFocusableInTouchMode(true);
                         missionschoix3.setError(null);
                     }
                     else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
@@ -527,6 +536,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 if (choix4.getSelectedItem() == "select an item"){
                     missionschoix4.setText("choix poste 4");
+                    missionschoix4.setFocusable(true);
+                    missionschoix4.setClickable(true);
+                    missionschoix4.setFocusableInTouchMode(true);
                     missionschoix4.setError(null);
                 }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
                         || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
@@ -566,6 +578,9 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                 case R.id.spinner5:
                     if (choix5.getSelectedItem() == "select an item" ){
                         missionschoix5.setText("choix poste 5");
+                        missionschoix5.setFocusable(true);
+                        missionschoix5.setClickable(true);
+                        missionschoix5.setFocusableInTouchMode(true);
                         missionschoix5.setError(null);
                     }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
                             || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
@@ -932,10 +947,10 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                 missionschoix5.getError() == null
                 )
          {
-             if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
-                     (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
-                     (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
-                     (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
+             if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) ||
+                     (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)||
+                     (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)||
+                     (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)||
                      (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0))
              {
                 submit.setError(null);
@@ -948,6 +963,14 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
     //            Intent intent = new Intent(context, LandingActivity.class);
     //            context.startActivity(intent);
             }
+            else if((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)==0) &&
+                     (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)==0)&&
+                     (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)==0)&&
+                     (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)==0)&&
+                     (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)==0)){
+                 submit.setError("Aucun poste selectionné ");
+
+             }
 
         }
         else{
@@ -997,38 +1020,46 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         JsonParser parser = new JsonParser();
         JsonObject RepAjoutUser = (JsonObject) parser.parse(response);
 
-        if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
-                (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
-                (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
-                (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
-                (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0)) {
+//        if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
+//                (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
+//                (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
+//                (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
+//                (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0)) {
 
             // ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,RepAjoutUser.get("id").toString());
             //ajouter la préférence de poste
             Utils.debug(TAG+"idbenevole:",RepAjoutUser.get("id").toString());
 
+
             //préférence (choix 1)
-            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix1.get((Posteselectionnechoix1.size()) - 1), RepAjoutUser.get("id").toString(), 1);
+
+            if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0)){
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix1.get((Posteselectionnechoix1.size()) - 1), RepAjoutUser.get("id").toString(), 1);}
 
             //préférence (choix 2)
-            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix2.get((Posteselectionnechoix2.size()) - 1), RepAjoutUser.get("id").toString(), 2);
 
+            if ((Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)) {
+                ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix2.get((Posteselectionnechoix2.size()) - 1), RepAjoutUser.get("id").toString(), 2);
+            }
             //préférence (choix 3)
-            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix3.get((Posteselectionnechoix3.size()) - 1), RepAjoutUser.get("id").toString(), 3);
-
+            if (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0) {
+                ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix3.get((Posteselectionnechoix3.size()) - 1), RepAjoutUser.get("id").toString(), 3);
+            }
             //préférence (choix 4)
+            if (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0) {
             ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix4.get((Posteselectionnechoix4.size()) - 1), RepAjoutUser.get("id").toString(), 4);
 
             //préférence (choix 5)
-            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix5.get((Posteselectionnechoix5.size()) - 1), RepAjoutUser.get("id").toString(), 5);
-
+            if (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0) {
+                ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix5.get((Posteselectionnechoix5.size()) - 1), RepAjoutUser.get("id").toString(), 5);
+            }
 
             Intent intent = new Intent(context, LandingActivity.class);
             context.startActivity(intent);
         }
-        else {
-            submit.setError("Il reste des erreurs sur vos choix de postes");
-
-        }
+//        else {
+//            submit.setError("Il reste des erreurs sur vos choix de postes");
+//
+//        }
     }
 }
