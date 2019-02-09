@@ -400,18 +400,25 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         switch (parent.getId()) {
             case R.id.spinner1:
 
-                if (choix1.getSelectedItem() == "select an item" || Posteselectionnechoix1.size() == 0){
+                if (choix1.getSelectedItem() == "select an item" ){
                     missionschoix1.setText("choix poste 1");
-                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
-                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
-                        ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)
-                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)) {
+                    missionschoix1.setError(null);
+                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
+                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
+                        ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) == ListIdPoste.get(position-1)
+                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) == ListIdPoste.get(position-1)) {
 
                     missionschoix1.setError("poste déjà selectionné dans une autre liste");
+                    missionschoix1.setText("choix poste 1");
 
                 }
                 else
                 {
+
+                    Utils.debug("test", " liste 2 " + Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix2.size() );
+                    Utils.debug("test", " liste 3 " + Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix3.size() );
+                    Utils.debug("test", " liste 4 " + Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix4.size() );
+                    Utils.debug("test", " liste 5 " + Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix5.size() );
 
                     Object item = parent.getItemAtPosition(position);
                     String getselectedposte = item.toString();
@@ -438,24 +445,31 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
                 case R.id.spinner2:
 
-                    if (choix2.getSelectedItem() == "select an item" ||Posteselectionnechoix2.size() == 0 ){
+                    if (choix2.getSelectedItem() == "select an item" ){
+                        missionschoix2.setText("choix poste 2");
+                        missionschoix2.setError(null);
+                    }
+                    else if(Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) == ListIdPoste.get(position-1)
+                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) == ListIdPoste.get(position-1))
+                    {
+                        missionschoix2.setError("poste déjà selectionné dans une autre liste");
                         missionschoix2.setText("choix poste 2");
                     }
-                    else if(Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
-                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
-                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)
-                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)) {
 
-                        missionschoix2.setError("poste déjà selectionné dans une autre liste");
-
-                         }
                     else {
                         Object item2 = parent.getItemAtPosition(position);
                         String getselectedposte2 = item2.toString();
                         Utils.debug("spinner2", getselectedposte2);
 
+                        Utils.debug("test", " liste 1 " + Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix1.size() );
+                        Utils.debug("test", " liste 3 " + Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix3.size() );
+                        Utils.debug("test", " liste 4 " + Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix4.size() );
+                        Utils.debug("test", " liste 5 " + Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix5.size() );
+
                         missionschoix2.setError(null);
-                        stockerIdPoste = ListIdPoste.get(position);
+                        stockerIdPoste = ListIdPoste.get(position-1);
 
                         Posteselectionnechoix2.add(ListIdPoste.get(position - 1));
                         Utils.debug(TAG, Posteselectionnechoix2.toString());
@@ -471,52 +485,69 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                     break;
                 case R.id.spinner3:
 
-                    if (choix3.getSelectedItem() == "select an item" ||Posteselectionnechoix3.size() == 0){
-                        missionschoix3.setText("choix poste 1");
-                    }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
-                            || Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
-                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)
-                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)) {
-
+                    if (choix3.getSelectedItem() == "select an item"){
+                        missionschoix3.setText("choix poste 3");
+                        missionschoix3.setError(null);
+                    }
+                    else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
+                            || Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) == ListIdPoste.get(position-1))
+                    {
                         missionschoix3.setError("poste déjà selectionné dans une autre liste");
+                        missionschoix3.setText("choix poste 3");
+                    }
 
-                    }else {
-                    Object item3 = parent.getItemAtPosition(position);
-                    String getselectedposte3 = item3.toString();
-                    Utils.debug("spinner3", getselectedposte3);
-                    missionschoix3.setError(null);
+                    else {
+                        Object item3 = parent.getItemAtPosition(position);
+                        String getselectedposte3 = item3.toString();
+                        Utils.debug("spinner3", getselectedposte3);
+                        Utils.debug("test", " liste 2 " + Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix2.size() );
+                        Utils.debug("test", " liste 1 " + Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix1.size() );
+                        Utils.debug("test", " liste 4 " + Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix4.size() );
+                        Utils.debug("test", " liste 5 " + Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix5.size() );
 
-                    stockerIdPoste = ListIdPoste.get(position);
+                            missionschoix3.setError(null);
 
-                    Posteselectionnechoix3.add(ListIdPoste.get(position-1));
-                    Utils.debug(TAG, Posteselectionnechoix3.toString());
+                        stockerIdPoste = ListIdPoste.get(position-1);
+
+                        Posteselectionnechoix3.add(ListIdPoste.get(position-1));
+                        Utils.debug(TAG, Posteselectionnechoix3.toString());
 
 
-                    //centrer la map en fonction du poste selectionné dans le menu déroulant
-                    mapController.setCenter(ListGeopointPoste.get(position-1));
+                        //centrer la map en fonction du poste selectionné dans le menu déroulant
+                        mapController.setCenter(ListGeopointPoste.get(position-1));
 
-                    //lors de la selection d'un poste, on affiche la mission associée
-                    ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position-1), "3");
+                        //lors de la selection d'un poste, on affiche la mission associée
+                        ApiRequestGet.getMissionsofOnePoste(context, token, ListIdPoste.get(position-1), "3");
                     }
                     break;
             case R.id.spinner4:
 
-                if (choix4.getSelectedItem() == "select an item" ||Posteselectionnechoix4.size() == 0 ){
-                    missionschoix4.setText("choix poste 1");
-                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
-                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
-                        ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)
-                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) ==Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)) {
+                if (choix4.getSelectedItem() == "select an item"){
+                    missionschoix4.setText("choix poste 4");
+                    missionschoix4.setError(null);
+                }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
+                        || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
+                        ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) == ListIdPoste.get(position-1)
+                        ||Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1) == ListIdPoste.get(position-1)) {
 
                     missionschoix4.setError("poste déjà selectionné dans une autre liste");
+                    missionschoix4.setText("choix poste 4");
 
                 }else {
                     Object item4 = parent.getItemAtPosition(position);
                     String getselectedposte4 = item4.toString();
                     Utils.debug("spinner4", getselectedposte4);
 
+                    Utils.debug("test", " liste 2 " + Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix2.size() );
+                    Utils.debug("test", " liste 3 " + Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix3.size() );
+                    Utils.debug("test", " liste 1 " + Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix1.size() );
+                    Utils.debug("test", " liste 5 " + Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix5.size() );
+
+
                     missionschoix4.setError(null);
-                    stockerIdPoste = ListIdPoste.get(position);
+                    stockerIdPoste = ListIdPoste.get(position-1);
 
                     Posteselectionnechoix4.add(ListIdPoste.get(position - 1));
                     Utils.debug(TAG, Posteselectionnechoix4.toString());
@@ -532,14 +563,16 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
 
                 case R.id.spinner5:
-                    if (choix5.getSelectedItem() == "select an item" ||Posteselectionnechoix5.size() == 0){
-                        missionschoix5.setText("choix poste 1");
-                    }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
-                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
-                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)
-                            ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) ==Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)) {
+                    if (choix5.getSelectedItem() == "select an item" ){
+                        missionschoix5.setText("choix poste 5");
+                        missionschoix5.setError(null);
+                    }else if(Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1) == ListIdPoste.get(position-1)
+                            || Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1) == ListIdPoste.get(position-1)
+                            ||Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1) == ListIdPoste.get(position-1)) {
 
                         missionschoix5.setError("poste déjà selectionné dans une autre liste");
+                        missionschoix5.setText("choix poste 5");
                     }
                     else {
 
@@ -547,8 +580,14 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
                         String getselectedposte5 = item5.toString();
                         Utils.debug("spinner3=5", getselectedposte5);
 
+                        Utils.debug("test", " liste 2 " + Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix2.size() );
+                        Utils.debug("test", " liste 3 " + Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix3.size() );
+                        Utils.debug("test", " liste 4 " + Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix4.size() );
+                        Utils.debug("test", " liste 1 " + Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1).toString() + " Taille de la liste " + Posteselectionnechoix1.size() );
+
+
                         missionschoix5.setError(null);
-                        stockerIdPoste = ListIdPoste.get(position);
+                        stockerIdPoste = ListIdPoste.get(position-1);
 
                         Posteselectionnechoix5.add(ListIdPoste.get(position - 1));
                         Utils.debug(TAG, Posteselectionnechoix5.toString());
@@ -772,6 +811,12 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         ll6.addView(missionschoix5);
         parent.addView(ll6);
 
+
+        missionschoix1.setError(null);
+        missionschoix2.setError(null);
+        missionschoix3.setError(null);
+        missionschoix4.setError(null);
+        missionschoix5.setError(null);
 //        choix5.setOnItemSelectedListener(new OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -876,9 +921,23 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
      * @param view
      */
     public static void  validerPreference(View view) {
-        ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
-        Intent intent = new Intent(context, LandingActivity.class);
-        context.startActivity(intent);
+
+        // Tester si les erreurs ne sont pas null
+
+        if (missionschoix1.getError() == null &&
+                missionschoix2.getError() == null &&
+                missionschoix3.getError() == null &&
+                missionschoix4.getError() == null &&
+                missionschoix5.getError() == null
+                ) {
+            submit.setError(null);
+            //ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
+            Intent intent = new Intent(context, LandingActivity.class);
+            context.startActivity(intent);
+        }
+        else{
+            submit.setError("Il reste des erreurs sur vos choix de postes");
+        }
     }
 
     /**
