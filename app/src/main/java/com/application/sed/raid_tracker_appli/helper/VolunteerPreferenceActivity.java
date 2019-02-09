@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
 import com.application.sed.raid_tracker_appli.API.ApiRequestPost;
@@ -924,16 +925,28 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
 
         // Tester si les erreurs ne sont pas null
 
-        if (missionschoix1.getError() == null &&
-                missionschoix2.getError() == null &&
-                missionschoix3.getError() == null &&
-                missionschoix4.getError() == null &&
-                missionschoix5.getError() == null
-                ) {
-            submit.setError(null);
-            //ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
-            Intent intent = new Intent(context, LandingActivity.class);
-            context.startActivity(intent);
+        if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
+                (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
+                (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
+                (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
+                (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0)) {
+
+            if (missionschoix1.getError() == null &&
+                    missionschoix2.getError() == null &&
+                    missionschoix3.getError() == null &&
+                    missionschoix4.getError() == null &&
+                    missionschoix5.getError() == null
+                    ) {
+                submit.setError(null);
+                ApiRequestPost.postNewBenevole(context, token, idRaid, iduser);
+
+                Utils.debug(TAG+"idRaid:",idRaid);
+
+                Toast.makeText(context, "Validation de vos préférences en cours ... ", Toast.LENGTH_LONG).show();
+
+    //            Intent intent = new Intent(context, LandingActivity.class);
+    //            context.startActivity(intent);
+        }
         }
         else{
             submit.setError("Il reste des erreurs sur vos choix de postes");
@@ -981,7 +994,38 @@ public class VolunteerPreferenceActivity extends AppCompatActivity implements On
         JsonParser parser = new JsonParser();
         JsonObject RepAjoutUser = (JsonObject) parser.parse(response);
 
-        //ajouter la préférence de poste
-        ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,RepAjoutUser.get("id").toString());
+        if ((Posteselectionnechoix1.get((Posteselectionnechoix1.size())-1)!=0) &&
+                (Posteselectionnechoix2.get((Posteselectionnechoix2.size())-1)!=0)&&
+                (Posteselectionnechoix3.get((Posteselectionnechoix3.size())-1)!=0)&&
+                (Posteselectionnechoix4.get((Posteselectionnechoix4.size())-1)!=0)&&
+                (Posteselectionnechoix5.get((Posteselectionnechoix5.size())-1)!=0)) {
+
+            // ApiRequestPost.postPrefPostes(context,token,stockerIdPoste,RepAjoutUser.get("id").toString());
+            //ajouter la préférence de poste
+            Utils.debug(TAG+"idbenevole:",RepAjoutUser.get("id").toString());
+
+            //préférence (choix 1)
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix1.get((Posteselectionnechoix1.size()) - 1), RepAjoutUser.get("id").toString(), 1);
+
+            //préférence (choix 2)
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix2.get((Posteselectionnechoix2.size()) - 1), RepAjoutUser.get("id").toString(), 2);
+
+            //préférence (choix 3)
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix3.get((Posteselectionnechoix3.size()) - 1), RepAjoutUser.get("id").toString(), 3);
+
+            //préférence (choix 4)
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix4.get((Posteselectionnechoix4.size()) - 1), RepAjoutUser.get("id").toString(), 4);
+
+            //préférence (choix 5)
+            ApiRequestPost.postPrefPostes(context, token, Posteselectionnechoix5.get((Posteselectionnechoix5.size()) - 1), RepAjoutUser.get("id").toString(), 5);
+
+
+            Intent intent = new Intent(context, LandingActivity.class);
+            context.startActivity(intent);
+        }
+        else {
+            submit.setError("Il reste des erreurs sur vos choix de postes");
+
+        }
     }
 }

@@ -890,7 +890,7 @@ public class ApiRequestPost {
     }
 
 
-    public static void postPrefPostes(final Context context, final String token, final Integer idPoste, final String idBenevole){
+    public static void postPrefPostes(final Context context, final String token, final Integer idPoste, final String idBenevole, final Integer priority){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONArray jsonArray = new JSONArray();
@@ -898,6 +898,7 @@ public class ApiRequestPost {
         try {
             jsonObject.put("idPoste",idPoste);
             jsonObject.put("idBenevole",idBenevole);
+            jsonObject.put("priority",priority);
             jsonArray.put(jsonObject);
         }catch (Exception e){
 
