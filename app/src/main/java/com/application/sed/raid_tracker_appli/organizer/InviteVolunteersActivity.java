@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.text.TextUtils;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 
 import com.application.sed.raid_tracker_appli.API.ApiRequestGet;
@@ -30,14 +32,16 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InviteVolunteersActivity extends AppCompatActivity implements OnItemSelectedListener {
+public class InviteVolunteersActivity extends AppCompatActivity implements OnItemSelectedListener,View.OnFocusChangeListener {
     private String TAG = "InviteVolunteersActivity";
     private static Context context;
     Button send;
     EditText inputmail1;
     EditText inputmail2;
     EditText inputmail3;
+    EditText inputcontenu;
     TextView text;
+    TextView body;
     private int i;
     private String getselectedraid;
     private static Spinner spinner;
@@ -96,15 +100,25 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         send = findViewById(R.id.sendEmail);
 
         inputmail1 = findViewById(R.id.input_mail1);
+        inputmail1.setOnFocusChangeListener(this);
         final String getmail1 = inputmail1.getText().toString();
 
         inputmail2 = findViewById(R.id.input_mail2);
+        inputmail2.setOnFocusChangeListener(this);
         final String getmail2 = inputmail2.getText().toString();
 
         inputmail3 = findViewById(R.id.input_mail3);
+        inputmail3.setOnFocusChangeListener(this);
         final String getmail3 = inputmail3.getText().toString();
 
+
+        inputcontenu=findViewById(R.id.input_body);
+        inputcontenu.setOnFocusChangeListener(this);
+        final String getcontenu = inputcontenu.getText().toString();
+
+
         text = findViewById(R.id.text);
+        body = findViewById(R.id.body);
 
         if ((isEmpty(inputmail1) && isEmpty(inputmail2)) && isEmpty(inputmail3)) {
             text.setError("Aucune adresse mail entrée ");
@@ -120,27 +134,54 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         if (!getmail3.isEmpty()){
             mailListe.add(getmail3);
         }
-        new Thread(new Runnable() {
 
-            @Override
-            public void run() {
+        if (isEmpty(inputcontenu)){
+            body.setError("Vous n'avez pas saisi le contenu du mail");
+        }
 
-                for (i = 0; i < mailListe.size(); i++) {
-                    try {
-                        GMailSender sender = new GMailSender("sporteventdevelopment@gmail.com",
-                                "Sp6!b&hsv89%");
-                        sender.sendMail("Rejoins le raid"+getselectedraid, "Bonjour,nous recherchons des bénévoles pour le raid"+getselectedraid +"si toi aussi tu aimes aider et assurer la sécurité, rejoins nous !! ",
-                                "sporteventdevelopment@gmail.com", mailListe.get(i));
-                    }
-                    catch (Exception e) {
-                        Log.e("SendMail", e.getMessage(), e);
+
+
+        if ((!(getmail1.isEmpty())) || (!(getmail2.isEmpty())) || (!(getmail3.isEmpty())) || (!(getcontenu.isEmpty())) ) {
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    for (i = 0; i < mailListe.size(); i++) {
+                        try {
+                            GMailSender sender = new GMailSender("sporteventdevelopment@gmail.com",
+                                    "Sp6!b&hsv89%");
+                            sender.sendMail("Rejoins le raid" + getselectedraid, getcontenu,
+                                    "sporteventdevelopment@gmail.com", mailListe.get(i));
+                        } catch (Exception e) {
+                            Log.e("SendMail", e.getMessage(), e);
+                        }
                     }
                 }
-            }
 
-        }).start();
-        Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
-        startActivity(intent);
+            }).start();
+            Toast.makeText(context, "Votre mail est envoyé", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasfocus) {
+        switch(view.getId()){
+            case R.id.input_mail1:
+                text.setError(null);
+                break;
+
+            case R.id.input_mail2:
+                text.setError(null);
+                break;
+            case R.id.input_mail3:
+                text.setError(null);
+                break;
+            case R.id.input_body:
+                body.setError(null);
+        }
     }
 
     /**

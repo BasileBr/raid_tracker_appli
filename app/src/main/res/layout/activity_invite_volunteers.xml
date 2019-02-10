@@ -61,6 +61,7 @@
                     android:id="@+id/input_mail1"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="10dp"
                     android:hint="raidtracker@test.fr"
                     android:background="@drawable/border"
@@ -72,6 +73,7 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
+                    android:inputType="textEmailAddress"
                     android:hint="raidtracker@test.fr"
                     android:background="@drawable/border"
                     android:paddingStart="30dp"
@@ -84,6 +86,7 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
+                    android:inputType="textEmailAddress"
                     android:hint="raidtracker@test.fr"
                     android:background="@drawable/border"
                     android:paddingStart="30dp"
@@ -107,6 +110,30 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp">
                 </Spinner>
+
+                <TextView
+                    android:id="@+id/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    android:text="Contenu de votre mail"
+                    style="@android:style/Widget.EditText"
+                    android:textColor="@color/MarronPrimaire"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/input_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Saisissez le contenu de votre mail"
+                    android:background="@drawable/border"
+                    android:paddingStart="30dp"
+                    />
 
 
                 <RelativeLayout

@@ -207,7 +207,7 @@ public class CreateAccount extends AppCompatActivity{
      *
      */
     public static void creationFailure (){
-        Toast.makeText(context, "La création du compte a échoué, veuillez vérifier votre connexion internet ", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Un problème est survenu lors de la création de votre compte, veuillez réessayer", Toast.LENGTH_LONG).show();
     }
 
     /**
