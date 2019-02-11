@@ -47,10 +47,11 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ManageParcoursActivity extends AppCompatActivity {
 
-    private String TAG = "ManageParcoursActivity";
+    private static String TAG = "ManageParcoursActivity";
     Toolbar toolbar1;
 
     ImageButton fincalibration;
@@ -150,6 +151,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
             idParcours = intent.getStringExtra("idParcours");
             idRaid = intent.getStringExtra("idRaid");
             ApiRequestGet.getSpecificTraceFromParcours(ctx,Bdd.getValue(),idParcours,"ManageParcoursActivity");
+            ApiRequestGet.getAllPostesfromSpecParcours(ctx,Bdd.getValue(),idParcours);
 
             final AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -594,6 +596,42 @@ public class ManageParcoursActivity extends AppCompatActivity {
         }
     }
     //fin partie calibration //
+
+
+    public static void posteListe(String response){
+
+        JsonParser parser = new JsonParser();
+        JsonArray posteliste = (JsonArray) parser.parse(response);
+        List<String> posteRaid = new ArrayList<>();
+
+        //parcours la liste avec le Json
+        for (int i = 0; i < posteliste.size(); i ++) {
+
+            Utils.debug(TAG,"posteListe");
+            JsonObject raid = (JsonObject) posteliste.get(i);
+
+            //récupération de l'id de point d'un poste
+            JsonObject deuxiem=raid.getAsJsonObject("idPoint");
+
+            String type = raid.get("type").toString().replace("\"", " ");;
+            Integer ListIdPoste2= raid.get("id").getAsInt();
+            Double longitudePoste = deuxiem.get("lon").getAsDouble();
+            Double latitudePoste = deuxiem.get("lat").getAsDouble();
+
+            GeoPoint geoposte = new GeoPoint(latitudePoste,longitudePoste);
+
+            Marker markerPoste = new Marker(map2);
+            markerPoste.setIcon(context.getResources().getDrawable(R.drawable.poi1));
+            markerPoste.setPosition(geoposte);
+            markerPoste.setAnchor(Marker.ANCHOR_LEFT, Marker.ANCHOR_BOTTOM);
+            markerPoste.setTitle("Poste : "+type+"\n"+"latitude : "+latitudePoste +"\n"+"longitude : "+longitudePoste);
+            map2.getOverlays().add(markerPoste);
+
+            /*posteRaid.add(type);
+            ListIdPoste.add(ListIdPoste2);
+            ListGeopointPoste.add(geoposte);*/
+        }
+    }
 
 
 }

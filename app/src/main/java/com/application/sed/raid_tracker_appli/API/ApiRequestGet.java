@@ -1509,13 +1509,14 @@ public class ApiRequestGet {
     //get all postes by id parcours
     public static void getAllPostesfromSpecParcours(final Context context,final String token, final String id_parcours){
 
-        String urlFinale=urlPostes+'/'+id_parcours;
+        String urlFinale=urlPostes+'/'+"parcours"+'/'+id_parcours;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlFinale,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
+                        ManageParcoursActivity.posteListe(response);
                     }
 
                 },
@@ -1884,13 +1885,14 @@ public class ApiRequestGet {
     //get all postes by id raid
     public static void getPostefromSpecificRaid(final Context context,final String token, final String idraid ){
 
-        String urlfinale= urlRaid+'/'+idraid;
+        String urlfinale= urlPostes+'/' +"raids"+'/'+idraid;
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest getRequest = new StringRequest(Request.Method.GET, urlfinale,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
+                        CourseActivity.posteListe(response);
                     }
 
                 },

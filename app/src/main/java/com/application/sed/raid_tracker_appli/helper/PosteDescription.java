@@ -355,15 +355,17 @@ public class PosteDescription extends AppCompatActivity {
             String idposte  = poste.get("id").toString().replace("\""," ");
 
             Button button = listButton.get(idposte);
-            button.setBackgroundColor(context.getResources().getColor(R.color.VertPrimaire));
-            for (int j = 0; j < listidrepartition.size(); j++) {
-
-                if (verification.equals(listidrepartition.get(j))) {
-
-                }
-
-
+            if (button != null) {
+                button.setBackgroundColor(context.getResources().getColor(R.color.VertPrimaire));
             }
+//            for (int j = 0; j < listidrepartition.size(); j++) {
+//
+//                if (verification.equals(listidrepartition.get(j))) {
+//
+//                }
+//
+//
+//            }
 
 
         }
