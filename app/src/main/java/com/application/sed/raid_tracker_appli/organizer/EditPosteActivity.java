@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -107,17 +108,27 @@ public class EditPosteActivity extends AppCompatActivity {
 
             debut = findViewById(R.id.debut);
             anneedebut = findViewById(R.id.anneedebut);
+            anneedebut.setInputType(InputType.TYPE_CLASS_NUMBER);
             moisdebut = findViewById(R.id.moisdebut);
+            moisdebut.setInputType(InputType.TYPE_CLASS_NUMBER);
             joursdebut = findViewById(R.id.joursdebut);
+            joursdebut.setInputType(InputType.TYPE_CLASS_NUMBER);
             heuredebut = findViewById(R.id.heuredebut);
+            heuredebut.setInputType(InputType.TYPE_CLASS_NUMBER);
             minutedebut = findViewById(R.id.minutedebut);
+            minutedebut.setInputType(InputType.TYPE_CLASS_NUMBER);
 
             fin = findViewById(R.id.fin);
             anneefin = findViewById(R.id.anneefin);
+            anneefin.setInputType(InputType.TYPE_CLASS_NUMBER);
             moisfin = findViewById(R.id.moisfin);
+            moisfin.setInputType(InputType.TYPE_CLASS_NUMBER);
             joursfin = findViewById(R.id.joursfin);
+            joursfin.setInputType(InputType.TYPE_CLASS_NUMBER);
             heurefin = findViewById(R.id.heurefin);
+            heurefin.setInputType(InputType.TYPE_CLASS_NUMBER);
             minutefin = findViewById(R.id.minutefin);
+            minutefin.setInputType(InputType.TYPE_CLASS_NUMBER);
 
             valider = findViewById(R.id.valider);
             annuler = findViewById(R.id.annuler);
