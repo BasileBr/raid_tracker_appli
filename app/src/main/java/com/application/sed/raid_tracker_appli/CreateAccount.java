@@ -83,7 +83,7 @@ public class CreateAccount extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (classname.equals("ConnexionActivity")) {
-                    Intent intent = new Intent(CreateAccount.this, ConnexionActivity.class);
+                    Intent intent = new Intent(CreateAccount.this, WelcomeActivity.class);
                     startActivity(intent);
                 }
                 else if (classname.equals("Welcome")) {
