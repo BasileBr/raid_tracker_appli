@@ -36,13 +36,17 @@ public class ConnexionActivity extends AppCompatActivity {
 
         if (intent != null) {
             classname = intent.getStringExtra("Classname");
+            if (classname.equals("CreateAccount")){
+                Toast.makeText(context, "Votre compte a bien été créé ", Toast.LENGTH_LONG).show();
+            }else if (classname.equals("Welcome")){
+                //nothing to do
+            }
+        }
+        else {
+
         }
 
-        if (classname.equals("CreateAccount")){
-            Toast.makeText(context, "Votre compte a bien été créé ", Toast.LENGTH_LONG).show();
-        }else if (classname.equals("Welcome")){
-            //nothing to do
-        }
+
 
 
         Utils.debug(TAG,this.toString());

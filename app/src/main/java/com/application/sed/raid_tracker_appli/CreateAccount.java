@@ -236,7 +236,7 @@ public class CreateAccount extends AppCompatActivity{
      */
     public void cancel(View view){
         if (classname.equals("ConnexionActivity")) {
-            Intent intent = new Intent(CreateAccount.this, ConnexionActivity.class);
+            Intent intent = new Intent(CreateAccount.this, WelcomeActivity.class);
             startActivity(intent);
         }
         else if (classname.equals("Welcome")) {
