@@ -83,6 +83,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
     private int etat;
     private String fournisseur;
     private Integer checkEndLocation=0;
+    private Integer checkstartcalibration=0;
 
     MyLocationNewOverlay mLocationOverlay;
     private static ArrayList<GeoPoint> trajet;
@@ -129,9 +130,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
         mapController.setCenter(centermap);
 
         //géolocaliser l'appareil
-        final MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.getOverlays().add(mLocationOverlay);
+//        final MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
+//        mLocationOverlay.enableMyLocation();
+//        map.getOverlays().add(mLocationOverlay);
 
         // ajouter l'echelle
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(map);
@@ -160,7 +161,7 @@ public class ManageParcoursActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (checkEndLocation==0){
+                    if (checkEndLocation==0 && checkstartcalibration ==0){
                         alert.setTitle("Quitter la page actuelle ?");
                         //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
                         alert.setCancelable(false);
@@ -168,8 +169,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                mLocationOverlay.disableMyLocation();
-                               // arreterLocalisation();
+                                //mLocationOverlay.disableMyLocation();
+                                //arreterLocalisation();
+                                //mLocationOverlay.disableMyLocation();
                                 Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
                                 intent.putExtra("idRaid",idRaid);
                                 startActivity(intent);
@@ -184,7 +186,36 @@ public class ManageParcoursActivity extends AppCompatActivity {
                         });
                         alert.show();
                     }
+
+                    else if (checkstartcalibration ==1){
+                        alert.setTitle("Quitter la page actuelle ?");
+                        //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
+                        checkstartcalibration=0;
+                        alert.setCancelable(false);
+                        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //mLocationOverlay.disableMyLocation();
+                                 arreterLocalisation();
+                                 mLocationOverlay.disableMyLocation();
+                                Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+                                intent.putExtra("idRaid",idRaid);
+                                startActivity(intent);
+                            }
+                        });
+
+                        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.show();
+
+                    }
                     else {
+
+                        checkstartcalibration=0;
                         alert.setTitle("Quitter la page actuelle ?");
                         //indique que la popup ne peut pas disparaître si on appuie en dehors de la popup
                         alert.setCancelable(false);
@@ -222,10 +253,10 @@ public class ManageParcoursActivity extends AppCompatActivity {
     public void FinCalibration(View view){
         Toast.makeText( context, "fin de la calibration", Toast.LENGTH_LONG).show();
         checkEndLocation=1;
+        checkstartcalibration=0;
         arreterLocalisation();
-
+        mLocationOverlay.disableMyLocation();
         ApiRequestPost.postTrace(context,Bdd.getValue(),idParcours,"true");
-
         fincalibration.setEnabled(false);
         startcalibration.setEnabled(false);
         startcalibration.setBackgroundColor(getResources().getColor(R.color.Blancnacre));
@@ -504,7 +535,9 @@ public class ManageParcoursActivity extends AppCompatActivity {
 
 
     public void startcalibration(View view){
+        checkstartcalibration =1;
         initialiserLocalisation();
+        Toast.makeText(getApplicationContext(), "Localisation en cours...", Toast.LENGTH_SHORT).show();
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getApplicationContext()), map);
         mLocationOverlay.enableMyLocation();
         map.setMultiTouchControls(true);
