@@ -2045,9 +2045,9 @@ public class ApiRequestGet {
                         if(classe.equals("LandingActivity")) {
                             LandingActivity.raidlist(response);
                         }
-                        else if(classe.equals("InviteActivity")){
-                            InviteVolunteersActivity.raidlist(response);
-                        }
+//                        else if(classe.equals("InviteActivity")){
+//                            InviteVolunteersActivity.raidlist(response);
+//                        }
 
                   }
 

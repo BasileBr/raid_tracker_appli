@@ -149,7 +149,7 @@ public class PosteDescription extends AppCompatActivity {
                 Utils.debug("ratiolatitude",ratiolatitude.toString());
                 Utils.debug("ratiolongitude",ratiolongitude.toString());
 
-                if (ratiolatitude < 0.0004 && ratiolongitude <0.0004){
+                if (ratiolatitude < 0.0008 && ratiolongitude <0.0008){
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
                     Button button = listButton.get(idposte);
@@ -159,7 +159,7 @@ public class PosteDescription extends AppCompatActivity {
                     String dat = dateFormat.format(actuelle);
                     ApiRequestPost.postCheckin(context,token,idrepartition,dat);
                 }
-                else if (ratiolatitude < 0.001 && ratiolongitude <0.001){
+                else if (ratiolatitude < 0.0015 && ratiolongitude <0.0015){
                     // requête API /api/checkin
                     Toast.makeText(context, "Vous n'êtes pas loin, encore un petit effort ", Toast.LENGTH_LONG).show();
                 }
@@ -355,7 +355,7 @@ public class PosteDescription extends AppCompatActivity {
             String idposte  = poste.get("id").toString().replace("\""," ");
 
             Button button = listButton.get(idposte);
-            button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+            button.setBackgroundColor(context.getResources().getColor(R.color.VertPrimaire));
             for (int j = 0; j < listidrepartition.size(); j++) {
 
                 if (verification.equals(listidrepartition.get(j))) {

@@ -9,7 +9,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -148,13 +150,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 //ajout du texte
                 text.setText(nomRaid + '\n'+"Rejoignez l'aventure"+'\n'+"le "+date);
-                text.setX(20);
+                //text.setX(20);
                 btn.setText("Rejoins-nous ! ");
 
                 //choix de la couleur du texte
                 text.setTextColor(context.getResources().getColor(R.color.black));
 
-                btn.setX(200);
+                //btn.setX(200);
                 btn.setBackgroundResource(R.color.black);
 
                 btn.setTextColor(context.getResources().getColor(R.color.Blancnacre));
@@ -162,7 +164,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 // Create LinearLayout
                 LinearLayout ll = new LinearLayout(context);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 150);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT);
 
                 ll.addView(text);
                 ll.addView(btn,layoutParams);
@@ -171,7 +173,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 ll.getBackground().setAlpha(150);
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)layout.getLayoutParams();
-                params.setMargins(30, 0, 35, 0); //substitute parameters for left, top, right, bottom
+                params.setMargins(35, 0, 35, 0); //substitute parameters for left, top, right, bottom
                 layout.setLayoutParams(params);
 
                 layout.addView(ll);

@@ -152,10 +152,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         int id = menuItem.getItemId();
-        if (id == R.id.mail) {
-            Intent intent = new Intent(context, InviteVolunteersActivity.class);
-            context.startActivity(intent);
-        }
+//        if (id == R.id.mail) {
+//            Intent intent = new Intent(context, InviteVolunteersActivity.class);
+//            context.startActivity(intent);
+//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

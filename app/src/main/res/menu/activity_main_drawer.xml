@@ -22,18 +22,18 @@
             <!--android:title="Tools" />-->
     <!--</group>-->
 
-    <item android:title="Communiquer">
-        <menu>
-            <item
-                android:id="@+id/mail"
-                android:icon="@drawable/mail"
-                android:title="Inviter les bénévoles" />
+    <!--<item android:title="Communiquer">-->
+        <!--<menu>-->
             <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        </menu>
-    </item>
+                <!--android:id="@+id/mail"-->
+                <!--android:icon="@drawable/mail"-->
+                <!--android:title="Inviter les bénévoles" />-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Send" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
 </menu>
 
 

@@ -7,6 +7,11 @@
         android:title="Editer un Raid"
         app:showAsAction="never" />
     <item
+        android:id="@+id/mail"
+        android:orderInCategory="100"
+        android:title="Inviter les bénévoles"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/manage_points"
         android:orderInCategory="100"
         android:title="Gérer les postes"

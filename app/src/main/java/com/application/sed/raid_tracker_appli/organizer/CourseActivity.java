@@ -380,6 +380,11 @@ public class CourseActivity extends AppCompatActivity {
             intent.putExtra("idRaid",idRaid);
             startActivity(intent);
         }
+        else if (id == R.id.mail) {
+            Intent intent = new Intent(context, InviteVolunteersActivity.class);
+            intent.putExtra("idRaid",idRaid);
+            context.startActivity(intent);
+        }
 
 
         return super.onOptionsItemSelected(item);

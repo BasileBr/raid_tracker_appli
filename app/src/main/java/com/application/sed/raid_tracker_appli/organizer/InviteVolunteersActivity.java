@@ -32,9 +32,10 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InviteVolunteersActivity extends AppCompatActivity implements OnItemSelectedListener,View.OnFocusChangeListener {
+public class InviteVolunteersActivity extends AppCompatActivity implements View.OnFocusChangeListener {
     private String TAG = "InviteVolunteersActivity";
     private static Context context;
+    public static String idRaid;
     Button send;
     EditText inputmail1;
     EditText inputmail2;
@@ -43,8 +44,6 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
     TextView text;
     TextView body;
     private int i;
-    private String getselectedraid;
-    private static Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +55,7 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         context = this;
 
         if (intent != null) {
+            idRaid = intent.getStringExtra("idRaid");
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,37 +64,32 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
+                    Intent intent = new Intent(InviteVolunteersActivity.this, CourseActivity.class);
+                    intent.putExtra("idRaid",idRaid);
                     startActivity(intent);
                 }
             });
         }
 
-        // Spinner element
-        spinner = findViewById(R.id.spinner);
+//        String iduser = Bdd.getUserid();
+//        String token = Bdd.getValue();
 
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-
-        String iduser = Bdd.getUserid();
-        String token = Bdd.getValue();
-
-        ApiRequestGet.getSpecificRaid(context, token, iduser, "InviteActivity");
+        //ApiRequestGet.getSpecificRaid(context, token, iduser, "InviteActivity");
     }
 
-    //méthode pour récupérer l'élement selectionné dans la liste des raids
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Object item = parent.getItemAtPosition(position);
-        getselectedraid=item.toString();
-    }
+//    //méthode pour récupérer l'élement selectionné dans la liste des raids
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        Object item = parent.getItemAtPosition(position);
+//        getselectedraid=item.toString();
+//    }
 
-    /**
-     * si aucun élément n'est selectionné, là par defaut premier raid de la liste
-     * @param arg0
-     */
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
+//    /**
+//     * si aucun élément n'est selectionné, là par defaut premier raid de la liste
+//     * @param arg0
+//     */
+//    public void onNothingSelected(AdapterView<?> arg0) {
+//    }
 
     public void sendMail(View view) {
         send = findViewById(R.id.sendEmail);
@@ -135,13 +130,13 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
             mailListe.add(getmail3);
         }
 
-        if (isEmpty(inputcontenu)){
+        if (getcontenu.isEmpty()){
             body.setError("Vous n'avez pas saisi le contenu du mail");
         }
 
 
 
-        if ((!(getmail1.isEmpty())) || (!(getmail2.isEmpty())) || (!(getmail3.isEmpty())) || (!(getcontenu.isEmpty())) ) {
+        if (((!(getmail1.isEmpty())) || (!(getmail2.isEmpty())) || (!(getmail3.isEmpty()))) && (!(getcontenu.isEmpty())) ) {
             new Thread(new Runnable() {
 
                 @Override
@@ -151,7 +146,7 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
                         try {
                             GMailSender sender = new GMailSender("sporteventdevelopment@gmail.com",
                                     "Sp6!b&hsv89%");
-                            sender.sendMail("Rejoins le raid" + getselectedraid, getcontenu,
+                            sender.sendMail("Rejoins le raid sur Raid Tracker" , getcontenu,
                                     "sporteventdevelopment@gmail.com", mailListe.get(i));
                         } catch (Exception e) {
                             Log.e("SendMail", e.getMessage(), e);
@@ -161,7 +156,8 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
 
             }).start();
             Toast.makeText(context, "Votre mail est envoyé", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
+            Intent intent = new Intent(InviteVolunteersActivity.this, CourseActivity.class);
+            intent.putExtra("idRaid",idRaid);
             startActivity(intent);
         }
     }
@@ -184,39 +180,39 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
         }
     }
 
-    /**
-     *
-     * @param raidliste
-     */
-    public static void createSpinner(List<String> raidliste){
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, raidliste);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
-    }
-
-    /**
-     * récupérer la liste des raids
-     * @param response
-     */
-    public static void raidlist(String response){
-
-        JsonParser parser = new JsonParser();
-        JsonArray raidlist = (JsonArray) parser.parse(response);
-        List<String> nomRaid = new ArrayList<>();
-
-        for (int i = 0; i < raidlist.size(); i ++) {
-            JsonObject raid = (JsonObject) raidlist.get(i);
-            String nomraid = raid.get("nom").toString().replace("\""," ");
-            nomRaid.add(nomraid);
-        }
-        createSpinner(nomRaid);
-    }
+//    /**
+//     *
+//     * @param raidliste
+//     */
+//    public static void createSpinner(List<String> raidliste){
+//
+//        // Creating adapter for spinner
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, raidliste);
+//
+//        // Drop down layout style - list view with radio button
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        // attaching data adapter to spinner
+//        spinner.setAdapter(dataAdapter);
+//    }
+//
+//    /**
+//     * récupérer la liste des raids
+//     * @param response
+//     */
+//    public static void raidlist(String response){
+//
+//        JsonParser parser = new JsonParser();
+//        JsonArray raidlist = (JsonArray) parser.parse(response);
+//        List<String> nomRaid = new ArrayList<>();
+//
+//        for (int i = 0; i < raidlist.size(); i ++) {
+//            JsonObject raid = (JsonObject) raidlist.get(i);
+//            String nomraid = raid.get("nom").toString().replace("\""," ");
+//            nomRaid.add(nomraid);
+//        }
+//        createSpinner(nomRaid);
+//    }
 
     /**
      * vérifier si l'adresse mail entrée correspond à une adresse correcte
@@ -243,7 +239,8 @@ public class InviteVolunteersActivity extends AppCompatActivity implements OnIte
      * @param view
      */
     public void cancelSend (View view){
-        Intent intent = new Intent(InviteVolunteersActivity.this, LandingActivity.class);
+        Intent intent = new Intent(InviteVolunteersActivity.this, CourseActivity.class);
+        intent.putExtra("idRaid",idRaid);
         startActivity(intent);
     }
 }
