@@ -30,6 +30,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,6 +54,9 @@ public class PosteDescription extends AppCompatActivity {
     private static String iduser;
     private static ArrayList<String> listidrepartition = new ArrayList<>();
 
+    public static MyLocationNewOverlay mLocationOverlay;
+
+
     private static HashMap<String,Button> listButton;
 
 
@@ -60,12 +65,19 @@ public class PosteDescription extends AppCompatActivity {
         Utils.info(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poste_description);
+        context = this;
+        positionLongitude = 0.0;
+        positionLatitude = 0.0;
 
+        geolocateMe();
+
+
+        //geolocateMe();
         //récupération de l'intent
         Intent intent = getIntent();
 
         //récupération du contexte
-        context = this;
+
 
         //récupération du token
         token = Bdd.getValue();
@@ -121,6 +133,8 @@ public class PosteDescription extends AppCompatActivity {
 
     private static void checkIn(final GeoPoint positionpostetest, final String idposte, final String idrepartition) {
 
+
+        geolocateMe();
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -183,15 +197,19 @@ public class PosteDescription extends AppCompatActivity {
      ** Géolocalisation de l'utilsateur
      */
     public static void geolocateMe() {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        positionLatitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-        positionLongitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            mLocationOverlay.enableMyLocation();
+            GeoPoint localisation = mLocationOverlay.getMyLocation();
+//        positionLatitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+//        positionLongitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+            positionLatitude = localisation.getLatitude();
+            positionLongitude = localisation.getLongitude();
 
-        Utils.debug("positionLatitude",positionLatitude.toString());
-        Utils.debug("positionLongitude",positionLongitude.toString());
+            Utils.debug("positionLatitude",positionLatitude.toString());
+            Utils.debug("positionLongitude",positionLongitude.toString());
+        }
+
+
 
 
 
@@ -203,7 +221,7 @@ public class PosteDescription extends AppCompatActivity {
 
 
         //géolocaliser l'utilisateur
-        geolocateMe();
+//        geolocateMe();
 
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
