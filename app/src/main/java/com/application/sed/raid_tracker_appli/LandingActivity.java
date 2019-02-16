@@ -397,7 +397,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         if (getAndroidVersion() == 21) {
             textView.setPaddingRelative(0,0,0,40);
         }
-        else if (getAndroidVersion() == 26) {
+        else if (getAndroidVersion() == 28) {
             textView.setPaddingRelative(0,0,0,100);
         }
         else {

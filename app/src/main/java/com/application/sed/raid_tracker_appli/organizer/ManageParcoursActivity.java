@@ -551,6 +551,8 @@ public class ManageParcoursActivity extends AppCompatActivity {
         @Override
         public void onLocationChanged(Location localisation)
         {
+
+            Utils.debug(TAG, localisation.getLatitude() + " "+ localisation.getLongitude());
             Toast.makeText(getApplicationContext(), " localisation "+fournisseur  , Toast.LENGTH_SHORT).show();
             map.getController().setCenter(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
             trajet.add(new GeoPoint(localisation.getLatitude(), localisation.getLongitude()));
@@ -664,6 +666,14 @@ public class ManageParcoursActivity extends AppCompatActivity {
             ListIdPoste.add(ListIdPoste2);
             ListGeopointPoste.add(geoposte);*/
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(ManageParcoursActivity.this, CourseActivity.class);
+        intent.putExtra("idRaid",idRaid);
+        startActivity(intent);
     }
 
 

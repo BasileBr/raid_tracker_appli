@@ -5,14 +5,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,6 +37,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -45,7 +54,7 @@ public class PosteDescription extends AppCompatActivity {
     private static String TAG = "PosteDescription";
     private static String idRaidReceive = "";
     private static Context context;
-    public static Double  positionLatitude;
+    public static Double positionLatitude;
     public static Double positionLongitude;
     private static LinearLayout parentdescription;
     private static LinearLayout parentbouton;
@@ -57,8 +66,20 @@ public class PosteDescription extends AppCompatActivity {
     public static MyLocationNewOverlay mLocationOverlay;
 
 
-    private static HashMap<String,Button> listButton;
+    private static HashMap<String, Button> listButton;
 
+    public static double latitude;
+    public static double longitude;
+    public static LocationManager locationManager;
+    public static Criteria criteria;
+    public static String bestProvider;
+
+    public static LocationManager lm;
+    private static double my_latitude = 0;
+    private static double my_longitude = 0;
+
+    private static String fournisseur;
+    public static LocationListener ecouteurGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +89,40 @@ public class PosteDescription extends AppCompatActivity {
         context = this;
         positionLongitude = 0.0;
         positionLatitude = 0.0;
+
+
+
+        ecouteurGPS = new LocationListener() {
+
+            @Override
+            public void onLocationChanged(Location localisation)
+            {
+                positionLongitude = localisation.getLatitude();
+                positionLongitude = localisation.getLongitude();
+
+            }
+
+            @Override
+            public void onProviderDisabled(String fournisseur)
+            {
+
+            }
+
+
+            @Override
+            public void onProviderEnabled(String fournisseur)
+            {
+
+            }
+
+            @Override
+            public void onStatusChanged(String fournisseur, int status, Bundle extras)
+            {
+
+            }
+        };
+
+
 
         geolocateMe();
 
@@ -119,13 +174,13 @@ public class PosteDescription extends AppCompatActivity {
     }
 
 
-    public static void launcher( GeoPoint depart, GeoPoint arrivee){
+    public static void launcher(GeoPoint depart, GeoPoint arrivee) {
         Double latdepart = depart.getLatitude();
         Double latarrivee = arrivee.getLatitude();
         Double longdepart = depart.getLongitude();
         Double longarrivee = depart.getLongitude();
 
-        Uri gmmIntentUri  = Uri.parse("geo:"+latdepart.toString()+","+longdepart+"?q="+latarrivee+","+longarrivee);
+        Uri gmmIntentUri = Uri.parse("geo:" + latdepart.toString() + "," + longdepart + "?q=" + latarrivee + "," + longarrivee);
         Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         intent.setPackage("com.google.android.apps.maps");
         context.startActivity(intent);
@@ -150,20 +205,14 @@ public class PosteDescription extends AppCompatActivity {
 
                 // récupération de la position en double
                 Double positionPosteLatitude = positionpostetest.getLatitude();
-                Double positionPosteLongitude =positionpostetest.getLongitude();
-
-                Utils.debug("positionPosteLatitude",positionPosteLatitude.toString());
-                Utils.debug("positionPosteLongitude",positionPosteLongitude.toString());
-
+                Double positionPosteLongitude = positionpostetest.getLongitude();
 
                 // calcul de ratio
-                Double ratiolatitude  = Math.abs(positionPosteLatitude-positionLatitude);
-                Double ratiolongitude = Math.abs(positionPosteLongitude-positionLongitude);
+                Double ratiolatitude = Math.abs(positionPosteLatitude - positionLatitude);
+                Double ratiolongitude = Math.abs(positionPosteLongitude - positionLongitude);
 
-                Utils.debug("ratiolatitude",ratiolatitude.toString());
-                Utils.debug("ratiolongitude",ratiolongitude.toString());
 
-                if (ratiolatitude < 0.0008 && ratiolongitude <0.0008){
+                if (ratiolatitude < 0.001 && ratiolongitude < 0.001) {
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
                     Button button = listButton.get(idposte);
@@ -171,13 +220,11 @@ public class PosteDescription extends AppCompatActivity {
                     Date actuelle = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String dat = dateFormat.format(actuelle);
-                    ApiRequestPost.postCheckin(context,token,idrepartition,dat);
-                }
-                else if (ratiolatitude < 0.0015 && ratiolongitude <0.0015){
+                    ApiRequestPost.postCheckin(context, token, idrepartition, dat);
+                } else if (ratiolatitude < 0.002 && ratiolongitude < 0.002) {
                     // requête API /api/checkin
                     Toast.makeText(context, "Vous n'êtes pas loin, encore un petit effort ", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     Toast.makeText(context, "Vous n'y êtes pas du tout ", Toast.LENGTH_LONG).show();
                 }
             }
@@ -193,24 +240,76 @@ public class PosteDescription extends AppCompatActivity {
         alert.show();
     }
 
+
+    private static void initialiserLocalisation() {
+
+
+        if (locationManager == null) {
+            locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteres = new Criteria();
+
+            // la précision  : (ACCURACY_FINE pour une haute précision ou ACCURACY_COARSE pour une moins bonne précision)
+            criteres.setAccuracy(Criteria.ACCURACY_FINE);
+
+            // l'altitude
+            criteres.setAltitudeRequired(true);
+
+            // la direction
+            criteres.setBearingRequired(true);
+
+            // la vitesse
+            criteres.setSpeedRequired(true);
+
+            // la consommation d'énergie demandée
+            criteres.setCostAllowed(true);
+            //criteres.setPowerRequirement(Criteria.POWER_HIGH);
+            criteres.setPowerRequirement(Criteria.POWER_MEDIUM);
+            fournisseur = locationManager.getBestProvider(criteres, true);
+        }
+        if (fournisseur != null)
+        {
+            // dernière position connue
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                return;
+            }
+
+            Location localisation = locationManager.getLastKnownLocation(fournisseur);
+            if(localisation != null)
+            {
+                //Nothing to do
+            }
+
+            // on configure la mise à jour automatique : au moins 10 mètres et 15 secondes
+            locationManager.requestLocationUpdates(fournisseur, 15000, 10, ecouteurGPS);
+        }
+        else {
+        }
+    }
+
     /**
      ** Géolocalisation de l'utilsateur
      */
     public static void geolocateMe() {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            mLocationOverlay.enableMyLocation();
-            GeoPoint localisation = mLocationOverlay.getMyLocation();
-//        positionLatitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-//        positionLongitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
-            positionLatitude = localisation.getLatitude();
-            positionLongitude = localisation.getLongitude();
+        initialiserLocalisation();
 
-            Utils.debug("positionLatitude",positionLatitude.toString());
-            Utils.debug("positionLongitude",positionLongitude.toString());
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            return;
+
         }
 
+        Location localisation = locationManager.getLastKnownLocation(fournisseur);
+        if(localisation != null)
+        {
+            positionLongitude = localisation.getLongitude();
+            positionLatitude = localisation.getLatitude();
+            //Nothing to do
+        }
 
-
+        // on configure la mise à jour automatique : au moins 10 mètres et 15 secondes
+        locationManager.requestLocationUpdates(fournisseur, 15000, 10, ecouteurGPS);
 
 
     }
@@ -221,7 +320,7 @@ public class PosteDescription extends AppCompatActivity {
 
 
         //géolocaliser l'utilisateur
-//        geolocateMe();
+        geolocateMe();
 
         JsonParser parser = new JsonParser();
         JsonArray posteinfos = (JsonArray) parser.parse(response);
@@ -298,7 +397,7 @@ public class PosteDescription extends AppCompatActivity {
                 layout3.setPaddingRelative(0,20,30,0);
                 tv1.setPaddingRelative(30,15,0,0);
             }
-            else if (getAndroidVersion() == 26) {
+            else if (getAndroidVersion() == 28) {
                 tv1.setHeight(220);
                 layout3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 220));
                 layout3.setPaddingRelative(0,30,0,0);
@@ -363,7 +462,8 @@ public class PosteDescription extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonArray checkid = (JsonArray) parser.parse(response);
 
-        Utils.debug(TAG, "Je passe ici");
+
+        geolocateMe();
         for (int i = 0; i < checkid.size(); i++) {
             JsonObject checkin = (JsonObject) checkid.get(i);
             JsonObject idRepartition = checkin.getAsJsonObject("idRepartition");
@@ -376,16 +476,6 @@ public class PosteDescription extends AppCompatActivity {
             if (button != null) {
                 button.setBackgroundColor(context.getResources().getColor(R.color.VertPrimaire));
             }
-//            for (int j = 0; j < listidrepartition.size(); j++) {
-//
-//                if (verification.equals(listidrepartition.get(j))) {
-//
-//                }
-//
-//
-//            }
-
-
         }
     }
 
@@ -398,4 +488,5 @@ public class PosteDescription extends AppCompatActivity {
         int sdkVersion = Build.VERSION.SDK_INT;
         return  sdkVersion ;
     }
+
 }
