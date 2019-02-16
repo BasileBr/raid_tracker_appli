@@ -63,20 +63,10 @@ public class PosteDescription extends AppCompatActivity {
     private static String iduser;
     private static ArrayList<String> listidrepartition = new ArrayList<>();
 
-    public static MyLocationNewOverlay mLocationOverlay;
-
-
     private static HashMap<String, Button> listButton;
 
-    public static double latitude;
-    public static double longitude;
     public static LocationManager locationManager;
-    public static Criteria criteria;
-    public static String bestProvider;
 
-    public static LocationManager lm;
-    private static double my_latitude = 0;
-    private static double my_longitude = 0;
 
     private static String fournisseur;
     public static LocationListener ecouteurGPS;
@@ -178,7 +168,7 @@ public class PosteDescription extends AppCompatActivity {
         Double latdepart = depart.getLatitude();
         Double latarrivee = arrivee.getLatitude();
         Double longdepart = depart.getLongitude();
-        Double longarrivee = depart.getLongitude();
+        Double longarrivee = arrivee.getLongitude();
 
         Uri gmmIntentUri = Uri.parse("geo:" + latdepart.toString() + "," + longdepart + "?q=" + latarrivee + "," + longarrivee);
         Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -216,7 +206,7 @@ public class PosteDescription extends AppCompatActivity {
                     // requête API /api/checkin
                     Toast.makeText(context, "Votre position est confirmée ", Toast.LENGTH_LONG).show();
                     Button button = listButton.get(idposte);
-                    button.setBackgroundColor(context.getResources().getColor(R.color.BleuPrimaire));
+                    button.setBackgroundColor(context.getResources().getColor(R.color.VertPrimaire));
                     Date actuelle = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String dat = dateFormat.format(actuelle);
